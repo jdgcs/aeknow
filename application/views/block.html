@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><?php echo $hash;?> - Key block of Aeternity - AEKnow</title>
+  <Meta name="keywords" content="<?php echo $hash;?> address,Aeternity,AEKnow">
+  <base href="https://www.aeknow.org/" />
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/application/views/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/application/views/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/application/views/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/application/views/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/application/views/dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="/application/views/bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="/application/views/bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="/application/views/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/application/views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  
+    <!-- DataTables -->
+  <link rel="stylesheet" href="/application/views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="/application/views/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+<?php $this->load->view('header.html');?> 
+<?php $this->load->view('aside.html');?> 
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+              <?php echo $hash;?>
+        <small>Details of the block</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
+        <li class="active">Block Information</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+
+        <div class="col-md-9">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#mining" data-toggle="tab">Overview</a></li>
+             <!-- <li><a href="#transaction" data-toggle="tab">Transactions</a></li>
+              <li><a href="#messages" data-toggle="tab">Messages</a></li> -->
+            </ul>
+            <div class="tab-content">
+            
+			<div class="active tab-pane" id="mining">
+				<h4><a href=/block/height/<?php echo ($height-1) ;?>> << Previous block</a> | <a href=/block/height/<?php echo ($height+1) ;?>>Next block>></a></h4>
+				<table class="table table-bordered" width:100%>
+					<tr>
+					  <th>Item</th>
+					  <th>Value</th>              
+					 
+					</tr>
+					
+					<tr>					
+					<td><b>Hash:</b> </td>
+					<td> <?php echo $hash;?></td>
+					</tr>
+					
+					<tr>
+					<td><b>Height</b> </td>
+					<td> <?php echo $height;?></td>
+					</tr>	
+					
+					
+					<tr>
+					<td><b>Microblocks</b> </td>
+					<td> <?php echo $microblocks;?></td>
+					</tr>
+					<tr>
+					<td><b>Mined By:</b> </td>
+					<td> <a class="" href="/address/wallet/<?php echo $benificiary;?>"><?php echo $benificiary;?></a></td>
+					</tr>
+					
+					<tr>
+					<td><b>Nonce:</b> </td>
+					<td><?php echo $nonce;?></td>
+					</tr>								
+			
+					<td><b>Pow:</b> </td>
+					<td> <a class="" target="_blank" href="/block/pow/<?php echo $height;?>">View pow details</a></td>
+					</tr>
+					
+					
+					<tr>
+					<td><b>Previous Keyblock Hash:</b> </td>
+					<td> <a class="" href="/block/keyblock/<?php echo $prev_key_hash;?>"><?php echo $prev_key_hash;?></a></td>
+					</tr>
+					
+					<tr>
+					<td><b>Previous Hash:</b> </td>
+					<td> <?php echo $prev_hash;?></td>
+					</tr>
+					<tr>					
+					<td><b>Reward:</b> </td>
+					<td> <?php echo $reward;?> AE</td>
+					</tr>
+					
+					<tr>					
+					<td><b>State Hash:</b> </td>
+					<td> <?php echo $state_hash;?></td>
+					</tr>
+					<tr>
+					<td><b>Timestamp</b> </td>
+					<td> <?php echo $time;?></td>
+					</tr>	
+					
+					<tr>
+					<td><b>Version:</b> </td>
+					<td>  <?php echo $version;?></td>
+					</tr>
+					
+				</table>
+			</div>
+			
+			<div class="tab-pane" id="transaction">
+			
+			<h3>Latest 100 transactions:</h3>
+				<table class="table table-bordered" width:100%>
+					<tr>
+					  <th>#</th>
+					  <th>Block #</th>   
+					  <th>Block Hash</th>               
+					  <th >tx Hash</th>
+					  <th >Amount</th>
+					  <th>From</th>
+					  <th >To</th>
+					</tr>
+					
+				</table>
+			</div>
+			
+			<div class="tab-pane" id="messages">
+				messages
+			</div>
+        
+
+
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ <?php $this->load->view('footer.html');?> 
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="/application/views/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/application/views/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/application/views/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="/application/views/bower_components/raphael/raphael.min.js"></script>
+<script src="/application/views/bower_components/morris.js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="/application/views/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="/application/views/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/application/views/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/application/views/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+
+<!-- daterangepicker -->
+<script src="/application/views/bower_components/moment/min/moment.min.js"></script>
+<script src="/application/views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="/application/views/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="/application/views/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="/application/views/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/application/views/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/application/views/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/application/views/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/application/views/dist/js/demo.js"></script>
+<!-- DataTables -->
+<script src="/application/views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/application/views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130378172-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-130378172-1');
+</script>
+
+</body>
+</html>

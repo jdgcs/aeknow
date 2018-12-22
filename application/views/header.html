@@ -1,0 +1,98 @@
+
+  <header class="main-header">
+     <a href="/" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>AE</b>K</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>AE</b>Know</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+<div class="pull-left" style="padding-top:10px">
+		   <!-- search form -->
+<p><input type="text" name="uid" id="uid" size="40"  placeholder="Search address,tx hash,block height hash..."><input type="button" value="Search" name="B1" onclick="tj();" </p>
+<script type="text/javascript">
+    function tj(){
+        var uid = document.getElementById('uid').value;
+        window.location.href = '/miner/viewaccount/'+uid;
+    }     
+</script>         
+ </div>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Poolss -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Pools<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><a href="https://www.beepool.org" target="_blank">Beepool</a></li>
+                <li><a href="https://labs.f2pool.com/labs" target="_blank">F2pool</a></li>
+                <li><a href="https://www.uupool.cn" target="_blank" >UUpool</a></li>         
+                </ul>
+              </li>            
+            </ul>
+          </li>     
+             
+             
+      
+            
+             <!-- Exchanges -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Exchanges<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li ><a href="https://gateio.io" target="_blank">Gateio</a></li>              
+                </ul>
+              </li>            
+            </ul>
+          </li>  
+          
+            
+            
+            
+             <!-- Exchanges -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Contact<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+					<li>
+                    <a href="https://twitter.com/aeknow" target="_blank">
+                      <i class="fa fa-twitter text-aqua"></i>Twitter
+                    </a>
+                  </li>
+                  <li ><a href="mailto:outcrop@163.com" target="_blank"> <i class="fa fa-envelope"></i>Email</a></li>              
+                </ul>
+              </li>            
+            </ul>
+          </li>  
+          
+            
+              <li class="dropdown messages-menu">
+           <a href="/address/wallet/ak_2Vpk2GAXwCfMNVMrE1zNrT6ASMY14dMtujHKN6P74CozMSSy4C" class="dropdown-toggle" >
+             Donate
+            </a>            
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
