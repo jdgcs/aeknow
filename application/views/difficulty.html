@@ -45,7 +45,6 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
 <?php $this->load->view('header.html');?> 
 <?php $this->load->view('aside.html');?> 
 
@@ -97,6 +96,7 @@
   <!-- /.content-wrapper -->
  <?php $this->load->view('footer.html');?> 
 
+
 </div>
 <!-- ./wrapper -->
 
@@ -138,6 +138,27 @@
 <script src="/application/views/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/application/views/dist/js/demo.js"></script>
+<!-- DataTables -->
+<script src="/application/views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/application/views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+  $(function () {
+    "use strict";
+
+    // AREA CHART
+    var area = new Morris.Area({
+      element: 'revenue-chart',
+      resize: true,
+      data: [
+<?php echo $tabledata;?>
+      ],
+      xkey: 'period',
+      ykeys: ['difficulty'],
+      labels: ['difficulty'],
+      lineColors: ['#ee256f'],
+      hideHover: 'auto'
+    });
+
 
 
   });
