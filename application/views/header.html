@@ -14,7 +14,8 @@
       </a>
 <div class="pull-left" style="padding-top:10px">
 		   <!-- search form -->
-<p><input type="text" name="uid" id="uid" size="40"  placeholder="Search address,tx hash,block height hash..."><input type="button" value="Search" name="B1" onclick="tj();" </p>
+<p><input placeholder="Explorer Generation, Block, Tx, Address, Hash" id="uid" size="40"  type="text" class="search-input"><button class="search-button"  onclick="tj();><img src="/application/views/dist/img/search.svg" alt=""></button></p> 		   
+<!--<p><input type="text" name="uid" id="uid" size="40"  placeholder="Search address,tx hash,block height hash..."><input type="button" value="Search" name="B1" onclick="tj();" </p> -->
 <script type="text/javascript">
     function tj(){
         var uid = document.getElementById('uid').value;
@@ -74,12 +75,13 @@
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
+					<li ><a href="mailto:outcrop@163.com" target="_blank"> <i class="fa fa-envelope"></i>Email</a></li>              
 					<li>
                     <a href="https://twitter.com/aeknow" target="_blank">
                       <i class="fa fa-twitter text-aqua"></i>Twitter
                     </a>
                   </li>
-                  <li ><a href="mailto:outcrop@163.com" target="_blank"> <i class="fa fa-envelope"></i>Email</a></li>              
+
                 </ul>
               </li>            
             </ul>
