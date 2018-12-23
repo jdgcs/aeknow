@@ -28,6 +28,9 @@ class Test extends CI_Controller {
 		//$this->output->cache(3);
 		}
 	
+	public function dev(){
+		$this->load->view('developer.html');
+		}
 	public function block($height=88){		
 		if($height<1 || $height>$this->GetTopHeight()){echo "Not in DB."; return 0;}
 		$this->load->model('Tests');
