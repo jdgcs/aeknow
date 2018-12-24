@@ -5,6 +5,7 @@ class Wallets extends CI_Model {
 
 		public function getWalletInfo($ak,$page=1){
 		$perpage=50;
+		$data['activities']="";
 		$data['page']=$page;
 		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$websrc=$this->getwebsrc($url);

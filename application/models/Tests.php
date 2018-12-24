@@ -8,6 +8,11 @@ class Tests extends CI_Model {
 	public function getWalletInfo($ak,$page=1){
 		$perpage=50;
 		$data['page']=$page;
+		$data['activities']="";
+		
+		
+					
+		
 		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$websrc=$this->getwebsrc($url);
 		$data['account']=$ak;
@@ -19,7 +24,7 @@ class Tests extends CI_Model {
 		}
 		
 		
-
+///////////////////////////////////////get mining
 		$this->load->database();
 		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
 		$query = $this->db->query($sql);
@@ -39,6 +44,7 @@ class Tests extends CI_Model {
 			$reward=$this->getReward($blockheight+1);
 			$data['totalreward']=$data['totalreward']+$reward;
 			if($counter<101){
+				$data['activities']='<span class="label label-primary">Transaction</span>'; 
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
 			}
@@ -97,6 +103,9 @@ class Tests extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		$data['transaction_count']=$row->count; 
+		if($data['transaction_count']>0){
+			$data['activities'].=' <span class="label label-success">Mining</span>'; 
+			}
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0);
 		
@@ -108,6 +117,16 @@ class Tests extends CI_Model {
 			$row = $query->row();
 			$data['notes']="<b>$alias:</b> " .$row->remark;
 			}
+		
+		/////////////////////////////////////////////Check Genisis//////////////////////////////////
+		$sql= "select count(*) FROM accountsinfo WHERE address='$ak' and remark='genesis'";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		if($row->count>0){
+			$data['activities'].='  <small class="label pull-right bg-yellow">Genesis</small>'; 
+			}
+		
+		
 		return $data;
 		
 		}
