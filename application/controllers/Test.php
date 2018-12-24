@@ -84,9 +84,9 @@ class Test extends CI_Controller {
 		echo $this->Tests->getTotalMined()."<br/>";
 		echo print_r($this->Tests->getHashRate());
 		}
-	public function wallet($ak=NULL){		
+	public function wallet($ak=NULL,$page=1){		
 		$this->load->model('tests');	
-		$data=$this->tests->getWalletInfo($ak);
+		$data=$this->tests->getWalletInfo($ak,$page);
 		$this->load->view('account.html',$data);
 		//$this->output->cache(2);
 		}
