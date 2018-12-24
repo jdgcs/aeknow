@@ -44,51 +44,8 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="/" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>AE</b>K</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>AE</b>Know</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-<p><input type="text" name="uid" id="uid" size="45"  placeholder="Search account or tx hash..."><input type="button" value="Search" name="B1" onclick="tj();"></p>
-<script type="text/javascript">
-    function tj(){
-        var uid = document.getElementById('uid').value;
-        window.location.href = '/miner/viewaccount/'+uid;
-    }     
-</script>
-      <!-- /.search form -->
-      </div>
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="/application/views/dist/img/ae.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Aeternity</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
- </section>
-    <!-- /.sidebar -->
-  </aside>
+<?php $this->load->view('header.html');?> 
+<?php $this->load->view('aside.html');?> 
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -147,14 +104,7 @@
     <!-- /.content -->
   </div>  </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 0.0.1 Alpha
-    </div>
-    <strong>Copyright &copy;2018-2019 <a href="https://www.aeknow.org">AEKnow</a>.</strong> All rights
-    reserved.
-  </footer>
-
+ <?php $this->load->view('footer.html');?> 
 
 </div>
 <!-- ./wrapper -->
