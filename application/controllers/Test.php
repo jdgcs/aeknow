@@ -122,8 +122,8 @@ class Test extends CI_Controller {
 		}
 		
 	public function network(){
-		$this->load->model('miners');
-		$data=$this->miners->getMinerIndex();
+		$this->load->model('test');
+		$data=$this->test->getNetworkStatus();
 		$this->load->view('networkstatus.html',$data);
 		}	
 	
