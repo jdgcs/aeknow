@@ -7,9 +7,14 @@ class Tests extends CI_Model {
 		$this->load->database();
 		
 		$data['topheight']= $this->GetTopHeight();
-		$data['totalaemined']=$this->getTotalMined();
-		
-		
+		$data['totalaemined']=$this->getTotalMined();	
+		/////////////////Transactions info//////////////////
+		$sql="SELECT count(*) from transactions";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$data['totaltxs']=$row->count;
+		$period=(time()-1543373685)/(3600*24);		
+		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		
 		
 		//////////////////////////////get difficulty////////////////////////////
@@ -26,10 +31,7 @@ class Tests extends CI_Model {
 			$data['peer_count']=$match[6];
 		}
 		
-		
-		
-		$currentheight=$data['blocksmined']+1;
-		
+		//////////////////////////get 	
 		$sql="SELECT reward FROM aeinflation WHERE blockid<$currentheight order by blockid desc limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
