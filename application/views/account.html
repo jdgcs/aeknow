@@ -124,7 +124,7 @@
             
 			<div class="tab-pane table-responsive no-padding " id="mining">
 				<h3>Latest 100 blocks mined:</h3>
-				<table class="table table-bordered" width:100%>
+				<table class="table table-bordered table-hover" width:100%>
 					<tr>
 					  <th>#</th>
 					  <th>Block #</th>   
@@ -147,7 +147,7 @@
                 <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $totalpage;?>">Last</a></li>
               </ul>
             </div>
-				<table class="table table-bordered" width:100%>
+				<table class="table table-bordered table-hover" width:100%>
 					<tr>
 					  <th >tx Hash</th>
 					   <th >Amount</th>
@@ -159,12 +159,17 @@
 					</tr>
 					<?php echo $totaltxs;?>
 				</table>
+					<div class="box-footer clearfix">
+				  <ul class="pagination pagination-sm no-margin pull-right">
+					<li><a href="/address/wallet/<?php echo $account;?>t/1">First</a></li>
+					<li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page-1;?>">Prev</a></li>
+					<li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
+					<li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page+1;?>">Next</a></li>
+					<li><a href="/address/wallet/<?php echo $account;?>/<?php echo $totalpage;?>">Last</a></li>
+				  </ul>
+					</div>
 			</div>
 			
-			<div class="tab-pane" id="messages">
-				messages
-			</div>
-        
 
 
             </div>
