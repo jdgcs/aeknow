@@ -123,7 +123,7 @@ class Test extends CI_Controller {
 		
 	public function network(){
 		$this->load->model('test');
-		$data=$this->test->getNetworkStatus();
+		$data=$this->tests->getNetworkStatus();
 		$this->load->view('networkstatus.html',$data);
 		}	
 	
