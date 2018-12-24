@@ -3,9 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Wallets extends CI_Model {
 
-	public function getWalletInfo($ak){
-		
-		$url="http://127.0.0.1:3013/v2/accounts/$ak";
+		public function getWalletInfo($ak,$page=1){
+		$perpage=50;
+		$data['page']=$page;
+		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$websrc=$this->getwebsrc($url);
 		$data['account']=$ak;
 		$data['balance']=0;
@@ -40,7 +41,7 @@ class Wallets extends CI_Model {
 			}
 			}
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
-		$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc";
+		$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['totaltxs']="";
@@ -90,6 +91,8 @@ class Wallets extends CI_Model {
 			}
 		$data['transaction_count']=$query->num_rows();
 		
+		$data['totalpage']=round($data['transaction_count']/$perpage,0);
+		
 		$data['notes']="From the blockchain, to the blockchain.";
 		$alias=$this->getalias($ak);
 		if($ak!=$alias){
@@ -101,6 +104,7 @@ class Wallets extends CI_Model {
 		return $data;
 		
 		}
+	
 	
 	private function getReward($blockheight){
 		$this->load->database();

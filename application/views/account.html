@@ -140,11 +140,11 @@
 			<h3>Transactions:</h3>
 			<div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/address/wallet/$account/1">First</a></li>
-                <li><a href="/address/wallet/$account/<?php echo $page-1;?>">Prev</a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>t/1">First</a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page-1;?>">Prev</a></li>
                 <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
-                <li><a href="/address/wallet/$account/<?php echo $page+1;?>">Next</a></li>
-                <li><a href="/address/wallet/$account/<?php echo $totalpage;?>">Last</a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page+1;?>">Next</a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $totalpage;?>">Last</a></li>
               </ul>
             </div>
 				<table class="table table-bordered" width:100%>

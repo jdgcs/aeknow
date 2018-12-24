@@ -200,12 +200,14 @@ class Address extends CI_Controller {
 		}	
 
 
-public function wallet($ak=NULL){		
+public function wallet($ak=NULL,$page=1){	
+		if($page<1){$page=1;}	
 		$this->load->model('Wallets');	
-		$data=$this->Wallets->getWalletInfo($ak);
+		$data=$this->Wallets->getWalletInfo($ak,$page);
 		$this->load->view('account.html',$data);
 		//$this->output->cache(2);
-		}		
+		}	
+		
 	public function accountimg($ak=NULL){
 		$this->load->library('Qrcode'); 
 		//$ak=$this->input->get('ak', TRUE);
