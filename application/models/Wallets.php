@@ -41,8 +41,8 @@ class Wallets extends CI_Model {
 			$minedtime=date("Y-m-d H:i:s",$millisecond);
 			$reward=$this->getReward($blockheight+1);
 			$data['totalreward']=$data['totalreward']+$reward;
-			if($counter<101){
-				$data['activities']=' <small class="label pull-right bg-blue">Transaction</small>'; 
+			$data['activities']=' <small class="label pull-right bg-blue">Transaction</small>'; 
+			if($counter<101){				
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
 			}
