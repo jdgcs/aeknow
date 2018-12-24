@@ -5,9 +5,20 @@ class Tests extends CI_Model {
 	
 	public function getNetworkStatus(){
 		$this->load->database();
-		
+		///////////////////////////////////////////get blocks info////////////////////////////
 		$data['topheight']= $this->GetTopHeight();
 		$data['totalaemined']=$this->getTotalMined();	
+		
+		$sql="SELECT time FROM miner WHERE height=1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$totalmins= (time()-($row->time/1000))/60;
+		
+		$totalheight=$data['topheight'];
+		
+		$data['avgminsperblock']=round($totalmins/$totalheight,2);
+		//echo "<a href=/>Home</a><br/>$totalmins Minutes mined $totalheight blocks; ".($totalmins/$totalheight)." Minutes per block";
+		
 		/////////////////Transactions info//////////////////
 		$sql="SELECT count(*) from transactions";
 		$query = $this->db->query($sql);
@@ -16,7 +27,7 @@ class Tests extends CI_Model {
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		
-		
+		///////////////////////////////////////
 		//////////////////////////////get difficulty////////////////////////////
 		$url="http://127.0.0.1:3013/v2/status";
 		$websrc=$this->getwebsrc($url);
