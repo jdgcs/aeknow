@@ -85,8 +85,8 @@ class Test extends CI_Controller {
 		echo print_r($this->Tests->getHashRate());
 		}
 	public function wallet($ak=NULL){		
-		$this->load->model('Wallets');	
-		$data=$this->Wallets->getWalletInfo($ak);
+		$this->load->model('tests');	
+		$data=$this->tests->getWalletInfo($ak);
 		$this->load->view('account.html',$data);
 		//$this->output->cache(2);
 		}

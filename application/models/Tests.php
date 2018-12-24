@@ -3,6 +3,108 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tests extends CI_Model {
 	
+	
+	
+	public function getWalletInfo($ak,$page=1){
+		$perpage=50;
+		$url=DATA_SRC_SITE."v2/accounts/$ak";
+		$websrc=$this->getwebsrc($url);
+		$data['account']=$ak;
+		$data['balance']=0;
+		if(strpos($websrc,"balance")==TRUE){
+			$pattern='/{"balance":(.*),"id":"(.*)","nonce":(.*)}/i';
+			preg_match($pattern,$websrc, $match);
+			$data['balance']=$match[1]/1000000000000000000;
+		}
+		
+		
+
+		$this->load->database();
+		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		$query = $this->db->query($sql);
+		$data['blocksmined']=0;
+		$data['blocksmined']= $query->num_rows();
+		
+		$data['totalblocks']="";
+		$counter=0;
+		$minedtime="";
+		$data['totalreward']=0;
+		foreach ($query->result() as $row){
+			$counter++;
+			$blockheight=$row->height;
+			$millisecond =$row->time;
+			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
+			$minedtime=date("Y-m-d H:i:s",$millisecond);
+			$reward=$this->getReward($blockheight+1);
+			$data['totalreward']=$data['totalreward']+$reward;
+			if($counter<101){
+				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
+			}
+			}
+		/////////////////////////////////////////////get Transactions//////////////////////////////////
+		$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;";
+		$query = $this->db->query($sql);
+		$counter=0;
+		$data['totaltxs']="";
+		foreach ($query->result() as $row){
+			$counter++;
+			if($counter<101){
+				$block_height=$row->block_height;
+				$block_hash=$row->block_hash;
+				$block_hash_show="mh_****".substr($block_hash,-4);
+				$hash=$row->hash;
+				$hash_show="th_****".substr($hash,-4);
+				//$amount=number_format($row->amount/1000000000000000000, 18, '.', '');
+				$amount=$row->amount/1000000000000000000;
+				$recipient_id=$row->recipient_id;
+				$recipient_id_show="ak_****".substr($recipient_id,-4);
+				$sender_id=$row->sender_id;
+				$sender_id_show="ak_****".substr($sender_id,-4);
+				
+				$sql_gettime="SELECT time FROM microblock WHERE hash='$block_hash'";
+				$query_time = $this->db->query($sql_gettime);
+				$row = $query_time->row();
+				if($query->num_rows()>0){
+					$millisecond =$row->time;
+					$realtime=$millisecond;
+					$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
+					$txstime=$realtime."(".date("Y-m-d H:i:s",$millisecond)." UTC)";
+					
+					if($sender_id==$ak){
+						$senderlink="$sender_id_show";
+						$recipientlink="<span class='badge bg-yellow'>OUT</span><a href='/address/wallet/$recipient_id'>$recipient_id_show</a>";
+					}else{
+						$senderlink="<a href='/address/wallet/$sender_id'>$sender_id_show</a>";
+						$recipientlink="<span class='badge bg-green'>&nbsp; IN &nbsp; </span>$recipient_id_show";
+					}
+				}
+				
+			
+				$data['totaltxs'].="
+				<td><a href=/block/transaction/$hash>$hash_show</a></td>
+				<td>$amount</td>
+				<td>$senderlink</td>
+				<td>$recipientlink</td>
+					
+				<td>$txstime</td>	
+				</tr>";
+			}
+			}
+		$data['transaction_count']=$query->num_rows();
+		
+		$data['notes']="From the blockchain, to the blockchain.";
+		$alias=$this->getalias($ak);
+		if($ak!=$alias){
+			$sql="SELECT remark FROM addressinfo WHERE address='$ak'";
+			$query = $this->db->query($sql);
+			$row = $query->row();
+			$data['notes']="<b>$alias:</b> " .$row->remark;
+			}
+		return $data;
+		
+		}
+	
+	
 	public function getBlockInfo($height){		
 		$url=DATA_SRC_SITE.'v2/generations/height/'.$height;
 		$websrc=$this->getwebsrc($url);
