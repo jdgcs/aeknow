@@ -34,14 +34,14 @@ class Wallets extends CI_Model {
 		$minedtime="";
 		$data['totalreward']=0;
 		foreach ($query->result() as $row){
+			$data['activities']=' <small class="label pull-right bg-blue">Mining</small>'; 
 			$counter++;
 			$blockheight=$row->height;
 			$millisecond =$row->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			$minedtime=date("Y-m-d H:i:s",$millisecond);
 			$reward=$this->getReward($blockheight+1);
-			$data['totalreward']=$data['totalreward']+$reward;
-			$data['activities']=' <small class="label pull-right bg-blue">Transaction</small>'; 
+			$data['totalreward']=$data['totalreward']+$reward;			
 			if($counter<101){				
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
@@ -102,7 +102,7 @@ class Wallets extends CI_Model {
 		$row = $query->row();		
 		$data['transaction_count']=$row->count; 
 		if($data['transaction_count']>0){
-			$data['activities'].='<small class="label pull-right bg-green">Mining</small>'; 
+			$data['activities'].='<small class="label pull-right bg-green">Trnsaction</small>'; 
 			}
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0);
