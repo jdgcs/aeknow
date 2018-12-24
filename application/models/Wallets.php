@@ -89,7 +89,10 @@ class Wallets extends CI_Model {
 				</tr>";
 			}
 			}
-		$data['transaction_count']=$query->num_rows();
+		$sql= "select count(*) FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak'";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		$data['transaction_count']=$row->count; 
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0);
 		
