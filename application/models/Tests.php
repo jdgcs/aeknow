@@ -1058,5 +1058,29 @@ private function GetTopHeight()	{
 	return 0;
 	//print_r($match);
 	}
+	
+	private function getTotalReward($ak){
+		$this->load->database();
+		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		$query = $this->db->query($sql);
+		$data['blocksmined']=0;
+		$data['blocksmined']= $query->num_rows();
+		
+		$data['totalblocks']="";
+		$counter=0;
+		$minedtime="";
+		$data['totalreward']=0;
+		foreach ($query->result() as $row){
+			$counter++;
+			$blockheight=$row->height;
+			$millisecond =$row->time;
+			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
+			$minedtime=date("Y-m-d H:i:s",$millisecond);
+			$reward=$this->getReward($blockheight+1);
+			$data['totalreward']=$data['totalreward']+$reward;	
+			}
+		
+		return $data['totalreward'];
+		}	
 
 }
