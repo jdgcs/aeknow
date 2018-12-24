@@ -5,8 +5,12 @@ class Wallets extends CI_Model {
 
 		public function getWalletInfo($ak,$page=1){
 		$perpage=50;
-		$data['activities']="";
 		$data['page']=$page;
+		$data['activities']="";
+		
+		
+					
+		
 		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$websrc=$this->getwebsrc($url);
 		$data['account']=$ak;
@@ -18,7 +22,7 @@ class Wallets extends CI_Model {
 		}
 		
 		
-
+///////////////////////////////////////get mining
 		$this->load->database();
 		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
 		$query = $this->db->query($sql);
@@ -38,6 +42,7 @@ class Wallets extends CI_Model {
 			$reward=$this->getReward($blockheight+1);
 			$data['totalreward']=$data['totalreward']+$reward;
 			if($counter<101){
+				$data['activities']=' &nsbp;<small class="label pull-right bg-blue">Transaction</small>'; 
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
 			}
@@ -90,10 +95,15 @@ class Wallets extends CI_Model {
 				</tr>";
 			}
 			}
+		//$data['transaction_count']=$query->num_rows();
+		
 		$sql= "select count(*) FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak'";
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		$data['transaction_count']=$row->count; 
+		if($data['transaction_count']>0){
+			$data['activities'].=' &nsbp;<small class="label pull-right bg-green">Mining</small>'; 
+			}
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0);
 		
@@ -105,9 +115,20 @@ class Wallets extends CI_Model {
 			$row = $query->row();
 			$data['notes']="<b>$alias:</b> " .$row->remark;
 			}
+		
+		/////////////////////////////////////////////Check Genisis//////////////////////////////////
+		$sql= "select count(*) FROM accountsinfo WHERE address='$ak' and remark='genesis'";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		if($row->count>0){
+			$data['activities'].=' &nsbp;<small class="label pull-right bg-yellow">Genesis</small>'; 
+			}
+		
+		
 		return $data;
 		
 		}
+	
 	
 	
 	private function getReward($blockheight){
