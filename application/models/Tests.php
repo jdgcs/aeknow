@@ -28,7 +28,7 @@ class Tests extends CI_Model {
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
-		$data['avgfee']=round($data['totalfee']/$data['totaltxs'],2);
+		$data['avgfee']=number_format(round($data['totalfee']/$data['totaltxs'],2));
 		
 		
 		
