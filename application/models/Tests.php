@@ -32,6 +32,7 @@ class Tests extends CI_Model {
 		}
 		
 		//////////////////////////get 	
+		$currentheight=$data['topheight'];
 		$sql="SELECT reward FROM aeinflation WHERE blockid<$currentheight order by blockid desc limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
