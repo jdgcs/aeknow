@@ -85,6 +85,7 @@ class Test extends CI_Controller {
 		echo print_r($this->Tests->getHashRate());
 		}
 	public function wallet($ak=NULL,$page=1){		
+		if($page<1){$page=1;}
 		$this->load->model('tests');	
 		$data=$this->tests->getWalletInfo($ak,$page);
 		$this->load->view('account.html',$data);

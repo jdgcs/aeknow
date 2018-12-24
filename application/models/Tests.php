@@ -92,6 +92,8 @@ class Tests extends CI_Model {
 			}
 		$data['transaction_count']=$query->num_rows();
 		
+		$data['totalpage']=round($data['transaction_count']/$perpage,0);
+		
 		$data['notes']="From the blockchain, to the blockchain.";
 		$alias=$this->getalias($ak);
 		if($ak!=$alias){

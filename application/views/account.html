@@ -122,7 +122,7 @@
             </ul>
             <div class="tab-content">
             
-			<div class="tab-pane" id="mining">
+			<div class="tab-pane table-responsive no-padding " id="mining">
 				<h3>Latest 100 blocks mined:</h3>
 				<table class="table table-bordered" width:100%>
 					<tr>
@@ -135,9 +135,18 @@
 				</table>
 			</div>
 			
-			<div class="active tab-pane" id="transaction">
+			<div class="active tab-pane table-responsive no-padding" id="transaction">
 			
-			<h3>Latest 100 transactions:</h3>
+			<h3>Transactions:</h3>
+			<div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="/address/wallet/$account/1">First</a></li>
+                <li><a href="/address/wallet/$account/<?php echo $page-1;?>">Prev</a></li>
+                <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
+                <li><a href="/address/wallet/$account/<?php echo $page+1;?>">Next</a></li>
+                <li><a href="/address/wallet/$account/<?php echo $totalpage;?>">Last</a></li>
+              </ul>
+            </div>
 				<table class="table table-bordered" width:100%>
 					<tr>
 					  <th >tx Hash</th>
