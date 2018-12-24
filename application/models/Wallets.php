@@ -42,7 +42,7 @@ class Wallets extends CI_Model {
 			$reward=$this->getReward($blockheight+1);
 			$data['totalreward']=$data['totalreward']+$reward;
 			if($counter<101){
-				$data['activities']=' &nsbp;<small class="label pull-right bg-blue">Transaction</small>'; 
+				$data['activities']="&nsbp;".' <small class="label pull-right bg-blue">Transaction</small>'; 
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
 			}
@@ -102,7 +102,7 @@ class Wallets extends CI_Model {
 		$row = $query->row();		
 		$data['transaction_count']=$row->count; 
 		if($data['transaction_count']>0){
-			$data['activities'].=' &nsbp;<small class="label pull-right bg-green">Mining</small>'; 
+			$data['activities'].="&nsbp;".'<small class="label pull-right bg-green">Mining</small>'; 
 			}
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0);
@@ -121,7 +121,7 @@ class Wallets extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		if($row->count>0){
-			$data['activities'].=' &nsbp;<small class="label pull-right bg-yellow">Genesis</small>'; 
+			$data['activities'].="&nsbp;".' <small class="label pull-right bg-yellow">Genesis</small>'; 
 			}
 		
 		
