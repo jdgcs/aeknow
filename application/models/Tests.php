@@ -12,12 +12,25 @@ class Tests extends CI_Model {
 		$sql="SELECT time FROM miner WHERE height=1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		$totalmins= (time()-($row->time/1000))/60;
-		
-		$totalheight=$data['topheight'];
-		
+		$totalmins= (time()-($row->time/1000))/60;		
+		$totalheight=$data['topheight'];		
 		$data['avgminsperblock']=round($totalmins/$totalheight,2);
-		//echo "<a href=/>Home</a><br/>$totalmins Minutes mined $totalheight blocks; ".($totalmins/$totalheight)." Minutes per block";
+		
+		$url="http://127.0.0.1:3013/v2/key-blocks/height/$totalheight";
+		$websrc=$this->getwebsrc($url);
+		$data['lastime']="";
+		if(strpos($websrc,"time")>0){
+			$pattern='/(.*),"time":(.*),"version(.*)/i';
+			preg_match($pattern,$websrc, $match);
+			$data['lastime']=$match[2];
+			$millisecond=substr($data['lastime'],0,strlen($data['lastime'])-3); 
+			$whenmined=time()-$millisecond;
+			//$minedtime=$whenmined;
+			$data['lastime']=date('i:s',$whenmined);
+			}
+			
+			
+		
 		
 		/////////////////Transactions info//////////////////
 		$sql="SELECT count(*),sum(fee) from transactions";
