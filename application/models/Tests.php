@@ -20,12 +20,17 @@ class Tests extends CI_Model {
 		//echo "<a href=/>Home</a><br/>$totalmins Minutes mined $totalheight blocks; ".($totalmins/$totalheight)." Minutes per block";
 		
 		/////////////////Transactions info//////////////////
-		$sql="SELECT count(*) from transactions";
+		$sql="SELECT count(*),sum(fee) from transactions";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaltxs']=$row->count;
+		$data['totalfee']=$row->sum;
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
+		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
+		$data['avgfee']=round($data['totalfee']/$data['totaltxs'],2);
+		
+		
 		
 		///////////////////////////////////////
 		//////////////////////////////get difficulty////////////////////////////

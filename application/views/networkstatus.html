@@ -113,13 +113,13 @@
               <table class="table table-hover table-bordered">
               <th colspan="2"> <center> Blocks</center></th>
               <tr><td>Key Blocks <a class="pull-right"><?php echo $topheight;?></a></td><td>Last Key block:<a class="pull-right"></a></td></tr>
-              <tr><td>Key block in average: <a class="pull-right"><?php echo $avgminsperblock;?></a></td><td>Orphan Blocks:<a class="pull-right"></a></td></tr>
+              <tr><td>Key block in average: <a class="pull-right"><?php echo $avgminsperblock;?> mins/block</a></td><td>Orphan Blocks:<a class="pull-right"></a></td></tr>
               <!-- <tr><td>Micro Blocks: <a class="pull-right"></a></td><td>average number of micro blocks per generation<a class="pull-right"></a></td></tr> -->
 			
 				<th colspan="2"> <center> Transactions</center></th>
               <tr><td>Total: <a class="pull-right"> <?php echo $totaltxs;?></a></td><td> Max TPS<a class="pull-right"></a></td></tr>
-              <tr><td>Per Second: <a class="pull-right"></a></td><td>Per day<a class="pull-right"><?php echo $avgtxsperday;?></a></td></tr>
-              <tr><td>Transactions in mempool: <a class="pull-right"></a></td><td>Fee(average)<a class="pull-right">119</a></td></tr>
+              <tr><td>Per Second: <a class="pull-right"><?php echo $avgtxspersec;?></a></td><td>Per day<a class="pull-right"><?php echo $avgtxsperday;?></a></td></tr>
+              <tr><td>Transactions in mempool: <a class="pull-right"></a></td><td>Fee(average)<a class="pull-right"><?php echo $avgfee;?></a></td></tr>
               
               
               <th colspan="2"> <center> Mining</center></th>
