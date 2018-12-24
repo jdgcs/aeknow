@@ -102,7 +102,7 @@ class Wallets extends CI_Model {
 		$row = $query->row();		
 		$data['transaction_count']=$row->count; 
 		if($data['transaction_count']>0){
-			$data['activities'].='<small class="label pull-right bg-green">Trnsaction</small>'; 
+			$data['activities'].='<small class="label pull-right bg-green">Transaction</small>'; 
 			}
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0);
