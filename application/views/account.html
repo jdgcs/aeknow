@@ -170,13 +170,13 @@
 				 <a href="/address/wallet/<?php echo $account;?>/1/out"><small class="label pull-right bg-yellow">OUT</small></a>
 				</ul>
 				
-				  <ul class="pagination pagination-sm no-margin pull-right">
-					<li><a href="/address/wallet/<?php echo $account;?>t/1">First</a></li>
-					<li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page-1;?>">Prev</a></li>
-					<li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
-					<li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page+1;?>">Next</a></li>
-					<li><a href="/address/wallet/<?php echo $account;?>/<?php echo $totalpage;?>">Last</a></li>
-				  </ul>
+				 <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="/address/wallet/<?php echo $account;?>/1/<?php echo $type;?>">First</a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page-1;?>/<?php echo $type;?>">Prev</a></li>
+                <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $page+1;?>/<?php echo $type;?>">Next</a></li>
+                <li><a href="/address/wallet/<?php echo $account;?>/<?php echo $totalpage;?>/<?php echo $type;?>">Last</a></li>
+              </ul>
 					</div>
 			</div>
 			
