@@ -200,10 +200,10 @@ class Address extends CI_Controller {
 		}	
 
 
-public function wallet($ak=NULL,$page=1){	
+public function wallet($ak=NULL,$page=1,$type='all'){	
 		if($page<1){$page=1;}	
 		$this->load->model('Wallets');	
-		$data=$this->Wallets->getWalletInfo($ak,$page);
+		$data=$this->Wallets->getWalletInfo($ak,$page,$type);
 		$this->load->view('account.html',$data);
 		//$this->output->cache(2);
 		}	

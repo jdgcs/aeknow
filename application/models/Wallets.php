@@ -3,13 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Wallets extends CI_Model {
 
-		public function getWalletInfo($ak,$page=1){
+		public function getWalletInfo($ak,$page=1,$type='all'){
 		$perpage=50;
 		$data['page']=$page;
-		$data['activities']="";
-		
-		
-					
+		$data['activities']="";		
+		$data['type']=$type;
 		
 		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$websrc=$this->getwebsrc($url);
@@ -48,6 +46,13 @@ class Wallets extends CI_Model {
 			}
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
 		$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+		if($type=='in'){
+			$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;			
+			}
+		if($type=='out'){
+			sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+
+			}
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['totaltxs']="";
