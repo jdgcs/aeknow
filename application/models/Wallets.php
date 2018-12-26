@@ -134,7 +134,7 @@ class Wallets extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		if($row->count>0){
-			$data['activities'].=' <small class="label pull-right bg-yellow">Genesis</small>'; 
+			$data['activities'].=' <small class="label pull-right bg-yellow">Genesis</small>'."&nbsp;"; 
 			}
 		
 		
