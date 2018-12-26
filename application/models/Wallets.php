@@ -50,7 +50,7 @@ class Wallets extends CI_Model {
 			$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;			
 			}
 		if($type=='out'){
-			sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
 
 			}
 		$query = $this->db->query($sql);
