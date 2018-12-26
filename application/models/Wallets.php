@@ -118,7 +118,7 @@ class Wallets extends CI_Model {
 			$data['activities'].='<small class="label pull-right bg-green">Transaction</small>'; 
 			}
 		
-		$data['totalpage']=round($data['transaction_count']/$perpage,0);
+		$data['totalpage']=round($data['transaction_count']/$perpage,0)+1;
 		
 		$data['notes']="From the blockchain, to the blockchain.";
 		$alias=$this->getalias($ak);
