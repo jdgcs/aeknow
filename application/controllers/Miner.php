@@ -65,78 +65,7 @@ public function viewaccount($ak=NULL){
 		if(strpos($tagstr,"kh_")>0){redirect('https://www.aeknow.org/block/keyblock/'.$ak);}
 		if(strpos($tagstr,"ak_")>0){redirect('https://www.aeknow.org/address/wallet/'.$ak);}
 		if(is_numeric($ak)){redirect('https://www.aeknow.org/block/height/'.$ak);}
-	
-		
-	
-		$url="http://127.0.0.1:3013/v2/accounts/$ak";
-		$websrc=$this->getwebsrc($url);
-		$data['account']=$ak;
-		$data['balance']=0;
-		if(strpos($websrc,"balance")==TRUE){
-			$pattern='/{"balance":(.*),"id":"(.*)","nonce":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['balance']=$match[1]/1000000000000000000;
-		}
-		
-		
-
-		$this->load->database();
-		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
-		$query = $this->db->query($sql);
-		$data['blocksmined']=0;
-		$data['blocksmined']= $query->num_rows();
-		
-		$data['totalblocks']="";
-		$counter=0;
-		$minedtime="";
-		$data['totalreward']=0;
-		foreach ($query->result() as $row){
-			$counter++;
-			$blockheight=$row->height;
-			$millisecond =$row->time;
-			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
-			$minedtime=date("Y-m-d H:i:s",$millisecond);
-			$reward=$this->getReward($blockheight+1);
-			$data['totalreward']=$data['totalreward']+$reward;
-			if($counter<101){
-				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>$blockheight</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
-			}
-			}
-		//////////////////////////////////////get Transactions/////////////////////////////
-		$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc";
-		$query = $this->db->query($sql);
-		$counter=0;
-		$data['totaltxs']="";
-		foreach ($query->result() as $row){
-			$counter++;
-			if($counter<101){
-				$block_height=$row->block_height;
-				$block_hash=$row->block_hash;
-				$block_hash_show="mh_****".substr($block_hash,-4);
-				$hash=$row->hash;
-				$hash_show="th_****".substr($hash,-4);
-				$amount=$row->amount/1000000000000000000;
-				$recipient_id=$row->recipient_id;
-				$recipient_id_show="ak_****".substr($recipient_id,-4);
-				$sender_id=$row->sender_id;
-				$sender_id_show="ak_****".substr($sender_id,-4);
-				$data['totaltxs'].="<tr><td>$counter</td><td>$block_height</td><td>$block_hash_show</td><td>$hash_show</td>
-				<td>$amount</td><td><a href='/address/wallet/$sender_id'>$sender_id_show</a></td><td><a href='/address/wallet/$recipient_id'>$recipient_id_show</a></td></tr>";
-			}
-			}
-		$data['transaction_count']=$query->num_rows();
-		
-		$data['notes']="From the blockchain, to the blockchain.";
-		$alias=$this->getalias($ak);
-		if($ak!=$alias){
-			$sql="SELECT remark FROM addressinfo WHERE address='$ak'";
-			$query = $this->db->query($sql);
-			$row = $query->row();
-			$data['notes']="<b>$alias:</b> " .$row->remark;
-			}
-		
-		$this->load->view('account.html',$data);
-		$this->output->cache(3);
+		echo "NO results.";return 0;
 		}
 		
 	public function accountimg($ak=NULL){
