@@ -32,7 +32,7 @@ class Wallets extends CI_Model {
 		$minedtime="";
 		$data['totalreward']=0;
 		foreach ($query->result() as $row){
-			$data['activities']=' <a class="pull-right"> &nbsp;&nbsp;&nbsp; <span class="badge bg-blue">Mining</span></a>'; 
+			$data['activities']=' <a class="pull-right"> &nbsp; <span class="badge bg-blue">Mining</span></a>'; 
 			$counter++;
 			$blockheight=$row->height;
 			$millisecond =$row->time;
@@ -115,7 +115,7 @@ class Wallets extends CI_Model {
 		$row = $query->row();		
 		$data['transaction_count']=$row->count; 
 		if($data['transaction_count']>0){
-			$data['activities'].=' <a class="pull-right"> &nbsp;&nbsp;&nbsp; <span class="badge bg-green">Transaction</span></a>'; 
+			$data['activities'].=' <a class="pull-right">&nbsp; <span class="badge bg-green">Transaction</span></a>'; 
 			}
 		
 		$data['totalpage']=round($data['transaction_count']/$perpage,0)+1;

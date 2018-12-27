@@ -140,9 +140,10 @@
 			<h3>Transactions:</h3>
 			<div class="box-footer clearfix">
 				<ul class="pagination pagination-sm no-margin pull-left">
-				 <a href="/address/wallet/<?php echo $account;?>/1/in"><small class="label pull-right bg-green">IN</small></a>
-				 <a href="/address/wallet/<?php echo $account;?>/1/all"><small class="label pull-right bg-blue">ALL</small></a>
-				 <a href="/address/wallet/<?php echo $account;?>/1/out"><small class="label pull-right bg-yellow">OUT</small></a>
+					
+				 <a class="pull-right" href="/address/wallet/<?php echo $account;?>/1/in">&nbsp; <span class="badge bg-green">IN</span></a>
+				 <a  class="pull-right" href="/address/wallet/<?php echo $account;?>/1/all">&nbsp; <span class="badge bg-blue">ALL</span></a>
+				 <a  class="pull-right" href="/address/wallet/<?php echo $account;?>/1/out"><span class="badge bg-yellow">OUT</span></a></a>
 				</ul>
               <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a href="/address/wallet/<?php echo $account;?>/1/<?php echo $type;?>">First</a></li>
