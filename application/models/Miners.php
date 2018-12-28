@@ -199,10 +199,11 @@ public function getPools(){
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row){
 			$poolname=$row->poolname;
-			$hashrate=$row->hashrate;
-			$estreward=$row->estreward;
+			$hashrate=round($row->hashrate,2);
+			$estreward=round($row->estreward,2);
+			$url=$row->url;
 			$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
-			$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
+			$table.="<tr><td><a href=$url target=_blank>$poolname</a></td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
 			}
 		
 		return $table;
