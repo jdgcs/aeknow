@@ -82,6 +82,11 @@ class Networks extends CI_Model {
 		$data['currentreward']=$row->reward/10;
 		//$data['totalaemined']=$this->getTotalMined();
 		
+		///////////////////////////get pending txs/////////////////////////
+		$url="http://127.0.0.1:3113/v2/debug/transactions/pending";
+		$websrc=$this->getwebsrc($url);
+		$data['pendingtxs']=substr_count($text, '"tx":');
+		
 		
 		return $data;
 		}
