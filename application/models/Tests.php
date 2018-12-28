@@ -65,7 +65,7 @@ class Tests extends CI_Model {
 		}
 		
 		//////////////////////////////get hashrate////////////////////////////
-		$sql="SELECT sum(hashrate) FROM pools order by pis desc limit 3";
+		$sql="SELECT sum(hashrate) FROM pools order by pid desc limit 3";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totalhashrate']=round($row->sun/100,2);
