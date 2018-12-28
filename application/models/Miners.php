@@ -187,10 +187,27 @@ class Miners extends CI_Model {
 		$row = $query->row();
 		$data['currentreward']=$row->reward/10;
 		
+		$data['pools']=$this->getPools();
+		
 		return $data;
 		}
 	
-	
+public function getPools(){
+		$this->load->database();
+		$table="";
+		$sql="SELECT * FROM pools order by pid desc limit 3";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row){
+			$poolname=$row->poolname;
+			$hashrate=$row->hashrate;
+			$estreward=$row->estreward;
+			$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
+			$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
+			}
+		
+		return $table;
+		}
+			
 public function getHashRate(){
 		$this->load->database();
 		$timetag=(time()-(24*60*60))*1000; 
