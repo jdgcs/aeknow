@@ -40,11 +40,12 @@ class Tests extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaltxs']=$row->count;
-		$data['totalfee']=number_format($row->sum/1000000000000000000);
+		$data['totalfee']=number_format($row->sum/1000000000000000000, 18, '.', '');
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
-		$data['avgfee']=number_format(($data['totalfee']/$data['totaltxs'])/1000000000000000000);
+		$data['avgfee']=number_format(($data['totalfee']/$data['totaltxs'])/1000000000000000000,18, '.', '');
+		
 		
 		
 		
