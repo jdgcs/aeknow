@@ -195,37 +195,7 @@ class Miners extends CI_Model {
 		}
 	
 	
-public function getHashRate(){
-		$this->load->database();
-		$timetag=(time()-(24*60*60))*1000; 
-		$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
-		$query = $this->db->query($topminersql);
-		
-		$counter=0;
-		$blockcounter=0;
-		$top3block=0;
-		foreach ($query->result() as $row){
-			$counter++;
-			$blockcounter=$blockcounter+$row->count;	
-			if($counter<4){
-				$top3block=$top3block+$row->count;
-				}
-			}
-		
-		//////////////////////////////get hashrate////////////////////////////
-		$data['totalhashrate']=0;
-		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
-		$query = $this->db->query($sql);
-		//$row = $query->row();
-		foreach ($query->result() as $row){
-			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
-		}
-		$data['totalhashrate']=round(($data['totalhashrate']/1000)*($blockcounter/$top3block),2);
-		
-		return $data['totalhashrate'];
-		
-	}
-		
+	
 public function getBlockHeight($keyblockhash){
 		$this->load->database();
 		$sql="SELECT * from miner WHERE hash='$keyblockhash' AND orphan is FALSE";
