@@ -88,6 +88,17 @@ class Miners extends CI_Model {
 		
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
 		
+		
+		//////////////////////////////get hashrate////////////////////////////
+		//$data['totalhashrate']=0;
+		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		$data['totalhashrate']=round($data['totalhashrate']/1000,2);
+		
 		////////////////////////////////Latest 20 Transactions////////////////////////
 		$trans_sql="SELECT * from transactions order by block_height desc,nonce desc limit 20";		
 		$query = $this->db->query($trans_sql);
