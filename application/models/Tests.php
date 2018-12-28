@@ -81,17 +81,6 @@ class Tests extends CI_Model {
 		
 		return $data;
 		}
-	
-	
-	public function getTotalMined(){
-		$latestheight=$this->GetTopHeight();
-		$totalmined=0;
-		for($i=1;$i<$latestheight+1;$i++){
-			$totalmined=$totalmined+$this->getReward($i);
-			}
-		return $totalmined;
-		}
-		
 		
 		
 	public function getWalletInfo($ak,$page=1){
