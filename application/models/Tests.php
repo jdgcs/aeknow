@@ -2,7 +2,21 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tests extends CI_Model {
-	
+	public function getPools(){
+		$this->load->database();
+		$table="";
+		$sql="SELECT * FROM pools order by pid desc limit 3";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row){
+			$poolname=$row->poolname;
+			$hashrate=$row->hashrate;
+			$estreward=$row->estreward;
+			$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
+			$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
+			}
+		
+		return $table;
+		}
 	public function getHashRate(){
 		$this->load->database();
 		$timetag=(time()-(24*60*60))*1000; 

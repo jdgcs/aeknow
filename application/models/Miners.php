@@ -87,11 +87,8 @@ class Miners extends CI_Model {
 		}
 		
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
+			
 		
-		
-		//////////////////////////////get hashrate////////////////////////////
-		$data['totalhashrate']=0;		
-		$data['totalhashrate']=$this->getHashRate();
 		
 		////////////////////////////////Latest 20 Transactions////////////////////////
 		$trans_sql="SELECT * from transactions order by block_height desc,nonce desc limit 20";		
@@ -177,9 +174,14 @@ class Miners extends CI_Model {
 		}
 		
 		
+		//////////////////////////////get hashrate////////////////////////////
+		$data['totalhashrate']=0;		
+		$data['totalhashrate']=$this->getHashRate();
 		
-		$currentheight=$data['blocksmined']+1;
 		
+		
+		//////////////////////////get 	current reward////////////////////////
+		$currentheight=$data['blocksmined']+1;		
 		$sql="SELECT reward FROM aeinflation WHERE blockid<$currentheight order by blockid desc limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
