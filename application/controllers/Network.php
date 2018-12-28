@@ -9,18 +9,9 @@ class Network extends CI_Controller {
 		$this->load->model('networks');
 		$data=$this->networks->getNetworkStatus();
 		$this->load->view('networkstatus.html',$data);
+		$this->output->cache(1/4);
 	}
 	
-	public function p($page)
-	{	
-		if(is_numeric($page)){
-			$this->load->model('transactions');
-			$data=$this->transactions->getTransactions($page);
-			$this->load->view('transaction_index.html',$data);
-		}else{
-			echo "NULL";
-			}
-	}
-
+	
 }
 
