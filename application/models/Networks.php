@@ -65,14 +65,8 @@ class Networks extends CI_Model {
 		}
 		
 		//////////////////////////////get hashrate////////////////////////////
-		$data['totalhashrate']=0;
-		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
-		$query = $this->db->query($sql);
-		//$row = $query->row();
-		foreach ($query->result() as $row){
-			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
-		}
-		$data['totalhashrate']=round($data['totalhashrate']/1000,2);
+		$data['totalhashrate']=0;		
+		$data['totalhashrate']=$this->getHashRate();
 		
 		//////////////////////////get 	current reward////////////////////////
 		$currentheight=$data['topheight'];
@@ -98,6 +92,39 @@ class Networks extends CI_Model {
 		$row = $query->row();
 		return $row->reward/10;
 		}
+		
+		
+public function getHashRate(){
+		$this->load->database();
+		$timetag=(time()-(24*60*60))*1000; 
+		$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		$query = $this->db->query($topminersql);
+		
+		$counter=0;
+		$blockcounter=0;
+		$top3block=0;
+		foreach ($query->result() as $row){
+			$counter++;
+			$blockcounter=$blockcounter+$row->count;	
+			if($counter<4){
+				$top3block=$top3block+$row->count;
+				}
+			}
+		
+		//////////////////////////////get hashrate////////////////////////////
+		$data['totalhashrate']=0;
+		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		$data['totalhashrate']=round(($data['totalhashrate']/1000)*($blockcounter/$top3block),2);
+		
+		return $data['totalhashrate'];
+		
+	}
+
 
 private function GetTopHeight()	{
 	$url="http://127.0.0.1:3013/v2/blocks/top";
