@@ -38,6 +38,13 @@ class Test extends CI_Controller {
 		$this->load->view('block_v2.html',$data);
 		}
 	
+	public function hr(){
+		$this->load->model('tests');
+		echo $this->tests->getHashRate();
+		//$this->load->view('mblocks.html',$data);
+		}
+	
+	
 	public function microblocks($microblockheight){
 		$this->load->model('tests');
 		$data=$this->tests->getMicroBlocks($microblockheight);
