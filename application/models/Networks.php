@@ -85,7 +85,7 @@ class Networks extends CI_Model {
 		///////////////////////////get pending txs/////////////////////////
 		$url="http://127.0.0.1:3113/v2/debug/transactions/pending";
 		$websrc=$this->getwebsrc($url);
-		$data['pendingtxs']=substr_count($text, '"tx":');
+		$data['pendingtxs']=substr_count($websrc, '"tx":');
 		
 		
 		return $data;
