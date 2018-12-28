@@ -29,7 +29,10 @@ class Tests extends CI_Model {
 			$data['lastime']=date('i:s',$whenmined);
 			}
 			
-			
+		$sql="SELECT count(*) FROM miner WHERE orphan is TRUE";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$data['totalorphan']= $row->count;		
 		
 		
 		/////////////////Transactions info//////////////////
@@ -37,11 +40,12 @@ class Tests extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaltxs']=$row->count;
-		$data['totalfee']=$row->sum;
+		$data['totalfee']=number_format($row->sum/1000000000000000000);
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
-		$data['avgfee']=number_format(round($data['totalfee']/$data['totaltxs'],2));
+		$data['avgfee']=number_format(($data['totalfee']/$data['totaltxs'])/1000000000000000000);
+		
 		
 		
 		
@@ -60,18 +64,36 @@ class Tests extends CI_Model {
 			$data['peer_count']=$match[6];
 		}
 		
-		//////////////////////////get 	
+		//////////////////////////////get hashrate////////////////////////////
+		$sql="SELECT sum(hashrate) FROM pools order by pis desc limit 3";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$data['totalhashrate']=round($row->sun/100,2);
+		
+		//////////////////////////get 	current reward////////////////////////
 		$currentheight=$data['topheight'];
 		$sql="SELECT reward FROM aeinflation WHERE blockid<$currentheight order by blockid desc limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['currentreward']=$row->reward/10;
+		$data['totalaemined']=$this->getTotalMined();
+		
 		
 		return $data;
 		}
 	
 	
-	
+	public function getTotalMined(){
+		$latestheight=$this->GetTopHeight();
+		$totalmined=0;
+		for($i=1;$i<$latestheight+1;$i++){
+			$totalmined=$totalmined+$this->getReward($i);
+			}
+		return $totalmined;
+		}
+		
+		
+		
 	public function getWalletInfo($ak,$page=1){
 		$perpage=50;
 		$data['page']=$page;
