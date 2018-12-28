@@ -65,10 +65,14 @@ class Tests extends CI_Model {
 		}
 		
 		//////////////////////////////get hashrate////////////////////////////
-		$sql="SELECT sum(hashrate) FROM pools order by pid desc limit 3";
+		$data['totalhashrate']=0;
+		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
 		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['totalhashrate']=round($row->sun/100,2);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		$data['totalhashrate']=round($data['totalhashrate']/1000,2);
 		
 		//////////////////////////get 	current reward////////////////////////
 		$currentheight=$data['topheight'];
