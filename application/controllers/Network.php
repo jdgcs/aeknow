@@ -20,7 +20,7 @@ class Network extends CI_Controller {
 	public function api($type=""){
 		if($type=="network"){
 			$this->load->model('networks');
-			$data=$this->networks->getNetworkStatus();
+			$data['api']=$this->networks->getNetworkStatus();
 			$this->load->view('api.html',$data);
 			$this->output->cache(1/4);
 			}
