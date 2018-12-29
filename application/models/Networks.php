@@ -87,6 +87,11 @@ class Networks extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		$data['pendingtxs']=substr_count($websrc, '"tx":');
 		
+		////////////////////////get price////////////////////////
+		$sql="SELECT price FROM aenetwork order by rid desc limit 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$data['price']=$row->price;
 		
 		return $data;
 		}
