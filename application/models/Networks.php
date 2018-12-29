@@ -91,7 +91,7 @@ class Networks extends CI_Model {
 		$sql="SELECT price FROM aenetwork order by rid desc limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		$data['price']=$row->price;
+		$data['price']=floatval($row->price);
 		
 		return $data;
 		}
