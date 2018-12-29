@@ -10,6 +10,7 @@ class Networks extends CI_Model {
 	
 	public function getNetworkStatus(){
 		$this->load->database();
+		$data['maxtps']=116;
 		///////////////////////////////////////////get blocks info////////////////////////////
 		$data['topheight']= $this->GetTopHeight();
 		$data['totalaemined']=$this->getTotalMined();	
