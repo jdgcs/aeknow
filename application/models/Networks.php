@@ -38,15 +38,15 @@ class Networks extends CI_Model {
 		$sql="SELECT count(*) FROM miner WHERE orphan is TRUE";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		$data['totalorphan']= $row->count;		
+		$data['totalorphan']= floatval($row->count);		
 		
 		
 		/////////////////Transactions info//////////////////
 		$sql="SELECT count(*),sum(fee) from transactions";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		$data['totaltxs']=$row->count;
-		$data['totalfee']=number_format($row->sum/1000000000000000000, 18, '.', '');
+		$data['totaltxs']=floatval($row->count);
+		$data['totalfee']=floatval(number_format($row->sum/1000000000000000000, 18, '.', ''));
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
@@ -64,10 +64,10 @@ class Networks extends CI_Model {
 			$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
 			preg_match($pattern,$websrc, $match);
 			$data['difficulty']=$match[1];
-			$data['difficultyfull']=$data['difficulty'];
+			$data['difficultyfull']=floatval($data['difficulty']);
 			//$data['difficulty']=round($data['difficulty']/10000000000,2);
 			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
-			$data['peer_count']=$match[6];
+			$data['peer_count']=floatval($match[6]);
 		}
 		
 		//////////////////////////////get hashrate////////////////////////////
