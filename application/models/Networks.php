@@ -12,7 +12,7 @@ class Networks extends CI_Model {
 		$this->load->database();
 		$data['maxtps']=116;
 		///////////////////////////////////////////get blocks info////////////////////////////
-		$data['topheight']= $this->GetTopHeight();
+		$data['topheight']= floatval($this->GetTopHeight());
 		$data['totalaemined']=$this->getTotalMined();	
 		
 		$sql="SELECT time FROM miner WHERE height=1";
@@ -50,7 +50,7 @@ class Networks extends CI_Model {
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
-		$data['avgfee']=number_format($data['totalfee']/$data['totaltxs'],18, '.', '');
+		$data['avgfee']=floatval(number_format($data['totalfee']/$data['totaltxs'],18, '.', ''));
 		
 		
 		
