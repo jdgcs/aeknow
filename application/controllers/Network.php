@@ -12,6 +12,11 @@ class Network extends CI_Controller {
 		$this->output->cache(1/4);
 	}
 	
+	public function mempool(){
+		$this->load->model('networks');
+		echo $this->networks->getMempoolInfo();		
+		}
+	
 	
 }
 

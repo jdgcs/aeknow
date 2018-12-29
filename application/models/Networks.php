@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Networks extends CI_Model {
+	public function getMempoolInfo(){
+		$url="http://127.0.0.1:3113/v2/debug/transactions/pending";
+		$websrc=$this->getwebsrc($url);
+		return $websrc;
+		}
 	
 	public function getNetworkStatus(){
 		$this->load->database();
