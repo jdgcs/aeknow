@@ -104,8 +104,7 @@
             </ul>
             <div class="tab-content">
             
-			<div class="active tab-pane" id="mining">
-				
+			<div class="active tab-pane" id="mining">				
 			<div class="box-body table-responsive no-padding">
               <table class="table table-hover table-bordered">
               <th colspan="4"> <center> Blocks</center></th>
@@ -122,15 +121,17 @@
               <th colspan="4"> <center> Mining</center></th>
               <tr><td>Hashrate</td><td><a class="pull-left"><?php echo $totalhashrate;?> MSols/s</a></td><td>Current Reward:</td><td> <a class="pull-left"><?php echo $currentreward;?> AE/block</a></td></tr>
               <tr><td>Total mined:</td><td><a class="pull-left"><?php echo $totalaemined;?> AE</a></td><td>Total Transactions Fee: </td><td><a class="pull-left"><?php echo $totalfee;?> AE</a></td></tr>
-              
-              
-              
+           
 			</table>
 			</div>
-		
-
             </div>
             <!-- /.tab-content -->
+            
+            
+            <div class="active tab-pane" id="transaction">	
+				API url:<a href="https://www.aeknow.org/network/api/network">https://www.aeknow.org/network/api/network</a>
+				
+			</div>
           </div>
           <!-- /.nav-tabs-custom -->
         </div>
