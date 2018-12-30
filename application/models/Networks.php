@@ -93,6 +93,9 @@ class Networks extends CI_Model {
 		$row = $query->row();
 		$data['price']=floatval($row->price);
 		
+		///////////////////update time//////////////////////
+		$data['timestamp']=time();
+		
 		return $data;
 		}
 	private function getReward($blockheight){
