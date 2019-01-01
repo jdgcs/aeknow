@@ -127,18 +127,32 @@ public function getHashRate(){
 		
 		//////////////////////////////get hashrate////////////////////////////
 		$data['totalhashrate']=0;
-		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
+		$sql="SELECT hashrate FROM pools WHERE poolname='beepool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
 		//$row = $query->row();
 		foreach ($query->result() as $row){
 			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
 		}
+		
+		$sql="SELECT hashrate FROM pools WHERE poolname='f2pool' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		
+		$sql="SELECT hashrate FROM pools WHERE poolname='uupool' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		
 		$data['totalhashrate']=round(($data['totalhashrate']/1000)*($blockcounter/$top3block),2);
 		
 		return $data['totalhashrate'];
 		
 	}
-
 
 private function GetTopHeight()	{
 	$url="http://127.0.0.1:3013/v2/blocks/top";
