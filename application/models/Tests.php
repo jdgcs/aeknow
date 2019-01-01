@@ -5,15 +5,29 @@ class Tests extends CI_Model {
 	public function getPools(){
 		$this->load->database();
 		$table="";
-		$sql="SELECT * FROM pools order by pid desc limit 3";
+		$sql="SELECT * FROM pools WHERE poolname='beepool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
-		foreach ($query->result() as $row){
-			$poolname=$row->poolname;
-			$hashrate=$row->hashrate;
-			$estreward=$row->estreward;
-			$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
-			$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
-			}
+		$poolname=$row->poolname;
+		$hashrate=$row->hashrate;
+		$estreward=$row->estreward;
+		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
+		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
+		
+		$sql="SELECT * FROM pools WHERE poolname='f2pool' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		$poolname=$row->poolname;
+		$hashrate=$row->hashrate;
+		$estreward=$row->estreward;
+		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
+		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
+		
+		$sql="SELECT * FROM pools WHERE poolname='uupool' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		$poolname=$row->poolname;
+		$hashrate=$row->hashrate;
+		$estreward=$row->estreward;
+		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
+		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";	
 		
 		return $table;
 		}
@@ -36,12 +50,27 @@ class Tests extends CI_Model {
 		
 		//////////////////////////////get hashrate////////////////////////////
 		$data['totalhashrate']=0;
-		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
+		$sql="SELECT hashrate FROM pools WHERE poolname='beepool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
 		//$row = $query->row();
 		foreach ($query->result() as $row){
 			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
 		}
+		
+		$sql="SELECT hashrate FROM pools WHERE poolname='f2pool' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		
+		$sql="SELECT hashrate FROM pools WHERE poolname='uupool' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		
 		$data['totalhashrate']=round(($data['totalhashrate']/1000)*($blockcounter/$top3block),2);
 		
 		return $data['totalhashrate'];
