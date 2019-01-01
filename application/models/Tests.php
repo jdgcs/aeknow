@@ -7,6 +7,7 @@ class Tests extends CI_Model {
 		$table="";
 		$sql="SELECT * FROM pools WHERE poolname='beepool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
+		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=$row->hashrate;
 		$estreward=$row->estreward;
@@ -15,6 +16,7 @@ class Tests extends CI_Model {
 		
 		$sql="SELECT * FROM pools WHERE poolname='f2pool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
+		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=$row->hashrate;
 		$estreward=$row->estreward;
@@ -23,6 +25,7 @@ class Tests extends CI_Model {
 		
 		$sql="SELECT * FROM pools WHERE poolname='uupool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
+		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=$row->hashrate;
 		$estreward=$row->estreward;
@@ -84,6 +87,7 @@ class Tests extends CI_Model {
 		///////////////////////////////////////////get blocks info////////////////////////////
 		$data['topheight']= $this->GetTopHeight();
 		$data['totalaemined']=$this->getTotalMined();	
+		$data['maxtps']= 116;
 		
 		$sql="SELECT time FROM miner WHERE height=1";
 		$query = $this->db->query($sql);
