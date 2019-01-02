@@ -8,9 +8,11 @@ class Aens extends CI_Controller {
 	
 	function query($aename){
 		$this->load->model('aenses');
-		echo $this->aenses->query($aename);
-		//$this->load->view('mblocks.html',$data);
+		if($this->aenses->query($aename)=="available"){
+			$data['aename']=$aename;
+			$this->load->view('reg.html',$data);
 		}
+	}
 
 }
 
