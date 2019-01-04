@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title> Register AENS of Aeternity - AEKnow</title>
-  <Meta name="keywords" content=" Wealth 500 of Aeternity,Aeternity,AEKnow">
+  <title>AENS of Aeternity - AEKnow</title>
+  <Meta name="keywords" content=" AENS,Aeternity Naming System,Aeternity,AEKnow">
+  <Meta name="description" content="AENS is the Aeternity Naming System, short AENS.">
+  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -51,12 +53,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-              Register
-        <small></small>
+       Aeternity Naming System
+        <small>Distributed</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
-        <li class="active"> Register aens</li>
+        <li class="active"> AENS</li>
       </ol>
     </section>
 
@@ -66,26 +68,34 @@
       <div class="row">
 
         <div class="col-md-9">
-<?php echo validation_errors(); ?>
+Naming System enables user-friendly identities for blockchain entities, such as user accounts, oracles, contracts, etc.
 
-<?php echo form_open('/aens/postreg'); ?>
-
-<h5>aens</h5>
-<input type="text" name="username" value="<?php echo $aename;?>" size="50" />
-
-<h5>Register Address</h5>
-<input type="text" name="password" value="" size="50" />
-
-<h5>Address Confirm</h5>
-<input type="text" name="passconf" value="" size="50" />
-
-<h5>Email Address</h5>
-<input type="text" name="email" value="" size="50" />
-
-<div><input type="submit" value="Submit" /></div>
-
-</form>
-
+<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Search & register</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">AENS</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                </div>                
+                
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> .test
+                  </label>
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
           <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->

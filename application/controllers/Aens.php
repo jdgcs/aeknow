@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aens extends CI_Controller {
 	public function index()
-	{	echo "aens";
+	{	
+		$this->load->view('aens.html',$data);
 	}
 	
 	function query($aename){
