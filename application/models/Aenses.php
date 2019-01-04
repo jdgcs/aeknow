@@ -4,13 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Aenses extends CI_Model {
 
 		public function query($aename){
+			$data['status']="";
+			$data['aename']=$aename;
 			$url=DATA_SRC_SITE.'v2/names/'.$aename;
 			$websrc=$this->getwebsrc($url);
 			if(strpos($websrc,"Name not found")>0){
-				return "available.";
+				$data['status']= "available.";
 				}else{
-				return $websrc;
+				$data['status']= $websrc;
 				}
+			return $data;
 		}
 		
 			
