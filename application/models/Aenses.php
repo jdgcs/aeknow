@@ -9,7 +9,7 @@ class Aenses extends CI_Model {
 			$url=DATA_SRC_SITE.'v2/names/'.$aename;
 			$websrc=$this->getwebsrc($url);
 			if(strpos($websrc,"Name not found")>0){
-				$data['status']= "available.";
+				$data['status']= "available";
 				}else{
 				$data['status']= $websrc;
 				}
