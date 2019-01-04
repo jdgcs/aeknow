@@ -74,11 +74,10 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="/aens/query/" method="get">
+
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">AENS</label>
-                  <input type="address" class="form-control" id="address" placeholder="aens name">
+                  AENS:<input type="address" class="form-control" id="address" placeholder="aens name">
                 </div>                
                 
                 <div class="checkbox">
@@ -86,12 +85,19 @@
                     <input type="checkbox"> .test
                   </label>
                 </div>
+                
+                <div class="pull-right">
+                <button type="button" value="Search"  name="B1" onclick="tj();">
+				<script type="text/javascript">
+    function tj(){
+        var uid = document.getElementById('address').value;
+        window.location.href = '/aens/query/'+uid+'.test';
+    }     
+</script>        
+              </div>
               </div>
               <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Search</button>
-              </div>
-            </form>
+
           </div>
           <!-- /.box -->
           <!-- /.nav-tabs-custom -->
