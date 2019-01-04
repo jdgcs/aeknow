@@ -77,7 +77,7 @@
 
               <div class="box-body">
                 <div class="form-group">
-                  AENS:<input type="address" class="form-control" id="address" placeholder="aens name">
+                  AENS:<input type="aename" class="form-control" id="aename" placeholder="aens name" autocomplete="off">
                 </div>                
                 
                 <div class="checkbox">
@@ -90,7 +90,7 @@
                 <button type="button" value="Search"  name="B1" onclick="tj();">Search</button>
 				<script type="text/javascript">
     function tj(){
-        var uid = document.getElementById('address').value;
+        var uid = document.getElementById('aename').value;
         window.location.href = '/aens/query/'+uid+'.test';
     }     
 </script>        
