@@ -54,7 +54,7 @@
     <section class="content-header">
       <h1>
        Aeternity Naming System
-        <small>Distributed</small>
+        <small>Enables user-friendly identities for blockchain entities, such as user accounts, oracles, contracts, etc.</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
@@ -68,19 +68,17 @@
       <div class="row">
 
         <div class="col-md-9">
-Naming System enables user-friendly identities for blockchain entities, such as user accounts, oracles, contracts, etc.
-
 <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Search & register</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" action="/aens/query/" method="get">
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">AENS</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  <input type="address" class="form-control" id="address" placeholder="aens name">
                 </div>                
                 
                 <div class="checkbox">
@@ -91,7 +89,7 @@ Naming System enables user-friendly identities for blockchain entities, such as 
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Search</button>
               </div>
             </form>
           </div>
