@@ -4,7 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Aens extends CI_Controller {
 	public function index()
 	{	
-		$this->load->view('aens.html');
+		$data['status']="";
+		$data['aename']="";
+		$this->load->view('aens.html',$data);
 	}
 	
 	function query($aename){
@@ -15,7 +17,7 @@ class Aens extends CI_Controller {
 		if($data['status']=="available"){			
 			$this->load->view('reg.html',$data);
 		}else{
-			echo $data['status'];
+			$this->load->view('aens.html',$data);
 			}
 	}
 
