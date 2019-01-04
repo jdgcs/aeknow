@@ -9,7 +9,7 @@ class Aenses extends CI_Model {
 			if(strpos($websrc,"Name not found")>0){
 				return "available.";
 				}else{
-				return $websrc.
+				return $websrc;
 				}
 		}
 		
