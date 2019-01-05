@@ -9,7 +9,7 @@ class Aens extends CI_Controller {
 		$this->load->view('aens.html',$data);
 	}
 	
-	function query($aename){
+	function query($aename=""){
 		$this->load->model('aenses');
 		$this->load->library('form_validation');
 		 
@@ -20,6 +20,13 @@ class Aens extends CI_Controller {
 			$this->load->view('aens.html',$data);
 			}
 	}
+	
+	function postreg($aename){
+		$aename=$this->input->post('aename');
+		$akaddress=$this->input->post('akaddress');
+		
+		echo "$aename:$akaddress recorded.";
+		}
 
 }
 
