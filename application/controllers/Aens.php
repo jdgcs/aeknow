@@ -21,7 +21,7 @@ class Aens extends CI_Controller {
 			}
 	}
 	
-	function postreg($aename){
+	function postreg(){
 		$aename=$this->input->post('aename');
 		$akaddress=$this->input->post('akaddress');
 		

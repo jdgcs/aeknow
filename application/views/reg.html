@@ -68,7 +68,7 @@
         <div class="col-md-9">
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('/aens/postreg'); ?>
+<form action="/aens/postreg" method="post" accept-charset="utf-8">
 
 <h5>AENS name:</h5>
 <input type="text" name="aename" value="<?php echo $aename;?>" size="50" />
