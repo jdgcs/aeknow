@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aenses extends CI_Model {
 
-		public function query($aename){
+		public function query(){
 			$data['status']="";
 			$data['aename']=$aename;
 			$url=DATA_SRC_SITE.'v2/names/'.$aename;
@@ -11,7 +11,7 @@ class Aenses extends CI_Model {
 			if(strpos($websrc,"Name not found")>0){
 				$data['status']= "available";
 				}else{
-				$data['status']= $websrc;
+				$data['status']= "$aename has been registered:<br />".$websrc."<>br /";
 				}
 			return $data;
 		}
