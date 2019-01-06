@@ -200,7 +200,7 @@ public function getPools(){
 		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=round($row->hashrate,2);
-		$estreward=round($row->estreward,2);
+		$estreward=round($row->estreward/10,2);
 		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
 		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
 		
@@ -209,7 +209,7 @@ public function getPools(){
 		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=round($row->hashrate,2);
-		$estreward=round($row->estreward,2);
+		$estreward=round($row->estreward/10,2);
 		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
 		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
 		
@@ -218,7 +218,7 @@ public function getPools(){
 		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=round($row->hashrate,2);
-		$estreward=round($row->estreward,2);
+		$estreward=round($row->estreward/10,2);
 		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
 		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";	
 		
