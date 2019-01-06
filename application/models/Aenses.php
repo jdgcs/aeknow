@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aenses extends CI_Model {
 
-		public function query(){
+		public function query($aename){
 			$data['status']="";
 			$data['aename']=$aename;
 			$url=DATA_SRC_SITE.'v2/names/'.$aename;
