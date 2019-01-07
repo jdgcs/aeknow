@@ -25,6 +25,14 @@ class Aens extends CI_Controller {
 		$aename=$this->input->post('aename');
 		$akaddress=$this->input->post('akaddress');
 		
+		$this->load->library('session');
+		$this->session->set_userdata('aename',$aename);
+		$this->session->set_userdata('akaddress',$akaddress);
+		
+		echo "Sessid:".$this->session->session_id;
+		echo "IP:".$this->session->ip_address;	
+		
+		
 		echo "$aename:$akaddress recorded.";
 		}
 

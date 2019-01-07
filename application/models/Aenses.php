@@ -11,7 +11,7 @@ class Aenses extends CI_Model {
 			if(strpos($websrc,"Name not found")>0){
 				$data['status']= "available";
 				}else{
-				$data['status']= "$aename has been registered:<br />".$websrc."<>br /";
+				$data['status']= "$aename has been registered:<br />".$websrc."<br />";
 				}
 			return $data;
 		}
