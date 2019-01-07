@@ -6,7 +6,7 @@ class Addresses extends CI_Model {
 	public function getWealth500(){
 		$data['wealth500']="";
 		$this->load->database();
-		$sql="select * from accountsinfo order by balance desc limit 500";
+		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500";
 		$query = $this->db->query($sql);
 		$counter=0;
 		foreach ($query->result() as $row){
