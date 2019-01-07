@@ -10,9 +10,7 @@ class Aens extends CI_Controller {
 	}
 	
 	function query($aename=""){
-		$this->load->model('aenses');
-		$this->load->library('form_validation');
-		 
+		$this->load->model('aenses');		 
 		$data=$this->aenses->query($aename);
 		if($data['status']=="available"){			
 			$this->load->view('reg.html',$data);
