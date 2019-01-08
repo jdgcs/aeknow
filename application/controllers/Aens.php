@@ -24,19 +24,25 @@ class Aens extends CI_Controller {
 	
 	function postreg(){
 		$aename=$this->input->post('aename');
-		$akaddress=$this->input->post('akaddress');
-		
+		$akaddress=$this->input->post('akaddress');		
 		$this->load->library('session');
 		//$this->session->set_userdata('aename',$aename);
 		$this->session->set_userdata('akaddress',$akaddress);
 		
-		echo "Sessid:".$this->session->session_id;
-		echo "<br/>Active:".$this->session->last_activity;
-		echo "<br/>Name:".$this->session->userdata('aename');;
-		echo "<br/>Address:".$this->session->userdata('akaddress');;
-		echo "<br/>Address:".$this->session->userdata('querytime');;	
+		//echo "Sessid:".$this->session->session_id;
+		//echo "<br/>Active:".$this->session->last_activity;
+		//echo "<br/>Name:".$this->session->userdata('aename');;
+		//echo "<br/>Address:".$this->session->userdata('akaddress');;
+		//echo "<br/>Address:".$this->session->userdata('querytime');;	
 		
-		
+		$lasttime=$this->session->userdata('querytime');
+		if(time()-$lasttime<5){
+				echo "Too quick";
+			}else{
+				echo "Recorded.<br />";
+				$this->session->set_userdata('querytime',time());
+			}
+			
 		//echo "$aename:$akaddress recorded.";
 		}
 
