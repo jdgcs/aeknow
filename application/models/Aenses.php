@@ -19,6 +19,7 @@ class Aenses extends CI_Model {
 		public function savetodb($aename,$akaddress){
 			$this->load->database();
 			$data['status']="";
+			$data['aename']=$aename;
 			$sql="SELECT * from regaens WHERE aename='$aename' AND akaddress='$akaddress'";
 			$query = $this->db->query($sql);
 			if($query->num_rows()==0){
