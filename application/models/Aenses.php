@@ -16,6 +16,21 @@ class Aenses extends CI_Model {
 			return $data;
 		}
 		
+		public function savetodb($aename,$akaddress){
+			$this->load->database();
+			$data['status']="";
+			$sql="SELECT * from regaens WHERE aename='$aenam' AND akaddress='$akaddress'";
+			$query = $this->db->query($sql);
+			if($query->num_rows()==0){
+				$sql_insert="INSERT INTO regaens(aename,akaddress,claimer,regpath) VALUES('$aename','$akaddress','','pub')";
+				$query = $this->db->query($sql_insert);
+				$data['status']= "$aename has been recorded for registering, it will be resgisterd in 2~3 blocks.";
+				}
+			
+			return $data;
+			
+			}
+		
 			
 	private function getwebsrc($url) {
 	$curl = curl_init ();
