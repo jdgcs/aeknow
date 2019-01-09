@@ -37,9 +37,12 @@ class Aens extends CI_Controller {
 		
 		$lasttime=$this->session->userdata('querytime');
 		if(time()-$lasttime<2){
-				echo "Too quick";
+				//echo "Too quick";
+				$data['status']="Too quick";
+				$data['aename']=$aename;
+				$this->load->view('aens.html',$data);
 			}else{
-				echo "Recorded.<br />";
+				//echo "Recorded.<br />";
 				$this->session->set_userdata('querytime',time());
 				$this->load->model('aenses');	
 				$data=$this->aenses->savetodb($aename,$akaddress);
