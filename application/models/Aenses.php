@@ -20,13 +20,16 @@ class Aenses extends CI_Model {
 			$this->load->database();
 			$data['status']="";
 			$data['aename']=$aename;
-			$sql="SELECT * from regaens WHERE aename='$aename' AND akaddress='$akaddress'";
+			$sql="SELECT * from regaens WHERE aename='$aename'";
 			$query = $this->db->query($sql);
 			if($query->num_rows()==0){
 				$sql_insert="INSERT INTO regaens(aename,akaddress,claimer,regpath) VALUES('$aename','$akaddress','ak_pANDBzM259a9UgZFeiCJyWjXSeRhqrBQ6UCBBeXfbCQyP33Tf','')";
 				$query = $this->db->query($sql_insert);
-				$data['status']= "$aename has been recorded for registering, it will be resgisterd in 2~3 blocks.";
+				$data['status']= "$aename has been recorded for registering, it would be resgisterd in 2~3 blocks.";
+				}else{
+				$data['status']= "$aename is waiting to be registered in database.";	
 				}
+				
 			
 			return $data;
 			
