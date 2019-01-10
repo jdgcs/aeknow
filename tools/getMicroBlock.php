@@ -1,7 +1,4 @@
 <?php
-//FullBlockSpider();
-
-
 while(1){
 	topImport();
 	keyBlockSpider();
@@ -14,11 +11,11 @@ while(1){
 function topImport(){
 	$url="http://127.0.0.1:3013/v2/blocks/top";
 	$websrc=getwebsrc($url);
+	$info=json_decode($websrc);W
 	if(strpos($websrc,"micro_block")>0){
-		$pattern='/(.*)"prev_hash":"(.*)","prev_key_hash(.*)/i';
-		$microblock=preg_match($pattern,$websrc, $match);
-		if(strpos("dd".$match[2],"mh_")>0){
-			ProcessMicroBlock($match[2]);	
+		$microblock=$info->micro_block->prev_hash;
+		if(strpos("dd".$microblock,"mh_")>0){
+			ProcessMicroBlock($microblock);	
 		}
 		
 		}
@@ -27,8 +24,8 @@ function topImport(){
 
 
 function selfSpider(){
-	//$sql="select prev_hash from microblock where prev_hash LIKE 'mh_%' AND height>".(GetTopHeight()-100)." order by time desc";
-	$sql="select prev_hash from microblock where prev_hash LIKE 'mh_%' order by time desc";
+	$sql="select prev_hash from microblock where prev_hash LIKE 'mh_%' AND height>".(GetTopHeight()-100)." order by time desc";
+	//$sql="select prev_hash from microblock where prev_hash LIKE 'mh_%' order by time desc";
 	$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
 	$db = pg_connect($conn_string);
 	$result_query = pg_query($db, $sql);
@@ -41,7 +38,7 @@ function selfSpider(){
 
 function keyBlockSpider(){
 	$sql="select prev_hash from miner where prev_hash LIKE 'mh_%' AND height>".(GetTopHeight()-100);
-	$sql="select prev_hash from miner where prev_hash LIKE 'mh_%'";
+	//$sql="select prev_hash from miner where prev_hash LIKE 'mh_%'";
 	$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
 	$db = pg_connect($conn_string);
 	$result_query = pg_query($db, $sql);
@@ -96,18 +93,18 @@ function ProcessMicroBlock($microhash){
 	if (pg_num_rows($result_query1) == 0) {
 		$url="http://127.0.0.1:3013/v2/micro-blocks/hash/$microhash/header";
 		$websrc=getwebsrc($url);
-		$pattern='/{"hash":"(.*)","height":(.*),"pof_hash":"(.*)","prev_hash":"(.*)","prev_key_hash":"(.*)","signature":"(.*)","state_hash":"(.*)","time":(.*),"txs_hash":"(.*)","version":(.*)}/i';
-		preg_match($pattern,$websrc, $match);
-			$hash=$match[1];
-			$height=$match[2];
-			$pof_hash=$match[3];
-			$prev_hash=$match[4];
-			$prev_key_hash=$match[5];
-			$signature=$match[6];
-			$state_hash=$match[7];
-			$time=$match[8];
-			$txs_hash=$match[9];
-			$version=$match[10];
+		$websrc=getwebsrc($url);
+		$info=json_decode($websrc);
+			$hash=$info->hash;
+			$height=$info->height;
+			$pof_hash=$info->pof_hash;
+			$prev_hash=$info->prev_hash;
+			$prev_key_hash=$info->prev_key_hash;
+			$signature=$info->signature;
+			$state_hash=$info->state_hash;
+			$time=$info->time;
+			$txs_hash=$info->txs_hash;
+			$version=$info->version;
 		$sql_insert="INSERT INTO microblock(hash,height,pof_hash,prev_hash,prev_key_hash,signature,state_hash,time,txs_hash,version) VALUES('$hash',$height,'$pof_hash','$prev_hash','$prev_key_hash','$signature','$state_hash',$time,'$txs_hash',$version)";
 		$result_insert = pg_query($db1, $sql_insert);		
 		echo "\n$microhash ...inserted\n";
@@ -118,20 +115,16 @@ function ProcessMicroBlock($microhash){
 function GetTopHeight()	{
 	$url="http://127.0.0.1:3013/v2/blocks/top";
 	$websrc=getwebsrc($url);
-	if(strpos($websrc,"key_block")==TRUE){
-		$pattern='/{\"key_block\":{"beneficiary\":\"(.*)\",\"hash\":\"(.*)\",\"height\":(.*),\"miner\":\"(.*)\",\"nonce\":(.*),\"pow\":(.*),\"prev_hash\":\"(.*)\",\"prev_key_hash\":\"(.*)\",\"state_hash\":\"(.*)\",\"target\":(.*),\"time\":(.*),\"version\":(.*)}}/i';
-		preg_match($pattern,$websrc, $match);
-		return $match[3];
+	$info=json_decode($websrc);
+	if(strpos($websrc,"key_block")==TRUE){		
+		return $info->key_block->height;
 	}
-	
+		
 	if(strpos($websrc,"micro_block")==TRUE){
-		$pattern='/(.*),"height":(.*),"pof_hash"(.*)/i';
-		preg_match($pattern,$websrc, $match);
-		return $match[2];
+		return $info->micro_block->height;
 		}
 	
 	return 0;
-	//print_r($match);
 	}
 
 function getwebsrc($url) {
