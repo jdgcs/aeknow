@@ -11,7 +11,7 @@ while(1){
 function topImport(){
 	$url="http://127.0.0.1:3013/v2/blocks/top";
 	$websrc=getwebsrc($url);
-	$info=json_decode($websrc);W
+	$info=json_decode($websrc);
 	if(strpos($websrc,"micro_block")>0){
 		$microblock=$info->micro_block->prev_hash;
 		if(strpos("dd".$microblock,"mh_")>0){
