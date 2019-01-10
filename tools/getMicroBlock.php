@@ -1,4 +1,6 @@
 <?php
+include "config.php";
+
 while(1){
 	topImport();
 	keyBlockSpider();
@@ -9,7 +11,7 @@ while(1){
 
 
 function topImport(){
-	$url="http://127.0.0.1:3013/v2/blocks/top";
+	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=getwebsrc($url);
 	$info=json_decode($websrc);
 	if(strpos($websrc,"micro_block")>0){
@@ -91,7 +93,7 @@ function ProcessMicroBlock($microhash){
 	$result_query1 = pg_query($db1, $sql);
 	
 	if (pg_num_rows($result_query1) == 0) {
-		$url="http://127.0.0.1:3013/v2/micro-blocks/hash/$microhash/header";
+		$url=DATA_SRC_SITE."v2/micro-blocks/hash/$microhash/header";
 		$websrc=getwebsrc($url);
 		$websrc=getwebsrc($url);
 		$info=json_decode($websrc);
@@ -113,7 +115,7 @@ function ProcessMicroBlock($microhash){
 	}
 
 function GetTopHeight()	{
-	$url="http://127.0.0.1:3013/v2/blocks/top";
+	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=getwebsrc($url);
 	$info=json_decode($websrc);
 	if(strpos($websrc,"key_block")==TRUE){		
