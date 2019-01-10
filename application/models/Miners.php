@@ -383,7 +383,7 @@ public function getBlockHeight($keyblockhash){
 
 
 private function GetTopHeight()	{
-	$url="http://127.0.0.1:3013/v2/blocks/top";
+	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"key_block")==TRUE){
 		$pattern='/{\"key_block\":{"beneficiary\":\"(.*)\",\"hash\":\"(.*)\",\"height\":(.*),\"miner\":\"(.*)\",\"nonce\":(.*),\"pow\":(.*),\"prev_hash\":\"(.*)\",\"prev_key_hash\":\"(.*)\",\"state_hash\":\"(.*)\",\"target\":(.*),\"time\":(.*),\"version\":(.*)}}/i';
