@@ -159,7 +159,7 @@ class Miners extends CI_Model {
 		}
 		
 		//////////////////////////////get difficulty////////////////////////////
-		$url="http://52.77.168.79:3013/v2/status";
+		$url=DATA_SRC_SITE."v2/status";
 		$websrc=$this->getwebsrc($url);
 		$data['peer_count']=0;
 		if(strpos($websrc,"difficulty")>0){
