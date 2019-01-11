@@ -155,7 +155,7 @@ class Blocks extends CI_Model {
 			}
 		$tagstr="tag ".$data['prev_hash'];
 		if(strpos($tagstr,"mh_")>0){
-			$data['prev_hash']='<a href="../microblock/'.$data['prev_hash'].'">'.$data['prev_hash'].'</a>';
+			$data['prev_hash']='<a href="/block/microblock/'.$data['prev_hash'].'">'.$data['prev_hash'].'</a>';
 		}
 	
 		$utctime=round(($data['time']/1000),0);

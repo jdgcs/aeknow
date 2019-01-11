@@ -36,6 +36,7 @@ function ProcessTransactions($hash){
 	$websrc=getwebsrc($url);
 	$info=json_decode($websrc);
 	$txcounter=count($info->transactions);
+	
 	for($m=0;$m<$txcounter;$m++){
 		$type=$info->transactions[$m]->tx->type;
 		if($type=='SpendTx'){
