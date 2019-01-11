@@ -11,7 +11,7 @@ class Aenses extends CI_Model {
 			if(strpos($websrc,"Name not found")>0){
 				$data['status']= "available";
 				}else{
-				$data['status']= '<div class="alert alert-warning alert-dismissible" style="overflow:scroll;">
+				$data['status']= '<div class="alert alert-warning alert-dismissible" style="overflow:auto;">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4><i class="icon fa fa-warning"></i> '.$aename.' has been registered.</h4>
                 '.$websrc.'
