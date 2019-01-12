@@ -10,7 +10,8 @@ class Aens extends CI_Controller {
 	}
 	
 	function query($aename=""){
-		$this->load->model('aenses');		 
+		$this->load->model('aenses');	
+		$aename=strtolower($aename)	;
 		$data=$this->aenses->query($aename);
 		if($data['status']=="available"){	
 			$this->load->library('session');
@@ -45,6 +46,7 @@ class Aens extends CI_Controller {
 				//echo "Recorded.<br />";
 				$this->session->set_userdata('querytime',time());
 				$this->load->model('aenses');	
+				$aename=strtolower($aename)	;
 				$data=$this->aenses->savetodb($aename,$akaddress);
 				$this->load->view('aens.html',$data);
 			}
