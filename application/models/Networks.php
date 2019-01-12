@@ -22,7 +22,7 @@ class Networks extends CI_Model {
 		$totalheight=$data['topheight'];		
 		$data['avgminsperblock']=round($totalmins/$totalheight,2);
 		
-		$url="http://127.0.0.1:3013/v2/key-blocks/height/$totalheight";
+		$url=DATA_SRC_SITE."v2/key-blocks/height/$totalheight";
 		$websrc=$this->getwebsrc($url);
 		$data['lastime']="";
 		if(strpos($websrc,"time")>0){
@@ -57,7 +57,7 @@ class Networks extends CI_Model {
 		
 		///////////////////////////////////////
 		//////////////////////////////get difficulty////////////////////////////
-		$url="http://127.0.0.1:3013/v2/status";
+		$url=DATA_SRC_SITE."v2/status";
 		$websrc=$this->getwebsrc($url);
 		$data['peer_count']=0;
 		if(strpos($websrc,"difficulty")>0){
@@ -155,7 +155,7 @@ public function getHashRate(){
 	}
 
 private function GetTopHeight()	{
-	$url="http://127.0.0.1:3013/v2/blocks/top";
+	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"key_block")==TRUE){
 		$pattern='/{\"key_block\":{"beneficiary\":\"(.*)\",\"hash\":\"(.*)\",\"height\":(.*),\"miner\":\"(.*)\",\"nonce\":(.*),\"pow\":(.*),\"prev_hash\":\"(.*)\",\"prev_key_hash\":\"(.*)\",\"state_hash\":\"(.*)\",\"target\":(.*),\"time\":(.*),\"version\":(.*)}}/i';

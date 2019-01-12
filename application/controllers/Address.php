@@ -147,7 +147,7 @@ class Address extends CI_Controller {
 		}
 		
 		//////////////////////////////get difficulty////////////////////////////
-		$url="http://127.0.0.1:3013/v2/status";
+		$url=DATA_SRC_SITE."v2/status";
 		$websrc=$this->getwebsrc($url);
 		$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
 		preg_match($pattern,$websrc, $match);
@@ -335,7 +335,7 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 		return $data['totalreward'];
 		}
 	private function GetTopHeight()	{
-	$url="http://127.0.0.1:3013/v2/blocks/top";
+	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"key_block")==TRUE){
 		$pattern='/{\"key_block\":{"beneficiary\":\"(.*)\",\"hash\":\"(.*)\",\"height\":(.*),\"miner\":\"(.*)\",\"nonce\":(.*),\"pow\":(.*),\"prev_hash\":\"(.*)\",\"prev_key_hash\":\"(.*)\",\"state_hash\":\"(.*)\",\"target\":(.*),\"time\":(.*),\"version\":(.*)}}/i';
