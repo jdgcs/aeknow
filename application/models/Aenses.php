@@ -33,6 +33,10 @@ class Aenses extends CI_Model {
 			$this->load->database();
 			$data['status']="";
 			$data['aename']=$aename;
+			if(strpos($aename,"k_")==false || strlen($aename)<30){
+				$data['status']="<b>Invalid ak_address!</b>";
+				return $data;
+				}
 			$sql="SELECT * from regaens WHERE aename='$aename'";
 			$query = $this->db->query($sql);
 			if($query->num_rows()==0){
