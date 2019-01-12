@@ -33,8 +33,14 @@ class Aenses extends CI_Model {
 			$this->load->database();
 			$data['status']="";
 			$data['aename']=$aename;
+			
+			$regex = '/^[a-z0-9]+$/i';
+			if(preg_match($regex,$aename)){					
+			}else{
+				$data['status']="<b>Invalid aename:$aename!</b>";
+				}
 			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<30){
-				$data['status']="<b>Invalid ak_address!</b>";
+				$data['status']="<b>Invalid ak_address:$akaddress !</b>";
 				return $data;
 				}
 			$sql="SELECT * from regaens WHERE aename='$aename'";
