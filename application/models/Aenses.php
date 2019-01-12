@@ -38,6 +38,7 @@ class Aenses extends CI_Model {
 			if(preg_match($regex,$aename)){					
 			}else{
 				$data['status']="<b>Invalid aename:$aename!</b>";
+				return $data;
 				}
 			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<30){
 				$data['status']="<b>Invalid ak_address:$akaddress !</b>";
