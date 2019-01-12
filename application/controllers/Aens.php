@@ -16,7 +16,7 @@ class Aens extends CI_Controller {
 			$this->load->library('session');
 			$this->session->set_userdata('aename',$aename);
 			$this->session->set_userdata('querytime',time());		
-			$this->load->view('reg.html',$data);
+			$this->load->view('aens_reg.html',$data);
 		}else{
 			$this->load->view('aens.html',$data);
 			}

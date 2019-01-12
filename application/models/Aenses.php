@@ -9,13 +9,22 @@ class Aenses extends CI_Model {
 			$url=DATA_SRC_SITE.'v2/names/'.$aename;
 			$websrc=$this->getwebsrc($url);
 			if(strpos($websrc,"Name not found")>0){
-				$data['status']= "available";
+					$data['status']= "available";
+					$this->load->database();
+					$sql="SELECT * FROM regaens WHERE aename='$aename'";
+					$query = $this->db->query($sql);
+					if($query->num_rows()>0){
+						$data['status']= '<div class="alert alert-warning alert-dismissible" style="overflow:auto;">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-warning"></i> '.$aename.' has been registered by others.</h4>
+						  </div>';
+						}
 				}else{
-				$data['status']= '<div class="alert alert-warning alert-dismissible" style="overflow:auto;">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-warning"></i> '.$aename.' has been registered.</h4>
-                '.$websrc.'
-              </div>';
+					$data['status']= '<div class="alert alert-warning alert-dismissible" style="overflow:auto;">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h4><i class="icon fa fa-warning"></i> '.$aename.' has been registered.</h4>
+					'.$websrc.'
+				  </div>';
 				}
 			return $data;
 		}
@@ -29,7 +38,11 @@ class Aenses extends CI_Model {
 			if($query->num_rows()==0){
 				$sql_insert="INSERT INTO regaens(aename,akaddress,claimer,regpath) VALUES('$aename','$akaddress','ak_pANDBzM259a9UgZFeiCJyWjXSeRhqrBQ6UCBBeXfbCQyP33Tf','')";
 				$query = $this->db->query($sql_insert);
-				$data['status']= "$aename has been recorded for registering, it would be resgisterd in 2~3 blocks.";
+				//$data['status']= "$aename has been recorded for registering, it would be resgisterd in 2~3 blocks.";
+				$data['status']= '<div class="alert alert-success alert-dismissible" style="overflow:auto;">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-warning"></i> '.$aename.' has been recorded for registering, it would be resgisterd in 2~3 blocks.</h4>
+						  </div>';
 				}else{
 				$data['status']= "$aename is waiting to be registered in database.";	
 				}
