@@ -33,7 +33,7 @@ class Aenses extends CI_Model {
 			$this->load->database();
 			$data['status']="";
 			$data['aename']=$aename;
-			if(strpos($aename,"k_")<1 || strlen($aename)<30){
+			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<30){
 				$data['status']="<b>Invalid ak_address!</b>";
 				return $data;
 				}
