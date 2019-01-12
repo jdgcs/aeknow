@@ -41,7 +41,7 @@ class Aenses extends CI_Model {
 				//$data['status']= "$aename has been recorded for registering, it would be resgisterd in 2~3 blocks.";
 				$data['status']= '<div class="alert alert-success alert-dismissible" style="overflow:auto;">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<h4><i class="icon fa fa-warning"></i> '.$aename.' has been recorded for registering, it would be resgisterd in 2~3 blocks.</h4>
+							<h4><i class="icon fa fa-check"></i> '.$aename.' has been recorded for registering, it would be resgisterd in 2~3 blocks.</h4>
 						  </div>';
 				}else{
 				$data['status']= "$aename is waiting to be registered in database.";	
