@@ -32,7 +32,7 @@ class Aenses extends CI_Model {
 		public function savetodb($aename,$akaddress){
 			$this->load->database();
 			$data['status']="";
-			$data['aename']=$aename;
+			$data['aename']=trim($aename);
 			
 			$checkstr=substr($aename,0,strlen($aename)-5);
 			$regex = '/^[a-z0-9]+$/i';
