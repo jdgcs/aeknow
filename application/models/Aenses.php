@@ -34,14 +34,21 @@ class Aenses extends CI_Model {
 			$data['status']="";
 			$data['aename']=$aename;
 			
+			$checkstr=substr($aename,0,strlen($aename)-5);
 			$regex = '/^[a-z0-9]+$/i';
-			if(preg_match($regex,$aename)){					
+			if(preg_match($regex,$checkstr)){					
 			}else{
-				$data['status']="<b>Invalid aename:$aename!</b>";
+				$data['status']='<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Invalid aename:'.$aename.'</h4>
+              </div>';
 				return $data;
 				}
-			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<30){
-				$data['status']="<b>Invalid ak_address:$akaddress !</b>";
+			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<30){			
+				$data['status']='<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Invalid ak_address:'.$akaddress.'</h4>
+              </div>';
 				return $data;
 				}
 			$sql="SELECT * from regaens WHERE aename='$aename'";
