@@ -53,7 +53,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-             <div id="text"> <?php echo $account;?></div>
+             <div > <?php echo $account;?></div>
         <small>Balance, Mining, Transactions</small>
       </h1>
       <ol class="breadcrumb">
@@ -83,6 +83,7 @@
 </style>
 
 <div class="wrapper" style="background-color:white;">
+  <small> <p id="text" style="background-color:white;"> <?php echo $account;?></p></small>
    <textarea id="input" > <?php echo $account;?></textarea>
    <button onclick="copyText()" >Click copy address</button>
 </div>
