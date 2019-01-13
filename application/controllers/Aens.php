@@ -11,7 +11,7 @@ class Aens extends CI_Controller {
 	
 	function query($aename=""){
 		$this->load->model('aenses');	
-		$aename=strtolower($aename)	;
+		$aename=trim(strtolower($aename));
 		$data=$this->aenses->query($aename);
 		if($data['status']=="available"){	
 			$this->load->library('session');
@@ -24,8 +24,8 @@ class Aens extends CI_Controller {
 	}
 	
 	function postreg(){
-		$aename=$this->input->post('aename');
-		$akaddress=$this->input->post('akaddress');		
+		$aename=trim(strtolower($this->input->post('aename')));
+		$akaddress=trim($this->input->post('akaddress'));		
 		$this->load->library('session');
 		//$this->session->set_userdata('aename',$aename);
 		$this->session->set_userdata('akaddress',$akaddress);
