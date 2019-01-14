@@ -33,6 +33,19 @@ class Aenses extends CI_Model {
 			$this->load->database();
 			$data['status']="";
 			$data['aename']=trim($aename);
+			$reglimit=500;
+			
+			$tagtime=time()-24*3600;
+			$sql="SELECT count(*) FROM regaens WHERE akaddress='$akaddress' and updatetime>$tagtime";
+			$query = $this->db->query($sql);
+			$row = $query->row();		
+			if($row->count>$reglimit){
+				$data['status']='<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> '.$akaddress.' has registered more than '.$reglimit.' AENS names in the last 24 hours.</h4>
+              </div>';
+				return $data;
+				} 
 			
 			$checkstr=substr($aename,0,strlen($aename)-5);
 			$regex = '/^[a-z0-9]+$/i';
