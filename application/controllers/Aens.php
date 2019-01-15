@@ -27,15 +27,7 @@ class Aens extends CI_Controller {
 		$aename=trim(strtolower($this->input->post('aename')));
 		$akaddress=trim($this->input->post('akaddress'));		
 		$this->load->library('session');
-		//$this->session->set_userdata('aename',$aename);
-		$this->session->set_userdata('akaddress',$akaddress);
-		
-		//echo "Sessid:".$this->session->session_id;
-		//echo "<br/>Active:".$this->session->last_activity;
-		//echo "<br/>Name:".$this->session->userdata('aename');;
-		//echo "<br/>Address:".$this->session->userdata('akaddress');;
-		//echo "<br/>Address:".$this->session->userdata('querytime');;	
-		
+		$this->session->set_userdata('akaddress',$akaddress);		
 		$lasttime=$this->session->userdata('querytime');
 		if(time()-$lasttime<2){
 				//echo "Too quick";
@@ -53,6 +45,13 @@ class Aens extends CI_Controller {
 			
 		//echo "$aename:$akaddress recorded.";
 		}
+		
+		
+		function checkreg($akaddess=""){
+			$this->load->model('aenses');	
+			$data=$this->aenses->getNames($akaddress);
+			$this->load->view('aens_list.html',$data);
+			}
 
 }
 

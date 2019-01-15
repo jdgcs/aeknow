@@ -83,7 +83,21 @@ class Aenses extends CI_Model {
 			
 			}
 		
-			
+public getNames($akaddress){
+		$this->load->database();
+		$data['status']="";
+		$sql="SELECT aename WHERE akaddress='$adaddress' AND pointer is not NULL";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row){
+			$aename=$row->aename;
+			//$akaddress=$row->akaddress;
+			$data['status'].='<li><a href="/aens/query/'.$aename.'">'.$aename.'</a></li>';			
+		}
+		
+		return $data;
+	}
+		
+				
 	private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AEKnow-bot";
