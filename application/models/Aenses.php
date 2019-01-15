@@ -86,7 +86,7 @@ class Aenses extends CI_Model {
 public function getNames($akaddress){
 		$this->load->database();
 		$data['status']="";
-		$sql="SELECT aename WHERE akaddress='$akaddress' AND pointer is not NULL";
+		$sql="SELECT aename FROM regaens WHERE akaddress='$akaddress' AND pointer is not NULL";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row){
 			$aename=$row->aename;
