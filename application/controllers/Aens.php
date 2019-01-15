@@ -47,7 +47,7 @@ class Aens extends CI_Controller {
 		}
 		
 		
-		function checkreg($akaddress=""){
+		function checkmyaens($akaddress=""){
 			$this->load->model('aenses');	
 			$data=$this->aenses->getNames($akaddress);
 			$this->load->view('aens_list.html',$data);
