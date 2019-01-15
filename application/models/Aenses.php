@@ -91,7 +91,7 @@ public function getNames($akaddress){
 			$data['status']="Error address";
 			return $data;
 			}
-		$sql="SELECT aename FROM regaens WHERE akaddress='$akaddress' AND pointer is not NULL";
+		$sql="SELECT aename FROM regaens WHERE akaddress='$akaddress' AND pointer is not NULL order by aename";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row){
 			$aename=$row->aename;
