@@ -93,7 +93,20 @@
 		</div>
         <!-- /.box-body -->
         <div class="box-footer">
-         
+         Tools:<br/>Check my names:
+         <center>
+				<div class="input-group">
+					<input type="checkmyaens" class="form-control" id="checkmyaens" placeholder="ak_ address." autocomplete="off" style="width:300px;">				
+				</div>
+				<br />
+			<button type="button" class="btn btn-block btn-primary btn-lg" style="background-color:#f7296e;width:200px;"  onclick="checkmyaens();">Check My AENS Name</button>
+		<script type="text/javascript">
+			function checkmyaens(){
+				var akaddress = document.getElementById('checkmyaens').value;
+				window.location.href = '/aens/checkmyaens/'+akaddress;
+			}     
+		</script>        
+			</center>        
         </div>
         <!-- /.box-footer-->
       </div>
