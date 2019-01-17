@@ -57,7 +57,7 @@ class Aenses extends CI_Model {
               </div>';
 				return $data;
 				}
-			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<48 || strlen($akaddress)>53){			
+			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<47 || strlen($akaddress)>53){			
 				$data['status']='<div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4><i class="icon fa fa-ban"></i> Invalid ak_address:'.$akaddress.'</h4>
