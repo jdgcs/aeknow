@@ -57,7 +57,7 @@ class Aenses extends CI_Model {
               </div>';
 				return $data;
 				}
-			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<30){			
+			if(strpos($akaddress,"k_")<1 || strlen($akaddress)<51 || strlen($akaddress)>53){			
 				$data['status']='<div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4><i class="icon fa fa-ban"></i> Invalid ak_address:'.$akaddress.'</h4>
@@ -67,7 +67,11 @@ class Aenses extends CI_Model {
 			$sql="SELECT * from regaens WHERE aename='$aename'";
 			$query = $this->db->query($sql);
 			if($query->num_rows()==0){
-				$sql_insert="INSERT INTO regaens(aename,akaddress,claimer,regpath) VALUES('$aename','$akaddress','ak_pANDBzM259a9UgZFeiCJyWjXSeRhqrBQ6UCBBeXfbCQyP33Tf','')";
+				$worker=$this->getWorker();
+				$claimer=$worker['claimer'];
+				$regpath=$worker['regpath'];
+				//$sql_insert="INSERT INTO regaens(aename,akaddress,claimer,regpath) VALUES('$aename','$akaddress','ak_pANDBzM259a9UgZFeiCJyWjXSeRhqrBQ6UCBBeXfbCQyP33Tf','')";
+				$sql_insert="INSERT INTO regaens(aename,akaddress,claimer,regpath) VALUES('$aename','$akaddress','$claimer','$regpath')";
 				$query = $this->db->query($sql_insert);
 				//$data['status']= "$aename has been recorded for registering, it would be resgisterd in 2~3 blocks.";
 				$data['status']= '<div class="alert alert-success alert-dismissible" style="overflow:auto;">
@@ -82,7 +86,30 @@ class Aenses extends CI_Model {
 			return $data;
 			
 			}
+
+
+//Get a worker who did the least jobs to regaens
+private function getWorker(){
+	$this->load->database();
+	$data['claimer']="ak_pANDBzM259a9UgZFeiCJyWjXSeRhqrBQ6UCBBeXfbCQyP33Tf";
+	$data['regpath']="";
+	
+	$sql="SELECT waddress,wpath FROM workers ORDER BY jobs ASC LIMIT 1";
+	$query = $this->db->query($sql);
+	foreach ($query->result() as $row){
+		$waddress=$row->waddress;
+		$data['claimer']=$waddress;
+		$data['regpath']=$row->wpath;
 		
+		$sql_update="UPDATE workers SET jobs=jobs+1 WHERE waddress='$waddress'";
+		$query_update= $this->db->query($sql_update);		
+		}
+	
+	return $data;
+	
+	}		
+	
+	
 public function getNames($akaddress){
 		$this->load->database();
 		$data['status']="";
