@@ -141,7 +141,7 @@ public function getNames($akaddress){
 		
 		$sql="SELECT aename FROM regaens WHERE pointer is not NULL order by nsid desc limit 20";
 		$query = $this->db->query($sql);
-		$data['latest20']=0;
+		$data['latest20']="";
 		foreach ($query->result() as $row){
 			$aename=$row->aename;
 			$data['latest20'].="<li>$aename</li>\n";
