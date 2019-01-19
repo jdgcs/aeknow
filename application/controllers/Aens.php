@@ -4,9 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Aens extends CI_Controller {
 	public function index()
 	{	
+		$this->load->model('aenses');	
+		$data=$this->aenses->regStatus($aename);
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('aens.html',$data);
+		//$this->output->cache(1);
 	}
 	
 	function query($aename=""){

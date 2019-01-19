@@ -129,7 +129,27 @@ public function getNames($akaddress){
 		return $data;
 	}
 		
-				
+	public function regStatus(){
+		$this->load->database();
+		
+		$sql="SELECT count(*) FROM regaens";
+		$query = $this->db->query($sql);
+		$data['totalreg']=0;
+		foreach ($query->result() as $row){
+			$data['totalreg']=$row->count;
+		}
+		
+		$sql="SELECT aename FROM regaens WHERE pointer is not NULL order by nsid desc limit 20";
+		$query = $this->db->query($sql);
+		$data['latest20']=0;
+		foreach ($query->result() as $row){
+			$aename=$row->aename;
+			$data['latest20'].="<li>$aename</li>\n";
+		}
+		
+		return $data;
+		
+	}
 	private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AEKnow-bot";
