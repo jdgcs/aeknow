@@ -8,8 +8,8 @@ class Aens extends CI_Controller {
 		$data=$this->aenses->regStatus();
 		$data['status']="";
 		$data['aename']="";
-		$this->load->view('aens.html',$data);
-		//$this->output->cache(1);
+		$this->load->view('aens_index.html',$data);
+		$this->output->cache(10);
 	}
 	
 	function query($aename=""){
