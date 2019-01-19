@@ -5,7 +5,7 @@ class Aens extends CI_Controller {
 	public function index()
 	{	
 		$this->load->model('aenses');	
-		$data=$this->aenses->regStatus($aename);
+		$data=$this->aenses->regStatus();
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('aens.html',$data);
