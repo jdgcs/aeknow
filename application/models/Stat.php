@@ -11,7 +11,7 @@ class Stat extends CI_Model {
 			$step=round(($nowtime-1545990947)/100,0);
 			
 			for($i=0;$i<100;$i++){
-				$sql="SELECT hashrate,updatetime from pool WHERE poolname='beepool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
+				$sql="SELECT hashrate,updatetime from pools WHERE poolname='beepool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
 				$query = $this->db->query($sql);
 				$row = $query->row();
 				$hashrate= $row->hashrate;
