@@ -5,7 +5,7 @@ class Stat extends CI_Model {
 
 		public function getHashrate(){
 			$data['title']="Aeternity Mining Hashrate";		
-			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate": 16608}';
+			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate": 3186}';
 			$this->load->database();
 			$nowtime=time();
 			$step=round(($nowtime-1545990947)/100,0);
@@ -16,7 +16,7 @@ class Stat extends CI_Model {
 				$row = $query->row();
 				$hashrate= $row->hashrate;
 				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
-				$data['tabledata'].=',{"period": "'.$updatetime.'", "difficulty":'.$hashrate.'}';
+				$data['tabledata'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate.'}';
 				}
 			
 			return $data;
