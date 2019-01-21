@@ -6,7 +6,7 @@ class Stat extends CI_Model {
 		public function getHashrate(){
 			$data['title']="Aeternity Mining Hashrate";		
 			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate": 4319.245}';
-			$data['tabledata_bee']='{"period_bee": "2018-12-28 17:55:47", "hashrate_bee: 1046}';
+			$data['tabledata_bee']='{"period": "2018-12-28 17:55:47", "hashrate: 3186}';
 			$data['tabledata_f2']='{"period_f2": "2018-12-28 17:55:47", "hashrate_f2": 1046}';			
 			$data['tabledata_uu']='{"period_uu": "2018-12-28 17:55:47", "hashrate_f2": 1046}';
 			
@@ -20,7 +20,7 @@ class Stat extends CI_Model {
 				$row = $query->row();
 				$hashrate_bee= $row->hashrate;
 				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
-				$data['tabledata_bee'].=',{"period_bee": "'.$updatetime.'", "hashrate_bee":'.$hashrate_bee.'}';
+				$data['tabledata_bee'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate_bee.'}';
 				
 				$sql="SELECT hashrate,updatetime from pools WHERE poolname='f2pool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
 				$query = $this->db->query($sql);
