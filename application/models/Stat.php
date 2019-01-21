@@ -38,6 +38,7 @@ class Stat extends CI_Model {
 				
 				$hashrate=$hashrate_bee+$hashrate_f2+$hashrate_uu;
 				$data['tabledata'].=',{"period": "'.$updatetime.'","hashrate":'.$hashrate.'}';
+				//$data['tabledata'].=',{"period": "'.$updatetime.'","hashrate_bee":'.$hashrate_bee.',"hashrate_f2":'.$hashrate_f2.',"hashrate_uu":'.$hashrate_uu.'}';
 				}
 			
 			return $data;

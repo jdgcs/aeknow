@@ -55,7 +55,7 @@
     <section class="content-header">
       <h1>
               <?php echo $title;?>
-        <small>Mining difficulty, current and historical.</small>
+        <small>Mining hashrate, current and historical.</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
@@ -68,7 +68,7 @@
         
         
           <div class="box box-primary"  style="margin-left:10px">
-			         <h4>   &nbsp;  &nbsp; <b>Difficulty</b> means that about the difficulty solutions, there would be one solution meet the target and mine a block. About 1/50 calculations of miner could find a solution.</h4>
+			         <h4>   &nbsp;  &nbsp; <b>Hashrate</b> means that about the difficulty solutions, there would be one solution meet the target and mine a block. About 1/50 calculations of miner could find a solution.</h4>
             <div class="box-header with-border">
               <h3 class="box-title">Historical Difficulty</h3>
 
@@ -81,10 +81,7 @@
             <div class="box-body chart-responsive">
               <div class="chart" id="revenue-chart" style="height: 300px;"></div>
             </div>
-            
-              <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 250px;"></div>
-            </div>
+      
             <!-- /.box-body -->
 <b>References</b>:<br/>
 <li><a href=https://forum.aeternity.com/t/current-mining-stats/1664/4 target=_blank>https://forum.aeternity.com/t/current-mining-stats/1664/4</a></li>
@@ -162,22 +159,6 @@
       lineColors: ['#ee256f'],
       hideHover: 'auto'
     });
-	
-    
-	 var line = new Morris.Line({
-      element: 'line-chart',
-      resize: true,
-      data: [
-<?php echo $tabledata_bee;?>
-      ],
-      xkey: 'period_bee',
-      ykeys: ['hashrate_bee'],
-      labels: ['hashrate(K)'],
-      lineColors: ['#ee256f'],
-      hideHover: 'auto'
-    });
-  
-  
 
 
   });
