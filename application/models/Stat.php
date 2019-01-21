@@ -18,14 +18,15 @@ class Stat extends CI_Model {
 				$row = $query->row();
 				$hashrate= $row->hashrate;
 				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
-				$data['tabledata'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate.'}';
+				//$data['tabledata'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate.'}';
 				
 				$sql="SELECT hashrate,updatetime from pools WHERE poolname='f2pool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
 				$query = $this->db->query($sql);
 				$row = $query->row();
-				$hashrate= $row->hashrate;
+				$hashrate_f2= $row->hashrate;
 				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
-				$data['tabledata_f2'].=',{"period_f2": "'.$updatetime.'", "hashrate_f2":'.$hashrate.'}';
+				//{ y: '2011 Q3', item1: 4912, item2: 1969 },
+				$data['tabledata'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate.', "hashrate_f2":'.$hashrate_f2.'}';
 				
 				}
 			

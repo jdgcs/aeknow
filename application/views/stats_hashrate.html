@@ -153,25 +153,12 @@
 <?php echo $tabledata;?>
       ],
       xkey: 'period',
-      ykeys: ['hashrate'],
-      labels: ['hashrate(K)'],
-      lineColors: ['#ee256f'],
+      ykeys: ['hashrate','hashrate_f2'],
+      labels: ['hashrate(K)','hashrate(K)'],
+      lineColors: ['#ee256f','#3c8dbc'],
       hideHover: 'auto'
     });
 	
-	
-	 var line = new Morris.Line({
-    element          : 'line-chart',
-    resize           : true,
-    data             : [
-<?php echo $tabledata_f2;?>
-    ],
-    xkey             : 'period_f2',
-    ykeys            : ['hashrate_f2'],
-    labels           : ['hashrate(K)'],
-    lineColors       : ['#efefef'],  
-    hideHover        : 'auto'
-  });
   
   
 
