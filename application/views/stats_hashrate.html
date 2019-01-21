@@ -55,11 +55,11 @@
     <section class="content-header">
       <h1>
               <?php echo $title;?>
-        <small>Mining hashrate, current and historical.</small>
+        <small>Mining hashrate, trend.</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
-        <li class="active">Difficulty</li>
+        <li class="active">Hashrate</li>
       </ol>
     </section>
 
@@ -68,9 +68,9 @@
         
         
           <div class="box box-primary"  style="margin-left:10px">
-			         <h4>   &nbsp;  &nbsp; <b>Hashrate</b> means that about the difficulty solutions, there would be one solution meet the target and mine a block. About 1/50 calculations of miner could find a solution.</h4>
+			         <h4>   &nbsp;  &nbsp; <b>Hashrate</b> data are  mainly spidered from three big pools: beeepoo, f2pool and uupool.</h4>
             <div class="box-header with-border">
-              <h3 class="box-title">Historical Difficulty</h3>
+              <h3 class="box-title">Mining Hashrate Trend</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -83,10 +83,10 @@
             </div>
       
             <!-- /.box-body -->
-<b>References</b>:<br/>
-<li><a href=https://forum.aeternity.com/t/current-mining-stats/1664/4 target=_blank>https://forum.aeternity.com/t/current-mining-stats/1664/4</a></li>
-
-<li><a href=https://forum.aeternity.com/t/failed-to-meet-target/1528/2 target=_blank>https://forum.aeternity.com/t/failed-to-meet-target/1528/2</a></li>
+<b>Data sources:</b>:<br/>
+<li>https://www.beepool.org/pool_status</li>
+<li>https://labs.f2pool.com/labs</li>
+<li>https://uupool.cn/api/getAllInfo.php</li>
 
           <!-- /.box -->
 </div>
