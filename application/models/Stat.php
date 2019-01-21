@@ -5,8 +5,10 @@ class Stat extends CI_Model {
 
 		public function getHashrate(){
 			$data['title']="Aeternity Mining Hashrate";		
-			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate": 3186, "hashrate_f2": 1046}';
-			//$data['tabledata_f2']='{"period_f2": "2018-12-28 17:55:47", "hashrate_f2": 1046}';
+			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate": 4319.245}';
+			$data['tabledata_bee']='{"period_bee": "2018-12-28 17:55:47", "hashrate_bee: 1046}';
+			$data['tabledata_f2']='{"period_f2": "2018-12-28 17:55:47", "hashrate_f2": 1046}';			
+			$data['tabledata_uu']='{"period_uu": "2018-12-28 17:55:47", "hashrate_f2": 1046}';
 			
 			$this->load->database();
 			$nowtime=time();
@@ -16,18 +18,26 @@ class Stat extends CI_Model {
 				$sql="SELECT hashrate,updatetime from pools WHERE poolname='beepool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
 				$query = $this->db->query($sql);
 				$row = $query->row();
-				$hashrate= $row->hashrate;
+				$hashrate_bee= $row->hashrate;
 				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
-				//$data['tabledata'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate.'}';
+				$data['tabledata_bee'].=',{"period_bee": "'.$updatetime.'", "hashrate_bee":'.$hashrate_bee.'}';
 				
 				$sql="SELECT hashrate,updatetime from pools WHERE poolname='f2pool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
 				$query = $this->db->query($sql);
 				$row = $query->row();
 				$hashrate_f2= $row->hashrate;
 				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
-				//{ y: '2011 Q3', item1: 4912, item2: 1969 },
-				$data['tabledata'].=',{"period": "'.$updatetime.'", "hashrate":'.$hashrate.', "hashrate_f2":'.$hashrate_f2.'}';
+				$data['tabledata_f2'].=',{"period_f2": "'.$updatetime.'","hashrate_f2":'.$hashrate_f2.'}';
 				
+				$sql="SELECT hashrate,updatetime from pools WHERE poolname='uupool' AND updatetime > ".($nowtime-(100-$i)*$step) ." ORDER BY pid ASC LIMIT 1";
+				$query = $this->db->query($sql);
+				$row = $query->row();
+				$hashrate_uu= $row->hashrate;
+				$updatetime=date("Y-m-d H:i:s",$row->updatetime);
+				$data['tabledata_f2'].=',{"period_uu": "'.$updatetime.'","hashrate_uu":'.$hashrate_uu.'}';
+				
+				$hashrate=$hashrate_bee+$hashrate_f2+$hashrate_uu;
+				$data['tabledata'].=',{"period": "'.$updatetime.'","hashrate":'.$hashrate.'}';
 				}
 			
 			return $data;
