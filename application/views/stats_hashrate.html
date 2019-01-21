@@ -81,6 +81,10 @@
             <div class="box-body chart-responsive">
               <div class="chart" id="revenue-chart" style="height: 300px;"></div>
             </div>
+            
+              <div class="box-body chart-responsive">
+              <div class="chart" id="bee-chart" style="height: 300px;"></div>
+            </div>
             <!-- /.box-body -->
 <b>References</b>:<br/>
 <li><a href=https://forum.aeternity.com/t/current-mining-stats/1664/4 target=_blank>https://forum.aeternity.com/t/current-mining-stats/1664/4</a></li>
@@ -160,6 +164,18 @@
     });
 	
 	
+	 var area = new Morris.Area({
+      element: 'bee-chart',
+      resize: true,
+      data: [
+<?php echo $tabledata_bee;?>
+      ],
+      xkey: 'period_bee',
+      ykeys: ['hashrate_bee'],
+      labels: ['hashrate(K)'],
+      lineColors: ['#ee256f'],
+      hideHover: 'auto'
+    });
   
   
 
