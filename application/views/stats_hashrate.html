@@ -82,8 +82,8 @@
               <div class="chart" id="revenue-chart" style="height: 300px;"></div>
             </div>
             
-              <div class="box-body chart-responsive">
-              <div class="chart" id="bee-chart" style="height: 300px;"></div>
+              <div class="box-body border-radius-none">
+              <div class="chart" id="line-chart" style="height: 250px;"></div>
             </div>
             <!-- /.box-body -->
 <b>References</b>:<br/>
@@ -165,7 +165,7 @@
 	
     
 	 var line = new Morris.Line({
-      element: 'bee-chart',
+      element: 'line-chart',
       resize: true,
       data: [
 <?php echo $tabledata_bee;?>
