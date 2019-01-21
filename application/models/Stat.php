@@ -8,7 +8,7 @@ class Stat extends CI_Model {
 			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate":4319.245}';
 			$data['tabledata_bee']='{"period": "2018-12-28 17:55:47", "hashrate":3186}';
 			$data['tabledata_f2']='{"period": "2018-12-28 17:55:47", "hashrate":1046}';			
-			$data['tabledata_uu']='{"period": "2018-12-28 17:55:47", "hashrate":1046}';
+			$data['tabledata_uu']='{"period": "2018-12-28 17:55:47", "hashrate":87.245}';
 			
 			$this->load->database();
 			$nowtime=time();
