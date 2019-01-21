@@ -5,10 +5,10 @@ class Stat extends CI_Model {
 
 		public function getHashrate(){
 			$data['title']="Aeternity Mining Hashrate";		
-			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate": 4319.245}';
-			$data['tabledata_bee']='{"period": "2018-12-28 17:55:47", "hashrate: 3186}';
-			$data['tabledata_f2']='{"period_f2": "2018-12-28 17:55:47", "hashrate_f2": 1046}';			
-			$data['tabledata_uu']='{"period_uu": "2018-12-28 17:55:47", "hashrate_f2": 1046}';
+			$data['tabledata']='{"period": "2018-12-28 17:55:47", "hashrate":4319.245}';
+			$data['tabledata_bee']='{"period": "2018-12-28 17:55:47", "hashrate:3186}';
+			$data['tabledata_f2']='{"period_f2": "2018-12-28 17:55:47", "hashrate_f2":1046}';			
+			$data['tabledata_uu']='{"period_uu": "2018-12-28 17:55:47", "hashrate_f2":1046}';
 			
 			$this->load->database();
 			$nowtime=time();

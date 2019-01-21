@@ -65,9 +65,12 @@
 
     <!-- Main content -->
      <div class="row">
-<div class="box box-primary"  style="margin-left:10px">
+        
+        
+          <div class="box box-primary"  style="margin-left:10px">
+			         <h4>   &nbsp;  &nbsp; <b>Hashrate</b> data are  mainly spidered from three big pools: beeepoo, f2pool and uupool.</h4>
             <div class="box-header with-border">
-              <h3 class="box-title">Peers</h3>
+              <h3 class="box-title">Mining Hashrate Trend</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -76,17 +79,23 @@
               </div>
             </div>
             <div class="box-body chart-responsive">
-              <div class="chart" id="peers" style="height: 300px;"></div>
-              The number of active peers is likely a bit lower than the whole network.
+              <div class="chart" id="revenue-chart" style="height: 300px;"></div>
             </div>
+            
+            
+      
             <!-- /.box-body -->
-          <!-- /.box -->
- </div>
+<b>Data sources:</b>:<br/>
+<li>https://www.beepool.org/pool_status</li>
+<li>https://labs.f2pool.com/labs</li>
+<li>https://uupool.cn/api/getAllInfo.php</li>
 
+          <!-- /.box -->
+</div>
 
 <div class="box box-primary"  style="margin-left:10px">
             <div class="box-header with-border">
-              <h3 class="box-title">Beneficiary Address(Miners' account)</h3>
+              <h3 class="box-title">Beepool's hasrate'</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -95,12 +104,15 @@
               </div>
             </div>
             <div class="box-body chart-responsive">
-              <div class="chart" id="beneficiary" style="height: 300px;"></div>
+              <div class="chart" id="bee-chart" style="height: 300px;"></div>
             </div>
             <!-- /.box-body -->
           <!-- /.box -->
  </div>
-
+ 
+ 
+    <!-- /.content -->
+  </div>  </div>
   <!-- /.content-wrapper -->
  <?php $this->load->view('footer.html');?> 
 
@@ -155,7 +167,7 @@
 
     // AREA CHART
     var area = new Morris.Area({
-      element: 'peers',
+      element: 'revenue-chart',
       resize: true,
       data: [
 <?php echo $tabledata;?>
@@ -167,19 +179,6 @@
       hideHover: 'auto'
     });
 
-  // AREA CHART
-    var area = new Morris.Area({
-      element: 'beneficiary',
-      resize: true,
-      data: [
-<?php echo $tabledata_bee;?>
-      ],
-      xkey: 'period',
-      ykeys: ['hashrate'],
-      labels: ['hashrate(K)'],
-      lineColors: ['#ee256f'],
-      hideHover: 'auto'
-    });
 
   });
 </script>
