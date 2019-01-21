@@ -85,10 +85,6 @@
             
       
             <!-- /.box-body -->
-<b>Data sources:</b>:<br/>
-<li>https://www.beepool.org/pool_status</li>
-<li>https://labs.f2pool.com/labs</li>
-<li>https://uupool.cn/api/getAllInfo.php</li>
 
           <!-- /.box -->
 </div>
@@ -111,6 +107,45 @@
  </div>
  
  
+ <div class="box box-primary"  style="margin-left:10px">
+            <div class="box-header with-border">
+              <h3 class="box-title">F2pool's hashrate</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="f2-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.box-body -->
+          <!-- /.box -->
+ </div>
+ 
+ 
+ <div class="box box-primary"  style="margin-left:10px">
+            <div class="box-header with-border">
+              <h3 class="box-title">UUpool's hashrate</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="uu-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.box-body -->
+          <!-- /.box -->
+ </div>
+ 
+ <b>Data sources:</b>:<br/>
+<li>https://www.beepool.org/pool_status</li>
+<li>https://labs.f2pool.com/labs</li>
+<li>https://uupool.cn/api/getAllInfo.php</li>
     <!-- /.content -->
   </div>  </div>
   <!-- /.content-wrapper -->
@@ -185,6 +220,33 @@
       resize: true,
       data: [
 <?php echo $tabledata_bee;?>
+      ],
+      xkey: 'period',
+      ykeys: ['hashrate'],
+      labels: ['hashrate(K)'],
+      lineColors: ['#ee256f'],
+      hideHover: 'auto'
+    });
+
+  var area = new Morris.Area({
+      element: 'f2-chart',
+      resize: true,
+      data: [
+<?php echo $tabledata_f2;?>
+      ],
+      xkey: 'period',
+      ykeys: ['hashrate'],
+      labels: ['hashrate(K)'],
+      lineColors: ['#ee256f'],
+      hideHover: 'auto'
+    });
+    
+    
+      var area = new Morris.Area({
+      element: 'uu-chart',
+      resize: true,
+      data: [
+<?php echo $tabledata_uu;?>
       ],
       xkey: 'period',
       ykeys: ['hashrate'],
