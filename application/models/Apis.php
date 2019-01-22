@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Apis extends CI_Model {
 	
 	public function getTotalCoins(){
-		return 276450333.49932+getTotalMined();
+		return 276450333.49932+$this->getTotalMined();
 		}
 	
 	
