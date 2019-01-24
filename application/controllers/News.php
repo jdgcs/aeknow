@@ -7,7 +7,7 @@ class News extends CI_Controller {
 	public function index()
 	{			
 		$this->load->view('news.html');
-		$this->output->cache(1/4);
+		//$this->output->cache(1/4);
 	}	
 	
 }
