@@ -320,9 +320,12 @@ class Blocks extends CI_Model {
 				//echo count($matches);
 				
 				}
-			
+			$data['status']="OK";
 			return $data;
-			}else{echo "NULL";return 0;}
+			}else{
+				$data['status']="FAIL";
+				return $data;
+				;}
 		}
 	
 	

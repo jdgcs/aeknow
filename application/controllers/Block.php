@@ -64,7 +64,9 @@ class Block extends CI_Controller {
 		if(trim($transactionhash)!=""){
 			$this->load->model('blocks');
 			$data=$this->blocks->getTransactionInfo($transactionhash);
-			$this->load->view('transaction.html',$data);
+			if($data['status']=="OK"){
+				$this->load->view('transaction.html',$data);
+			}else{echo "NULL";}
 		}else{echo "NULL";}
 		//$this->output->cache(3);
 		}
