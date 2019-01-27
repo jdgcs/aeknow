@@ -29,6 +29,7 @@ class Tests extends CI_Model {
 			$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
+			print_r($row->tx);
 			$txdata=json_encode($row->tx);
 			$block_hash=$txdata->block_hash;
 			$txhash_show="th_****".substr($txhash,-4);
