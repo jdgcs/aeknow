@@ -29,13 +29,11 @@ class Tests extends CI_Model {
 			$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
 			$block_hash=$txdata->block_hash;
 			$time=$this->getTransactionTime($txdata->block_hash);
 			
-			if($txtype=='SpendTx'){
-				$txdata=json_decode($row->tx);
-				//print_r($row->tx);
-				
+			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
 				$amount=$txdata->tx->amount/1000000000000000000;
 				$recipient_id=$txdata->tx->recipient_id;			
