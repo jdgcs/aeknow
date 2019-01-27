@@ -21,7 +21,7 @@ class Tests extends CI_Model {
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		
 		
-		$sql="SELECT * from txs order by block_height desc, nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['txstable']="";
