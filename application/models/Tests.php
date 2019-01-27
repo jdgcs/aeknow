@@ -29,10 +29,10 @@ class Tests extends CI_Model {
 			$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
-			$txdata=$row->tx;
+			$txdata=json_encode($row->tx);
 			$block_hash=$txdata->block_hash;
 			$txhash_show="th_****".substr($txhash,-4);
-			$amount==$txdata->tx->amount/1000000000000000000;
+			$amount=$txdata->tx->amount/1000000000000000000;
 			$recipient_id=$txdata->tx->recipient_id;			
 			$recipient_id_show="ak_****".substr($recipient_id,-4);
 			$alias=$this->getalias($recipient_id);
