@@ -12,7 +12,7 @@ class Tests extends CI_Model {
 		$data['page']=$page;			
 		$this->load->database();
 		
-		$sql="SELECT count(*) from transactions";
+		$sql="SELECT count(*) from txs";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaltxs']=$row->count;
@@ -29,11 +29,13 @@ class Tests extends CI_Model {
 			$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash);
 			
 			if($txtype=='SpendTx'){
 				$txdata=json_decode($row->tx);
 				//print_r($row->tx);
-				$block_hash=$txdata->block_hash;
+				
 				$txhash_show="th_****".substr($txhash,-4);
 				$amount=$txdata->tx->amount/1000000000000000000;
 				$recipient_id=$txdata->tx->recipient_id;			
@@ -52,11 +54,11 @@ class Tests extends CI_Model {
 				
 				//$utctime=round(($row->time/1000),0);
 				//$utctime= date("Y-m-d H:i:s",$utctime);		
-				$time=$this->getTransactionTime($txdata->block_hash);
+				
 				
 				$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
 			}else{
-				$data['txstable'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td></tr>";		
+				$data['txstable'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
 				}
 			}
 		
