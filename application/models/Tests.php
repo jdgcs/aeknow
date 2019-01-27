@@ -2,6 +2,65 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tests extends CI_Model {
+	
+	
+	public function getTransactions($page){
+		//$data['hash']=$transactionhash;
+		if($page<1){$page=1;}
+		$perpage=20;
+		$data['title']="Transactions";
+		$data['page']=$page;			
+		$this->load->database();
+		
+		$sql="SELECT count(*) from transactions";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$data['totaltxs']=$row->count;
+		$data['totalpage']=round($data['totaltxs']/$perpage,0);
+		$period=(time()-1543373685)/(3600*24);		
+		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
+		
+		
+		$sql="SELECT * from txs order by block_height desc, nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$query = $this->db->query($sql);
+		$counter=0;
+		$data['txstable']="";
+		foreach ($query->result() as $row){
+			$counter++;
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=$row->tx;
+			$block_hash=$txdata->block_hash;
+			$txhash_show="th_****".substr($txhash,-4);
+			$amount==$txdata->tx->amount/1000000000000000000;
+			$recipient_id=$txdata->tx->recipient_id;			
+			$recipient_id_show="ak_****".substr($recipient_id,-4);
+			$alias=$this->getalias($recipient_id);
+			if($recipient_id!=$alias){
+				$recipient_id_show=$alias;
+				}
+						
+			$sender_id=$txdata->tx->sender_id;
+			$sender_id_show="ak_****".substr($sender_id,-4);
+			$alias=$this->getalias($sender_id);
+			if($sender_id!=$alias){
+				$sender_id_show=$alias;
+				}
+			
+			//$utctime=round(($row->time/1000),0);
+			//$utctime= date("Y-m-d H:i:s",$utctime);		
+			$time=$this->getTransactionTime($txdata->block_hash);
+			
+			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+			}
+		
+		
+		return $data;
+		}
+	
+	
+	
+	
 	public function getPools(){
 		$this->load->database();
 		$table="";

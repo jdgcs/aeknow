@@ -18,6 +18,16 @@ class Test extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function index()
+	{	
+		$this->load->model('tests');
+		$data=$this->tests->getTransactions(1);
+		$this->load->view('transaction_index.html',$data);
+	}	
+		
+		
+		
+		
 		public function transaction($transactionhash=""){
 		//echo "building...";
 		if(trim($transactionhash)!=""){
