@@ -573,18 +573,8 @@ class Tests extends CI_Model {
 						//echo "--".$key_tx,': ',$content_tx,"\n";
 						if($key_tx=="recipient_id" ||$key_tx=="sender_id" || $key_tx=="account_id" || $key_tx=="caller_id"){
 							$content_tx="<a href=/address/wallet/$content_tx>$content_tx</a>";
-							}
+							}					
 						
-						if($key_tx=="block_height"){
-							$data['confirmed']=$this->GetTopHeight()-$content_tx;
-							if($data['confirmed']>1){
-								$data['confirmed']="<span class='badge bg-green'>".$data['confirmed']." blocks confirmed </span>";
-								}else{
-								$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
-								}
-							
-							$content_tx=$content_tx."   ".$data['confirmed'];
-							}
 						
 						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
 						}
@@ -594,6 +584,17 @@ class Tests extends CI_Model {
 						$data['table_data'].='<tr><td ><b>'.$key.'</b> </td><td  colspan="2">'.$content[0].'</td></tr>';
 						}else{
 							//echo $key,': ',$content,"\n";
+							if($key_tx=="block_height"){
+							$data['confirmed']=$this->GetTopHeight()-$content_tx;
+							if($data['confirmed']>1){
+								$data['confirmed']="<span class='badge bg-green'>".$data['confirmed']." blocks confirmed </span>";
+								}else{
+								$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
+								}
+							
+							$content_tx=$content_tx."   ".$data['confirmed'];
+							}
+							
 							$data['table_data'].='<tr><td><b>'.$key.'</b> </td><td  colspan="2">'.$content.'</td></tr>';
 						}
 					}
