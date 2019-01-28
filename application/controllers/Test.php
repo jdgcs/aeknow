@@ -28,9 +28,9 @@ class Test extends CI_Controller {
 			echo "NULL";
 			}
 	}	
-		
-		
-		
+	public function txdetail($transactionhash){
+		$this->load->view('tx_detail.html');
+		}	
 		
 		public function transaction($transactionhash=""){
 		//echo "building...";
