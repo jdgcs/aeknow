@@ -12,7 +12,7 @@ class Transactions extends CI_Model {
 		$data['page']=$page;			
 		$this->load->database();
 		
-		$sql="SELECT count(*) from transactions";
+		$sql="SELECT count(*) from txs";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaltxs']=$row->count;
@@ -21,35 +21,43 @@ class Transactions extends CI_Model {
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		
 		
-		$sql="SELECT * from transactions order by block_height desc, nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['txstable']="";
 		foreach ($query->result() as $row){
 			$counter++;
-			$txhash=$row->hash;
-			$block_hash=$row->block_hash;
-			$txhash_show="th_****".substr($txhash,-4);
-			$amount=$row->amount/1000000000000000000;
-			$recipient_id=$row->recipient_id;			
-			$recipient_id_show="ak_****".substr($recipient_id,-4);
-			$alias=$this->getalias($recipient_id);
-			if($recipient_id!=$alias){
-				$recipient_id_show=$alias;
-				}
-						
-			$sender_id=$row->sender_id;
-			$sender_id_show="ak_****".substr($sender_id,-4);
-			$alias=$this->getalias($sender_id);
-			if($sender_id!=$alias){
-				$sender_id_show=$alias;
-				}
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash);
 			
-			//$utctime=round(($row->time/1000),0);
-			//$utctime= date("Y-m-d H:i:s",$utctime);		
-			$time=$this->getTransactionTime($block_hash);
-			
-			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$time</td></tr>";
+			if($txtype=='SpendTx'){				
+				$txhash_show="th_****".substr($txhash,-4);
+				$amount=$txdata->tx->amount/1000000000000000000;
+				$recipient_id=$txdata->tx->recipient_id;			
+				$recipient_id_show="ak_****".substr($recipient_id,-4);
+				$alias=$this->getalias($recipient_id);
+				if($recipient_id!=$alias){
+					$recipient_id_show=$alias;
+					}
+							
+				$sender_id=$txdata->tx->sender_id;
+				$sender_id_show="ak_****".substr($sender_id,-4);
+				$alias=$this->getalias($sender_id);
+				if($sender_id!=$alias){
+					$sender_id_show=$alias;
+					}
+				
+				//$utctime=round(($row->time/1000),0);
+				//$utctime= date("Y-m-d H:i:s",$utctime);		
+				
+				
+				$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+			}else{
+				$data['txstable'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
+				}
 			}
 		
 		
