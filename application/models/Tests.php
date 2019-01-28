@@ -563,7 +563,7 @@ class Tests extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		if(strpos($websrc,"block_hash")>0){
 			$txData=json_decode($websrc);
-			$data['table_data'].='<tr><th colspan="3">'.$txData->tx->type.'</th></tr>';
+			$data['table_data'].='<tr><th colspan="3"><center><h2>'.$txData->tx->type.'</h2></center></th></tr>';
 			
 			$table= (array)json_decode($websrc,true);
 
@@ -594,6 +594,11 @@ class Tests extends CI_Model {
 								}							
 							$content=$content."   ".$data['confirmed'];
 							}
+							
+							if($key=="block_hash"){
+								$content="<a href=/block/microblock/$content>$content</a>";
+								}
+							
 							
 							$data['table_data'].='<tr><td><b>'.$key.'</b> </td><td  colspan="2">'.$content.'</td></tr>';
 						}
