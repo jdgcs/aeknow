@@ -604,7 +604,7 @@ class Tests extends CI_Model {
 			
 			return $data;		
 			
-			}else{echo "NULL";return 0;}
+			}else{echo "NULL";return $data;}
 		
 		return $data;	
 		}
