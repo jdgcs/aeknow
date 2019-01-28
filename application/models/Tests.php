@@ -576,6 +576,10 @@ class Tests extends CI_Model {
 							$content_tx="<a href=/address/wallet/$content_tx>$content_tx</a>";
 							}					
 						
+						if($key_tx=="fee" || $key_tx=="gas"){
+							$aefee=number_format($content_tx/1000000000000000000, 18, '.', '');
+							$content_tx=$aefee." AE($content_tx ættos )";
+						}
 						
 						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
 						}
