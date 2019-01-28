@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>of Aeternity - AEKnow</title>
-  <Meta name="keywords" content=" keyword,Aeternity,AEKnow">
-  <Meta name="description" content="Description">
+  <title><?php echo $table_data;?> of Aeternity - AEKnow</title>
+  <Meta name="keywords" content="<?php echo $table_data;?>, keyword,Aeternity,AEKnow">
+  <Meta name="description" content="Details of tx hash:<?php echo $table_data;?>">
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -53,12 +53,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-           title
-        <small>sub title</small>
+          <?php echo $hash;?>
+        <small>details</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
-        <li class="active"> nav</li>
+        <li class="active"> <?php echo $hash;?></li>
       </ol>
     </section>
 
