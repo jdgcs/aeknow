@@ -576,7 +576,7 @@ class Tests extends CI_Model {
 					}else{					
 					if($key=='signatures'){
 						//echo $key,': ',$content[0],"\n";
-						$data['table_data'].='<tr><td><b>'.$key.'</b> </td><td>'.$content.'</td></tr>';
+						$data['table_data'].='<tr><td><b>'.$key.'</b> </td><td>'.$content[0].'</td></tr>';
 						}else{
 							//echo $key,': ',$content,"\n";
 							$data['table_data'].='<tr><td><b>'.$key.'</b> </td><td>'.$content.'</td></tr>';
