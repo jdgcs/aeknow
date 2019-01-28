@@ -18,11 +18,15 @@ class Test extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function txs()
+	public function txs($page=1)
 	{	
-		$this->load->model('tests');
-		$data=$this->tests->getTransactions(1);
-		$this->load->view('transaction_index.html',$data);
+		if(is_numeric($page)){
+			$this->load->model('tests');
+			$data=$this->tests->getTransactions($page);
+			$this->load->view('transaction_index.html',$data);
+		}else{
+			echo "NULL";
+			}
 	}	
 		
 		
