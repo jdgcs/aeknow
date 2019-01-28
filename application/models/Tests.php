@@ -558,6 +558,7 @@ class Tests extends CI_Model {
 	public function getTransactionInfo($transactionhash){
 		$data['hash']=$transactionhash;		
 		$data['table_data']="";
+		
 		$url=DATA_SRC_SITE.'v2/transactions/'.$transactionhash;
 		$websrc=$this->getwebsrc($url);
 		if(strpos($websrc,"block_hash")>0){
@@ -604,6 +605,8 @@ class Tests extends CI_Model {
 			return $data;		
 			
 			}else{echo "NULL";return 0;}
+		
+		return $data;	
 		}
 	
 	
