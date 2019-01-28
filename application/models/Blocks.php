@@ -174,69 +174,15 @@ class Blocks extends CI_Model {
 		$data['txstable']="";
 		$counter=0;
 		if(strpos($websrc,"block_hash")>0){
-			if(strpos($websrc,"ttl")==TRUE){		
-				$pattern='/hash":"(.*)","block_height":(.*),"hash":"(.*)","signatures":\["(.*)"\],"tx":{"amount":(.*),"fee":(.*),"nonce":(.*),"payload":"(.*)","recipient_id":"(.*)","sender_id":"(.*)","ttl":(.*),"type":"(.*)","version":(.*)}/U';
-				preg_match_all($pattern,$websrc, $matches);
-				for($i=0;$i<count($matches[1]);$i++){
-					$block_hash=$matches[1][$i];
-					$block_height=$matches[2][$i];
-					$hash=$matches[3][$i];
-					$signatures=$matches[4][$i];
-					$amount=$matches[5][$i];
-					$fee=$matches[6][$i];
-					$nonce=$matches[7][$i];
-					$payload=$matches[8][$i];
-					$recipient_id=$matches[9][$i];
-					$sender_id=$matches[10][$i];
-					$ttl=$matches[11][$i];
-					$type=$matches[12][$i];
-					$version=$matches[13][$i];			
-					//echo "txhash:$hash\n";
-					
-					$txhash=$hash;
-					$counter++;
-					$txhash_show="th_****".substr($txhash,-4);
-					$amount=$amount/1000000000000000000;
-					$recipient_id_show="ak_****".substr($recipient_id,-4);								
-					$sender_id_show="ak_****".substr($sender_id,-4);
-					$data['txstable'].="<tr><td>$counter</td><td><a href=../../transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td></tr>";
-
-					};
-				//p//rint_r();
-				//echo count($matches);
-				
-				}else{
-				$pattern='/hash":"(.*)","block_height":(.*),"hash":"(.*)","signatures":\["(.*)"\],"tx":{"amount":(.*),"fee":(.*),"nonce":(.*),"payload":"(.*)","recipient_id":"(.*)","sender_id":"(.*)","type":"(.*)","version":(.*)}}/U';	
-				preg_match_all($pattern,$websrc, $matches);
-				for($i=0;$i<count($matches[1]);$i++){
-					$block_hash=$matches[1][$i];
-					$block_height=$matches[2][$i];
-					$hash=$matches[3][$i];
-					$signatures=$matches[4][$i];
-					$amount=$matches[5][$i];
-					$fee=$matches[6][$i];
-					$nonce=$matches[7][$i];
-					$payload=base64_encode($matches[8][$i]);
-					$recipient_id=$matches[9][$i];
-					$sender_id=$matches[10][$i];			
-					$type=$matches[11][$i];
-					$version=$matches[12][$i];			
-					//echo "txhash:$hash\n";
-					
-					$txhash=$hash;$counter++;
-					$txhash_show="th_****".substr($txhash,-4);
-					$amount=$amount/1000000000000000000;
-					$recipient_id_show="ak_****".substr($recipient_id,-4);								
-					$sender_id_show="ak_****".substr($sender_id,-4);
-					$data['txstable'].="<tr><td>$counter</td><td><a href=../../transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td></tr>";
-
-					};	
-				//print_r($matches);
-				//echo count($matches);
-				
+			$info=json_decode($websrc);
+			$txcounter=count($info->transactions);
+			for($m=0;$m<$txcounter;$m++){
+				$counter++;
+				$type=$info->transactions[$m]->tx->type;
+				$txhash=$info->transactions[$m]->hash;
+				//$block_hash=$info->transactions[$m]->block_hash;	
+				$data['txstable'].="<tr><td>$counter</td><td><a href=/block/transaction/$txhash>$txhash</a></td><td>$type</td></tr>"
 				}
-			
-
 			}
 		return $data;
 	}	
