@@ -29,7 +29,9 @@ class Test extends CI_Controller {
 			}
 	}	
 	public function txdetail($transactionhash){
-		$this->load->view('tx_detail.html');
+		$this->load->model('tests');
+		$data=$this->tests->getTransactionInfo($transactionhash);
+		$this->load->view('tx_detail.html',$data);
 		}	
 		
 		public function transaction($transactionhash=""){
