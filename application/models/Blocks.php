@@ -244,88 +244,65 @@ class Blocks extends CI_Model {
 	
 	public function getTransactionInfo($transactionhash){
 		$data['hash']=$transactionhash;		
+		$data['table_data']="NULL";
+		
 		$url=DATA_SRC_SITE.'v2/transactions/'.$transactionhash;
 		$websrc=$this->getwebsrc($url);
 		if(strpos($websrc,"block_hash")>0){
-			if(strpos($websrc,"ttl")==TRUE){		
-				$pattern='/hash":"(.*)","block_height":(.*),"hash":"(.*)","signatures":\["(.*)"\],"tx":{"amount":(.*),"fee":(.*),"nonce":(.*),"payload":"(.*)","recipient_id":"(.*)","sender_id":"(.*)","ttl":(.*),"type":"(.*)","version":(.*)}/U';
-				preg_match_all($pattern,$websrc, $matches);
-				for($i=0;$i<count($matches[1]);$i++){
-					$data['block_hash']=$matches[1][$i];
-					$data['block_height']=$matches[2][$i];
-					$data['hash']=$matches[3][$i];
-					$data['signatures']=$matches[4][$i];
-					$data['amount']=$matches[5][$i]/1000000000000000000;
-					$data['attofee']=$matches[6][$i];
-					$data['fee']=number_format($data['attofee']/1000000000000000000, 18, '.', '');
-					$data['nonce']=$matches[7][$i];
-					$data['payload']=$matches[8][$i];
-					$data['recipient_id']=$matches[9][$i];
-					$data['sender_id']=$matches[10][$i];
-					$data['ttl']=$matches[11][$i];
-					$type=$matches[12][$i];
-					$data['version']=$matches[13][$i];			
-					//echo "txhash:$hash\n";
-					
-					$data['confirmed']=$this->GetTopHeight()-$data['block_height'];
-					if($data['confirmed']>1){
-						$data['confirmed']="<span class='badge bg-green'>".$data['confirmed']." blocks confirmed </span>";
-						}else{
-						$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
+			$txData=json_decode($websrc);
+			$data['table_data'].='<tr><th colspan="3"><center><h2>'.$txData->tx->type.'</h2></center></th></tr>';
+			
+			$table= (array)json_decode($websrc,true);
+
+			foreach ($table as $key=>$content){
+				if($key=='tx'){
+					$data['table_data'].='<tr><td rowspan="'.count($content).'">Tx</td>';
+					foreach ($content as $key_tx=>$content_tx){			
+						//echo "--".$key_tx,': ',$content_tx,"\n";
+						if($key_tx=="recipient_id" ||$key_tx=="sender_id" || $key_tx=="account_id" || $key_tx=="caller_id"){
+							$content_tx="<a href=/address/wallet/$content_tx>$content_tx</a>";
+							}					
+						
+						if($key_tx=="fee" || $key_tx=="gas"){
+							$aefee=number_format($content_tx/1000000000000000000, 18, '.', '');
+							$content_tx=$aefee." AE($content_tx ættos )";
 						}
 						
-					$millisecond =$this->getMicroblockTime($data['block_hash']);
-					$data['millisecond']=$millisecond;
-					$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
-					$data['time']=$data['millisecond']."(".date("Y-m-d H:i:s",$millisecond);
-				
-					};
-				//p//rint_r();
-				//echo count($matches);
-				
-				}else{
-				$pattern='/hash":"(.*)","block_height":(.*),"hash":"(.*)","signatures":\["(.*)"\],"tx":{"amount":(.*),"fee":(.*),"nonce":(.*),"payload":"(.*)","recipient_id":"(.*)","sender_id":"(.*)","type":"(.*)","version":(.*)}}/i';	
-				preg_match_all($pattern,$websrc, $matches);
-				for($i=0;$i<count($matches[1]);$i++){
-					$data['block_hash']=$matches[1][$i];
-					$data['block_height']=$matches[2][$i];
-					$data['hash']=$matches[3][$i];
-					$data['signatures']=$matches[4][$i];
-					$data['amount']=$matches[5][$i]/1000000000000000000;
-					$data['attofee']=$matches[6][$i];
-					$data['fee']=number_format($data['attofee']/1000000000000000000, 18, '.', '');
-					$data['nonce']=$matches[7][$i];
-					$data['payload']=$matches[8][$i];
-					$data['recipient_id']=$matches[9][$i];
-					$data['sender_id']=$matches[10][$i];
-					$data['ttl']="";
-					$type=$matches[11][$i];
-					$data['version']=$matches[12][$i];			
-					//echo "txhash:$hash\n";
-					
-					$data['confirmed']=$this->GetTopHeight()-$data['block_height'];
-					if($data['confirmed']>1){
-						$data['confirmed']="<span class='badge bg-green'>".$data['confirmed']." blocks confirmed </span>";
-						}else{
-						$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
+						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
 						}
-						
-					$millisecond =$this->getMicroblockTime($data['block_hash']);
-					$data['millisecond']=$millisecond;
-					$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
-					$data['time']=$data['millisecond']."(".date("Y-m-d H:i:s",$millisecond);				
-					
-					};	
-				//print_r($matches);
-				//echo count($matches);
-				
+					}else{					
+					if($key=='signatures'){
+						//echo $key,': ',$content[0],"\n";
+						$data['table_data'].='<tr><td ><b>'.$key.'</b> </td><td  colspan="2">'.$content[0].'</td></tr>';
+						}else{
+							//echo $key,': ',$content,"\n";
+							if($key=="block_height"){
+							$data['confirmed']=$this->GetTopHeight()-$content;
+							if($data['confirmed']>1){
+								$data['confirmed']="<span class='badge bg-green'>".$data['confirmed']." blocks confirmed </span>";
+								}else{
+								$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
+								}							
+							$content=$content."   ".$data['confirmed'];
+							}
+							
+							if($key=="block_hash"){
+								$content="<a href=/block/microblock/$content>$content</a>";
+								}
+							
+							
+							$data['table_data'].='<tr><td><b>'.$key.'</b> </td><td  colspan="2">'.$content.'</td></tr>';
+						}
+					}
 				}
-			$data['status']="OK";
-			return $data;
-			}else{
-				$data['status']="FAIL";
-				return $data;
-				;}
+			
+			
+			
+			return $data;		
+			
+			}else{return $data;}
+		
+		return $data;	
 		}
 	
 	
