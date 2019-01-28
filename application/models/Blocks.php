@@ -181,7 +181,7 @@ class Blocks extends CI_Model {
 				$type=$info->transactions[$m]->tx->type;
 				$txhash=$info->transactions[$m]->hash;
 				//$block_hash=$info->transactions[$m]->block_hash;	
-				$data['txstable'].="<tr><td>$counter</td><td><a href=/block/transaction/$txhash>$txhash</a></td><td>$type</td></tr>"
+				$data['txstable'].="<tr><td>$counter</td><td><a href=/block/transaction/$txhash>$txhash</a></td><td>$type</td></tr>";
 				}
 			}
 		return $data;
