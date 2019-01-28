@@ -79,7 +79,7 @@ class Block extends CI_Controller {
 			$data=$this->blocks->getMicroBlockInfo($microblockhash);
 			$this->load->view('mblock.html',$data);
 			}
-		$this->output->cache(3);
+		//$this->output->cache(3);
 		}
 		
 	public function microblocks($microblockheight){
