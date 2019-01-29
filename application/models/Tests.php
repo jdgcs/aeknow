@@ -326,11 +326,18 @@ class Tests extends CI_Model {
 					$sender_id_show=$alias;
 					}
 				
+				if($sender_id==$ak){
+						$senderlink="$sender_id_show";
+						$recipientlink="<span class='badge bg-yellow'>OUT</span><a href='/address/wallet/$recipient_id'>$recipient_id_show</a>";
+					}else{
+						$senderlink="<a href='/address/wallet/$sender_id'>$sender_id_show</a>";
+						$recipientlink="<span class='badge bg-green'>&nbsp; IN &nbsp; </span>$recipient_id_show";
+					}
 				//$utctime=round(($row->time/1000),0);
 				//$utctime= date("Y-m-d H:i:s",$utctime);		
 				
 				
-				$data['totaltxs'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+				$data['totaltxs'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td>$senderlink</td><td>$recipientlink</td><td>$txtype</td><td>$time</td></tr>";
 			}else{
 				$data['totaltxs'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
 				}
