@@ -330,9 +330,9 @@ class Tests extends CI_Model {
 				//$utctime= date("Y-m-d H:i:s",$utctime);		
 				
 				
-				$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+				$data['totaltxs'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
 			}else{
-				$data['txstable'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
+				$data['totaltxs'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
 				}
 			}
 		
@@ -385,7 +385,48 @@ class Tests extends CI_Model {
 		
 		}
 	
-	
+public function checkAddress($address){
+		//Thanks Jungle @Beepool    
+        $hex = $this->base58_decode($address);
+    
+        if (strlen($hex)!=72){
+            return false;
+        }
+    
+        $bs = pack("H*", substr($hex, 0,64));
+    
+        $checksum = hash("sha256", hash("sha256", $bs, true));
+    
+        $checksum = substr($checksum, 0, 8);
+    
+        if(substr($hex, 64,8)!==$checksum){
+            return false;
+        }
+    
+        return true;
+    
+    }
+    
+public function base58_decode($base58)
+    {
+        $origbase58 = $base58;
+        $return = "0";
+    
+        for ($i = 0; $i < strlen($base58); $i++) {
+            // return = return*58 + current position of $base58[i]in self::$base58chars
+            $return = gmp_add(gmp_mul($return, 58), strpos("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz", $base58[$i]));
+        }
+        $return = gmp_strval($return, 16);
+        for ($i = 0; $i < strlen($origbase58) && $origbase58[$i] == "1"; $i++) {
+            $return = "00" . $return;
+        }
+        if (strlen($return) % 2 != 0) {
+            $return = "0" . $return;
+        }
+        return $return;
+    }
+    
+    	
 	public function getBlockInfo($height){		
 		$url=DATA_SRC_SITE.'v2/generations/height/'.$height;
 		$websrc=$this->getwebsrc($url);
