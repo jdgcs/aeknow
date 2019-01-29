@@ -338,7 +338,7 @@ class Tests extends CI_Model {
 		
 		
 		//return $data;
-			}
+		//	}
 		//$data['transaction_count']=$query->num_rows();
 		
 		$sql= "select count(*) FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak'";
