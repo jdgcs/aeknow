@@ -214,7 +214,7 @@ class Blocks extends CI_Model {
 							$content_tx=$aefee." AE($content_tx ættos )";
 						}
 						
-						if($key_tx=="pointers" ){
+						if(!is_string($content_tx) ){
 							$content_tx=json_encode($content_tx);
 							}
 						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
