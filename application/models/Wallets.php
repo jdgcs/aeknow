@@ -53,6 +53,9 @@ class Wallets extends CI_Model {
 		if($type=='out'){
 			$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
+		if($type=='contracts'){
+			$sql="SELECT * FROM txs WHERE txtype='ContractCallTx' or txtype='ContractCreateTx' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			}
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['totaltxs']="";
