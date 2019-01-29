@@ -45,70 +45,71 @@ class Wallets extends CI_Model {
 			}
 			}
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
-		$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		//$sql= "select * FROM txs WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=='in'){
-			$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE recipient_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;			
+			$sql="SELECT * FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		if($type=='out'){
-			$sql= "select block_height,block_hash,hash,amount,recipient_id, sender_id FROM transactions WHERE sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
-
+			$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['totaltxs']="";
 		foreach ($query->result() as $row){
 			$counter++;
-			if($counter<101){
-				$block_height=$row->block_height;
-				$block_hash=$row->block_hash;
-				$block_hash_show="mh_****".substr($block_hash,-4);
-				$hash=$row->hash;
-				$hash_show="th_****".substr($hash,-4);
-				//$amount=number_format($row->amount/1000000000000000000, 18, '.', '');
-				$amount=$row->amount/1000000000000000000;
-				$recipient_id=$row->recipient_id;
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash);
+			
+			if($txtype=='SpendTx'){				
+				$txhash_show="th_****".substr($txhash,-4);
+				$amount=$txdata->tx->amount/1000000000000000000;
+				$recipient_id=$txdata->tx->recipient_id;			
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
-				$sender_id=$row->sender_id;
+				$alias=$this->getalias($recipient_id);
+				if($recipient_id!=$alias){
+					$recipient_id_show=$alias;
+					}
+							
+				$sender_id=$txdata->tx->sender_id;
 				$sender_id_show="ak_****".substr($sender_id,-4);
+				$alias=$this->getalias($sender_id);
+				if($sender_id!=$alias){
+					$sender_id_show=$alias;
+					}
 				
-				$sql_gettime="SELECT time FROM microblock WHERE hash='$block_hash'";
-				$query_time = $this->db->query($sql_gettime);
-				$row = $query_time->row();
-				if($query->num_rows()>0){
-					$millisecond =$row->time;
-					$realtime=$millisecond;
-					$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
-					$txstime=$realtime."(".date("Y-m-d H:i:s",$millisecond)." UTC)";
-					
-					if($sender_id==$ak){
+				if($sender_id==$ak){
 						$senderlink="$sender_id_show";
 						$recipientlink="<span class='badge bg-yellow'>OUT</span><a href='/address/wallet/$recipient_id'>$recipient_id_show</a>";
 					}else{
 						$senderlink="<a href='/address/wallet/$sender_id'>$sender_id_show</a>";
 						$recipientlink="<span class='badge bg-green'>&nbsp; IN &nbsp; </span>$recipient_id_show";
 					}
-				}
+				//$utctime=round(($row->time/1000),0);
+				//$utctime= date("Y-m-d H:i:s",$utctime);		
 				
-			
-				$data['totaltxs'].="
-				<td><a href=/block/transaction/$hash>$hash_show</a></td>
-				<td>$amount</td>
-				<td>$senderlink</td>
-				<td>$recipientlink</td>
-					
-				<td>$txstime</td>	
-				</tr>";
+				
+				$data['totaltxs'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td>$senderlink</td><td>$recipientlink</td><td>$txtype</td><td>$time</td></tr>";
+			}else{
+				$data['totaltxs'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
+				}
 			}
-			}
+		
+		
+		//return $data;
+		//	}
 		//$data['transaction_count']=$query->num_rows();
 		
-		$sql= "select count(*) FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak'";
+		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb";
 		if($type=='in'){
-			$sql= "select count(*) FROM transactions WHERE recipient_id='$ak'";
+			$sql="SELECT count(*) FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
 			}
 			
 		if($type=='out'){
-			$sql= "select count(*) FROM transactions WHERE sender_id='$ak'";
+			$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb";
 			}
 		
 		$query = $this->db->query($sql);
