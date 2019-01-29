@@ -356,7 +356,17 @@ public function getBlockHeight($keyblockhash){
 		return $totalmined;
 		}
 		
-
+private function getTransactionTime($block_hash){
+		$this->load->database();
+		$totalmins=0;
+		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		if($query->num_rows()>0){
+			$totalmins=round(($row->time/1000),0);
+		}
+		return date("Y-m-d H:i:s",$totalmins);	
+		}	
 	private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AE-testbot";
