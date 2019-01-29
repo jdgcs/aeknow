@@ -341,13 +341,13 @@ class Tests extends CI_Model {
 		//	}
 		//$data['transaction_count']=$query->num_rows();
 		
-		$sql= "select count(*) FROM transactions WHERE recipient_id='$ak' OR sender_id='$ak'";
+		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb";
 		if($type=='in'){
-			$sql= "select count(*) FROM transactions WHERE recipient_id='$ak'";
+			$sql="SELECT count(*) FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
 			}
 			
 		if($type=='out'){
-			$sql= "select count(*) FROM transactions WHERE sender_id='$ak'";
+			$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb";
 			}
 		
 		$query = $this->db->query($sql);
