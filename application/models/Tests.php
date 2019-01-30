@@ -398,7 +398,7 @@ class Tests extends CI_Model {
 		foreach ($query->result() as $row){
 			$token=$this->getTokenName($row->contract);
 			$balance=$this->getTokenBalance($row->contract,$hexaddress);
-			$data['tokens'].="<li>$token: $balance</li>";
+			$data['tokens'].="<b>$token</b>: $balance<br/>";
 			}
 		
 		
