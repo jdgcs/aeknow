@@ -232,7 +232,7 @@ class Blocks extends CI_Model {
 								}else{
 								$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
 								}							
-							$content=$content."   ".$data['confirmed'];
+							$content="<a href=/block/transaction/$content>".$content."</a>   ".$data['confirmed'];
 							}
 							
 							if($key=="block_hash"){
