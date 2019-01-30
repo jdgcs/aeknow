@@ -418,7 +418,7 @@ public function getTokenBalance($contract,$hexaddress){
 	$row = $query->row();
 	$balance=$row->balance;
 	
-	return $balance/(10^$decimal);
+	return $balance/pow(10,$decimal);
 	}
 
 
