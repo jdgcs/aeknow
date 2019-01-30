@@ -145,12 +145,52 @@ class Wallets extends CI_Model {
 		if(!$this->checkAddress($tobecheck)){
 			$data['account']="Invalid address";
 			}
+		/////////////////////////////////////////////Get Tokens//////////////////////////////////
+		$tmpaddress=$this->base58_decode($tobecheck);
+		$hexaddress=substr($tmpaddress,0,64);
+		$sql="SELECT DISTINCT contract FROM tokens WHERE address='$hexaddress'";
+		$query = $this->db->query($sql);
+		$counter=0;
+		$data['tokens']="";
+		foreach ($query->result() as $row){
+			$token=$this->getTokenName($row->contract);
+			$balance=$this->getTokenBalance($row->contract,$hexaddress);
+			$data['tokens'].="<b>$token</b>: $balance<br/>";
+			}
 		
 		return $data;
 		
 		}
 	
-	private function getTransactionTime($block_hash){
+public function getTokenBalance($contract,$hexaddress){
+	$this->load->database();
+	$sql="SELECT decimal FROM contracts_token WHERE address='$contract'";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$decimal=$row->decimal;
+	
+	$sql="SELECT balance FROM tokens WHERE address='$hexaddress' and contract='$contract'";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$balance=$row->balance;
+	
+	return $balance/pow(10,$decimal);
+	}
+
+
+public function getTokenName($contract){
+	$this->load->database();
+	$name="";
+	$sql="SELECT alias FROM contracts_token WHERE address='$contract'";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$name=$row->alias;
+	
+	return $name;
+	}
+
+
+private function getTransactionTime($block_hash){
 		$this->load->database();
 		$totalmins=0;
 		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
