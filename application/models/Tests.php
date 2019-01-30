@@ -388,10 +388,50 @@ class Tests extends CI_Model {
 			$data['account']="Invalid address";
 			}
 		
+		/////////////////////////////////////////////Get Tokens//////////////////////////////////
+		$tmpaddress=$this->base58_decode($tobecheck);
+		$hexaddress=substr($tmpaddress,0,64);
+		$sql="SELECT DISTINCT contract FROM tokens WHERE address='$hexaddress'";
+		$query = $this->db->query($sql);
+		$counter=0;
+		$data['tokens']="";
+		foreach ($query->result() as $row){
+			$token=$this->getTokenName($row->contract);
+			$balance=$this->getTokenBalance($row->contract,$hexaddress);
+			$data['tokens'].="<li>$token: $balance</li>";
+			}
+		
+		
 		return $data;
 		
 		}
+
+public function getTokenBalance($contract,$hexaddress){
+	$this->load->database();
+	$sql="SELECT decimal FROM contracts_token WHERE address='$contract'";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$decimal=$row->decimal;
 	
+	$sql="SELECT balance FROM tokens WHERE address='$hexaddress' and contract='$contract'";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$balance=$row->balance;
+	
+	return $balance/(10^$decimal);
+	}
+
+
+public function getTokenName($contract){
+	$this->load->database();
+	$name="";
+	$sql="SELECT alias FROM contracts_token WHERE address='$contract'";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	$name=$row->alias;
+	
+	return $name;
+	}
 public function checkAddress($address){
 		//Thanks Jungle @Beepool    
         $hex = $this->base58_decode($address);
