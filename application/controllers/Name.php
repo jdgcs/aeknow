@@ -28,5 +28,9 @@ class Name extends CI_Controller {
 			$this->load->view('account.html',$data);
 		}else{echo "NULL Name.";}
 	}
+	
+	public function test($name=""){
+		echo "$name";
+		}
 }
 

@@ -52,4 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'miner';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['/(:any).test'] = "/name/show/$1.test";
+$route['/(:any).test'] = "name/show/$1.test";
+$route['n/(:any)'] = "name/test/$1";
