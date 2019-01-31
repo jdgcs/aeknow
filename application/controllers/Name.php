@@ -6,7 +6,7 @@ class Name extends CI_Controller {
 	{	
 		$this->load->model('names');	
 		$ak=$this->names->getAddress($name);
-		$page=1,$type='all';
+		$page=1;$type='all';
 		if($ak!="NULL"){
 			$this->load->model('Wallets');	
 			$data=$this->Wallets->getWalletInfo($ak,$page,$type);
