@@ -16,7 +16,7 @@ class Name extends CI_Controller {
 	}
 	
 	
-	public function name($name="")
+	public function show($name="")
 	{	
 		$this->load->model('names');	
 		$ak=$this->names->getAddress($name);
