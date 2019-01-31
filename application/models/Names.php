@@ -7,7 +7,7 @@ public function getAddress($name){
 	$name="NULL";
 	$url=DATA_SRC_SITE."v2/names/$name";
 	$websrc=$this->getwebsrc($url);
-	
+	echo "$url;$websrc";
 	if(strpos($websrc,"id")>0){
 		$nameData=json_decode($websrc);
 		$name=$nameData->pointers[0]->id;
