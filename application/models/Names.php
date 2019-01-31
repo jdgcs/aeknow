@@ -4,10 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Names extends CI_Model {
 
 public function getAddress($name){
-	$name="NULL";
+	
 	$url=DATA_SRC_SITE."v2/names/$name";
+	$name="NULL";
 	$websrc=$this->getwebsrc($url);
-	echo "$url;$websrc";
+	//echo "$url;$websrc";
 	if(strpos($websrc,"id")>0){
 		$nameData=json_decode($websrc);
 		$name=$nameData->pointers[0]->id;
