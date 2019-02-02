@@ -34,6 +34,24 @@ public function getContractList(){
 }
 
 
+public function getContractDetail($cthash){
+	$url=DATA_SRC_SITE."v2/contracts/$cthash";
+	
+	$counter++;
+	$websrc=$this->getwebsrc($url);
+	$data['cttable']=$websrc;
+	/*
+	if(strpos($websrc,"id")>0){
+		$ctData=json_decode($websrc);
+		$owner_id=$ctData->owner_id;
+		$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
+		$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
+		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
+	}*/
+	
+	return $data;
+	}
+
 private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AEKnow-bot";
