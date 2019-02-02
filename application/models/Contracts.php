@@ -41,6 +41,7 @@ public function getContractDetail($cthash){
 	if(strpos($websrc,"id")>0){
 		$ctData=json_decode($websrc);
 		$owner_id=$ctData->owner_id;
+		
 		$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
 		$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
 		//$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
@@ -53,6 +54,7 @@ public function getContractDetail($cthash){
 	foreach ($query->result() as $row){
 		//$counter++;
 		$txhash=$row->txhash;
+		$txhash=str_replace("\"","",$txhash);
 		$block_height=$row->block_height;
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
 		$txhash="<a href=block/transaction/$txhash>$txhash</a>";
