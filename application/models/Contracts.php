@@ -37,7 +37,7 @@ public function getContractList(){
 public function getContractDetail($cthash){
 	$url=DATA_SRC_SITE."v2/contracts/$cthash";
 	
-	$counter++;
+	//$counter++;
 	$websrc=$this->getwebsrc($url);
 	$data['cttable']=$websrc;
 	/*
