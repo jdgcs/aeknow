@@ -36,19 +36,28 @@ public function getContractList(){
 
 public function getContractDetail($cthash){
 	$url=DATA_SRC_SITE."v2/contracts/$cthash";
-	
-	//$counter++;
+	$data['cttable']="";//$counter=0;
 	$websrc=$this->getwebsrc($url);
-	$data['cttable']=$websrc;
-	/*
 	if(strpos($websrc,"id")>0){
 		$ctData=json_decode($websrc);
 		$owner_id=$ctData->owner_id;
 		$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
 		$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
-		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
-	}*/
+		//$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
+	}	
+	$data['owner_id']=$owner_id;
+	$data['cthash']=$cthash;
+	$this->load->database();
+	$sql="select distinct tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc;";
 	
+	foreach ($query->result() as $row){
+		//$counter++;
+		$txhash=$row->txhash;
+		$block_height=$row->block_height;
+		$block_height="<a href=/block/height/$block_height>$block_height</a>";
+		$txhash="<a href=block/transaction/$txhash>$txhash</a>";
+		$data['cttable'].="<tr><td>$block_height</td><td>$cthash</td><td>$txhash</td></tr>";
+		}
 	return $data;
 	}
 

@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Contracts of Aeternity - AEKnow</title>
+  <title>Contract <?php echo cthash;?> of Aeternity - AEKnow</title>
   <Meta name="keywords" content=" keyword,Aeternity,AEKnow">
-  <Meta name="description" content="Description">
+  <Meta name="description" content="Details of <?php echo cthash;?>">
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -53,12 +53,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-           Contracts
-        <small>Smart contracts data of Aeternity</small>
+           <?php echo cthash;?>
+        <small>Owned by: <?php echo owner_id;?></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
-        <li class="active"> contracts</li>
+        <li class="active"> contract details</li>
       </ol>
     </section>
 
@@ -67,7 +67,19 @@
 
       <div class="row">
 
-	<?php echo $cttable;?>
+<div class="active tab-pane" id="mining">
+				 <div class="box-body table-responsive no-padding">
+				<table class="table table-hover table-bordered" >
+					
+					<tr>
+					  <th>block #</th>
+					  <th>Contract Hash</th>   
+					  <th>Tx hash</th>               
+					</tr>				
+					<?php echo $cttable;?>
+				</table>
+				</div>
+			</div
 			
       </div>
       <!-- /.row -->
