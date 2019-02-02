@@ -12,15 +12,17 @@ public function getContractList(){
 	
 	foreach ($query->result() as $row){
 		$cthash=$row->cthash;
-		$block_height=$row->block_height;
+		//$block_height=$row->block_height;
 		$url=DATA_SRC_SITE."v2/contracts/$cthash";
+		
 		$counter++;
 		$websrc=$this->getwebsrc($url);
-		//echo "$url;$websrc";
+		
+		echo "$url;$websrc";
 		if(strpos($websrc,"id")>0){
 			$ctData=json_decode($websrc);
 			$owner_id=$ctData->owner_id;
-			$data['cttable'].="<tr><td>$counter</td><td>$cthash</td><td>$owner_id</td><td>$block_height</td></tr>";
+			$data['cttable'].="<tr><td>$counter</td><td>$cthash</td><td>$owner_id</td></tr>";
 		}
 		
 	}
