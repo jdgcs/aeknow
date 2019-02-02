@@ -49,7 +49,7 @@ public function getContractDetail($cthash){
 	$data['owner_id']=$owner_id;
 	$data['cthash']=$cthash;
 	$this->load->database();
-	$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc;";
+	$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
 	$query = $this->db->query($sql);
 	foreach ($query->result() as $row){
 		//$counter++;
