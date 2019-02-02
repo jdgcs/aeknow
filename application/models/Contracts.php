@@ -6,19 +6,20 @@ class Contracts extends CI_Model {
 public function getContractList(){
 	$this->load->database();
 	$sql="select distinct tx->'tx'->'contract_id' as cthash FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}';";
-	echo "$sql";
+	//echo "$sql";
 	$query = $this->db->query($sql);
 	$data['cttable']="";$counter=0;
 	
 	foreach ($query->result() as $row){
 		$cthash=$row->cthash;
+		$cthash=str_replace("\"","",$cthash);
 		//$block_height=$row->block_height;
 		$url=DATA_SRC_SITE."v2/contracts/$cthash";
 		
 		$counter++;
 		$websrc=$this->getwebsrc($url);
 		
-		echo "$url;$websrc";
+		//echo "$url;$websrc";
 		if(strpos($websrc,"id")>0){
 			$ctData=json_decode($websrc);
 			$owner_id=$ctData->owner_id;
