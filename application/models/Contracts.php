@@ -23,7 +23,9 @@ public function getContractList(){
 		if(strpos($websrc,"id")>0){
 			$ctData=json_decode($websrc);
 			$owner_id=$ctData->owner_id;
-			$data['cttable'].="<tr><td>$counter</td><td>$cthash</td><td>$owner_id</td></tr>";
+			$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
+			$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
+			$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
 		}
 		
 	}
