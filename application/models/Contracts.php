@@ -57,7 +57,7 @@ public function getContractDetail($cthash){
 		$txhash=str_replace("\"","",$txhash);
 		$block_height=$row->block_height;
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
-		$txhash="<a href=block/transaction/$txhash>$txhash</a>";
+		$txhash="<a href=/block/transaction/$txhash>$txhash</a>";
 		$data['cttable'].="<tr><td>$block_height</td><td>$cthash</td><td>$txhash</td></tr>";
 		}
 	return $data;
