@@ -6,6 +6,7 @@ class Contracts extends CI_Model {
 public function getContractList(){
 	$this->load->database();
 	$sql="select distinct tx->'tx'->'contract_id' as cthash,tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}'";
+	echo "$sql";
 	$query = $this->db->query($sql);
 	$data['cttable']="";$counter=0;
 	
