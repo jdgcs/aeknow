@@ -29,8 +29,10 @@ class Name extends CI_Controller {
 		}else{echo "NULL Name.";}
 	}
 	
-	public function test($name=""){
-		echo "$name";
+	public function namelist($ak=""){
+		$this->load->model('names');
+		$data=$this->names->getNameList($ak);
+		$this->load->view('name_list.html',$data);
 		}
 }
 

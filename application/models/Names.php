@@ -16,7 +16,16 @@ public function getAddress($name){
 	return $name;
 }
 
-
+public function namelist($ak){
+	$this->load->database();
+	$sql="SELECT count(*) FROM txs WHERE tx->'tx'->'pointers' @>'[{\"id\":\"$ak\",\"key\":\"account_pubkey\"}]'::jsonb;";
+	$query = $this->db->query($sql);
+	foreach ($query->result() as $row){
+		
+		}
+	}
+	
+	
 private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AEKnow-bot";
