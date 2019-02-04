@@ -13,7 +13,7 @@ public function getContractList(){
 	
 	foreach ($query->result() as $row){
 		$cthash=$row->cthash;
-		$block_height=$row->block_height;
+		//$block_height=$row->block_height;
 		$cthash=str_replace("\"","",$cthash);
 		//$block_height=$row->block_height;
 		$url=DATA_SRC_SITE."v2/contracts/$cthash";
@@ -24,6 +24,11 @@ public function getContractList(){
 		//echo "$url;$websrc";
 		if(strpos($websrc,"id")>0){
 			$ctData=json_decode($websrc);
+			$sql_ct="select tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by block_height asc limit 1;";
+			$query_ct = $this->db->query($sql_ct);
+			$row_ct = $query_ct->row();
+			$block_height= $row_ct->block_height;
+			
 			$owner_id=$ctData->owner_id;
 			$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
 			$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
