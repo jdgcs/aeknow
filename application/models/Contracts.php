@@ -5,13 +5,15 @@ class Contracts extends CI_Model {
 
 public function getContractList(){
 	$this->load->database();
-	$sql="select distinct tx->'tx'->'contract_id' as cthash FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}';";
+	//$sql="select distinct tx->'tx'->'contract_id' as cthash FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' group by tx->'tx'->'block desc' ;";
+	$sql="SELECT cthash,block_height FROM (SELECT DISTINCT ON (tx->'tx'->'contract_id') tx->'block_height' as block_height, tx->'tx'->'contract_id' as cthash FROM txs  WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}') as tbl_contracts order by block_height desc;";
 	//echo "$sql";
 	$query = $this->db->query($sql);
 	$data['cttable']="";$counter=0;
 	
 	foreach ($query->result() as $row){
 		$cthash=$row->cthash;
+		$block_height=$row->block_height;
 		$cthash=str_replace("\"","",$cthash);
 		//$block_height=$row->block_height;
 		$url=DATA_SRC_SITE."v2/contracts/$cthash";
@@ -25,7 +27,8 @@ public function getContractList(){
 			$owner_id=$ctData->owner_id;
 			$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
 			$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
-			$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
+			$block_height="<a href=/block/height/$block_height>$block_height</a>";
+			$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td></tr>";
 		}
 		
 	}
