@@ -150,6 +150,7 @@ public function getNames($akaddress){
 		$data['latest20']="";
 		foreach ($query->result() as $row){
 			$aename=$row->aename;
+			$aename="<a href=/$aename>$aename</a>";
 			$data['latest20'].="<li>$aename</li>\n";
 		}
 		
