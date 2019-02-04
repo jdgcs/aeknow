@@ -42,7 +42,8 @@ class Networks extends CI_Model {
 		
 		
 		/////////////////Transactions info//////////////////
-		$sql="SELECT count(*),sum(fee) from transactions";
+		//$sql="SELECT count(*),sum(fee) from transactions";
+		$sql="SELECT count(*),sum((tx->'tx'->>'fee')::numeric) from txs;"
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaltxs']=floatval($row->count);
