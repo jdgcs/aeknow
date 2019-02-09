@@ -14,6 +14,7 @@ class Networks extends CI_Model {
 		///////////////////////////////////////////get blocks info////////////////////////////
 		$data['topheight']= floatval($this->GetTopHeight());
 		$data['totalaemined']=$this->getTotalMined();	
+		$data['totalcoins']=276450333.49932+$this->getTotalMined();
 		
 		$sql="SELECT time FROM miner WHERE height=1";
 		$query = $this->db->query($sql);
@@ -99,6 +100,7 @@ class Networks extends CI_Model {
 		
 		return $data;
 		}
+		
 	private function getReward($blockheight){
 		$blockheight=$blockheight+1;
 		$this->load->database();
