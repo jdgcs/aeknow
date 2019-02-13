@@ -156,7 +156,7 @@ function getwebsrc($url) {
  * */
 
 function updateTotalMined(){
-	$totalcoin=getTotalMined();
+	$totalcoin= 276450333.49932+getTotalMined();
 	$filename="/dev/shm/totalcoin";
 	$myfile = fopen($filename, "w");
 	fwrite($myfile, $totalcoin);

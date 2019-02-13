@@ -4,7 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Apis extends CI_Model {
 	
 	public function getTotalCoins(){
-		return 276450333.49932+$this->getTotalMined();
+		$myfile = fopen("/dev/shm/totalcoin", "r") or die("Unable to open file!");
+		return trim(fgets($myfile));
+		fclose($myfile);
+		//return 276450333.49932+$this->getTotalMined();
 		}
 	
 	
