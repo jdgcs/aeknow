@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 /*
 function FirstSpider(){
 	for($i=0;$i<645;$i++){
@@ -22,7 +23,8 @@ sleep(5);
 }
 
 function ProcessHTML($height){
-	$url="http://127.0.0.1:3013/v2/key-blocks/height/$height";
+	$url=DATA_SRC_SITE."v2/key-blocks/height/$height";http://35.178.61.73
+//$url="http://35.178.61.73:3013/v2/key-blocks/height/$height";
 	//echo "$url\n";
 	$websrc=getwebsrc($url);
 	//echo $websrc;
@@ -44,7 +46,7 @@ function ProcessHTML($height){
 	
 	$sql="select height,beneficiary,hid,orphan FROM miner WHERE height=$height";
 	//echo $sql."\n";
-	$conn_string = "host=127.0.0.1 port=5435 dbname=ae user=postgres";
+	$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
 	$db = pg_connect($conn_string);
 	$result_query = pg_query($db, $sql);
 			if (!$result_query) {
@@ -58,7 +60,7 @@ function ProcessHTML($height){
             if (!$result_insert) {
                 echo pg_last_error($db);
                 //exit;
-            }else{echo "Height:$height inerted.\n";}
+            }else{echo "Height:$height inerted.\n";updateTotalMined();}
 		}else{
 			while ($row = pg_fetch_row($result_query)) {
 				if($row[1]!=$beneficiary &&($row[3] == FALSE)){
@@ -78,7 +80,7 @@ function ProcessHTML($height){
 //echo GetTopHeight();
 //echo $websrc;
 function GetDBHeight(){
-	$conn_string = "host=127.0.0.1 port=5435 dbname=ae user=postgres";
+	$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
 	$db = pg_connect($conn_string);
 	$sql = "SELECT height FROM miner order by height desc limit 1";
 	$result_query = pg_query($db, $sql);
@@ -92,7 +94,7 @@ function GetDBHeight(){
 		 }
 	}
 function GetTopHeight()	{
-	$url="http://127.0.0.1:3013/v2/blocks/top";
+	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=getwebsrc($url);
 	if(strpos($websrc,"key_block")==TRUE){
 		$pattern='/{\"key_block\":{"beneficiary\":\"(.*)\",\"hash\":\"(.*)\",\"height\":(.*),\"miner\":\"(.*)\",\"nonce\":(.*),\"pow\":(.*),\"prev_hash\":\"(.*)\",\"prev_key_hash\":\"(.*)\",\"state_hash\":\"(.*)\",\"target\":(.*),\"time\":(.*),\"version\":(.*)}}/i';
@@ -152,3 +154,33 @@ function getwebsrc($url) {
  
  curl -X GET "http://127.0.0.1:3013/v2/transactions/bx_2jojKnqiZ6PgUEwf2c4Z8gH6fZimSLCUaQUtY61k1ByYzZQRe7" -H "accept: application/json" 
  * */
+
+function updateTotalMined(){
+	$totalcoin=getTotalMined();
+	$filename="/dev/shm/totalcoin";
+	$myfile = fopen($filename, "w");
+	fwrite($myfile, $totalcoin);
+	fclose($myfile);
+	}
+
+
+function getTotalMined(){
+		$latestheight=GetTopHeight();
+		$totalmined=0;
+		for($i=1;$i<$latestheight+1;$i++){
+			$totalmined=$totalmined+getReward($i);
+			}
+		return $totalmined;
+		}
+
+function getReward($blockheight){
+		$blockheight=$blockheight+1;
+		$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
+		$db = pg_connect($conn_string);
+		$sql="SELECT reward from aeinflation WHERE blockid<$blockheight ORDER BY blockid desc LIMIT 1";
+		$result_query = pg_query($db, $sql);			
+
+		while ($row = pg_fetch_row($result_query)) {
+			return $row[0]/10;
+			 }
+		}
