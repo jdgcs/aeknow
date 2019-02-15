@@ -62,7 +62,7 @@ public function getOracleDetail($oracle_id){
 	$data['querytable']="";
 	$counter=0;
 	$this->load->database();
-	$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height from txs WHERE txtype='OracleQueryTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb limit 100 order by block_height desc;";
+	$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height from txs WHERE txtype='OracleQueryTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb limit 100 order by tid desc;";
 	$query = $this->db->query($sql);
 	
 	foreach ($query->result() as $row){
