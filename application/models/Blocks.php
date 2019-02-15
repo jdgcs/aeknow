@@ -222,7 +222,12 @@ class Blocks extends CI_Model {
 						if(!is_string($content_tx) ){
 							$content_tx=json_encode($content_tx);
 							}
-						$content_tx=htmlspecialchars($content_tx);
+						
+						if($key_tx=="query" || $key_tx=="response"){
+							$content_tx=htmlspecialchars($content_tx);
+							}	
+						
+						
 						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
 						}
 					}else{					
