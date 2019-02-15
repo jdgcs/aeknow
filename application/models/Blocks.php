@@ -219,6 +219,10 @@ class Blocks extends CI_Model {
 							$content_tx=$aefee." AE($content_tx ættos )";
 							}
 						
+						if($key_tx=="payload"){						
+							$content_tx=htmlspecialchars($content_tx)";
+						}
+						
 						if(!is_string($content_tx) ){
 							$content_tx=json_encode($content_tx);
 							}
