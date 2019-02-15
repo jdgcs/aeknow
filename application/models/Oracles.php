@@ -30,7 +30,7 @@ public function getOracleList(){
 		$oracle_id=$row->oracle_id;
 		$oracle_id=str_replace('"','',$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);		
-		$data['ortable_all'].="<tr><td>$counter_all</td><td>$oracle_id</td><td><a href=/address/wallet/$account_id>$account_id</a></td><span class='badge bg-red'>Lived</span></td></tr></tr>";		
+		$data['ortable_all'].="<tr><td>$counter_all</td><td>$oracle_id</td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-red'>Lived</span></td></tr></tr>";		
 	}
 	
 	return $data;
