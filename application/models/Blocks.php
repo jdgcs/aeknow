@@ -217,15 +217,12 @@ class Blocks extends CI_Model {
 						if($key_tx=="amount" && $txData->tx->type=="SpendTx"){
 							$aefee=number_format($content_tx/1000000000000000000, 18, '.', '');
 							$content_tx=$aefee." AE($content_tx ættos )";
-							}
-						
-						if($key_tx=="payload"){						
-							$content_tx=htmlspecialchars($content_tx);
-						}
-						
+							}						
+															
 						if(!is_string($content_tx) ){
 							$content_tx=json_encode($content_tx);
 							}
+						$content_tx=htmlspecialchars($content_tx);
 						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
 						}
 					}else{					
