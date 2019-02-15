@@ -220,7 +220,7 @@ class Blocks extends CI_Model {
 							}
 						
 						if($key_tx=="payload"){						
-							$content_tx=htmlspecialchars($content_tx)";
+							$content_tx=htmlspecialchars($content_tx);
 						}
 						
 						if(!is_string($content_tx) ){
