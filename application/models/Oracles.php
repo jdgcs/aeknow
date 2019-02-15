@@ -18,7 +18,7 @@ public function getOracleList(){
 		$oracle_id=str_replace('"','',$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);
 		
-		$data['ortable'].="<tr><td>$counter</td><td>$oracle_id</td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-green'>Active</span></td></tr>";		
+		$data['ortable'].="<tr><td>$counter</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-green'>Active</span></td></tr>";		
 	}
 	
 	
@@ -30,39 +30,52 @@ public function getOracleList(){
 		$oracle_id=$row->oracle_id;
 		$oracle_id=str_replace('"','',$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);		
-		$data['ortable_all'].="<tr><td>$counter_all</td><td>$oracle_id</td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-red'>Lived</span></td></tr></tr>";		
+		$data['ortable_all'].="<tr><td>$counter_all</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-red'>Lived</span></td></tr></tr>";		
 	}
 	
 	return $data;
 }
 
 
-public function getOracleDetail($cthash){
-	$url=DATA_SRC_SITE."v2/contracts/$cthash";
-	$data['cttable']="";//$counter=0;
+public function getOracleDetail($oracle_id){
+	$url=DATA_SRC_SITE."v2/oracles/$oracle_id";
+	$data['ortable']="";//$counter=0;
+	$data['oracle_id']=$oracle_id;
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"id")>0){
-		$ctData=json_decode($websrc);
-		$owner_id=$ctData->owner_id;
+		$orData=json_decode($websrc);
 		
-		$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
-		$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
-		//$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
+		$query_fee=$orData->query_fee;
+		$query_format=$orData->query_format;
+		$response_format=$response_format->response_format;
+		$ttl=$orData->ttl;
+		$vm_version=$orData->vm_version;
+		$account_id=str_replace("ok_","ak_",$oracle_id);
+		
+		
+		$account_id="<a href=/address/wallet/$account_id>$account_id</a>";
+		//$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
+		$data['ortable'].="<tr><td>$oracle_id</td><td>$query_fee</td><td>$query_format</td><td>$response_format</td><td>$ttl</td><td>$vm_version</td><td>$account_id</td></tr>";
 	}	
-	$data['owner_id']=$owner_id;
-	$data['cthash']=$cthash;
+	
+	
+	$data['querytable']="";
+	$counter=0;
 	$this->load->database();
-	$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
+	$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height from txs WHERE txtype='OracleQueryTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb limit 100;";
 	$query = $this->db->query($sql);
+	
 	foreach ($query->result() as $row){
-		//$counter++;
+		$counter++;
 		$txhash=$row->txhash;
 		$txhash=str_replace("\"","",$txhash);
 		$block_height=$row->block_height;
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
 		$txhash="<a href=/block/transaction/$txhash>$txhash</a>";
-		$data['cttable'].="<tr><td>$block_height</td><td>$cthash</td><td>$txhash</td></tr>";
+		$data['querytable'].="<tr><td>$counter</td><td>$txhash</td><td>$block_height</td></tr>";
 		}
+	
+	
 	return $data;
 	}
 

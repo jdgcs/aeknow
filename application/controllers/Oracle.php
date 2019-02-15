@@ -10,12 +10,12 @@ class Oracle extends CI_Controller {
 		//$this->output->cache(5);
 	}
 		
-	public function detail($cthash="")
+	public function id($oracle_id="")
 	{	
-		$this->load->model('contracts');	
-		$data=$this->contracts->getContractDetail($cthash);
-		$this->load->view('contracts_detail.html',$data);
-		$this->output->cache(1);
+		$this->load->model('oracles');	
+		$data=$this->oracles->getOracleDetail($oracle_id);
+		$this->load->view('oracles_detail.html',$data);
+		//$this->output->cache(1);
 	}
 	
 }
