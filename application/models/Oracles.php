@@ -47,7 +47,7 @@ public function getOracleDetail($oracle_id){
 		
 		$query_fee=$orData->query_fee;
 		$query_format=$orData->query_format;
-		$response_format=$response_format->response_format;
+		$response_format=$orData->response_format;
 		$ttl=$orData->ttl;
 		$vm_version=$orData->vm_version;
 		$account_id=str_replace("ok_","ak_",$oracle_id);
