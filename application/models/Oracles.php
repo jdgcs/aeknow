@@ -15,6 +15,7 @@ public function getOracleList(){
 	foreach ($query->result() as $row){
 		$counter++;
 		$oracle_id=$row->oracle_id;
+		$oracle_id=str_replace('"','',$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);
 		
 		$data['ortable'].="<tr><td>$counter</td><td>$oracle_id</td><td><a href=/address/wallet/$account_id>$account_id</a></td></tr>";		
@@ -27,6 +28,7 @@ public function getOracleList(){
 	foreach ($query->result() as $row){
 		$counter_all++;
 		$oracle_id=$row->oracle_id;
+		$oracle_id=str_replace('"','',$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);		
 		$data['ortable_all'].="<tr><td>$counter_all</td><td>$oracle_id</td><td><a href=/address/wallet/$account_id>$account_id</a></td></tr>";		
 	}
