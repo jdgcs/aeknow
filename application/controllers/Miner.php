@@ -64,6 +64,7 @@ public function viewaccount($ak=NULL){
 		if(strpos($tagstr,"mh_")>0){redirect('https://www.aeknow.org/block/microblock/'.$ak);}
 		if(strpos($tagstr,"kh_")>0){redirect('https://www.aeknow.org/block/keyblock/'.$ak);}
 		if(strpos($tagstr,"ak_")>0){redirect('https://www.aeknow.org/address/wallet/'.$ak);}
+		if(strpos($tagstr,"ok_")>0){redirect('https://www.aeknow.org/oracle/id/'.$ak);}
 		if(strpos($tagstr,"ct_")>0){redirect('https://www.aeknow.org/contract/detail/'.$ak);}
 		if(strpos($tagstr,".test")>0){redirect('https://www.aeknow.org/'.$ak);}
 		if(is_numeric($ak)){redirect('https://www.aeknow.org/block/height/'.$ak);}
