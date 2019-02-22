@@ -5,6 +5,7 @@ class Addresses extends CI_Model {
 	
 	public function getWealth500(){
 		$data['wealth500']="";
+		$data['totalcoin']=0;
 		$this->load->database();
 		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500";
 		$query = $this->db->query($sql);
@@ -28,6 +29,7 @@ class Addresses extends CI_Model {
 			$readtime=$row->readtime;
 			$readtime=date("Y-m-d H:i:s",$readtime)."(UTC)";
 			$data['wealth500'].="<tr><td>$counter</td><td>$address</td><td>$wealth</td><td>$readtime</td></tr>";
+			$data['totalcoin']=$data['totalcoin']+$wealth;
 			}
 			
 		$sql="select count(*) from accountsinfo";
