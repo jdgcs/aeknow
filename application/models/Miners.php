@@ -290,6 +290,7 @@ public function getBlockHeight($keyblockhash){
 		$row = $query->row();
 		return $row->reward/10;
 		}
+		
 	private function getalias($address){
 		$this->load->database();
 		$sql="SELECT alias from addressinfo WHERE address='$address' limit 1";
@@ -303,7 +304,7 @@ public function getBlockHeight($keyblockhash){
 		return $address;
 		}
 		
-		private function notOrphan($height){
+	private function notOrphan($height){
 		$this->load->database();		
 		$sql="select count(*) FROM miner WHERE height='$height' and orphan is TRUE";
 		$query = $this->db->query($sql);
@@ -313,7 +314,7 @@ public function getBlockHeight($keyblockhash){
 		}
 		
 		
-		private function getTxsTime($block_hash){
+	private function getTxsTime($block_hash){
 		$this->load->database();
 		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
 		$query = $this->db->query($sql);
@@ -323,7 +324,7 @@ public function getBlockHeight($keyblockhash){
 		return date("Y-m-d H:i:s",$totalmins);
 		}
 		
-		private function getTotalReward($ak){
+	private function getTotalReward($ak){
 		$this->load->database();
 		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
 		$query = $this->db->query($sql);
@@ -356,7 +357,7 @@ public function getBlockHeight($keyblockhash){
 		return $totalmined;
 		}
 		
-private function getTransactionTime($block_hash){
+	private function getTransactionTime($block_hash){
 		$this->load->database();
 		$totalmins=0;
 		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
@@ -367,30 +368,31 @@ private function getTransactionTime($block_hash){
 		}
 		return date("Y-m-d H:i:s",$totalmins);	
 		}	
+		
 	private function getwebsrc($url) {
-	$curl = curl_init ();
-	$agent = "User-Agent: AE-testbot";
-	
-	curl_setopt ( $curl, CURLOPT_URL, $url );
+		$curl = curl_init ();
+		$agent = "User-Agent: AE-testbot";
+		
+		curl_setopt ( $curl, CURLOPT_URL, $url );
 
-	curl_setopt ( $curl, CURLOPT_USERAGENT, $agent );
-	curl_setopt ( $curl, CURLOPT_ENCODING, 'gzip,deflate' );
-	curl_setopt ( $curl, CURLOPT_FOLLOWLOCATION, 1 ); //×¥È¡301Ìø×ªºóÍøÖ·
-	curl_setopt ( $curl, CURLOPT_AUTOREFERER, true );
-	curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt ( $curl, CURLOPT_TIMEOUT, 60 );
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt ( $curl, CURLOPT_USERAGENT, $agent );
+		curl_setopt ( $curl, CURLOPT_ENCODING, 'gzip,deflate' );
+		curl_setopt ( $curl, CURLOPT_FOLLOWLOCATION, 1 ); //×¥È¡301Ìø×ªºóÍøÖ·
+		curl_setopt ( $curl, CURLOPT_AUTOREFERER, true );
+		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt ( $curl, CURLOPT_TIMEOUT, 60 );
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-	
-	$html = curl_exec ( $curl ); // execute the curl command
-	$response_code = curl_getinfo ( $curl, CURLINFO_HTTP_CODE );
-	if ($response_code != '200') { //Èç¹ûÎ´ÄÜ»ñÈ¡¸ÃÒ³Ãæ£¨·Ç200·µ»Ø£©£¬ÔòÖØÐÂ³¢ÊÔ»ñÈ¡
-	//	echo 'Page error: ' . $response_code . $html;	
-		$html='Page error: ' . $response_code.$html;
-	} 
-	curl_close ( $curl ); // close the connection
+		
+		$html = curl_exec ( $curl ); // execute the curl command
+		$response_code = curl_getinfo ( $curl, CURLINFO_HTTP_CODE );
+		if ($response_code != '200') { //Èç¹ûÎ´ÄÜ»ñÈ¡¸ÃÒ³Ãæ£¨·Ç200·µ»Ø£©£¬ÔòÖØÐÂ³¢ÊÔ»ñÈ¡
+		//	echo 'Page error: ' . $response_code . $html;	
+			$html='Page error: ' . $response_code.$html;
+		} 
+		curl_close ( $curl ); // close the connection
 
-	return $html; // and finally, return $html
+		return $html; // and finally, return $html
 }
 
 

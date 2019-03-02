@@ -310,7 +310,8 @@ class Tests extends CI_Model {
 	public function getHashRate(){
 		$this->load->database();
 		$timetag=(time()-(24*60*60))*1000; 
-		$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		
 		$counter=0;
