@@ -7,6 +7,7 @@ class Tests extends CI_Model {
 		$this->load->database();
 		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
 		$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql=="select data->'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
@@ -40,7 +41,8 @@ class Tests extends CI_Model {
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		$timetag=(time()-(24*60*60))*1000; 
 		$blocksnum_24=0;
-		$getblockssql="SELECT count(*) FROM miner WHERE time>$timetag AND orphan is FALSE";
+		//$getblockssql="SELECT count(*) FROM miner WHERE time>$timetag AND orphan is FALSE";
+		$getblockssql="SELECT count(*) FROM keyblocks WHERE (data->>'time')::numeric >$timetag AND orphan is NULL";
 		$query = $this->db->query($getblockssql);
 		$row = $query->row();
 		$blocksnum_24=$row->count;
