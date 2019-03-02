@@ -273,15 +273,6 @@ public function getHashRate(){
 		
 	}
 		
-public function getBlockHeight($keyblockhash){
-		$this->load->database();
-		$sql="SELECT * from miner WHERE hash='$keyblockhash' AND orphan is FALSE";
-		$query = $this->db->query($sql);
-		if($query->num_rows()==0){return -1;}
-		$row = $query->row();
-		return $row->height;
-		}	
-
 	private function getReward($blockheight){
 		$blockheight=$blockheight+1;
 		$this->load->database();
@@ -311,17 +302,6 @@ public function getBlockHeight($keyblockhash){
 		$row = $query->row();
 		if($row->count==1){return FALSE;}
 		return TRUE;
-		}
-		
-		
-	private function getTxsTime($block_hash){
-		$this->load->database();
-		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		//$totalmins=time()- round(($row->time/1000),0);
-		$totalmins=round(($row->time/1000),0);
-		return date("Y-m-d H:i:s",$totalmins);
 		}
 		
 	private function getTotalReward($ak){

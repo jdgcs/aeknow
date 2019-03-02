@@ -266,7 +266,8 @@ class Tests extends CI_Model {
 	private function getTransactionTime($block_hash){
 		$this->load->database();
 		$totalmins=0;
-		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
+		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
+		$sql="SELECT data->>'time' as time from microblocks WHERE hash='$block_hash' limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($query->num_rows()>0){
@@ -1365,7 +1366,7 @@ private function getalias($address){
 		}
 private function notOrphan($height){
 		$this->load->database();		
-		$sql="select count(*) FROM miner WHERE height='$height' and orphan is TRUE";
+		$sql="select count(*) FROM keyblocks WHERE height='$height' and orphan is TRUE";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($row->count==1){return FALSE;}
