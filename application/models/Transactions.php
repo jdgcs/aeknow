@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Transactions extends CI_Model {
 	
 	
-	public function getTransactions($page){
+	public function getTransactions($page,$type){
 		//$data['hash']=$transactionhash;
 		if($page<1){$page=1;}
 		$perpage=20;
