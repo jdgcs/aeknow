@@ -3,7 +3,7 @@ include "config.php";
 
 while(1){
 	$dbheight=GetDBHeight();
-	$topheight=GetTopHeight()-1;
+	$topheight=GetTopHeight();
 	$spiderheight=1;
 	if($topheight>$dbheight){
 		if($dbheight>10){$spiderheight=$dbheight-10;}

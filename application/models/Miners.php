@@ -5,8 +5,10 @@ class Miners extends CI_Model {
 	
 	public function getMinerIndex(){
 		$this->load->database();
+		$topheight=$this->GetTopHeight();
 		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
-		$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
+		//$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
@@ -27,26 +29,29 @@ class Miners extends CI_Model {
 					$showaddress=$alias;
 					}
 				$minedblocks=$row->count;
-				$percentage=round((($minedblocks*100)/$this->GetTopHeight()),2);
+				$percentage=round((($minedblocks*100)/$topheight),2);
 				//<td>".$this->getTotalReward($trueaddress)." AE</td>
 				$data['topminers'].= "<tr><td>".$counter."</td><td><a href=/address/wallet/$trueaddress>".$showaddress."</a></td><td><span class='badge bg-blue'>".$minedblocks."</span></td><td>$percentage %</td><td>".$this->getTotalReward($trueaddress)." AE</td></tr>";
 			}
 		}
 
-		$data['blocksmined']= $blockcounter;
+		$data['blocksmined']= $topheight;
 		$data['totalminers']= $query->num_rows();
 		$data['totalaemined']=$this->getTotalMined();
 		
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		$timetag=(time()-(24*60*60))*1000; 
+		$tagheight=$topheight-600;
 		$blocksnum_24=0;
-		$getblockssql="SELECT count(*) FROM miner WHERE time>$timetag AND orphan is FALSE";
+		//$getblockssql="SELECT count(*) FROM miner WHERE time>$timetag AND orphan is FALSE";
+		$getblockssql="SELECT count(*) FROM keyblocks WHERE (data->>'time')::numeric >$timetag AND orphan is NULL AND height>$tagheight";
 		$query = $this->db->query($getblockssql);
 		$row = $query->row();
 		$blocksnum_24=$row->count;
 		$data['total_24']=$blocksnum_24;
 		
-		$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL AND height>$tagheight group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
@@ -134,7 +139,9 @@ class Miners extends CI_Model {
 		
 		/////////////////////////////////Last 20 blocks/////////////////////////
 		$counter=0;
-		$query = $this->db->query('select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT 20;');
+		$sql='select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT 20;';
+		$sql="select data->>'beneficiary' as beneficiary,height,(data->>'time')::numeric as time from keyblocks WHERE orphan is NULL order by height desc LIMIT 20;";
+		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{			
 			$counter++;
@@ -165,14 +172,15 @@ class Miners extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		$data['peer_count']=0;
 		if(strpos($websrc,"difficulty")>0){
-			$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['difficulty']=$match[1];
+			//$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
+			//preg_match($pattern,$websrc, $match);
+			$info=json_decode($websrc);
+			$data['difficulty']=$info->difficulty;
 			$data['difficultyfull']=$data['difficulty'];
 			//$data['difficulty']=round($data['difficulty']/10000000000,2);
 			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";
 			
-			$data['peer_count']=$match[6];
+			$data['peer_count']=$info->peer_count;;
 		}
 		
 		
@@ -230,7 +238,8 @@ public function getPools(){
 public function getHashRate(){
 		$this->load->database();
 		$timetag=(time()-(24*60*60))*1000; 
-		$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		
 		$counter=0;
@@ -297,7 +306,7 @@ public function getHashRate(){
 		
 	private function notOrphan($height){
 		$this->load->database();		
-		$sql="select count(*) FROM miner WHERE height='$height' and orphan is TRUE";
+		$sql="select count(*) FROM keyblocks WHERE height='$height' and orphan is TRUE";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($row->count==1){return FALSE;}
@@ -306,7 +315,8 @@ public function getHashRate(){
 		
 	private function getTotalReward($ak){
 		$this->load->database();
-		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		//$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		$sql= "select data->>'height' as height,data->>'time' as time FROM keyblocks WHERE data @> '{\"beneficiary\": \"$ak\"}'::jsonb AND orphan is NULL order by kid desc";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
 		$data['blocksmined']= $query->num_rows();
@@ -340,7 +350,8 @@ public function getHashRate(){
 	private function getTransactionTime($block_hash){
 		$this->load->database();
 		$totalmins=0;
-		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
+		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
+		$sql="SELECT data->>'time' as time from microblocks WHERE hash='$block_hash' limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($query->num_rows()>0){
