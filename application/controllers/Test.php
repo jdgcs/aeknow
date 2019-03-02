@@ -23,7 +23,7 @@ class Test extends CI_Controller {
 		if(is_numeric($page)){
 			$this->load->model('tests');
 			$data=$this->tests->getTransactions($page);
-			$this->load->view('transaction_index.html',$data);
+			$this->load->view('en/transaction_index.html',$data);
 		}else{
 			echo "NULL";
 			}
