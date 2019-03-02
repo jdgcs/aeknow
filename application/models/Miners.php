@@ -351,7 +351,7 @@ public function getHashRate(){
 		$this->load->database();
 		$totalmins=0;
 		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
-		$sql="SELECT data->>'time' as time from microblocks WHERE hash='$block_hash' limit 1";
+		$sql="SELECT data->>'time' as time from microblocks data @> '{\"hash\": \"$block_hash\"}'::jsonb limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($query->num_rows()>0){
