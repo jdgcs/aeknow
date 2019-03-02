@@ -49,7 +49,7 @@ class Tests extends CI_Model {
 		$data['total_24']=$blocksnum_24;
 		
 		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
-		$topminersql="select data->'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
@@ -138,7 +138,7 @@ class Tests extends CI_Model {
 		/////////////////////////////////Last 20 blocks/////////////////////////
 		$counter=0;
 		$sql='select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT 20;';
-		$sql="select data->'beneficiary' as beneficiary,height,(data->>'time')::numeric as time from keyblocks WHERE orphan is NULL order by height desc LIMIT 20;";
+		$sql="select data->>'beneficiary' as beneficiary,height,(data->>'time')::numeric as time from keyblocks WHERE orphan is NULL order by height desc LIMIT 20;";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{			
