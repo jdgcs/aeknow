@@ -365,7 +365,7 @@ class Transactions extends CI_Model {
 
 function GetTopHeight()	{
 	$url=DATA_SRC_SITE."v2/blocks/top";
-	$websrc=getwebsrc($url);
+	$websrc=$this->getwebsrc($url);
 	$info=json_decode($websrc);
 	if(strpos($websrc,"key_block")==TRUE){		
 		return $info->key_block->height;
