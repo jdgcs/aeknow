@@ -1,0 +1,131 @@
+
+  <header class="main-header" style="background:#f7296e">
+     <a href="/" class="logo" style="background:#311b58">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>AE</b>K</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>AE</b>Know</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" style="background:#f7296e">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"  style="a:link{color: #f7296e}">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+<div class="pull-left" style="padding-top:10px">
+		   <!-- search form -->
+<!--<p><input placeholder="Explorer Generation, Block, Tx, Address, Hash" id="uid" size="40"  type="text" class="search-input"><button class="search-button"  onclick="tj();> <img src="/application/views/dist/img/search.svg" alt=""></button></p> 	-->	   
+<p><input type="text" name="uid" id="uid" size="40"  placeholder="Explorer Generation, Block, Tx, Address, Hash..."><input type="button" value="Search" name="B1" onclick="tj();" </p> 
+<script type="text/javascript">
+    function tj(){
+        var uid = document.getElementById('uid').value;
+        window.location.href = '/miner/viewaccount/'+uid;
+    }     
+</script>         
+ </div>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+			   <!-- news -->
+        
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Wallets<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                 <li><a href="https://www.anybit.io/" target="_blank">AnyBit</a></li> 
+                <li><a href="https://airgap.it/" target="_blank">AirGap</a></li>
+                             
+                </ul>
+              </li>            
+            </ul>
+          </li>     
+			
+          <!-- Pools -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Mining<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><a href="https://www.beepool.org" target="_blank">Beepool</a></li>
+                <li><a href="https://labs.f2pool.com/labs" target="_blank">F2pool</a></li>
+                <li><a href="https://www.uupool.cn" target="_blank" >UUpool</a></li>      
+                 <li class="divider"></li>  
+                 <li><a href="https://github.com/hspminer/HSPMinerAE/releases" target="_blank">HSPMiner</a></li>  
+                 <li><a href="https://www.mineros.cn/" target="_blank">MinerOS</a></li>
+                  <li><a href="https://www.bminer.me/" target="_blank">Bminer</a></li>             
+                <li><a href="https://github.com/aeternity/epoch/releases" target="_blank" >epoch ROMA</a></li>    
+                </ul>
+              </li>            
+            </ul>
+          </li>     
+             
+         
+         
+          
+      
+            
+             <!-- Exchanges -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Trading<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li ><a href="https://gateio.co/ref/350404" target="_blank" title="my reference link of gate.io">Gateio</a></li>  
+                   <li ><a href="https://www.uex.com/register?inviteCode=VZTLVA" target="_blank" title="my reference link of UEX">UEX</a></li>             
+                </ul>
+              </li>            
+            </ul>
+          </li>  
+          
+            
+            
+            
+             <!-- Exchanges -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Contact<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+             
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">  
+					<li ><a href="https://t.me/aeknow" target="_blank"> <i class="fa fa-commenting"></i>Telegram: https://t.me/aeknow</a></li>              
+					<li>						
+                    <a href="https://twitter.com/aeknow" target="_blank">
+                      <i class="fa fa-twitter text-aqua"></i>Twitter
+                    </a>
+                  </li>
+
+                </ul>
+              </li>            
+            </ul>
+          </li>  
+          
+          
+            <!-- Donate -->
+          <li class="dropdown notifications-menu">
+          <a href="/address/wallet/ak_2Vpk2GAXwCfMNVMrE1zNrT6ASMY14dMtujHKN6P74CozMSSy4C" class="dropdown-toggle" > <i class="fa fa-heart"></i>Donate</a>         
+          </li>  
+          
+                 
+
+        </ul>
+      </div>
+    </nav>
+    
+    
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->

@@ -183,7 +183,7 @@ class Test extends CI_Controller {
 	{		
 		$this->load->model('tests');
 		$data=$this->tests->getMinerIndex();
-		$this->load->view('minerboard.html',$data);
+		$this->load->view('en/minerboard.html',$data);
 		//$this->output->cache(1/2);
 	}
 	public function in24h(){

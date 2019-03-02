@@ -1388,7 +1388,8 @@ function GetTopHeight()	{
 	
 	private function getTotalReward($ak){
 		$this->load->database();
-		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		//$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		$sql= "select data->>'height' as height,data->>'time' as time FROM keyblocks WHERE data @> '{\"beneficiary\": \"$ak\"}'::jsonb AND orphan is NULL order by hid desc";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
 		$data['blocksmined']= $query->num_rows();
