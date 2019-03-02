@@ -86,6 +86,11 @@
                  <i class="fa  fa-random margin-r-5"></i><b>Transactions per day:<sup></sup></b> <a class="pull-right">~<?php echo $avgtxsperday;?> tx/day</a>
                 </li>  
                 
+                <li class="list-group-item">    
+                 <strong><i class="fa fa-file-text-o margin-r-5"></i> <a href="/test/txs/">All</a></strong>
+              <p></p>
+               </li>
+                
               <li class="list-group-item">    
                  <strong><i class="fa fa-file-text-o margin-r-5"></i> <a href="/test/txs/1/aens">AENS</a></strong>
               <p></p>
@@ -127,17 +132,17 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#mining" data-toggle="tab">Transactions Page <?php echo $page;?></a></li>
+              <li class="active"><a href="#mining" data-toggle="tab"><?php echo $txtype;?> Transactions Page <?php echo $page;?></a></li>
             </ul>
             <div class="tab-content">
             
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/transaction/p/1">First</a></li>
-                <li><a href="/transaction/p/<?php echo $page-1;?>">Prev</a></li>
-                <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
-                <li><a href="/transaction/p/<?php echo $page+1;?>">Next</a></li>
-                <li><a href="/transaction/p/<?php echo $totalpage;?>">Last</a></li>
+                <li><a href="/transaction/p/1/<?php echo $txtype;?>">First</a></li>
+                <li><a href="/transaction/p/<?php echo $page-1;?>/<?php echo $txtype;?>">Prev</a></li>
+                <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?> <?php echo $txtype;?></a></li>
+                <li><a href="/transaction/p/<?php echo $page+1;?>/<?php echo $txtype;?>">Next</a></li>
+                <li><a href="/transaction/p/<?php echo $totalpage;?>/<?php echo $txtype;?>">Last</a></li>
               </ul>
             </div>
             

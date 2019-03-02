@@ -206,7 +206,8 @@ class Tests extends CI_Model {
 		if($page<1){$page=1;}
 		$perpage=20;
 		$data['title']="Transactions";
-		$data['page']=$page;			
+		$data['page']=$page;	
+		$data['txtype']=$type;		
 		$this->load->database();
 		
 		$sql_count="SELECT count(*) from txs";
