@@ -218,7 +218,7 @@ $data['totalminers'].= "</table>";
 		}
 		
 		
-		private function getwebsrc($url) {
+private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AE-testbot";
 	
