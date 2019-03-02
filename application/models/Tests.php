@@ -202,8 +202,7 @@ class Tests extends CI_Model {
 		return $data;
 		}
 	
-	public function getTransactions($page){
-		//$data['hash']=$transactionhash;
+	public function getTransactions($page,$type){
 		if($page<1){$page=1;}
 		$perpage=20;
 		$data['title']="Transactions";
@@ -220,6 +219,9 @@ class Tests extends CI_Model {
 		
 		
 		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		if($type=="aens"){
+			$sql="SELECT * from txs WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			}
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['txstable']="";
