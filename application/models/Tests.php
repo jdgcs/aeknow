@@ -222,6 +222,10 @@ class Tests extends CI_Model {
 		if($type=="aens"){
 			$sql="SELECT * from txs WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
+		if($type=="contract"){
+			$sql="SELECT * from txs WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			}
+		
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['txstable']="";
