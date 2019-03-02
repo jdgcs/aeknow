@@ -20,7 +20,7 @@ class Tests extends CI_Model {
 			$blockcounter=$blockcounter+$row->count;
 			
 			if($counter<21){
-				$showaddress=$row->beneficiary;
+				$showaddress=$row->>beneficiary;
 				$trueaddress=$showaddress;
 				$alias=$this->getalias($trueaddress);
 				if($showaddress==$alias){
