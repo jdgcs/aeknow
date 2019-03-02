@@ -180,28 +180,11 @@ class Test extends CI_Controller {
 	//print_r($match);
 	}	
 	public function index()
-	{
-		
-		//$this->load->view('miners.html');
-		$this->load->database();
-		$query = $this->db->query('select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;');
-
-		$counter=0;
-		$blockcounter=0;
-		$data['totalminers']="";
-		$data['totalminers']= "<table border=1><tr><td>No.</td><td>Account</td><td>Blocks mined</td></tr>";
-		foreach ($query->result() as $row)
-		{
-			$counter++;
-			$blockcounter=$blockcounter+$row->count;
-			$data['totalminers'].= "<tr><td>".$counter."</td><td><a href=/miner/viewaccount/".$row->beneficiary.">".$row->beneficiary."</a></td><td>".$row->count."</td></tr>";
-		}
-$data['totalminers'].= "</table>";
-		$data['totalminers'].= 'Total Beneficiary Accounts: ' . $query->num_rows()." have mined $blockcounter blocks.";
-		
-		$data['title']="Total miners rank by blocks mined";
-		$this->load->view('welcome_message',$data);
-		$this->output->cache(3);
+	{		
+		$this->load->model('tests');
+		$data=$this->tests->getMinerIndex();
+		$this->load->view('minerboard.html',$data);
+		//$this->output->cache(1/2);
 	}
 	public function in24h(){
 		//$this->load->view('miners.html');

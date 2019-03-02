@@ -363,25 +363,20 @@ class Transactions extends CI_Model {
 }
 
 
-private function GetTopHeight()	{
-	$url="http://127.0.0.1:3013/v2/blocks/top";
-	$websrc=$this->getwebsrc($url);
-	if(strpos($websrc,"key_block")==TRUE){
-		$pattern='/{\"key_block\":{"beneficiary\":\"(.*)\",\"hash\":\"(.*)\",\"height\":(.*),\"miner\":\"(.*)\",\"nonce\":(.*),\"pow\":(.*),\"prev_hash\":\"(.*)\",\"prev_key_hash\":\"(.*)\",\"state_hash\":\"(.*)\",\"target\":(.*),\"time\":(.*),\"version\":(.*)}}/i';
-		preg_match($pattern,$websrc, $match);
-		return $match[3];
+function GetTopHeight()	{
+	$url=DATA_SRC_SITE."v2/blocks/top";
+	$websrc=getwebsrc($url);
+	$info=json_decode($websrc);
+	if(strpos($websrc,"key_block")==TRUE){		
+		return $info->key_block->height;
 	}
-	
+		
 	if(strpos($websrc,"micro_block")==TRUE){
-		$pattern='/(.*),"height":(.*),"pof_hash"(.*)/i';
-		preg_match($pattern,$websrc, $match);
-		return $match[2];
+		return $info->micro_block->height;
 		}
 	
 	return 0;
-	//print_r($match);
 	}
-	
 	
 	
 
