@@ -5,8 +5,9 @@ class Tests extends CI_Model {
 	
 	public function getMinerIndex(){
 		$this->load->database();
+		$topheight=$this->GetTopHeight();
 		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
-		$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
+		//$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
 		$topminersql=="select data->'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
@@ -28,7 +29,7 @@ class Tests extends CI_Model {
 					$showaddress=$alias;
 					}
 				$minedblocks=$row->count;
-				$percentage=round((($minedblocks*100)/$this->GetTopHeight()),2);
+				$percentage=round((($minedblocks*100)/$topheight),2);
 				//<td>".$this->getTotalReward($trueaddress)." AE</td>
 				$data['topminers'].= "<tr><td>".$counter."</td><td><a href=/address/wallet/$trueaddress>".$showaddress."</a></td><td><span class='badge bg-blue'>".$minedblocks."</span></td><td>$percentage %</td><td>".$this->getTotalReward($trueaddress)." AE</td></tr>";
 			}
@@ -40,16 +41,17 @@ class Tests extends CI_Model {
 		
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		$timetag=(time()-(24*60*60))*1000; 
+		$tagheight=$topheight-600;
 		$blocksnum_24=0;
 		//$getblockssql="SELECT count(*) FROM miner WHERE time>$timetag AND orphan is FALSE";
-		$getblockssql="SELECT count(*) FROM keyblocks WHERE (data->>'time')::numeric >$timetag AND orphan is NULL";
+		$getblockssql="SELECT count(*) FROM keyblocks WHERE (data->>'time')::numeric >$timetag AND orphan is NULL AND height>$tagheight";
 		$query = $this->db->query($getblockssql);
 		$row = $query->row();
 		$blocksnum_24=$row->count;
 		$data['total_24']=$blocksnum_24;
 		
 		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
-		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL AND height>$tagheight group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
