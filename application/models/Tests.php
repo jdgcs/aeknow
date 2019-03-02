@@ -178,7 +178,7 @@ class Tests extends CI_Model {
 			//$data['difficulty']=round($data['difficulty']/10000000000,2);
 			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";
 			
-			$data['peer_count']=$match[6];
+			$data['peer_count']=$info->peer_count;;
 		}
 		
 		
