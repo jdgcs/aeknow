@@ -48,7 +48,8 @@ class Tests extends CI_Model {
 		$blocksnum_24=$row->count;
 		$data['total_24']=$blocksnum_24;
 		
-		$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql="select data->'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
@@ -136,7 +137,9 @@ class Tests extends CI_Model {
 		
 		/////////////////////////////////Last 20 blocks/////////////////////////
 		$counter=0;
-		$query = $this->db->query('select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT 20;');
+		$sql='select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT 20;';
+		$sql="select data->'beneficiary' as beneficiary,height,(data->>'time')::numeric as time from keyblocks WHERE orphan is NULL order by height desc LIMIT 20;";
+		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{			
 			$counter++;
@@ -167,9 +170,10 @@ class Tests extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		$data['peer_count']=0;
 		if(strpos($websrc,"difficulty")>0){
-			$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['difficulty']=$match[1];
+			//$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
+			//preg_match($pattern,$websrc, $match);
+			$info=json_decode($websrc);
+			$data['difficulty']=$info->difficulty;
 			$data['difficultyfull']=$data['difficulty'];
 			//$data['difficulty']=round($data['difficulty']/10000000000,2);
 			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";
