@@ -35,7 +35,7 @@ class Tests extends CI_Model {
 			}
 		}
 
-		$data['blocksmined']= $blockcounter;
+		$data['blocksmined']= $topheight;
 		$data['totalminers']= $query->num_rows();
 		$data['totalaemined']=$this->getTotalMined();
 		
