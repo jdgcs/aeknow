@@ -7,16 +7,16 @@ class Transaction extends CI_Controller {
 	public function index()
 	{	
 		$this->load->model('transactions');
-		$data=$this->transactions->getTransactions(1);
-		$this->load->view('transaction_index.html',$data);
+		$data=$this->transactions->getTransactions(1,"all");
+		$this->load->view('en/transaction_index.html',$data);
 	}
 	
-	public function p($page)
+	public function p($page=1,$type="all")
 	{	
 		if(is_numeric($page)){
 			$this->load->model('transactions');
-			$data=$this->transactions->getTransactions($page);
-			$this->load->view('transaction_index.html',$data);
+			$data=$this->transactions->getTransactions($page,$type);
+			$this->load->view('en/transaction_index.html',$data);
 		}else{
 			echo "NULL";
 			}

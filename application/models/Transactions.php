@@ -9,11 +9,36 @@ class Transactions extends CI_Model {
 		if($page<1){$page=1;}
 		$perpage=20;
 		$data['title']="Transactions";
-		$data['page']=$page;			
+		$data['page']=$page;	
+		$data['txtype']=$type;		
 		$this->load->database();
 		
-		$sql="SELECT count(*) from txs";
-		$query = $this->db->query($sql);
+		$sql_count="SELECT count(*) from txs";
+		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		if($type=="aens"){
+			$sql="SELECT * from txs WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from txs WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx'";
+			}
+		if($type=="contract"){
+			$sql="SELECT * from txs WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from txs WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx'";
+			}
+		if($type=="channel"){
+			$sql="SELECT * from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx'";
+			}
+		if($type=="oracle"){
+			$sql="SELECT * from txs WHERE txtype='OracleExtendTx' OR txtype='OracleQueryTx' OR txtype='OracleResponseTx' OR txtype='OracleRegisterTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from txs WHERE txtype='OracleExtendTx' OR txtype='OracleQueryTx' OR txtype='OracleResponseTx' OR txtype='OracleRegisterTx' ";
+			}
+			
+		if($type=="spend"){
+			$sql="SELECT * from txs WHERE txtype='SpendTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from txs WHERE txtype='SpendTx'";
+			}
+		
+		
+		$query = $this->db->query($sql_count);
 		$row = $query->row();
 		$data['totaltxs']=$row->count;
 		$data['totalpage']=round($data['totaltxs']/$perpage,0);
@@ -21,7 +46,8 @@ class Transactions extends CI_Model {
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		
 		
-		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		
+		
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['txstable']="";
