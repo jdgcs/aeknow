@@ -24,7 +24,7 @@ class Transactions extends CI_Model {
 			$sql_count="SELECT count(*) from txs WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx'";
 			}
 		if($type=="channel"){
-			$sql="SELECT * from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql="SELECT * from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelSnapshotSoloTx' OR txtype='ChannelSlashTx' OR txtype='ChannelForceProgressTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			$sql_count="SELECT count(*) from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx'";
 			}
 		if($type=="oracle"){
