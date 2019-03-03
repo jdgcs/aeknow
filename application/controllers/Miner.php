@@ -23,7 +23,7 @@ class Miner extends CI_Controller {
 	public function index()
 	{	$this->load->model('miners');
 		$data=$this->miners->getMinerIndex();
-		$this->load->view('minerboard_new.html',$data);
+		$this->load->view('en/minerboard.html',$data);
 		$this->output->cache(1/2);
 	}
 	
