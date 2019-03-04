@@ -155,7 +155,7 @@ class Blocks extends CI_Model {
 			$data['target']=$info->key_block->target;
 			$data['time']=$info->key_block->time;
 			$data['version']=$info->key_block->version;
-			$data['micro_blocks']=$info->micro_blocks;
+			$data['micro_blocks']=json_encode($info->micro_blocks);
 			
 			}
 		
