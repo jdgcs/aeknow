@@ -127,7 +127,7 @@ class Blocks extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		$data['microblocks']=0;		
 		if(strpos($websrc,"key_block")>0){
-			$pattern='/{"key_block":{"beneficiary":"(.*)","hash":"(.*)","height":(.*),"miner":"(.*)","nonce":(.*),"pow":(.*),"prev_hash":"(.*)","prev_key_hash":"(.*)","state_hash":"(.*)","target":(.*),"time":(.*),"version":(.*)},"micro_blocks":(.*)}/i';
+			/*$pattern='/{"key_block":{"beneficiary":"(.*)","hash":"(.*)","height":(.*),"miner":"(.*)","nonce":(.*),"pow":(.*),"prev_hash":"(.*)","prev_key_hash":"(.*)","state_hash":"(.*)","target":(.*),"time":(.*),"version":(.*)},"micro_blocks":(.*)}/i';
 			preg_match($pattern,$websrc,$match);			
 			$data['benificiary']=$match[1];
 			$data['hash']=$match[2];
@@ -141,7 +141,22 @@ class Blocks extends CI_Model {
 			$data['target']=$match[10];
 			$data['time']=$match[11];
 			$data['version']=$match[12];
-			$data['micro_blocks']=$match[13];
+			$data['micro_blocks']=$match[13];*/
+			$info=json_decode($websrc);
+			$data['benificiary']=$info->key_block->benificiary;
+			$data['hash']=$info->key_block->hash;
+			$data['height']=$info->key_block->height;
+			$data['miner']=$info->key_block->miner;
+			$data['nonce']=$info->key_block->nonce;
+			$data['pow']=json_encode($info->key_block->pow);
+			$data['prev_hash']=$info->key_block->prev_hash;
+			$data['prev_key_hash']=$info->key_block->prev_key_hash;
+			$data['state_hash']=$info->key_block->state_hash;
+			$data['target']=$info->key_block->target;
+			$data['time']=$info->key_block->time;
+			$data['version']=$info->key_block->version;
+			$data['micro_blocks']=$info->key_block->micro_blocks;
+			
 			}
 		
 		if(strlen($data['micro_blocks'])>10){
