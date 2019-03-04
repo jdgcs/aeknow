@@ -49,8 +49,8 @@ public function getOracleDetail($oracle_id){
 		$query_format=$orData->query_format;
 		$response_format=$orData->response_format;
 		$ttl=$orData->ttl;
-		if(property_exists($orData,"vm_version"){
-		$vm_version=$orData->vm_version;
+		if(property_exists($orData,"vm_version")){
+			$vm_version=$orData->vm_version;
 		}else{$vm_version="NULL";}
 		$account_id=str_replace("ok_","ak_",$oracle_id);
 		
