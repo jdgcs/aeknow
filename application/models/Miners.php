@@ -400,7 +400,7 @@ function GetTopHeight()	{
 		return $info->micro_block->height;
 		}
 	
-	return 0;
+	return 1;
 	}
 
 }
