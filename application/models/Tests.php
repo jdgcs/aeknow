@@ -485,15 +485,18 @@ class Tests extends CI_Model {
 		$data['account']=$ak;
 		$data['balance']=0;
 		if(strpos($websrc,"balance")==TRUE){
-			$pattern='/{"balance":(.*),"id":"(.*)","nonce":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['balance']=$match[1]/1000000000000000000;
+			//$pattern='/{"balance":(.*),"id":"(.*)","nonce":(.*)}/i';
+			//preg_match($pattern,$websrc, $match);
+			$info=json_decode($websrc);
+			//$data['balance']=$match[1]/1000000000000000000;
+			$data['balance']=$info->balance/1000000000000000000;
 		}
 		
 		
 ///////////////////////////////////////get mining
 		$this->load->database();
-		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		//$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
+		$sql= "select height,data->>'time' as time FROM keyblocks WHERE data @> '{\"beneficiary\": \"$ak\"}'::jsonb AND orphan is NULL order by kid desc";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
 		$data['blocksmined']= $query->num_rows();
@@ -516,13 +519,18 @@ class Tests extends CI_Model {
 			}
 			}
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
-		$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$ok=str_replace("ak_","ok_",$ak);
+		
+		$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		//$sql= "select * FROM txs WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=='in'){
 			$sql="SELECT * FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		if($type=='out'){
 			$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			}
+		if($type=='contracts'){
+			$sql="SELECT * FROM txs WHERE txtype='ContractCallTx' or txtype='ContractCreateTx' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		$query = $this->db->query($sql);
 		$counter=0;
@@ -574,7 +582,7 @@ class Tests extends CI_Model {
 		//	}
 		//$data['transaction_count']=$query->num_rows();
 		
-		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb";
+		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb";
 		if($type=='in'){
 			$sql="SELECT count(*) FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
 			}
@@ -613,7 +621,6 @@ class Tests extends CI_Model {
 		if(!$this->checkAddress($tobecheck)){
 			$data['account']="Invalid address";
 			}
-		
 		/////////////////////////////////////////////Get Tokens//////////////////////////////////
 		$tmpaddress=$this->base58_decode($tobecheck);
 		$hexaddress=substr($tmpaddress,0,64);
@@ -627,6 +634,12 @@ class Tests extends CI_Model {
 			$data['tokens'].="<b>$token</b>: $balance<br/>";
 			}
 		
+		
+		/////////////////////////////////////////////Get AENS names//////////////////////////////////
+		$sql="SELECT count(*) FROM txs WHERE tx->'tx'->'pointers' @>'[{\"id\":\"$ak\",\"key\":\"account_pubkey\"}]'::jsonb;";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		$data['aensname']=$row->count;
 		
 		return $data;
 		
