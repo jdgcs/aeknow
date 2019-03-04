@@ -143,7 +143,7 @@ class Blocks extends CI_Model {
 			$data['version']=$match[12];
 			$data['micro_blocks']=$match[13];*/
 			$info=json_decode($websrc);
-			$data['benificiary']=$info->key_block->benificiary;
+			$data['beneficiary']=$info->key_block->beneficiary;
 			$data['hash']=$info->key_block->hash;
 			$data['height']=$info->key_block->height;
 			$data['miner']=$info->key_block->miner;
