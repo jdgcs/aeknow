@@ -21,7 +21,7 @@ class Block extends CI_Controller {
 	public function index()
 	{	$this->load->model('blocks');
 		$data=$this->blocks->genBlocksIndex();
-		$this->load->view('blocks_v2.html',$data);
+		$this->load->view('en/blocks_v2.html',$data);
 		$this->output->cache(1);
 	}
 	
@@ -31,7 +31,7 @@ class Block extends CI_Controller {
 			if($page<1){$page=1;}
 			$this->load->model('blocks');
 			$data=$this->blocks->genBlocksIndex($page);
-			$this->load->view('blocks_v2.html',$data);
+			$this->load->view('en/blocks_v2.html',$data);
 		}else{
 			echo "NULL";
 			}
@@ -55,7 +55,7 @@ class Block extends CI_Controller {
 		$height=$this->blocks->getBlockHeight($keyblockhash);
 		if($height<0){echo "Not in DB."; return 0;}
 		$data=$this->blocks->getBlockInfo($height);
-		$this->load->view('block.html',$data);
+		$this->load->view('en/block.html',$data);
 		$this->output->cache(3);
 		}
 	
@@ -64,7 +64,7 @@ class Block extends CI_Controller {
 		if(trim($transactionhash)!=""){
 			$this->load->model('blocks');
 			$data=$this->blocks->getTransactionInfo($transactionhash);			
-			$this->load->view('tx_detail.html',$data);		
+			$this->load->view('en/tx_detail.html',$data);		
 		}else{echo "NULL";}
 		//$this->output->cache(3);
 		}
@@ -74,10 +74,10 @@ class Block extends CI_Controller {
 		$this->load->model('blocks');
 		if($transactions=="transactions"){
 			$data=$this->blocks->getMicroBlockTransactions($microblockhash);
-			$this->load->view('transactions.html',$data);
+			$this->load->view('en/transactions.html',$data);
 			}else{
 			$data=$this->blocks->getMicroBlockInfo($microblockhash);
-			$this->load->view('mblock.html',$data);
+			$this->load->view('en/mblock.html',$data);
 			}
 		//$this->output->cache(3);
 		}
@@ -85,7 +85,7 @@ class Block extends CI_Controller {
 	public function microblocks($microblockheight){
 		$this->load->model('blocks');
 		$data=$this->blocks->getMicroBlocks($microblockheight);
-		$this->load->view('mblocks.html',$data);
+		$this->load->view('en/mblocks.html',$data);
 		}
 	
 	
