@@ -6,7 +6,7 @@ class Oracle extends CI_Controller {
 	{	
 		$this->load->model('oracles');	
 		$data=$this->oracles->getOracleList();
-		$this->load->view('oracles_index.html',$data);
+		$this->load->view('en/oracles_index.html',$data);
 		$this->output->cache(5);
 	}
 		
@@ -14,7 +14,7 @@ class Oracle extends CI_Controller {
 	{	
 		$this->load->model('oracles');	
 		$data=$this->oracles->getOracleDetail($oracle_id);
-		$this->load->view('oracles_detail.html',$data);
+		$this->load->view('en/oracles_detail.html',$data);
 		$this->output->cache(1);
 	}
 	
