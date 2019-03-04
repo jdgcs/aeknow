@@ -584,7 +584,9 @@ class Tests extends CI_Model {
 		//	}
 		//$data['transaction_count']=$query->num_rows();
 		
-		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb";
+		//$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb";
+		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
+
 		if($type=='in'){
 			$sql="SELECT count(*) FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
 			}
