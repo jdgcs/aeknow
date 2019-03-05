@@ -15,29 +15,32 @@ while(1){
 }
 
 function ProcessHTML($height){
-	//$url=DATA_SRC_SITE."v2/key-blocks/height/$height";
-	$url="http://35.178.61.73:3013/v2/key-blocks/height/$height";
-	$websrc=getwebsrc($url);	
-	
-	$sql="select height FROM keyblocks WHERE height=$height";
-	//echo $sql."\n";
-	$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
-	$db = pg_connect($conn_string);
-	$result_query = pg_query($db, $sql);
-			if (!$result_query) {
-				echo pg_last_error($db);
-				exit;
-			}
-	if (pg_num_rows($result_query) == 0) {
-		$sql="INSERT INTO keyblocks(height,data) VALUES($height,'$websrc')";
+	$url=DATA_SRC_SITE."v2/key-blocks/height/$height";
+	//$url="http://35.178.61.73:3013/v2/key-blocks/height/$height";
+	$websrc=getwebsrc($url);
+		
+	if(strpos($websrc,"beneficiary")>0){
+		$sql="select height FROM keyblocks WHERE height=$height";
 		//echo $sql."\n";
-		 $result_insert = pg_query($db, $sql);
-            if (!$result_insert) {
-                echo pg_last_error($db);
-                //exit;
-            }else{echo "Height:$height inerted.\n";}
-		}
+		$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
+		$db = pg_connect($conn_string);
+		$result_query = pg_query($db, $sql);
+				if (!$result_query) {
+					echo pg_last_error($db);
+					exit;
+				}
+		if (pg_num_rows($result_query) == 0) {
+			$sql="INSERT INTO keyblocks(height,data) VALUES($height,'$websrc')";
+			//echo $sql."\n";
+			 $result_insert = pg_query($db, $sql);
+				if (!$result_insert) {
+					echo pg_last_error($db);
+					//exit;
+				}else{echo "Height:$height inerted.\n";}
+			}
+	
 	}
+}
 
 function GetDBHeight(){
 	$conn_string = "host=127.0.0.1 port=5432 dbname=postgres user=postgres";
