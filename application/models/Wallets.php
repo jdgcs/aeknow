@@ -50,15 +50,15 @@ class Wallets extends CI_Model {
 		//$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		//$sql= "select * FROM txs WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
 		//$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-		$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' AND txtype='$txtype' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		
 		if($type=='in'){
 			//$sql="SELECT * FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql="SELECT * FROM txs WHERE recipient_id='$ak' AND txtype='$txtype' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		if($type=='out'){
 			//$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='$txtype' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql="SELECT * FROM txs WHERE sender_id='$ak' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		if($type=='contracts'){
 			$sql="SELECT * FROM txs WHERE txtype='ContractCallTx' or txtype='ContractCreateTx' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
@@ -115,13 +115,13 @@ class Wallets extends CI_Model {
 		
 		//$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb";
 		//$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
-		$sql="SELECT count(*) FROM txs WHERE  sender_id='$ak' OR  recipient_id='$ak' AND txtype='$txtype'";
+		$sql="SELECT count(*) FROM txs WHERE  sender_id='$ak' OR  recipient_id='$ak'";
 		if($type=='in'){
 			$sql="SELECT count(*) FROM txs WHERE  recipient_id='$ak'";
 			}
 			
 		if($type=='out'){
-			$sql="SELECT count(*) FROM txs WHERE sender_id='$ak' ";
+			$sql="SELECT count(*) FROM txs WHERE sender_id='$ak'";
 			}
 		
 		$query = $this->db->query($sql);
