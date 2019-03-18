@@ -69,7 +69,7 @@ class Block extends CI_Controller {
 		//$this->output->cache(3);
 		}
 	
-	public function microblock($microblockhash,$transactions=NULL){
+	public function microblock($microblockhash="",$transactions=NULL){
 		//echo"building...";
 		$this->load->model('blocks');
 		if($transactions=="transactions"){
@@ -82,7 +82,7 @@ class Block extends CI_Controller {
 		//$this->output->cache(3);
 		}
 		
-	public function microblocks($microblockheight){
+	public function microblocks($microblockheight=1){
 		$this->load->model('blocks');
 		$data=$this->blocks->getMicroBlocks($microblockheight);
 		$this->load->view('en/mblocks.html',$data);
