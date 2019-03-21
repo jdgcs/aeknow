@@ -15,7 +15,7 @@ class Networks extends CI_Model {
 		$data['topheight']= floatval($this->GetTopHeight());
 		//$data['totalaemined']=$this->getTotalMined();	
 		//$data['totalcoins']=276450333.49932+$this->getTotalMined();
-		$data['totalcoins']=getTotalCoins();
+		$data['totalcoins']=$this->getTotalCoins();
 		$data['totalaemined']=$data['totalcoins']-276450333.49932;
 		
 		$sql="SELECT time FROM miner WHERE height=1";
