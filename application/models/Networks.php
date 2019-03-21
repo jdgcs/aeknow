@@ -13,8 +13,10 @@ class Networks extends CI_Model {
 		$data['maxtps']=116;
 		///////////////////////////////////////////get blocks info////////////////////////////
 		$data['topheight']= floatval($this->GetTopHeight());
-		$data['totalaemined']=$this->getTotalMined();	
-		$data['totalcoins']=276450333.49932+$this->getTotalMined();
+		//$data['totalaemined']=$this->getTotalMined();	
+		//$data['totalcoins']=276450333.49932+$this->getTotalMined();
+		$data['totalcoins']=getTotalCoins();
+		$data['totalaemined']=$data['totalcoins']-276450333.49932;
 		
 		$sql="SELECT time FROM miner WHERE height=1";
 		$query = $this->db->query($sql);
@@ -63,13 +65,16 @@ class Networks extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		$data['peer_count']=0;
 		if(strpos($websrc,"difficulty")>0){
-			$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['difficulty']=$match[1];
+			//$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
+			//preg_match($pattern,$websrc, $match);
+			$info=json_decode($websrc);
+			//$data['difficulty']=$match[1];
+			$data['difficulty']=$info->difficulty;
 			$data['difficultyfull']=floatval($data['difficulty']);
 			//$data['difficulty']=round($data['difficulty']/10000000000,2);
 			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
-			$data['peer_count']=floatval($match[6]);
+			//$data['peer_count']=floatval($match[6]);
+			$data['peer_count']=floatval($info->peer_count);
 		}
 		
 		//////////////////////////////get hashrate////////////////////////////
@@ -110,7 +115,13 @@ class Networks extends CI_Model {
 		return $row->reward/10;
 		}
 		
-		
+public function getTotalCoins(){
+		$myfile = fopen("/dev/shm/totalcoin", "r") or die("Unable to open file!");
+		return trim(fgets($myfile));
+		fclose($myfile);
+		//return 276450333.49932+$this->getTotalMined();
+		}
+				
 public function getHashRate(){
 		$this->load->database();
 		$timetag=(time()-(24*60*60))*1000; 
