@@ -18,20 +18,24 @@ class Networks extends CI_Model {
 		$data['totalcoins']=$this->getTotalCoins();
 		$data['totalaemined']=$data['totalcoins']-276450333.49932;
 		
-		$sql="SELECT time FROM miner WHERE height=1";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$totalmins= (time()-($row->time/1000))/60;		
+		//$sql="SELECT time FROM miner WHERE height=1";
+		//$query = $this->db->query($sql);
+		//$row = $query->row();
+		//$totalmins= (time()-($row->time/1000))/60;		
+		$totalmins= (time()-(1543373685748/1000))/60;	//1543373685748 is the first block time
+		
 		$totalheight=$data['topheight'];		
-		$data['avgminsperblock']=round($totalmins/$totalheight,2);
+		$data['avgminsperblock']=round($totalmins/$totalheight,6);
 		
 		$url=DATA_SRC_SITE."v2/key-blocks/height/$totalheight";
 		$websrc=$this->getwebsrc($url);
 		$data['lastime']="";
 		if(strpos($websrc,"time")>0){
-			$pattern='/(.*),"time":(.*),"version(.*)/i';
-			preg_match($pattern,$websrc, $match);
-			$data['lastime']=$match[2];
+			//$pattern='/(.*),"time":(.*),"version(.*)/i';
+			//preg_match($pattern,$websrc, $match);
+			//$data['lastime']=$match[2];
+			$info=json_decode($websrc);			
+			$data['lastime']=$info->time;
 			$millisecond=substr($data['lastime'],0,strlen($data['lastime'])-3); 
 			$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;

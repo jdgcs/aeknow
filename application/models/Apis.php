@@ -35,9 +35,11 @@ class Apis extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		$data['lastime']="";
 		if(strpos($websrc,"time")>0){
-			$pattern='/(.*),"time":(.*),"version(.*)/i';
-			preg_match($pattern,$websrc, $match);
-			$data['lastime']=$match[2];
+			//$pattern='/(.*),"time":(.*),"version(.*)/i';
+			//preg_match($pattern,$websrc, $match);
+			$info=json_decode($websrc);
+			//$data['lastime']=$match[2];
+			$data['lastime']=$info->time;
 			$millisecond=substr($data['lastime'],0,strlen($data['lastime'])-3); 
 			$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;
