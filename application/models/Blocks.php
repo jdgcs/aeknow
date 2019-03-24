@@ -224,6 +224,10 @@ class Blocks extends CI_Model {
 							$content_tx="<a href=/address/wallet/$content_tx>$content_tx</a>";
 							}					
 						
+						if($key_tx=="oracle_id"){
+							$content_tx="<a href=/oracle/id/$content_tx>$content_tx</a>";
+							}	
+						
 						if($key_tx=="fee" || $key_tx=="gas"){
 							$aefee=number_format($content_tx/1000000000000000000, 18, '.', '');
 							$content_tx=$aefee." AE($content_tx ættos )";
