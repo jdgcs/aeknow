@@ -25,7 +25,8 @@ public function getContractList(){
 		//echo "$url;$websrc";
 		if(strpos($websrc,"id")>0){
 			$ctData=json_decode($websrc);
-			$sql_ct="select tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by block_height asc limit 1;";
+			//$sql_ct="select tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by block_height asc limit 1;";
+			$sql_ct="select tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by block_height asc limit 1;";
 			$query_ct = $this->db->query($sql_ct);
 			$row_ct = $query_ct->row();
 			$block_height= $row_ct->block_height;
@@ -58,7 +59,7 @@ public function getContractDetail($cthash){
 	$data['owner_id']=$owner_id;
 	$data['cthash']=$cthash;
 	$this->load->database();
-	$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
+	$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
 	$query = $this->db->query($sql);
 	foreach ($query->result() as $row){
 		//$counter++;
