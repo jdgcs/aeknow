@@ -66,17 +66,18 @@ public function getOracleDetail($oracle_id){
 	$data['querytable']="";
 	$counter=0;
 	$this->load->database();
-	$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height from txs WHERE txtype='OracleQueryTx' OR txtype='OracleResponseTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb order by tid desc limit 100 ;";
+	$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height,txtype from txs WHERE txtype='OracleQueryTx' OR txtype='OracleResponseTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb order by tid desc limit 100 ;";
 	$query = $this->db->query($sql);
 	
 	foreach ($query->result() as $row){
 		$counter++;
 		$txhash=$row->txhash;
+		$txtype=$row->txtype;
 		$txhash=str_replace("\"","",$txhash);
 		$block_height=$row->block_height;
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
 		$txhash="<a href=/block/transaction/$txhash>$txhash</a>";
-		$data['querytable'].="<tr><td>$counter</td><td>$txhash</td><td>$block_height</td></tr>";
+		$data['querytable'].="<tr><td>$counter</td><td>$txhash</td><td>$txtype</td><td>$block_height</td></tr>";
 		}
 	
 	
