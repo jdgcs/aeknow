@@ -19,7 +19,7 @@ class Apis extends CI_Model {
 			}
 		$results.= "}END";
 		
-		$results=str_replace(",}END","}",$results);
+		$results=str_replace(",}END","}}",$results);
 		echo $results;
 		}
 	
