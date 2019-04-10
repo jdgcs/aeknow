@@ -5,20 +5,22 @@ class Apis extends CI_Model {
 	
 	public function getTx($ak,$limit=20,$offset=0){
 		$this->load->database();
-		//$trans_sql="SELECT txhash FROM txs ORDER BY block_height,tid desc LIMIT 20";
-		$trans_sql="SELECT txhash,txtype FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height,tid desc LIMIT $limit offset ".$offset;
-		
+		$trans_sql="SELECT txhash,txtype FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset ".$offset;		
 		$query = $this->db->query($trans_sql);
-		$data['lasttxs']="";
+
 		$counter=0;
-		echo "{\"txs\":{";
+		$results="";
+		$results.= "{\"txs\":{";
 		foreach ($query->result() as $row){
 			//$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
-			echo "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"},";	
+			$results.= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"},";	
 			}
-		echo "}";
+		$results.= "}END";
+		
+		$results=str_replace(",}END","}",$results);
+		echo $results;
 		}
 	
 	public function getTotalCoins(){
