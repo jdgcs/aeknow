@@ -10,16 +10,16 @@ class Apis extends CI_Model {
 
 		$counter=0;
 		$results="";
-		$results.= "{\"txs\":{";
+		$results.= "{\"txs\":[";
 		foreach ($query->result() as $row){
 			//$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
-			$results.= "[\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"],";	
+			$results.= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"},";	
 			}
 		$results.= "}END";
 		
-		$results=str_replace(",}END","}}",$results);
+		$results=str_replace(",}END","]}",$results);
 		echo $results;
 		}
 	
