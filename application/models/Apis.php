@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Apis extends CI_Model {
 	
-	public function tx($ak,$limit=20,$offset=0){
+	public function getTx($ak,$limit=20,$offset=0){
 		//$trans_sql="SELECT txhash FROM txs ORDER BY block_height,tid desc LIMIT 20";
 		$trans_sql="SELECT txhash FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height,tid desc LIMIT $limit offset ".$offset;
 		
