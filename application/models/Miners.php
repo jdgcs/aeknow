@@ -97,7 +97,7 @@ class Miners extends CI_Model {
 		
 		////////////////////////////////Latest 20 Transactions////////////////////////
 		//$trans_sql="SELECT * from transactions order by block_height desc,nonce desc limit 20";		
-		$trans_sql="SELECT * FROM txs ORDER BY block_height,tid desc LIMIT 20";
+		$trans_sql="SELECT * FROM txs ORDER BY block_height desc,tid desc LIMIT 20";
 		$query = $this->db->query($trans_sql);
 		$data['lasttxs']="";
 		$counter=0;
