@@ -3,6 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Apis extends CI_Model {
 	
+	public function tx($ak,$limit=20,$offset=0){
+		//$trans_sql="SELECT txhash FROM txs ORDER BY block_height,tid desc LIMIT 20";
+		$trans_sql="SELECT txhash FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height,tid desc LIMIT $limit offset ".$offset;
+		
+		$query = $this->db->query($trans_sql);
+		$data['lasttxs']="";
+		$counter=0;
+		echo "\"txs\":{";
+		foreach ($query->result() as $row){
+			//$counter++;
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			echo "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"},";	
+			}
+		echo "}";
+		}
+	
 	public function getTotalCoins(){
 		$myfile = fopen("/dev/shm/totalcoin", "r") or die("Unable to open file!");
 		return trim(fgets($myfile));
