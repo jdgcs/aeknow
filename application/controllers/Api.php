@@ -14,7 +14,7 @@ class Api extends CI_Controller {
 	
 	public function tx($ak,$limit=20,$offset=0){
 		$this->load->model('apis');
-		$this->apis->getTx($ak,$limit,$offset)
+		$this->apis->getTx($ak,$limit,$offset);
 		}
 		
 		
