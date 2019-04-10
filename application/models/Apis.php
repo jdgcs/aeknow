@@ -15,7 +15,7 @@ class Apis extends CI_Model {
 			//$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
-			$results.= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"},";	
+			$results.= "[\"txtype\":\"$txtype\",\"txhash\":\"$txhash\"],";	
 			}
 		$results.= "}END";
 		
