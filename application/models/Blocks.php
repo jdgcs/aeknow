@@ -234,7 +234,8 @@ class Blocks extends CI_Model {
 						}
 						
 						if($key_tx=="amount" && $txData->tx->type=="SpendTx"){
-							$aefee=number_format($content_tx/1000000000000000000, 18, '.', '');
+							//$aefee=number_format($content_tx/1000000000000000000, 18, '.', '');
+							$aefee=$content_tx/1000000000000000000;
 							$content_tx=$aefee." AE($content_tx ættos )";
 							}						
 															
