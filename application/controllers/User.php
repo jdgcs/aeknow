@@ -5,6 +5,7 @@ class Aens extends CI_Controller {
 	public function index()
 	{	
 		//default user page
+		$this->load->view('en/user.html');
 	}
 	
 
