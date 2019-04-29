@@ -252,6 +252,7 @@ ALTER TABLE public.aenetwork
     contracts_total bigint,
     accounts_total bigint,
     aepps_total bigint,
+    updatetime bigint,
     CONSTRAINT suminfo_pkey PRIMARY KEY (sid)
 )
    
