@@ -12,7 +12,7 @@ class Users extends CI_Model {
 			
 			}
 		
-		return object_array($row);
+		return $this->object_array($row);
 		}
 	
 	public function object_array($array)
