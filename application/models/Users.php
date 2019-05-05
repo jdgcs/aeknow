@@ -51,6 +51,50 @@ class Users extends CI_Model {
 				}
 		}
 		
+		
+		////////////////////////////////Latest 10 Transactions////////////////////////
+		//$trans_sql="SELECT * from transactions order by block_height desc,nonce desc limit 20";		
+		$trans_sql="SELECT * FROM txs WHERE block_height is not NULL ORDER BY block_height desc,tid desc LIMIT 10";
+		$query = $this->db->query($trans_sql);
+		$data['lasttxs']="";
+		$counter=0;
+		foreach ($query->result() as $row){
+			$counter++;
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash);
+			
+			if($txtype=='SpendTx'){				
+				$txhash_show="th_****".substr($txhash,-4);
+				$amount=$txdata->tx->amount/1000000000000000000;
+				$recipient_id=$txdata->tx->recipient_id;			
+				$recipient_id_show="ak_****".substr($recipient_id,-4);
+				$alias=$this->getalias($recipient_id);
+				if($recipient_id!=$alias){
+					$recipient_id_show=$alias;
+					}
+							
+				$sender_id=$txdata->tx->sender_id;
+				$sender_id_show="ak_****".substr($sender_id,-4);
+				$alias=$this->getalias($sender_id);
+				if($sender_id!=$alias){
+					$sender_id_show=$alias;
+					}
+				
+				//$utctime=round(($row->time/1000),0);
+				//$utctime= date("Y-m-d H:i:s",$utctime);		
+				
+				
+				$data['lasttxs'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+			}else{
+				$data['lasttxs'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
+				}
+			}
+			
+		
+		
 		return $data;
 		}
 	
