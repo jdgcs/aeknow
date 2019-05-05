@@ -7,6 +7,7 @@ class User extends CI_Controller {
 		//default user page
 		$this->load->model('users');
 		$data=$this->users->getUserData();
+		
 		$this->load->view('en/user.html',$data);
 	}
 	
