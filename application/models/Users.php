@@ -98,7 +98,14 @@ class Users extends CI_Model {
 		return TRUE;
 		}	
 
-
+private function getReward($blockheight){
+		$blockheight=$blockheight+1;
+		$this->load->database();
+		$sql="SELECT reward from aeinflation WHERE blockid<$blockheight ORDER BY blockid desc LIMIT 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		return $row->reward/10;
+		}
 function GetTopHeight()	{
 	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=$this->getwebsrc($url);
