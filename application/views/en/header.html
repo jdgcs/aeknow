@@ -15,12 +15,19 @@
 <div class="pull-left" style="padding-top:10px">
 		   <!-- search form -->
 <!--<p><input placeholder="Explorer Generation, Block, Tx, Address, Hash" id="uid" size="40"  type="text" class="search-input"><button class="search-button"  onclick="tj();> <img src="/application/views/dist/img/search.svg" alt=""></button></p> 	-->	   
-<p><input type="text" name="uid" id="uid" size="40"  placeholder="Explorer Address, Generation, Block, Tx, Address, Hash..." onkeydown="keyup_submit(event);"><input type="button" value="Search" name="B1" onclick="tj();" </p> 
+<p><input type="text" name="uid" id="uid" size="40"  placeholder="Explorer Address, Generation, Block, Tx, Address, Hash..." onkeydown="keyup_submittop(event);"><input type="button" value="Search" name="B1" onclick="tj();" </p> 
 <script type="text/javascript">
     function tj(){
         var uid = document.getElementById('uid').value;
         window.location.href = '/miner/viewaccount/'+uid;
-    }     
+    } 
+    
+    function keyup_submittop(e){ 
+	  var evt = window.event || e; 
+	   if (evt.keyCode == 13){
+		   tj();
+		}
+	  }     
 </script>         
  </div>
       <div class="navbar-custom-menu">
