@@ -103,7 +103,7 @@
                 <div class="progress-bar" style="width: 100%;color:#f7296e"></div>
               </div>
               <span class="progress-description">
-                  <?php echo number_format($price_btc,6);?> BTC
+                  <?php echo number_format($price_btc,8);?> BTC
                   </span>
             </div>         
           
@@ -214,7 +214,7 @@
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                 Mined <?php echo $mined_coins;?> æ(~11.52%)
+                 Mined <?php echo $mined_coins;?> æ(<?php echo $mined_rate;?>%)
                   </span>
             </div>         
           
@@ -293,16 +293,7 @@
                   <th>Time</th>               
                   <th >Status</th>
                 </tr>
-                <tr><td> <a href=/block/height/67936>67936</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>03:48</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67935>67935</a></td><td><a href=/address/wallet/ak_542o93BKHiANzqNaFj6UurrJuDuxU61zCGr9LJCwtTUg34kWt>f2pool</a></td><td>11:29</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67934>67934</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>16:53</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67933>67933</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>21:06</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67932>67932</a></td><td><a href=/address/wallet/ak_542o93BKHiANzqNaFj6UurrJuDuxU61zCGr9LJCwtTUg34kWt>f2pool</a></td><td>26:57</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67931>67931</a></td><td><a href=/address/wallet/ak_542o93BKHiANzqNaFj6UurrJuDuxU61zCGr9LJCwtTUg34kWt>f2pool</a></td><td>27:33</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67930>67930</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>29:29</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67929>67929</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>29:49</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67928>67928</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>31:20</td><td><span class='badge bg-green'>Normal</span></td></tr>
-                <tr><td> <a href=/block/height/67927>67927</a></td><td><a href=/address/wallet/ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv>beepool</a></td><td>31:31</td><td><span class='badge bg-green'>Normal</span></td></tr>
+                <?php echo $lastmined;?>
                 </table>
             </div>
             <!-- /.box-body -->
