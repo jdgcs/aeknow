@@ -118,7 +118,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"><a href="/block" style="color: #fff;">Latest Block</a></span>
-              <span class="info-box-number"><?php echo $block_height;?> <small>(<?php echo $lastblocktime;?>s Ago)</small></span>
+              <span class="info-box-number"><?php echo $block_height;?> <small></small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%;color:#f7296e"></div>
@@ -214,7 +214,7 @@
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                 Mined <?php echo $mined_coins;?>(<?php echo number_format($mined_rate*100,2);?>%)
+                 <?php echo $mined_coins;?>(<?php echo number_format($mined_rate*100,2);?>%) mined.
                   </span>
             </div>         
           
