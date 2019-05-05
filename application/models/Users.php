@@ -13,8 +13,8 @@ class Users extends CI_Model {
 			}
 		
 		$data=$this->object_array($row);
-		
-		$data['mined_rate']=(($data['mined_coins'])/25‬);//number_format(($data['mined_coins']/259856369‬)*100,2);
+		$tobemined=259856369;
+		$data['mined_rate']=$data['mined_coins']/$tobemined;//number_format(($data['mined_coins']/259856369‬)*100,2);
 		
 		
 		/////////////////////////////////Last 10 key blocks/////////////////////////
