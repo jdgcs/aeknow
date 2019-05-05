@@ -15,7 +15,7 @@ class Users extends CI_Model {
 		$data=$this->object_array($row);
 		$tobemined=259856369;
 		$data['mined_rate']=$data['mined_coins']/$tobemined;//number_format(($data['mined_coins']/259856369‬)*100,2);
-		
+		$data['lastblocktime']=$data['updatetime']-time();
 		
 		/////////////////////////////////Last 10 key blocks/////////////////////////
 		$counter=0;
