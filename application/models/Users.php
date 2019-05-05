@@ -42,13 +42,8 @@ class Users extends CI_Model {
 				}else{
 					$showaddress=$alias;
 					}
-			$height=$row->height;
+			$height=$row->height;			
 			
-			$sql1="SELECT count(*)  FROM microblock WHERE height=$height";
-			$query1 = $this->db->query($sql1);
-			$row1 = $query1->row();		
-			$data['includemicro']=$row1->count; 
-		
 			if($this->notOrphan($height)){
 				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined S</td><td><span class='badge bg-green'>Normal</span></td></tr>";			
 			}else{
