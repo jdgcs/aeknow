@@ -15,7 +15,7 @@ class Users extends CI_Model {
 		$data=$this->object_array($row);
 		$tobemined=259856369;
 		$data['mined_rate']=$data['mined_coins']/$tobemined;//number_format(($data['mined_coins']/259856369‬)*100,2);
-		$data['lastblocktime']=$data['updatetime']-time();
+		$data['lastblocktime']=time()-$data['updatetime'];
 		
 		/////////////////////////////////Last 10 key blocks/////////////////////////
 		$counter=0;
@@ -30,7 +30,7 @@ class Users extends CI_Model {
 			$counter++;
 			$millisecond=$row->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
-			//$whenmined=time()-$millisecond;
+			$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;
 			$minedtime=date('Y-m-d H:i:s',$millisecond);
 			//$showaddress=$this->strMiddleReduceWordSensitive ($row->beneficiary, 30);
@@ -50,9 +50,9 @@ class Users extends CI_Model {
 			$data['includemicro']=$row1->count; 
 		
 			if($this->notOrphan($height)){
-				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td>".$minedtime."</td><td>".$data['includemicro']."</td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>".$this->getReward($height)."</td><td><span class='badge bg-green'>Normal</span></td></tr>";			
+				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined S</td><td><span class='badge bg-green'>Normal</span></td></tr>";			
 			}else{
-				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td>".$minedtime."</td><td>".$data['includemicro']."</td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>".$this->getReward($height)."</td><td><span class='badge bg-yellow'>Forked</span></td></tr>";				
+				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined S</td><td><span class='badge bg-yellow'>Forked</span></td></tr>";				
 				}
 		}
 		
