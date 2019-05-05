@@ -42,7 +42,6 @@ public function getOracleDetail($oracle_id){
 	$data['ortable']="";//$counter=0;
 	$data['oracle_id']=$oracle_id;
 	$account=str_replace("ok_","ak_",$oracle_id);
-	
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"id")>0){
 		$orData=json_decode($websrc);
@@ -56,7 +55,7 @@ public function getOracleDetail($oracle_id){
 		}else{
 			$vm_version="NULL";
 		}
-		
+		$account_id=str_replace("ok_","ak_",$oracle_id);
 		
 		
 		$account_id="<a href=/address/wallet/$account_id>$account_id</a>";
