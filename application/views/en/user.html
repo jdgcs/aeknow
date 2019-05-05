@@ -66,15 +66,28 @@
             </div>
             <div class="box-body" >
 				<div class="input-group input-group-lg">
-                <input class="form-control" type="text" placeholder="Explorer Generations, Blocks, Tx, AENS, Oracles, Contracts...">
+                <input class="form-control" type="text" id="sid" placeholder="Explorer Generations, Blocks, Tx, AENS, Oracles, Contracts..." onkeydown="keyup_submit(event);>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat" style="background:#f7296e">Search</button>
+                      <button type="button" class="btn btn-info btn-flat" style="background:#f7296e" onclick="searchmain();">Search</button>
                     </span>
               </div>
 			   
              </div>
             <!-- /.box-body -->
           </div>
+<script type="text/javascript">
+    function searchmain(){
+        var sid = document.getElementById('sid').value;
+        window.location.href = '/miner/viewaccount/'+uid;
+    } 
+    
+    function keyup_submit(e){ 
+	  var evt = window.event || e; 
+	   if (evt.keyCode == 13){
+		   searchmain();
+		}
+	  }    
+</script>  
           <!-- /.box -->
       <!-- Info boxes -->
       <div class="row">
