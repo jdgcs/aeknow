@@ -125,7 +125,8 @@ class Users extends CI_Model {
 		if($query->num_rows()>0){
 			$totalmins=round(($row->time/1000),0);
 		}
-		return date("Y-m-d H:i:s",$totalmins);	
+		return date("H:i:s",$totalmins);	
+		//return date("Y-m-d H:i:s",$totalmins);	
 		}
 		
 	private function getalias($address){
