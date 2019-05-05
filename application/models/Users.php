@@ -89,6 +89,16 @@ class Users extends CI_Model {
 		return $address;
 		}
 		
+	private function notOrphan($height){
+		$this->load->database();		
+		$sql="select count(*) FROM miner WHERE height='$height' and orphan is TRUE";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		if($row->count==1){return FALSE;}
+		return TRUE;
+		}	
+
+
 function GetTopHeight()	{
 	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=$this->getwebsrc($url);
