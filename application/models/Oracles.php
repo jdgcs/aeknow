@@ -41,6 +41,8 @@ public function getOracleDetail($oracle_id){
 	$url=DATA_SRC_SITE."v2/oracles/$oracle_id";
 	$data['ortable']="";//$counter=0;
 	$data['oracle_id']=$oracle_id;
+	$account=str_replace("ok_","ak_",$oracle_id);
+	
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"id")>0){
 		$orData=json_decode($websrc);
@@ -54,7 +56,7 @@ public function getOracleDetail($oracle_id){
 		}else{
 			$vm_version="NULL";
 		}
-		$account_id=str_replace("ok_","ak_",$oracle_id);
+		
 		
 		
 		$account_id="<a href=/address/wallet/$account_id>$account_id</a>";
@@ -67,7 +69,7 @@ public function getOracleDetail($oracle_id){
 	$counter=0;
 	$this->load->database();
 	//$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height,txtype from txs WHERE txtype='OracleQueryTx' OR txtype='OracleResponseTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb order by tid desc limit 100 ;";
-	$sql="SELECT txhash,block_height,txtype from txs WHERE (txtype='OracleQueryTx' OR txtype='OracleResponseTx') AND sender_id='$account_id' order by tid desc limit 100 ;";
+	$sql="SELECT txhash,block_height,txtype from txs WHERE (txtype='OracleQueryTx' OR txtype='OracleResponseTx') AND sender_id='$account' order by tid desc limit 100 ;";
 	$query = $this->db->query($sql);
 	
 	foreach ($query->result() as $row){
