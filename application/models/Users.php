@@ -45,9 +45,9 @@ class Users extends CI_Model {
 			$height=$row->height;			
 			
 			if($this->notOrphan($height)){
-				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined S</td><td><span class='badge bg-green'>Normal</span></td></tr>";			
+				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined</td><td><span class='badge bg-green'>Normal</span></td></tr>";			
 			}else{
-				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined S</td><td><span class='badge bg-yellow'>Forked</span></td></tr>";				
+				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>$whenmined</td><td><span class='badge bg-yellow'>Forked</span></td></tr>";				
 				}
 		}
 		
