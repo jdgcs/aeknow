@@ -27,7 +27,7 @@ class Miner extends CI_Controller {
 		$this->output->cache(1/2);
 	}
 	
-	public function miner()
+	public function page()
 	{	$this->load->model('miners');
 		$data=$this->miners->getMinerIndex();
 		$this->load->view('en/minerboard.html',$data);
