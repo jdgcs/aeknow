@@ -8,7 +8,7 @@ class User extends CI_Controller {
 		$this->load->model('users');
 		$data=$this->users->getUserData();		
 		$this->load->view('en/user.html',$data);
-		$this->output->cache(1/2);
+		//$this->output->cache(1/2);
 	}
 	
 
