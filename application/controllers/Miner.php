@@ -20,14 +20,14 @@ class Miner extends CI_Controller {
 	 */
 	
 	
-	public function index()
+	public function index_old()
 	{	$this->load->model('miners');
 		$data=$this->miners->getMinerIndex();
 		$this->load->view('en/minerboard.html',$data);
 		$this->output->cache(1/2);
 	}
 	
-	public function show($ak=0)
+	public function index()
 	{	//$this->load->model('miners');
 		//$data=$this->miners->getMinerIndex();
 		$this->load->view('en/minerpage.html');
