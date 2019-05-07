@@ -41,7 +41,7 @@ class Users extends CI_Model {
 			}
 		
 		
-		
+		$data['coins_num']=number_format($$data['coins_num'],2,'.','');
 		
 		return $data;
 
