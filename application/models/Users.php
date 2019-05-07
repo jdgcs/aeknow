@@ -62,9 +62,15 @@ class Users extends CI_Model {
 					
 					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
-				}
+					
+					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
 				
-				$data['voteresult'].="<tr><td>".($data['votes_num']-$counter)."</td><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+				}else{
+					
+					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+				
+					}
+				
 				
 				$counter++;
 			}
@@ -75,7 +81,7 @@ class Users extends CI_Model {
 		$data['weight4']=round(($weight4*100)/$data['coins_num'],2);
 		$data['weight5']=round(($weight5*100)/$data['coins_num'],2);
 		
-		$data['weighted_result']=$weight/$data['coins_num'];
+		$data['weighted_result']=$weight/($data['coins_num']-$weight1);
 		
 		$data['weighted_result']=number_format($data['weighted_result'],2,'.','');
 		$data['coins_num']=number_format($data['coins_num'],2,'.','');
