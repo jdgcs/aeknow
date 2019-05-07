@@ -11,6 +11,12 @@ class User extends CI_Controller {
 		//$this->output->cache(1/2);
 	}
 	
+	public function vote($ak,$starttime=0,$endtime=0)
+	{	
+		$this->load->model('users');
+		$data=$this->users->getVoteData($ak);		
+		$this->load->view('en/vote.html',$data);
+	}
 
 }
 

@@ -3,6 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Model {
 	
+	public function getVoteData($ak){
+		$this->load->database();
+		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY sid DESC";		
+		$query = $this->db->query($trans_sql);
+		$data['voteresult']="";
+		foreach ($query->result() as $row){
+			$info=json_decode($row->tx);
+			$data['voteresult'].=$info->txhash.":".$info->sender_id.":".$info->payload."<br>";
+			}
+			
+		return $data;
+
+		}
+	
 	public function getUserData(){
 		$this->load->database();
 		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
