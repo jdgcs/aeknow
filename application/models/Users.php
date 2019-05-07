@@ -5,11 +5,11 @@ class Users extends CI_Model {
 	
 	public function getVoteData($ak){
 		$this->load->database();
-		$sql="SELECT count(DISTINCT(sender_id)) as uniquevoters_num,count(*) as votes_num FROM txs WHERE recipient_id='$ak' ";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['uniquevoters_num']=$row->uniquevoters_num;
-		$data['votes_num']=$row->votes_num;
+		//$sql="SELECT count(DISTINCT(sender_id)) as uniquevoters_num,count(*) as votes_num FROM txs WHERE recipient_id='$ak' ";
+		//$query = $this->db->query($sql);
+		//$row = $query->row();
+		//$data['uniquevoters_num']=$row->uniquevoters_num;
+		//$data['votes_num']=$row->votes_num;
 		
 		
 		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY tid DESC";		
@@ -17,6 +17,7 @@ class Users extends CI_Model {
 		$data['voteresult']="";
 		$data['coins_num']=0;
 		$data['uniquevoters_num']=0;
+		$data['votes_num']=0;
 		$counter=0;
 		$data['ak']=$ak;
 		$tagstr="tag";
@@ -24,6 +25,7 @@ class Users extends CI_Model {
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
 			if(strpos($info->tx->payload,"vote")>0){
+				$data['votes_num']=$data['votes_num']+1;
 				$sender=$row->sender_id;
 				
 				$txhash=$row->txhash;
