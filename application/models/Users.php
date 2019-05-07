@@ -10,7 +10,7 @@ class Users extends CI_Model {
 		$data['voteresult']="";
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
-			$data['voteresult'].=$info->txhash.":".$info->sender_id.":".$info->payload."<br>";
+			$data['voteresult'].=$row->txhash.":".$row->sender_id.":".$info->tx->payload."<br>";
 			}
 			
 		return $data;
