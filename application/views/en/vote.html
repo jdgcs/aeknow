@@ -64,7 +64,28 @@
 
     <!-- Main content -->
     <section class="content">
-<?php echo $voteresult;?>
+		
+ <div class="box">
+              <div class="box-header with-border">
+              <h3 class="box-title"><a href=/block title="View more blocks">Blocks</a></h3>
+            </div>
+            <!-- /.box-header -->
+              <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th>Voter</th>
+                  <th>Vote</th>   
+                  <th>Balance</th>               
+                  <th >TxHash</th>
+                </tr>
+                <?php echo $voteresult;?>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <!--/.direct-chat -->
+            </div>
+            		
+
   </div>
   <!-- /.content-wrapper -->
  <?php $this->load->view('en/footer.html');?> 
