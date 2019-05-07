@@ -21,7 +21,12 @@ class Users extends CI_Model {
 		}
 	
 	private function getBalance($ak){
-		return 0;
+		$this->load->database();
+		$sql="SELECT balance FROM accountsinfo WHERE address='$ak'";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		
+		return $row->balance/1000000000000000000;
 		}
 	
 	public function getUserData(){
