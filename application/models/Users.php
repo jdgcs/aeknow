@@ -11,8 +11,8 @@ class Users extends CI_Model {
 		$data['ak']=$ak;
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
-			if(strpos($row->tx,"vote")>0){
-			$data['voteresult'].="<tr><td>".$row->sender_id."</td><td>".$row->payload."</td><td>".number_format($this->getBalance($row->sender_id),2)."</td><td>".$info->txhash."</td></tr>";
+			if(strpos($info->tx->payload,"vote")>0){
+			$data['voteresult'].="<tr><td>".$row->sender_id."</td><td>".$info->tx->payload."</td><td>".number_format($this->getBalance($row->sender_id),2)."</td><td>".$row->txhash."</td></tr>";
 			}
 			}
 			
