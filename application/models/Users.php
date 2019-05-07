@@ -26,9 +26,13 @@ class Users extends CI_Model {
 		
 		$weight1=0;
 		$weight2=0;
+		$weight2_sum=0;
 		$weight3=0;
+		$weight3_sum=0;
 		$weight4=0;
+		$weight4_sum=0;
 		$weight5=0;
+		$weight5_sum=0;
 		
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
@@ -48,10 +52,13 @@ class Users extends CI_Model {
 					$data['uniquevoters_num']=$data['uniquevoters_num']+1;
 					$voteoption=$payload->vote->option;
 					if($voteoption==0){$weight1=$weight1+$singlebalance;}
-					if($voteoption>0 && $voteoption<6){$weight2=$weight2+$singlebalance;}
-					if($voteoption>5 && $voteoption<11){$weight3=$weight3+$singlebalance;}
-					if($voteoption>10 && $voteoption<16){$weight4=$weight4+$singlebalance;}
-					if($voteoption>15){$weight5=$weight5+$singlebalance;}
+					if($voteoption>0 && $voteoption<6){
+						$weight2=$weight2+$singlebalance;
+						$weight2_sum=$weight2_sum+$singlebalance*$voteoption;
+						}
+					if($voteoption>5 && $voteoption<11){$weight3=$weight3+$singlebalance;$weight3_sum=$weight3_sum+$singlebalance*$voteoption;}
+					if($voteoption>10 && $voteoption<16){$weight4=$weight4+$singlebalance;$weight4_sum=$weight4_sum+$singlebalance*$voteoption;}
+					if($voteoption>15){$weight5=$weight5+$singlebalance;$weight5_sum=$weight5_sum+$singlebalance*$voteoption;}
 					
 					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
@@ -70,6 +77,12 @@ class Users extends CI_Model {
 		
 		$data['weighted_result']=$weight/$data['coins_num'];
 		$data['coins_num']=number_format($data['coins_num'],2,'.','');
+		
+		$data['table_data']="{y: '0', a: 0, b: $weight1},
+        {y: '1-5', a: $weight2_sum, b: $weight2},
+        {y: '5-10', a: $weight3_sum, b: $weight3},
+        {y: '10-15', a: $weight4_sum, b: $weight4},
+        {y: '15-20', a: $weight5_sum, b: $weight5}";
 		
 		return $data;
 
