@@ -12,7 +12,10 @@ class Users extends CI_Model {
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
 			if(strpos($info->tx->payload,"vote")>0){
-			$data['voteresult'].="<tr><td>".$row->sender_id."</td><td>".$info->tx->payload."</td><td>".number_format($this->getBalance($row->sender_id),2,',','')."</td><td>".$row->txhash."</td></tr>";
+				$sender=$row->sender_id;
+				$txhash=$row->txhash;
+				$block_height=$row->block_height;
+				$data['voteresult'].="<tr><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>".number_format($this->getBalance($row->sender_id),2,'.','')."</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
 			}
 			}
 			
