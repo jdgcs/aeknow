@@ -92,9 +92,11 @@ For their work, miners receive block rewards — newly minted tokens, and tr
                 <tr><td><b>Uinque Votes</b></td><td><?php echo $uniquevoters_num;?></td></tr>
                 <tr><td><b>Tokens that voted</b></td><td><?php echo $coins_num;?></td></tr>
                  <tr><td><b>Weighted result</b></td><td>
-					 
-					 <?php echo $weighted_result;?><br/>
                  <div class="box box-success">
+					  <div class="box-header with-border">
+              <h3 class="box-title"><?php echo $weighted_result;?></h3>
+
+            </div>
             <div class="box-body chart-responsive">
               <div class="chart" id="bar-chart" style="height: 400px;"></div>
             </div>
@@ -106,7 +108,9 @@ For their work, miners receive block rewards — newly minted tokens, and tr
                  0-5 =><?php echo $weight2;?> % | 
                  5-10 =><?php echo $weight3;?> % | 
                 10-15 =><?php echo $weight4;?> % | 
-                >15 =><?php echo $weight5;?> % | 
+                >15 =><?php echo $weight5;?> % <br />
+                
+               * The last vote is the effective vote. 
                  </td></tr>
                
                 </table>
