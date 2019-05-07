@@ -91,7 +91,7 @@ class Users extends CI_Model {
 		$weight5_sum=round($weight5_sum/10,2);
 		
 		$data['table_data']="{y: '0', a: 0, b: $weight1},
-        {y: '1-5', a: $weight2_sum, b: $weight2},
+        {y: '0-5', a: $weight2_sum, b: $weight2},
         {y: '5-10', a: $weight3_sum, b: $weight3},
         {y: '10-15', a: $weight4_sum, b: $weight4},
         {y: '15-20', a: $weight5_sum, b: $weight5}";
