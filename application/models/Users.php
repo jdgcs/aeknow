@@ -19,9 +19,10 @@ class Users extends CI_Model {
 				
 				$txhash=$row->txhash;
 				$block_height=$row->block_height;
-				$balance=number_format($this->getBalance($row->sender_id),2,'.','');
+				$singlebalance=$this->getBalance($row->sender_id);
+				$balance=number_format($singlebalance,2,'.','');
 				if(strpos($tagstr,$sender)<1){//if not count, then add
-					$data['coins_num'].=$balance;
+					$data['coins_num']=$data['coins_num']+$singlebalance;
 					$tagstr.=$sender;
 				}
 				
