@@ -78,6 +78,18 @@ class Users extends CI_Model {
 		$data['weighted_result']=$weight/$data['coins_num'];
 		$data['coins_num']=number_format($data['coins_num'],2,'.','');
 		
+		$weight1=round($weight1,2);
+		$weight2=round($weight2,2);
+		$weight3=round($weight3,2);
+		$weight4=round($weight4,2);
+		$weight5=round($weight5,2);
+		
+		
+		$weight2_sum=round($weight2_sum,2);
+		$weight3_sum=round($weight3_sum,2);
+		$weight4_sum=round($weight4_sum,2);
+		$weight5_sum=round($weight5_sum,2);
+		
 		$data['table_data']="{y: '0', a: 0, b: $weight1},
         {y: '1-5', a: $weight2_sum, b: $weight2},
         {y: '5-10', a: $weight3_sum, b: $weight3},
