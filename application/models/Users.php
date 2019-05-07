@@ -5,7 +5,7 @@ class Users extends CI_Model {
 	
 	public function getVoteData($ak){
 		$this->load->database();
-		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY sid DESC";		
+		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY tid DESC";		
 		$query = $this->db->query($trans_sql);
 		$data['voteresult']="";
 		foreach ($query->result() as $row){
