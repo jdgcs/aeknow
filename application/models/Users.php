@@ -8,17 +8,34 @@ class Users extends CI_Model {
 		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY tid DESC";		
 		$query = $this->db->query($trans_sql);
 		$data['voteresult']="";
+		$data['coins_num']=0;
 		$data['ak']=$ak;
+		$tagstr="tag";
+		
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
 			if(strpos($info->tx->payload,"vote")>0){
 				$sender=$row->sender_id;
+				
 				$txhash=$row->txhash;
 				$block_height=$row->block_height;
-				$data['voteresult'].="<tr><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>".number_format($this->getBalance($row->sender_id),2,'.','')."</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+				$balance=number_format($this->getBalance($row->sender_id),2,'.','');
+				if(strpos($tagstr,$sender)<1){//if not count, then add
+					$data['coins_num'].=$balance;
+					$tagstr.=$sender;
+				}
+				
+				$data['voteresult'].="<tr><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
 			}
 			}
-			
+		
+		$sql="SELECT count(DISTINCT(sender_id)) as uniquevoters_num,count(*) as votes_num FROM txs WHERE recipient_id='$ak' ";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$data['uniquevoters_num']=$row->uniquevoters_num;
+		$data['votes_num']=$row->votes_num;
+		
+		
 		return $data;
 
 		}

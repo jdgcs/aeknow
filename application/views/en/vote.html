@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vote result of <?php echo $ak;?> - AEKnow</title>
+  <title>Result of Block Reward Initiative(BRI) Vote- AEKnow</title>
   <Meta name="keywords" content="Vote, <?php echo $ak;?>,Aeternity,AEKnow">
   <Meta name="description" content="Vote result of <?php echo $ak;?>">
 <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32">
@@ -54,8 +54,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">		
       <h1>
-           Vote results - beta version
-        <small></small>
+           Block Reward Initiative(BRI) Vote
+        <small>The first vote of æternity community.</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
@@ -67,15 +67,20 @@
     <section class="content">
  <div class="box">
               <div class="box-header with-border">
-              <h3 class="box-title">Summary of vote  <?php echo $ak;?></h3>
+              <h3 class="box-title">Summary</h3>
             </div>
             <!-- /.box-header -->
               <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-                  
+					 In order to establish a thriving blockchain ecosystem, two goals must be achieved in parallel:
+					 1.developers must maintain and improve the blockchain protocol — and to do so continuously, adapting to demand and industry requirements;
+					 2.miners must continuously secure the platform through the process of mining.
+For their work, miners receive block rewards — newly minted tokens, and transaction fees. Currently, community developers are not formally incentivized in the same way.                   
                 </tr>
-               
+                
+                 <tr> <td>Vote ID</td><td>Address</td><td>Votes</td><td>Uinque Voters</td><td>POS coins</td></tr>
+				<tr> <td>#1</td><td>ak_11111111111111111111111111111111273Yts</td> <td><?php echo $votes_num;?></td> <td><?php echo $uniquevoters_num;?></td> <td><?php echo $coins_num;?></td></tr>
                 </table>
             </div>
             <!-- /.box-body -->
