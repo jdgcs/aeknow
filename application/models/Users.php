@@ -24,6 +24,12 @@ class Users extends CI_Model {
 		
 		$weight=0;
 		
+		$weight1=0;
+		$weight2=0;
+		$weight3=0;
+		$weight4=0;
+		$weight5=0;
+		
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
 			if(strpos($info->tx->payload,"vote")>0){
@@ -40,7 +46,14 @@ class Users extends CI_Model {
 				if(strpos($tagstr,$sender)<1){//if not count, then add
 					$data['coins_num']=$data['coins_num']+$singlebalance;
 					$data['uniquevoters_num']=$data['uniquevoters_num']+1;
-					$weight=$weight+$singlebalance*$payload->vote->option;
+					$voteoption=$payload->vote->option;
+					if($voteoption==0){$weight1=$weight1+$singlebalance*$voteoption;}
+					if($voteoption>0 && $voteoption<6){$weight2=$weight2+$singlebalance*$voteoption;}
+					if($voteoption>5 && $voteoption<11){$weight3=$weight3+$singlebalance*$voteoption;}
+					if($voteoption>10 && $voteoption<16){$weight4=$weight4+$singlebalance*$voteoption;}
+					if($voteoption>15){$weight5=$weight5+$singlebalance*$voteoption;}
+					
+					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
 				}
 				
@@ -49,6 +62,11 @@ class Users extends CI_Model {
 				$counter++;
 			}
 			}
+		$data['weight1']=round(($weight1*100)/$weight,2);
+		$data['weight2']=round(($weight2*100)/$weight,2);
+		$data['weight3']=round(($weight3*100)/$weight,2);
+		$data['weight4']=round(($weight4*100)/$weight,2);
+		$data['weight5']=round(($weight5*100)/$weight,2);
 		
 		$data['weighted_result']=$weight/$data['coins_num'];
 		$data['coins_num']=number_format($data['coins_num'],2,'.','');
