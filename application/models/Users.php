@@ -16,6 +16,7 @@ class Users extends CI_Model {
 		$query = $this->db->query($trans_sql);
 		$data['voteresult']="";
 		$data['coins_num']=0;
+		$data['uniquevoters_num']=0;
 		$counter=0;
 		$data['ak']=$ak;
 		$tagstr="tag";
@@ -31,6 +32,7 @@ class Users extends CI_Model {
 				$balance=number_format($singlebalance,2,'.','');
 				if(strpos($tagstr,$sender)<1){//if not count, then add
 					$data['coins_num']=$data['coins_num']+$singlebalance;
+					$data['uniquevoters_num']=$data['uniquevoters_num']+1;
 					$tagstr.=$sender;
 				}
 				
