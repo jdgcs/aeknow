@@ -51,7 +51,7 @@ class Users extends CI_Model {
 					if($voteoption>0 && $voteoption<6){$weight2=$weight2+$singlebalance;}
 					if($voteoption>5 && $voteoption<11){$weight3=$weight3+$singlebalance;}
 					if($voteoption>10 && $voteoption<16){$weight4=$weight4+$singlebalance;}
-					if($voteoption>15){$weight5=$weight5+$singlebalance*$voteoption;}
+					if($voteoption>15){$weight5=$weight5+$singlebalance;}
 					
 					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
