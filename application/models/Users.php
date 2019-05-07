@@ -22,11 +22,16 @@ class Users extends CI_Model {
 		$data['ak']=$ak;
 		$tagstr="tag";
 		
+		$weight=0;
+		
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
 			if(strpos($info->tx->payload,"vote")>0){
 				//$data['votes_num']=$data['votes_num']+1;
 				$sender=$row->sender_id;
+				
+				$payload=json_decode(stripslashes($info->tx->payload));
+				
 				
 				$txhash=$row->txhash;
 				$block_height=$row->block_height;
@@ -35,6 +40,7 @@ class Users extends CI_Model {
 				if(strpos($tagstr,$sender)<1){//if not count, then add
 					$data['coins_num']=$data['coins_num']+$singlebalance;
 					$data['uniquevoters_num']=$data['uniquevoters_num']+1;
+					$weight=$weight+$singlebalance*$payload->vote->option;
 					$tagstr.=$sender;
 				}
 				
@@ -44,7 +50,7 @@ class Users extends CI_Model {
 			}
 			}
 		
-		
+		$data['weighted_result']=$weight/$data['coins_num'];
 		$data['coins_num']=number_format($data['coins_num'],2,'.','');
 		
 		return $data;
