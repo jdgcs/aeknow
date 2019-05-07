@@ -67,7 +67,7 @@
             </div>
             <div class="box-body" >
 				<div class="input-group input-group-lg">
-                <input class="form-control" type="text" id="sid" placeholder="Explorer Address, Generations, Blocks, Tx, AENS, Oracles, Contracts..." onkeydown="keyup_submit(event);">
+                <input class="form-control" type="text" id="sid" placeholder="Explore Address, Generations, Blocks, Tx, AENS, Oracles, Contracts..." onkeydown="keyup_submit(event);">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" style="background:#f7296e" onclick="searchmain();">Search</button>
                     </span>
@@ -98,7 +98,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Price</span>
-              <span class="info-box-number"><?php echo $price_usdt;?> <small> USDT</small> </span>
+              <span class="info-box-number"><a title="The weighted price of the mainnet coin" style="color: #fff;"><?php echo $price_usdt;?> <small> USDT</small> </a></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%;color:#f7296e"></div>
@@ -125,7 +125,7 @@
                 <div class="progress-bar" style="width: 100%;color:#f7296e"></div>
               </div>
               <span class="progress-description">
-                  <a href="/miner/inflation" title="æternity inflation curve"  style="color: #fff;">Reward: <?php echo $mining_reward;?> <small>(æ/block)</small></a>
+                  <a href="/miner/inflation" title="Explore æternity inflation curve"  style="color: #fff;">Reward: <?php echo $mining_reward;?> <small>(æ/block)</small></a>
                   </span>
             </div>         
           
@@ -186,14 +186,14 @@
             <span class="info-box-icon"><i class="fa fa-globe"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Market Cap</span>
+              <span class="info-box-text"><a href="https://coinmarketcap.com/currencies/aeternity/" style="color: #fff;" title="View the details in coinmarkeycap">Market Cap</a></span>
               <span class="info-box-number"><?php echo number_format($market_cap,0);?> <small>USD</small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                 Total: <?php echo $total_coins;?> æ
+                 Total: <?php echo number_format($total_coins);?> æ
                   </span>
             </div>         
           
@@ -208,14 +208,14 @@
             <span class="info-box-icon"><i class="fa fa-industry"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> <a href="/miner" style="color: #fff;">Mining</a></span>
+              <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="Explore more mining details">Mining</a></span>
               <span class="info-box-number">3<small> pools</small>  ~<?php echo number_format($mining_hashrate/1000,2);?><small> M</small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                 <?php echo $mined_coins;?>(<?php echo number_format($mined_rate*100,2);?>%) mined.
+                <a href="/miner/inflation" title="Explore æternity inflation curve"  style="color: #fff;"> <?php echo number_format($mined_coins,0);?>(<?php echo number_format($mined_rate*100,2);?>%) mined.</a>
                   </span>
             </div>         
           
