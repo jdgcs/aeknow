@@ -8,6 +8,7 @@ class Users extends CI_Model {
 		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' ORDER BY tid DESC";		
 		$query = $this->db->query($trans_sql);
 		$data['voteresult']="";
+		$data['ak']=$ak;
 		foreach ($query->result() as $row){
 			$info=json_decode($row->tx);
 			$data['voteresult'].=$row->txhash.":".$row->sender_id.":".$info->tx->payload."<br>";
