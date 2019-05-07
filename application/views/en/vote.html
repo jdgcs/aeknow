@@ -71,7 +71,7 @@
             </div>
             <!-- /.box-header -->
               <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+              <table  id="example2" class="table table-hover">
                 <tr>
 					&nbsp;&nbsp;&nbsp;&nbsp; In order to establish a thriving blockchain ecosystem, two goals must be achieved in parallel:
 					 1.developers must maintain and improve the blockchain protocol — and to do so continuously, adapting to demand and industry requirements;
@@ -195,6 +195,15 @@ For their work, miners receive block rewards — newly minted tokens, and tr
 <script>
   $(function () {
     "use strict";
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      'pageLength' : 100
+    })
     //BAR CHART
     var bar = new Morris.Bar({
       element: 'bar-chart',
