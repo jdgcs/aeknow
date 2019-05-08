@@ -39,11 +39,14 @@ class Users extends CI_Model {
 			if(strpos($info->tx->payload,"vote")>0){
 				//$data['votes_num']=$data['votes_num']+1;
 				$sender=$row->sender_id;
+				$sender_short="ak_****".substr($sender,-4);
 				
 				$payload=json_decode(stripslashes($info->tx->payload));
 				
 				
 				$txhash=$row->txhash;
+				$txhash_short="th_****".substr($txhash,-4);
+				
 				$block_height=$row->block_height;
 				$singlebalance=$this->getBalance($row->sender_id);
 				$balance=number_format($singlebalance,2,'.','');
@@ -63,11 +66,11 @@ class Users extends CI_Model {
 					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
 					
-					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
 				
 				}else{
 					
-					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender>$sender</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash>$txhash</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>".$info->tx->payload."</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
 				
 					}
 				
