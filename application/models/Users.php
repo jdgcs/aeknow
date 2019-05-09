@@ -86,7 +86,8 @@ class Users extends CI_Model {
 		
 		$data['weighted_result']=$weight/($data['coins_num']-$weight1);
 		
-		$data['weighted_result']=number_format($data['weighted_result'],2,'.','');
+		//$data['weighted_result']=number_format($data['weighted_result'],2,'.','');
+	
 		$data['coins_num']=number_format($data['coins_num'],2,'.','');
 		
 		$weight1=round($weight1,2);
