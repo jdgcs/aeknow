@@ -5,14 +5,14 @@ class Users extends CI_Model {
 	
 	public function getVoteData($ak){
 		$this->load->database();
-		$sql="SELECT count(DISTINCT(sender_id)) as uniquevoters_num,count(*) as votes_num FROM txs WHERE recipient_id='$ak' AND block_height>76695";
+		$sql="SELECT count(DISTINCT(sender_id)) as uniquevoters_num,count(*) as votes_num FROM txs WHERE recipient_id='$ak' AND block_height>76695 AND block_height<80542";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		//$data['uniquevoters_num']=$row->uniquevoters_num;
 		$data['votes_num']=$row->votes_num;
 		
 		
-		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' AND block_height>76695 ORDER BY tid DESC";		
+		$trans_sql="SELECT * FROM txs WHERE recipient_id='$ak' AND block_height>76695 AND block_height<80542 ORDER BY tid DESC";		
 		$query = $this->db->query($trans_sql);
 		$data['voteresult']="";
 		$data['coins_num']=0;
