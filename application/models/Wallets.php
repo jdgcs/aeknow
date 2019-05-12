@@ -22,6 +22,8 @@ class Wallets extends CI_Model {
 		
 ///////////////////////////////////////get mining
 		$this->load->database();
+		$data['totalblocks']="";
+		/*
 		$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
@@ -43,7 +45,7 @@ class Wallets extends CI_Model {
 			if($counter<101){				
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
-			}
+			}*/
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
 		$ok=str_replace("ak_","ok_",$ak);
 		
@@ -169,11 +171,13 @@ class Wallets extends CI_Model {
 		
 		
 		/////////////////////////////////////////////Get AENS names//////////////////////////////////
+		$data['aensname']=0;
+		/*
 		$sql="SELECT count(*) FROM txs WHERE tx->'tx'->'pointers' @>'[{\"id\":\"$ak\",\"key\":\"account_pubkey\"}]'::jsonb;";
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		$data['aensname']=$row->count;
-		
+		*/
 		return $data;
 		
 		}
