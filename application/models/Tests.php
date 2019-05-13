@@ -454,7 +454,7 @@ class Tests extends CI_Model {
 		///////////////////////////////////////
 		//////////////////////////////get difficulty////////////////////////////		
 		
-		$data['difficulty']=$data['minging_difficulty'];
+		$data['difficulty']=$data['mining_difficulty'];
 		$data['difficultyfull']=floatval($data['difficulty']);
 		//$data['difficulty']=round($data['difficulty']/10000000000,2);
 		$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
