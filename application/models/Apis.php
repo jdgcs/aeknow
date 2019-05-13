@@ -24,13 +24,40 @@ class Apis extends CI_Model {
 		}
 	
 	public function getTotalCoins(){
-		$myfile = fopen("/dev/shm/totalcoin", "r") or die("Unable to open file!");
-		return trim(fgets($myfile));
-		fclose($myfile);
-		//return 276450333.49932+$this->getTotalMined();
+	$this->load->database();
+		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
+		$query = $this->db->query($trans_sql);
+
+		foreach ($query->result() as $row){
+			
+			}
+		
+		$data=$this->object_array($row);
+		//$tobemined=259856369;
+		//$data['mined_rate']=$data['mined_coins']/$tobemined;//number_format(($data['mined_coins']/259856369‬)*100,2);
+		//$data['lastblocktime']=time()-$data['updatetime'];	
+		
+		
+		return $data['total_coins'];
 		}
 	
-	
+	public function object_array($array)
+		{
+		   if(is_object($array))
+		   {
+			$array = (array)$array;
+		   }
+		   if(is_array($array))
+		   {
+			foreach($array as $key=>$value)
+			{
+			 $array[$key] = $this->object_array($value);
+			}
+		   }
+		   return $array;
+		}
+		
+		
 	public function getMempoolInfo(){
 		$url="http://127.0.0.1:3113/v2/debug/transactions/pending";
 		$websrc=$this->getwebsrc($url);
