@@ -66,7 +66,7 @@ class Networks extends CI_Model {
 		//$sql="SELECT count(*),sum(fee) from transactions";
 		$data['totalfee']=$data['total_fee'];
 		$data['totaltxs']=$data['total_transactions'];
-		$data['totalfee']=floatval(number_format($row->sum/1000000000000000000, 18, '.', ''));
+		$data['totalfee']=floatval(number_format($data['totalfee']/1000000000000000000, 18, '.', ''));
 		
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
