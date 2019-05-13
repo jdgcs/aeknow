@@ -11,11 +11,25 @@ class Networks extends CI_Model {
 	public function getNetworkStatus(){
 		$this->load->database();
 		$data['maxtps']=116;
+		
+		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
+		$query = $this->db->query($trans_sql);
+
+		foreach ($query->result() as $row){
+			
+			}
+		
+		$data=$this->object_array($row);
+		$tobemined=259856369;
+		$data['mined_rate']=$data['mined_coins']/$tobemined;//number_format(($data['mined_coins']/259856369‬)*100,2);
+		$data['lastblocktime']=time()-$data['updatetime'];	
+		
+		
 		///////////////////////////////////////////get blocks info////////////////////////////
-		$data['topheight']= floatval($this->GetTopHeight());
+		$data['topheight']= $data['block_height'];
 		//$data['totalaemined']=$this->getTotalMined();	
 		//$data['totalcoins']=276450333.49932+$this->getTotalMined();
-		$data['totalcoins']=$this->getTotalCoins();
+		$data['totalcoins']=$data['total_coins'];
 		$data['totalaemined']=$data['totalcoins']-276450333.49932;
 		
 		//$sql="SELECT time FROM miner WHERE height=1";
@@ -50,11 +64,10 @@ class Networks extends CI_Model {
 		
 		/////////////////Transactions info//////////////////
 		//$sql="SELECT count(*),sum(fee) from transactions";
-		$sql="SELECT count(*),sum((tx->'tx'->>'fee')::numeric) from txs;";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['totaltxs']=floatval($row->count);
-		$data['totalfee']=floatval(number_format($row->sum/1000000000000000000, 18, '.', ''));
+		$data['totalfee']=$data['total_fee'];
+		$data['totaltxs']=$data['total_transactions'];
+		//$data['totalfee']=floatval(number_format($row->sum/1000000000000000000, 18, '.', ''));
+		
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
@@ -64,33 +77,22 @@ class Networks extends CI_Model {
 		
 		
 		///////////////////////////////////////
-		//////////////////////////////get difficulty////////////////////////////
-		$url=DATA_SRC_SITE."v2/status";
-		$websrc=$this->getwebsrc($url);
-		$data['peer_count']=0;
-		if(strpos($websrc,"difficulty")>0){
-			//$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
-			//preg_match($pattern,$websrc, $match);
-			$info=json_decode($websrc);
-			//$data['difficulty']=$match[1];
-			$data['difficulty']=$info->difficulty;
-			$data['difficultyfull']=floatval($data['difficulty']);
-			//$data['difficulty']=round($data['difficulty']/10000000000,2);
-			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
-			//$data['peer_count']=floatval($match[6]);
-			$data['peer_count']=floatval($info->peer_count);
-		}
+		//////////////////////////////get difficulty////////////////////////////		
+		
+		$data['difficulty']=$data['mining_difficulty'];
+		$data['difficultyfull']=floatval($data['difficulty']);
+		//$data['difficulty']=round($data['difficulty']/10000000000,2);
+		$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
+		//$data['peer_count']=floatval($match[6]);
+		$data['peer_count']=$data['nodes_total'];
 		
 		//////////////////////////////get hashrate////////////////////////////
-		$data['totalhashrate']=0;		
-		$data['totalhashrate']=$this->getHashRate();
+		//$data['totalhashrate']=0;		
+		$data['totalhashrate']=$data['mining_hashrate'];
 		
 		//////////////////////////get 	current reward////////////////////////
-		$currentheight=$data['topheight'];
-		$sql="SELECT reward FROM aeinflation WHERE blockid<$currentheight order by blockid desc limit 1";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['currentreward']=$row->reward/10;
+		
+		$data['currentreward']=$data['mining_reward'];
 		//$data['totalaemined']=$this->getTotalMined();
 		
 		///////////////////////////get pending txs/////////////////////////
@@ -99,10 +101,8 @@ class Networks extends CI_Model {
 		$data['pendingtxs']=substr_count($websrc, '"tx":');
 		
 		////////////////////////get price////////////////////////
-		$sql="SELECT price FROM aenetwork order by rid desc limit 1";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['price']=floatval($row->price);
+		$data['maxtps']=$data['max_tps'];
+		$data['price']=$data['price_usdt'];
 		
 		///////////////////update time//////////////////////
 		$data['timestamp']=time();
@@ -110,6 +110,25 @@ class Networks extends CI_Model {
 		///////////////////////////////////////////get last ////////////////////////////
 		return $data;
 		}
+	
+	
+	public function object_array($array)
+		{
+		   if(is_object($array))
+		   {
+			$array = (array)$array;
+		   }
+		   if(is_array($array))
+		   {
+			foreach($array as $key=>$value)
+			{
+			 $array[$key] = $this->object_array($value);
+			}
+		   }
+		   return $array;
+		}
+		
+		
 		
 	private function getReward($blockheight){
 		$blockheight=$blockheight+1;
@@ -121,9 +140,9 @@ class Networks extends CI_Model {
 		}
 		
 public function getTotalCoins(){
-		$myfile = fopen("/dev/shm/totalcoin", "r") or die("Unable to open file!");
-		return trim(fgets($myfile));
+		$myfile = fopen("/dev/shm/totalcoin", "r") or die("Unable to open file!");		
 		fclose($myfile);
+		return trim(fgets($myfile));
 		//return 276450333.49932+$this->getTotalMined();
 		}
 				
