@@ -385,25 +385,46 @@ class Tests extends CI_Model {
 	
 	public function getNetworkStatus(){
 		$this->load->database();
+		$data['maxtps']=116;
+		
+		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
+		$query = $this->db->query($trans_sql);
+
+		foreach ($query->result() as $row){
+			
+			}
+		
+		$data=$this->object_array($row);
+		$tobemined=259856369;
+		$data['mined_rate']=$data['mined_coins']/$tobemined;//number_format(($data['mined_coins']/259856369‬)*100,2);
+		$data['lastblocktime']=time()-$data['updatetime'];	
+		
+		
 		///////////////////////////////////////////get blocks info////////////////////////////
-		$data['topheight']= $this->GetTopHeight();
-		$data['totalaemined']=$this->getTotalMined();	
-		$data['maxtps']= 116;
+		$data['topheight']= $data['block_height'];
+		//$data['totalaemined']=$this->getTotalMined();	
+		//$data['totalcoins']=276450333.49932+$this->getTotalMined();
+		$data['totalcoins']=$data['total_coins'];
+		$data['totalaemined']=$data['totalcoins']-276450333.49932;
 		
-		$sql="SELECT time FROM miner WHERE height=1";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$totalmins= (time()-($row->time/1000))/60;		
+		//$sql="SELECT time FROM miner WHERE height=1";
+		//$query = $this->db->query($sql);
+		//$row = $query->row();
+		//$totalmins= (time()-($row->time/1000))/60;		
+		$totalmins= (time()-(1543373685748/1000))/60;	//1543373685748 is the first block time
+		
 		$totalheight=$data['topheight'];		
-		$data['avgminsperblock']=round($totalmins/$totalheight,2);
+		$data['avgminsperblock']=round($totalmins/$totalheight,6);
 		
-		$url="http://127.0.0.1:3013/v2/key-blocks/height/$totalheight";
+		$url=DATA_SRC_SITE."v2/key-blocks/height/$totalheight";
 		$websrc=$this->getwebsrc($url);
 		$data['lastime']="";
 		if(strpos($websrc,"time")>0){
-			$pattern='/(.*),"time":(.*),"version(.*)/i';
-			preg_match($pattern,$websrc, $match);
-			$data['lastime']=$match[2];
+			//$pattern='/(.*),"time":(.*),"version(.*)/i';
+			//preg_match($pattern,$websrc, $match);
+			//$data['lastime']=$match[2];
+			$info=json_decode($websrc);			
+			$data['lastime']=$info->time;
 			$millisecond=substr($data['lastime'],0,strlen($data['lastime'])-3); 
 			$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;
@@ -413,64 +434,73 @@ class Tests extends CI_Model {
 		$sql="SELECT count(*) FROM miner WHERE orphan is TRUE";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		$data['totalorphan']= $row->count;		
+		$data['totalorphan']= floatval($row->count);		
 		
 		
 		/////////////////Transactions info//////////////////
-		$sql="SELECT count(*),sum(fee) from transactions";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['totaltxs']=$row->count;
-		$data['totalfee']=number_format($row->sum/1000000000000000000, 18, '.', '');
+		//$sql="SELECT count(*),sum(fee) from transactions";
+		$data['totalfee']=$data['total_fee'];
+		$data['totaltxs']=$data['total_transactions'];
+		//$data['totalfee']=floatval(number_format($row->sum/1000000000000000000, 18, '.', ''));
+		$data['totalfee']=0;//remove fee
 		$period=(time()-1543373685)/(3600*24);		
 		$data['avgtxsperday']=round($data['totaltxs']/$period,2);
 		$data['avgtxspersec']=round($data['totaltxs']/(time()-1543373685),2);
-		$data['avgfee']=number_format($data['totalfee']/$data['totaltxs'],18, '.', '');
-		
-		
+		$data['avgfee']=floatval(number_format($data['totalfee']/$data['totaltxs'],18, '.', ''));
 		
 		
 		
 		
 		///////////////////////////////////////
-		//////////////////////////////get difficulty////////////////////////////
-		$url="http://127.0.0.1:3013/v2/status";
-		$websrc=$this->getwebsrc($url);
-		$data['peer_count']=0;
-		if(strpos($websrc,"difficulty")>0){
-			$pattern='/{"difficulty":(.*),"genesis_key_block_hash":"(.*)","listening":(.*),"node_revision":"(.*)","node_version":"(.*)","peer_count":(.*),"pending_transactions_count":(.*),"protocols":(.*),"solutions":(.*),"syncing":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['difficulty']=$match[1];
-			$data['difficultyfull']=$data['difficulty'];
-			//$data['difficulty']=round($data['difficulty']/10000000000,2);
-			$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
-			$data['peer_count']=$match[6];
-		}
+		//////////////////////////////get difficulty////////////////////////////		
+		
+		$data['difficulty']=$data['minging_difficulty'];
+		$data['difficultyfull']=floatval($data['difficulty']);
+		//$data['difficulty']=round($data['difficulty']/10000000000,2);
+		$data['difficulty']=round($data['difficulty']/16777216/1000,0)." K";			
+		//$data['peer_count']=floatval($match[6]);
+		$data['peer_count']=$data['nodes_total'];
 		
 		//////////////////////////////get hashrate////////////////////////////
-		$data['totalhashrate']=0;
-		$sql="SELECT hashrate FROM pools order by pid desc limit 3";
-		$query = $this->db->query($sql);
-		//$row = $query->row();
-		foreach ($query->result() as $row){
-			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
-		}
-		$data['totalhashrate']=round($data['totalhashrate']/1000,2);
+		//$data['totalhashrate']=0;		
+		$data['totalhashrate']=$data['mining_hashrate'];
 		
 		//////////////////////////get 	current reward////////////////////////
-		$currentheight=$data['topheight'];
-		$sql="SELECT reward FROM aeinflation WHERE blockid<$currentheight order by blockid desc limit 1";
-		$query = $this->db->query($sql);
-		$row = $query->row();
-		$data['currentreward']=$row->reward/10;
-		$data['totalaemined']=$this->getTotalMined();
+		
+		$data['currentreward']=$data['mining_reward'];
+		//$data['totalaemined']=$this->getTotalMined();
 		
 		///////////////////////////get pending txs/////////////////////////
-		$data['pendingtxs']=0;
 		$url="http://127.0.0.1:3113/v2/debug/transactions/pending";
 		$websrc=$this->getwebsrc($url);
 		$data['pendingtxs']=substr_count($websrc, '"tx":');
+		
+		////////////////////////get price////////////////////////
+		
+		$data['price']=$data['price_usdt'];
+		
+		///////////////////update time//////////////////////
+		$data['timestamp']=time();
+		
+		///////////////////////////////////////////get last ////////////////////////////
 		return $data;
+		}
+	
+	
+	public function object_array($array)
+		{
+		   if(is_object($array))
+		   {
+			$array = (array)$array;
+		   }
+		   if(is_array($array))
+		   {
+			foreach($array as $key=>$value)
+			{
+			 $array[$key] = $this->object_array($value);
+			}
+		   }
+		   return $array;
 		}
 		
 		
