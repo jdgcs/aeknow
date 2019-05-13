@@ -481,7 +481,8 @@ class Tests extends CI_Model {
 		
 		///////////////////update time//////////////////////
 		$data['timestamp']=time();
-		$data['maxtps']=116;
+		
+		$data['maxtps']=$data['max_tps'];
 		///////////////////////////////////////////get last ////////////////////////////
 		return $data;
 		}
