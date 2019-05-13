@@ -88,7 +88,7 @@ class Networks extends CI_Model {
 		
 		//////////////////////////////get hashrate////////////////////////////
 		//$data['totalhashrate']=0;		
-		$data['totalhashrate']=$data['mining_hashrate'];
+		$data['totalhashrate']=$data['mining_hashrate']/1000;
 		
 		//////////////////////////get 	current reward////////////////////////
 		
