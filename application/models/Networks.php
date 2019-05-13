@@ -107,6 +107,9 @@ class Networks extends CI_Model {
 		///////////////////update time//////////////////////
 		$data['timestamp']=time();
 		
+		$data['latest_blocks']="";
+		
+		$data['latest_transactions']="";
 		///////////////////////////////////////////get last ////////////////////////////
 		return $data;
 		}
