@@ -103,6 +103,7 @@ class Networks extends CI_Model {
 		////////////////////////get price////////////////////////
 		$data['maxtps']=$data['max_tps'];
 		$data['price']=$data['price_usdt'];
+		$data['price_btc']=number_format($data['price_btc'],8);
 		
 		///////////////////update time//////////////////////
 		$data['timestamp']=time();
