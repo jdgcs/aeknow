@@ -6,7 +6,7 @@ class Aepps extends CI_Controller {
 	{	
 		$data['status']="";
 		$data['aename']="";
-		$this->load->view('aepps.html',$data);
+		$this->load->view('en/aepps.html',$data);
 	} 
 
 }
