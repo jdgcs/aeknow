@@ -49,8 +49,8 @@ class Users extends CI_Model {
 				
 				$block_height=$row->block_height;
 				//$block_hash=$row->block_hash;
-				$time=$this->getTransactionTime($row->block_hash);
-				
+				//$time=$this->getTransactionTime($row->block_hash);
+				$time=0;
 				$singlebalance=$this->getBalance($row->sender_id);
 				$balance=number_format($singlebalance,2,'.','');
 				if(strpos($tagstr,$sender)<1){//if not count, then add
