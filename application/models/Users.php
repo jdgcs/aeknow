@@ -71,11 +71,11 @@ class Users extends CI_Model {
 					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
 					
-					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a> / <a href=/block/height/$block_height>$block_height</a> / $time</td></tr>";
+					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a> </td><td> <a href=/block/height/$block_height>$block_height</a> </td><td> $time</td></tr>";
 				
 				}else{
 					
-					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a> / <a href=/block/height/$block_height>$block_height</a> / $time</td></tr>";
+					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a></td><td> <a href=/block/height/$block_height>$block_height</a> </td><td> $time</td></tr>";
 				
 					}
 				
