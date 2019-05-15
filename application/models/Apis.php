@@ -23,8 +23,14 @@ class Apis extends CI_Model {
 		echo $results;
 		}
 	
+	public function getAccount($ak){		
+		$url=DATA_SRC_SITE."v2/accounts/$ak";
+		$data['info']=$this->getwebsrc($url);
+		return $data;
+		}
+	
 	public function getTotalCoins(){
-	$this->load->database();
+		$this->load->database();
 		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
 		$query = $this->db->query($trans_sql);
 

@@ -17,6 +17,12 @@ class Api extends CI_Controller {
 		$this->apis->getTx($ak,$limit,$offset);
 		}
 		
+	public function account($ak){
+		$this->load->model('apis');
+		$data=$this->apis->getAccount($ak);
+		$this->load->view('en/blank.html',$data);
+		$this->output->cache(1/4);
+		}	
 		
 	public function totalcoins(){
 		$this->load->model('apis');
