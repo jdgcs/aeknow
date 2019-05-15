@@ -11,7 +11,7 @@ class Name extends CI_Controller {
 		if($ak!="NULL"){
 			$this->load->model('Wallets');	
 			$data=$this->Wallets->getWalletInfo($ak,$page,$type);
-			$this->load->view('account.html',$data);
+			$this->load->view('en/account.html',$data);
 		}else{echo "NULL Name.";}
 	}
 	
@@ -25,7 +25,7 @@ class Name extends CI_Controller {
 		if($ak!="NULL"){
 			$this->load->model('Wallets');	
 			$data=$this->Wallets->getWalletInfo($ak,$page,$type);
-			$this->load->view('account.html',$data);
+			$this->load->view('en/account.html',$data);
 		}else{echo "NULL Name.";}
 	}
 	
