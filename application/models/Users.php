@@ -48,6 +48,9 @@ class Users extends CI_Model {
 				$txhash_short="th_****".substr($txhash,-4);
 				
 				$block_height=$row->block_height;
+				//$block_hash=$row->block_hash;
+				$time=$this->getTransactionTime($row->block_hash);
+				
 				$singlebalance=$this->getBalance($row->sender_id);
 				$balance=number_format($singlebalance,2,'.','');
 				if(strpos($tagstr,$sender)<1){//if not count, then add
@@ -66,11 +69,11 @@ class Users extends CI_Model {
 					$weight=$weight+$singlebalance*$voteoption;
 					$tagstr.=$sender;
 					
-					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+					$data['voteresult'].="<tr><td><span class=\"label label-success pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a>/<a href=/block/height/$block_height>$block_height</a>/$time</td></tr>";
 				
 				}else{
 					
-					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a>(<a href=/block/height/$block_height>$block_height</a>)</td></tr>";
+					$data['voteresult'].="<tr><td><span class=\"label label-warning pull-right\">".($data['votes_num']-$counter)."</span></td><td><a href=/address/wallet/$sender title=$sender>$sender_short</a></td><td>$voteoption</td><td>$balance</td><td><a href=/block/transaction/$txhash title=$txhash>$txhash_short</a>/<a href=/block/height/$block_height>$block_height</a>/$time</td></tr>";
 				
 					}
 				
@@ -166,8 +169,8 @@ class Users extends CI_Model {
 		if($query->num_rows()>0){
 			$totalmins=round(($row->time/1000),0);
 		}
-		return date("H:i:s",$totalmins);	
-		//return date("Y-m-d H:i:s",$totalmins);	
+		//return date("H:i:s",$totalmins);	
+		return date("Y-m-d H:i:s",$totalmins);	
 		}
 		
 	private function getalias($address){
