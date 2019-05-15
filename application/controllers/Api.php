@@ -8,7 +8,7 @@ class Api extends CI_Controller {
 	{	
 		$this->load->model('apis');
 		$data['api']=$this->apis->getNetworkStatus();
-		$this->load->view('api.html',$data);
+		$this->load->view('en/api.html',$data);
 		$this->output->cache(1/4);
 	}
 	
@@ -26,7 +26,7 @@ class Api extends CI_Controller {
 	public function network(){
 		$this->load->model('apis');
 		$data['api']=$this->apis->getNetworkStatus();
-		$this->load->view('api.html',$data);
+		$this->load->view('en/api.html',$data);
 		$this->output->cache(1/4);
 		}
 }
