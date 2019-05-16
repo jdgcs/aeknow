@@ -55,10 +55,12 @@ class Users extends CI_Model {
 				
 				$singlebalance=$this->getBalance($row->sender_id);
 				$balance=number_format($singlebalance,2,'.','');
+				$voteoption=$payload->vote->option;
+				
 				if(strpos($tagstr,$sender)<1){//if not count, then add
 					$data['coins_num']=$data['coins_num']+$singlebalance;
 					$data['uniquevoters_num']=$data['uniquevoters_num']+1;
-					$voteoption=$payload->vote->option;
+					
 					if($voteoption==0){$weight1=$weight1+$singlebalance;}
 					if($voteoption>0 && $voteoption<6){
 						$weight2=$weight2+$singlebalance;
