@@ -21,6 +21,12 @@ class Transaction extends CI_Controller {
 			echo "NULL";
 			}
 	}
+	
+	public function posttx($tx=""){
+		$this->load->model('transactions');
+		$data=$this->transactions->postTransaction($tx);
+		$this->load->view('en/transaction_post.html',$data);
+		}
 
 }
 

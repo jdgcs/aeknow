@@ -3,7 +3,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Transactions extends CI_Model {
 	
-	
+	public function postTransaction($tx){
+		$tx=urldecode($tx);
+		$data['result']="";
+		
+		$jsonStr ='{ "tx": "'.$tx.'"}';	
+		$pubnode="http://127.0.0.1:3013/v2/transactions";
+		$return= $this->http_post_json($pubnode, $jsonStr); 
+		
+		if($return[0]==200){
+				$info=json_decode($return[1]);
+				$txhash=$info->tx_hash;
+				$data['result']="Successful: <a href=/block/transaction/$txhash>$txhash</a>";
+			}else{	
+				$result=$return[1];
+				$data['result']="Failed:$result";
+			}
+		
+		return $data;
+		}
+		
+		
 	public function getTransactions($page,$type){
 		//$data['hash']=$transactionhash;
 		if($page<1){$page=1;}
@@ -362,7 +382,27 @@ class Transactions extends CI_Model {
 		return $row->reward/10;
 		}
 	
-	private function getwebsrc($url) {
+public function http_post_json($url, $jsonStr)
+	{
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonStr);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json; charset=utf-8',
+				'Content-Length: ' . strlen($jsonStr)
+			)
+		);
+		$response = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+	 
+		return array($httpCode, $response);
+	}
+
+
+private function getwebsrc($url) {
 	$curl = curl_init ();
 	$agent = "User-Agent: AE-testbot";
 	
