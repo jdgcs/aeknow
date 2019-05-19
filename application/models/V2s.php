@@ -150,10 +150,7 @@ private function getwebsrc($url) {
 	
 	$html = curl_exec ( $curl ); // execute the curl command
 	$response_code = curl_getinfo ( $curl, CURLINFO_HTTP_CODE );
-	if ($response_code != '200') { //Èç¹ûÎ´ÄÜ»ñÈ¡¸ÃÒ³Ãæ£¨·Ç200·µ»Ø£©£¬ÔòÖØÐÂ³¢ÊÔ»ñÈ¡
-	//	echo 'Page error: ' . $response_code . $html;	
-		$html='Page error: ' . $response_code.$html;
-	} 
+	
 	curl_close ( $curl ); // close the connection
 
 	return $html; // and finally, return $html
