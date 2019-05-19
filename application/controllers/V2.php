@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2 extends CI_Controller {
 	
+	public function account($ak){
+		$this->load->model('v2s');
+		$data=$this->v2s->getAccount($ak);
+		$this->load->view('en/blank.html',$data);
+		$this->output->cache(1/4);
+		}
+	
 	public function names($aens){
 		$this->load->model('v2s');
 		$data=$this->v2s->getName($aens);
@@ -13,6 +20,7 @@ class V2 extends CI_Controller {
 		$this->load->model('v2s');
 		$data=$this->v2s->postTransaction($tx);
 		$this->load->view('en/transaction_post.html',$data);
+		$this->output->cache(1);
 		}
 	
 	public function transactions(){

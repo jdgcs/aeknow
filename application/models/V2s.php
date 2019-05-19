@@ -3,8 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2s extends CI_Model {
 	
+	public function getAccount($ak){		
+		$url=DATA_SRC_SITE."v2/accounts/$ak";
+		$data['info']=$this->getwebsrc($url);
+		return $data;
+		}
+	
 	public function getName($aens){
-		$url="http://127.0.0.1:3013/v2/names/$aens";
+		$url=DATA_SRC_SITE."v2/names/$aens";
 		return $this->getwebsrc($url);
 		}
 	
@@ -13,7 +19,7 @@ class V2s extends CI_Model {
 		$data['result']="";
 		
 		$jsonStr ='{ "tx": "'.$tx.'"}';	
-		$pubnode="http://127.0.0.1:3013/v2/transactions";
+		$pubnode=DATA_SRC_SITE."v2/transactions";
 		$return= $this->http_post_json($pubnode, $jsonStr); 
 		
 		if($return[0]==200){
@@ -29,7 +35,7 @@ class V2s extends CI_Model {
 		}
 		
 	public function postTx($jsonStr){
-		$pubnode="http://127.0.0.1:3013/v2/transactions";
+		$pubnode=DATA_SRC_SITE."v2/transactions";
 		$return= $this->http_post_json($pubnode, $jsonStr); 
 		return $return[1];
 		}	
