@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2 extends CI_Controller {
 	
+	public function names($aens){
+		$this->load->model('v2s');
+		$data=$this->v2s->getName($tx);
+		echo $data;
+		}
+	
 	public function gettx($tx=""){
 		$this->load->model('v2s');
 		$data=$this->v2s->postTransaction($tx);

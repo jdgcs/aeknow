@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2s extends CI_Model {
 	
+	public function getName($aens){
+		$url="http://127.0.0.1:3013/v2/names/$aens";
+		return getwebsrc($url);
+		}
+	
 	public function postTransaction($tx){
 		$tx=urldecode($tx);
 		$data['result']="";
