@@ -5,7 +5,7 @@ class V2 extends CI_Controller {
 	
 	public function names($aens){
 		$this->load->model('v2s');
-		$data=$this->v2s->getName($tx);
+		$data=$this->v2s->getName($aens);
 		echo $data;
 		}
 	
