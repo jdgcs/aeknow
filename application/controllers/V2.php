@@ -15,9 +15,13 @@ class V2 extends CI_Controller {
 		$tx = $request->tx;
 		$tx='{ "tx": "'.$tx.'"}';
 		//echo "post tx:$tx<br>";
+		
 		$this->load->model('v2s');
 		$data=$this->v2s->postTx($tx);
-		echo $data;
+		
+		$response = json_encode($data);
+		header('Content-Type: application/json')
+		echo $response;
 		}
 
 }
