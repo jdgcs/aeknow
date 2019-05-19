@@ -15,6 +15,7 @@ class V2 extends CI_Controller {
 		echo "tx:$tx<br>";
 		$tx='{ "tx": "'.$tx.'"}';
 		echo "post tx:$tx<br>";
+		$this->load->model('v2s');
 		$data=$this->v2s->postTx($tx);
 		echo $data;
 		}
