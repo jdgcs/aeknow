@@ -20,7 +20,7 @@ class V2 extends CI_Controller {
 		$data=$this->v2s->postTx($tx);
 		
 		$response = json_encode($data);
-		header('Content-Type: application/json')
+		header('Content-Type: application/json');
 		echo $response;
 		}
 
