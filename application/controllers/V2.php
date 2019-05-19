@@ -10,16 +10,11 @@ class V2 extends CI_Controller {
 		}
 	
 	public function transactions(){
-		//$this->input->post();
-		//$tx= $this->input->post('tx');
 		$stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
 		$request = json_decode($stream_clean);
-		$ready = $request->ready;
-		print_r($request);
-		//echo "tx:$ready<br>";
-		$tx="";
+		$tx = $request->tx;
 		$tx='{ "tx": "'.$tx.'"}';
-		echo "post tx:$tx<br>";
+		//echo "post tx:$tx<br>";
 		$this->load->model('v2s');
 		$data=$this->v2s->postTx($tx);
 		echo $data;
