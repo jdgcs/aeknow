@@ -15,7 +15,9 @@ class V2 extends CI_Controller {
 		$stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
 		$request = json_decode($stream_clean);
 		$ready = $request->ready;
-		echo "tx:$ready<br>";
+		print_r($request);
+		//echo "tx:$ready<br>";
+		$tx="";
 		$tx='{ "tx": "'.$tx.'"}';
 		echo "post tx:$tx<br>";
 		$this->load->model('v2s');
