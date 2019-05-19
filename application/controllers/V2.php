@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2 extends CI_Controller {
 	
-	public function account($ak){
+	public function accounts($ak){
 		$this->load->model('v2s');
 		$data=$this->v2s->getAccount($ak);
 		$this->load->view('en/blank.html',$data);
