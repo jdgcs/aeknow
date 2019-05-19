@@ -12,7 +12,9 @@ class V2 extends CI_Controller {
 	public function transactions(){
 		$this->input->post();
 		$tx= $this->input->post('tx');
+		echo "tx:$tx<br>";
 		$tx='{ "tx": "'.$tx.'"}';
+		echo "post tx:$tx<br>";
 		$data=$this->v2s->postTx($tx);
 		echo $data;
 		}
