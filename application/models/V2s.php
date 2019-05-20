@@ -37,7 +37,7 @@ class V2s extends CI_Model {
 	public function postTx($jsonStr){
 		$pubnode=DATA_SRC_SITE."v2/transactions";
 		$return= $this->http_post_json($pubnode, $jsonStr); 
-		return $return[1];
+		return $return;
 		}	
 	
 	public function getalias($address){
@@ -135,7 +135,7 @@ public function http_post_json($url, $jsonStr)
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 	 
-		return array($httpCode, $response);
+		return $response;
 	}
 
 
