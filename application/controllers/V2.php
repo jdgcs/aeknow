@@ -33,7 +33,8 @@ class V2 extends CI_Controller {
 		$this->load->model('v2s');
 		$data=$this->v2s->postTx($tx);
 		
-		$response = json_encode($data);
+		//$response = json_encode($data);
+		$response = $data;
 		header('Content-Type: application/json');
 		echo $response;
 		}
