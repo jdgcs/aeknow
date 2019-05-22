@@ -6,7 +6,7 @@ class V2s extends CI_Model {
 	
 	public function getTx($ak,$limit=10,$offset=0){
 		$this->load->database();
-		$trans_sql="SELECT txhash,txtype,sender_id,tx FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset ".$offset;		
+		$trans_sql="SELECT txhash,txtype,sender_id,tx,block_height FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset ".$offset;		
 		$query = $this->db->query($trans_sql);
 
 		$counter=0;
