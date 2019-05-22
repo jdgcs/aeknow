@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2 extends CI_Controller {
 	
+	public function tx($ak,$limit=20,$offset=0){
+		$this->load->model('v2s');
+		$this->v2s->getTx($ak,$limit,$offset);
+		}
+		
 	public function accounts($ak){
 		$this->load->model('v2s');
 		$data=$this->v2s->getAccount($ak);
