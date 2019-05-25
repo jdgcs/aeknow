@@ -8,7 +8,7 @@ class Aens extends CI_Controller {
 		$data=$this->aenses->regStatus();
 		$data['status']="";
 		$data['aename']="";
-		$this->load->view('aens_index.html',$data);
+		$this->load->view('en/aens_index.html',$data);
 		$this->output->cache(10);
 	}
 	
@@ -20,9 +20,9 @@ class Aens extends CI_Controller {
 			$this->load->library('session');
 			$this->session->set_userdata('aename',$aename);
 			$this->session->set_userdata('querytime',time());		
-			$this->load->view('aens_reg.html',$data);
+			$this->load->view('en/aens_reg.html',$data);
 		}else{
-			$this->load->view('aens.html',$data);
+			$this->load->view('en/aens.html',$data);
 			}
 	}
 	
@@ -36,14 +36,14 @@ class Aens extends CI_Controller {
 				//echo "Too quick";
 				$data['status']="Too quick";
 				$data['aename']=$aename;
-				$this->load->view('aens.html',$data);
+				$this->load->view('en/aens.html',$data);
 			}else{
 				//echo "Recorded.<br />";
 				$this->session->set_userdata('querytime',time());
 				$this->load->model('aenses');	
 				$aename=strtolower($aename)	;
 				$data=$this->aenses->savetodb($aename,$akaddress);
-				$this->load->view('aens.html',$data);
+				$this->load->view('en/aens.html',$data);
 			}
 			
 		//echo "$aename:$akaddress recorded.";
@@ -53,7 +53,7 @@ class Aens extends CI_Controller {
 		function checkmyaens($akaddress=""){
 			$this->load->model('aenses');	
 			$data=$this->aenses->getNames($akaddress);
-			$this->load->view('aens_list.html',$data);
+			$this->load->view('en/aens_list.html',$data);
 			}
 
 }
