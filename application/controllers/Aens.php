@@ -9,7 +9,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('en/aens_index.html',$data);
-		$this->output->cache(10);
+		$this->output->cache(1);
 	}
 	
 	function query($aename=""){
