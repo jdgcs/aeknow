@@ -299,7 +299,7 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 	public function wealth500(){
 		$this->load->model('Addresses');
 		$data=$this->Addresses->getWealth500();
-		$this->load->view('wealth500.html',$data);
+		$this->load->view('en/wealth500.html',$data);
 		$this->output->cache(30);
 		}	
 	private function getTxsTime($block_hash){
