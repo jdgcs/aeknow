@@ -1,3 +1,9 @@
+<script type="text/javascript">
+var targetProtocol = "https:";
+if (window.location.protocol != targetProtocol)
+ window.location.href = targetProtocol +
+  window.location.href.substring(window.location.protocol.length);
+</script>
 
   <header class="main-header" style="background:#f7296e">
      <a href="/" class="logo" style="background:#311b58">
