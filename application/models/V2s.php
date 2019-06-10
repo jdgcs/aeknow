@@ -3,6 +3,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2s extends CI_Model {
 	
+	public function getTxByHeight($ak,$limit=10,$offset=0){
+		$this->load->database();
+		$trans_sql="SELECT txhash,txtype,sender_id,tx,block_height,recipient_id FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' AND block_height>$offset ORDER BY block_height desc,tid desc LIMIT $limit";		
+		$query = $this->db->query($trans_sql);
+
+		$counter=0;
+		$results="";
+		$results.= "{\"txs\":[";
+		foreach ($query->result() as $row){
+			//$counter++;
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$sender_id=$row->sender_id;
+			$recipient_id=$row->recipient_id;
+			$block_height=$row->block_height;
+			$tx=json_decode($row->tx);
+			$amount=0;
+			if($txtype=="SpendTx"){$amount=$tx->tx->amount;}
+			
+			$results.= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\",\"amount\":$amount,\"block_height\":$block_height,\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\"},";	
+			}
+		$results.= "}END";
+		
+		$results=str_replace(",}END","]}",$results);
+		echo $results;
+		}
 	
 	public function getTx($ak,$limit=10,$offset=0){
 		$this->load->database();

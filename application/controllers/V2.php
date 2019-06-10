@@ -7,7 +7,12 @@ class V2 extends CI_Controller {
 		$this->load->model('v2s');
 		$this->v2s->getTx($ak,$limit,$offset);
 		}
-		
+	
+	public function txbh($ak,$limit=20,$offset=0){
+		$this->load->model('v2s');
+		$this->v2s->getTxByHeight($ak,$limit,$offset);
+		}
+			
 	public function accounts($ak){
 		$this->load->model('v2s');
 		$data=$this->v2s->getAccount($ak);
