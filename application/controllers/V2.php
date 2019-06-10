@@ -8,9 +8,9 @@ class V2 extends CI_Controller {
 		$this->v2s->getTx($ak,$limit,$offset);
 		}
 	
-	public function txbh($ak,$limit=20,$offset=0){
+	public function txbh($ak,$startheight=0,$endheight=0){
 		$this->load->model('v2s');
-		$this->v2s->getTxByHeight($ak,$limit,$offset);
+		$this->v2s->getTxByHeight($ak,$startheight,$endheight);
 		}
 			
 	public function accounts($ak){
