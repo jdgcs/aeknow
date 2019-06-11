@@ -231,7 +231,7 @@ class Blocks extends CI_Model {
 						if($key_tx=="payload"){							
 							$str=bin2hex(base64_decode(str_replace("ba_","",$content_tx)));
 							$fordecode=hex2bin(substr($str,0,strlen($str)-8));
-							$content_tx=$content_tx."(Decoded:".$fordecode.")";
+							$content_tx=$content_tx."<br />(Decoded:".$fordecode.")";
 							}
 							
 						if($key_tx=="fee" || $key_tx=="gas"){
