@@ -228,9 +228,10 @@ class Blocks extends CI_Model {
 							$content_tx="<a href=/oracle/id/$content_tx>$content_tx</a>";
 							}	
 						
-						if($key_tx=="payload"){
-							$fordecode=str_replace("ba_","",$content_tx);
-							$content_tx=$content_tx."(Decoded:".base64_decode($fordecode).")";
+						if($key_tx=="payload"){							
+							$str=bin2hex(base64_decode(str_replace("ba_","",$content_tx));
+							$fordecode=hex2bin(substr($str,0,strlen($str)-8));
+							$content_tx=$content_tx."(Decoded:".$fordecode.")";
 							}
 							
 						if($key_tx=="fee" || $key_tx=="gas"){
