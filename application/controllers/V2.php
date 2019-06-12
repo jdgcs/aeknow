@@ -20,6 +20,13 @@ class V2 extends CI_Controller {
 		$this->output->cache(1/4);
 		}
 	
+	public function blocks($functions){
+		$this->load->model('v2s');
+		$data=$this->v2s->getBlocks($functions);
+		$this->load->view('en/blank.html',$data);
+		$this->output->cache(1/4);
+		}
+		
 	public function names($aens){
 		$this->load->model('v2s');
 		$data=$this->v2s->getName($aens);

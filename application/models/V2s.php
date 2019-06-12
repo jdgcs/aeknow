@@ -63,6 +63,12 @@ class V2s extends CI_Model {
 		return $data;
 		}
 	
+	public function getBlocks($functions){
+		$url=DATA_SRC_SITE."v2/blocks/$functions";
+		$data['info']=$this->getwebsrc($url);
+		return $data;
+		}
+	
 	public function getName($aens){
 		$url=DATA_SRC_SITE."v2/names/$aens";
 		return $this->getwebsrc($url);
