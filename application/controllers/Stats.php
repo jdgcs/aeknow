@@ -12,7 +12,7 @@ class Stats extends CI_Controller {
 	{	
 		$this->load->model('stat');	
 		$data=$this->stat->getHashrate();			
-		$this->load->view('stats_hashrate.html',$data);
+		$this->load->view('en/stats_hashrate.html',$data);
 		$this->output->cache(30);
 		
 	}
