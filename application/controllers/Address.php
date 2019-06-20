@@ -303,7 +303,7 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 		$this->output->cache(30);
 		}	
 	
-	public function topfrom($offset){
+	public function topfrom($offset=0){
 		$this->load->model('Addresses');
 		$data=$this->Addresses->getTopAccount($offset);
 		$this->load->view('en/top.html',$data);
