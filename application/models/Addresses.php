@@ -94,7 +94,24 @@ class Addresses extends CI_Model {
 		return $data['total_coins'];
 		}	
 		
+	
+	public function object_array($array)
+		{
+		   if(is_object($array))
+		   {
+			$array = (array)$array;
+		   }
+		   if(is_array($array))
+		   {
+			foreach($array as $key=>$value)
+			{
+			 $array[$key] = $this->object_array($value);
+			}
+		   }
+		   return $array;
+		}
 		
+			
 	public function getalias($address){
 		$this->load->database();
 		$sql="SELECT alias from addressinfo WHERE address='$address' limit 1";
