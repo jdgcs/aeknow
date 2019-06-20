@@ -296,20 +296,28 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 		$this->output->cache(3);
 		}
 		
-	public function wealth500(){
+	public function wealth5000(){
 		$this->load->model('Addresses');
 		$data=$this->Addresses->getWealth500();
 		$this->load->view('en/wealth500.html',$data);
 		$this->output->cache(30);
 		}	
 	
+	public function wealth500($offset=0){
+		$this->load->model('Addresses');
+		$data=$this->Addresses->getTopAccount($offset);
+		$this->load->view('en/top.html',$data);
+		$this->output->cache(10);
+		}
+	
 	public function topfrom($offset=0){
 		$this->load->model('Addresses');
 		$data=$this->Addresses->getTopAccount($offset);
 		$this->load->view('en/top.html',$data);
-		//$this->output->cache(30);
+		$this->output->cache(10);
 		}
-	
+		
+		
 	private function getTxsTime($block_hash){
 		$this->load->database();
 		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
