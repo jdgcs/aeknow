@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title> Wealth 500 of Aeternity - AEKnow</title>
+  <title> Wealth <?php echo ($page*500)." - ". (($page+1)*500); ?> of Aeternity - AEKnow</title>
   <Meta name="keywords" content=" Wealth 500 of Aeternity,Aeternity,AEKnow">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -51,12 +51,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-              Wealth 500 of Aeternity(Mainnet)
-        <small>top 500  of total <?php echo $totaladdress;?>; own tokens: <?php echo $totalcoin;?></small>
+              Wealth <?php echo ($page*500)." - ". (($page+1)*500); ?> of Aeternity(Mainnet)
+        <small>top <?php echo ($page*500)." - ". (($page+1)*500); ?>  of total <?php echo $totaladdress;?>; own tokens: <?php echo $totalcoin;?>; Total tokens: <?php echo $allcoin;?></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>      
-        <li class="active"> Wealth 500</li>
+        <li class="active"> Wealth</li>
       </ol>
     </section>
 

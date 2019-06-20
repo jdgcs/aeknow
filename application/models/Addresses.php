@@ -47,7 +47,7 @@ class Addresses extends CI_Model {
 		$data['wealth500']="";
 		$data['totalcoin']=0;
 		$totalcoin=$this->getTotalCoins();
-		$data['allcoin']=$totalcoin;
+		
 		
 		$this->load->database();
 		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500 offset $offset";
@@ -83,7 +83,8 @@ class Addresses extends CI_Model {
 		$data['totaladdress']=$row->count;
 		$data['page']=$offset/500;
 		
-		$data['totalpage']=ceil($data['totaladdress']/500);
+		$data['totalpage']=ceil($data['totaladdress']/500)-1;
+		$data['allcoin']=$totalcoin;
 		return $data;
 		}
 		
