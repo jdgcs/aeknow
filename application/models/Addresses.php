@@ -73,7 +73,7 @@ class Addresses extends CI_Model {
 			$readtime=date("Y-m-d H:i:s",$readtime)."(UTC)";
 			$percentage=round(($wealth/$totalcoin)*100,6);
 			$counter_show=$counter+$offset;
-			$data['wealth500'].="<tr><td>$counter_show</td><td>$address</td><td>$wealth($percentage %)</td><td>$readtime</td></tr>";
+			$data['wealth500'].="<tr><td>$counter_show</td><td>$address</td><td>$wealth</td><td>$percentage %</td><td>$readtime</td></tr>";
 			$data['totalcoin']=$data['totalcoin']+$wealth;
 			}
 			
