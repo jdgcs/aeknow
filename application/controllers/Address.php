@@ -302,6 +302,14 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 		$this->load->view('en/wealth500.html',$data);
 		$this->output->cache(30);
 		}	
+	
+	public function topfrom($offset){
+		$this->load->model('Addresses');
+		$data=$this->Addresses->getTopAccount($offset);
+		$this->load->view('en/wealth500.html',$data);
+		//$this->output->cache(30);
+		}
+	
 	private function getTxsTime($block_hash){
 		$this->load->database();
 		$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
