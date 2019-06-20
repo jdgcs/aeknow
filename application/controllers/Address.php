@@ -306,7 +306,7 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 	public function topfrom($offset){
 		$this->load->model('Addresses');
 		$data=$this->Addresses->getTopAccount($offset);
-		$this->load->view('en/wealth500.html',$data);
+		$this->load->view('en/top.html',$data);
 		//$this->output->cache(30);
 		}
 	

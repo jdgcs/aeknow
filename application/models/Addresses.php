@@ -36,11 +36,14 @@ class Addresses extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaladdress']=$row->count;
+		
 		return $data;
 		}
 
 
 	public function getTopAccount($offset){
+		$offset=$offset*500;
+		
 		$data['wealth500']="";
 		$data['totalcoin']=0;
 		$totalcoin=$this->getTotalCoins();
@@ -78,6 +81,9 @@ class Addresses extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$data['totaladdress']=$row->count;
+		$data['page']=$offset;
+		
+		$data['totalpage']=ceil($data['totaladdress']/500);
 		return $data;
 		}
 		
