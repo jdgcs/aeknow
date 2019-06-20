@@ -77,8 +77,8 @@
 				<div class="box-footer clearfix">
 				
               <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/address/topfrom/1">First</a></li>
-                <li><a href="/address/topfrom/<?php echo $page-1;?>">Prev</a></li>
+                <li><a href="/address/topfrom/0">First</a></li>
+                <li><a href="/address/topfrom/<?php if(($page-1)<0){$page=1;};echo $page-1;?>">Prev</a></li>
                 <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
                 <li><a href="/address/topfrom/<?php echo $page+1;?>">Next</a></li>
                 <li><a href="/address/topfrom/<?php echo $totalpage;?>">Last</a></li>
@@ -96,6 +96,16 @@
 					<?php echo $wealth500;?>
 					
 				</table>
+				<div class="box-footer clearfix">
+				
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="/address/topfrom/0">First</a></li>
+                <li><a href="/address/topfrom/<?php if(($page-1)<0){$page=1;};echo $page-1;?>">Prev</a></li>
+                <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
+                <li><a href="/address/topfrom/<?php echo $page+1;?>">Next</a></li>
+                <li><a href="/address/topfrom/<?php echo $totalpage;?>">Last</a></li>
+              </ul>
+            </div>		
 			</div>
 
             </div>
