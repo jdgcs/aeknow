@@ -7,7 +7,7 @@ public function getOracleList(){
 	$this->load->database();
 	$topheight=$this->GetTopHeight();
 	$sql="SELECT DISTINCT(CONCAT(aid ,oid) ) as oracle_id FROM (SELECT (tx->'tx'->'oracle_ttl'->>'value')::numeric as ttl, (tx->>'block_height')::numeric as block_height,regexp_replace(((tx->'tx'->'account_id')::text),'ak_','ok_') as aid,(tx->'tx'->'oracle_id')::text as oid from txs WHERE txtype='OracleRegisterTx' or txtype='OracleExtendTx') as tbl_active WHERE (ttl+block_height)>$topheight;";
-	//echo "$sql";
+	echo "$sql";
 	$query = $this->db->query($sql);
 	$data['ortable']="";$counter=0;
 	$data['ortable_all']="";$counter_all=0;
