@@ -85,6 +85,7 @@ class Addresses extends CI_Model {
 		
 		$data['totalpage']=ceil($data['totaladdress']/500)-1;
 		$data['allcoin']=$totalcoin;
+		
 		return $data;
 		}
 		
