@@ -324,7 +324,7 @@ class Blocks extends CI_Model {
 			$data['signature']=$info->signature;
 			$data['state_hash']=$info->state_hash;
 			$data['time']=$info->time;
-			$utctime=round(($info->time/1000,0);
+			$utctime=round(($info->time)/1000,0);
 			$utctime= date("Y-m-d H:i:s",$utctime);		
 			$data['time'].="($utctime UTC)";		
 			$data['txs_hash']=$info->txs_hash;
