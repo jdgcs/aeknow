@@ -299,8 +299,10 @@ class Blocks extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		
 		if(strpos($websrc,"prev_hash")>0){
-			$pattern='/{"hash":"(.*)","height":(.*),"pof_hash":"(.*)","prev_hash":"(.*)","prev_key_hash":"(.*)","signature":"(.*)","state_hash":"(.*)","time":(.*),"txs_hash":"(.*)","version":(.*)}/i';
-			preg_match($pattern,$websrc,$match);
+			//$pattern='/{"hash":"(.*)","height":(.*),"pof_hash":"(.*)","prev_hash":"(.*)","prev_key_hash":"(.*)","signature":"(.*)","state_hash":"(.*)","time":(.*),"txs_hash":"(.*)","version":(.*)}/i';
+			//preg_match($pattern,$websrc,$match);
+			$info=json_decode($websrc);
+			/*
 			$data['height']=$match[2];
 			$data['pof_hash']=$match[3];
 			$data['prev_hash']=$match[4];
@@ -308,11 +310,26 @@ class Blocks extends CI_Model {
 			$data['signature']=$match[6];
 			$data['state_hash']=$match[7];
 			$data['time']=$match[8];
-			$utctime=round(($match[8]),0);
+			$utctime=round(($match[8])/1000,0);
 			$utctime= date("Y-m-d H:i:s",$utctime);		
 			$data['time'].="($utctime UTC)";		
 			$data['txs_hash']=$match[9];
 			$data['version']=$match[10];
+			* */
+			
+			$data['height']=$info->height;
+			$data['pof_hash']=$info->pof_hash;
+			$data['prev_hash']=$info->prev_hash;
+			$data['prev_key_hash']=$info->prev_key_hash;
+			$data['signature']=$info->signature;
+			$data['state_hash']=$info->state_hash;
+			$data['time']=$info->time;
+			$utctime=round(($info->time/1000,0);
+			$utctime= date("Y-m-d H:i:s",$utctime);		
+			$data['time'].="($utctime UTC)";		
+			$data['txs_hash']=$info->txs_hash;
+			$data['version']=$info->version;
+			
 			
 			$data['transactions']=$this->getMicroBlockTransNum($microblockhash);
 			$data['previousblock']="<a href=/block/height/".($data['height']-1)."> Previous Key Block<< </a>";
@@ -361,9 +378,10 @@ class Blocks extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		
 		if(strpos($websrc,"prev_hash")>0){
-			$pattern='/{"hash":"(.*)","height":(.*),"pof_hash":"(.*)","prev_hash":"(.*)","prev_key_hash":"(.*)","signature":"(.*)","state_hash":"(.*)","time":(.*),"txs_hash":"(.*)","version":(.*)}/i';
-			preg_match($pattern,$websrc,$match);			
-			return $match[8];
+			//$pattern='/{"hash":"(.*)","height":(.*),"pof_hash":"(.*)","prev_hash":"(.*)","prev_key_hash":"(.*)","signature":"(.*)","state_hash":"(.*)","time":(.*),"txs_hash":"(.*)","version":(.*)}/i';
+			//preg_match($pattern,$websrc,$match);		
+			$info=json_decode($websrc);	
+			return $info->time;
 			}else{echo "NULL";return 0;}
 		
 		//return $data;
