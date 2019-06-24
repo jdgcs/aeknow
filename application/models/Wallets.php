@@ -212,7 +212,7 @@ public function getTokenName($contract){
 
 private function getTransactionTime($block_hash){
 		$this->load->database();
-		$totalmins=0;
+		$totalmins=-1;
 		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
 		$sql="SELECT data->'time' as time from microblocks WHERE hash='$block_hash' limit 1";
 		
@@ -223,7 +223,7 @@ private function getTransactionTime($block_hash){
 			$totalmins=round(($row->time/1000),0);
 		}
 		
-		if($totalmins==0){return "Calculating";}
+		if($totalmins<0){return "Calculating";}
 		
 		return date("Y-m-d H:i:s",$totalmins);	
 		}	
