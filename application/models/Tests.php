@@ -1107,7 +1107,7 @@ public function base58_decode($base58)
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{
-			$info=json_decode($row[0]);
+			$info=json_decode($row->data);
 			$millisecond=$info->time;
 			//$millisecond=$row->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
