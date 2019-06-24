@@ -22,7 +22,7 @@ class Block extends CI_Controller {
 	{	$this->load->model('blocks');
 		$data=$this->blocks->genBlocksIndex();
 		$this->load->view('en/blocks_v2.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(5);
 	}
 	
 	public function p($page)

@@ -6,7 +6,7 @@ class Blocks extends CI_Model {
 	public function genBlocksIndex($page=1){
 		$data['title']= "Blocks";
 		$data['page']=$page;
-		$perpage=50;
+		$perpage=20;
 		/////////////////////////////////////Get key,micro and orphan blocks number//////////////////////////////
 		$this->load->database();
 		$data['keyblockheight']=$this->GetTopHeight();
@@ -64,11 +64,11 @@ class Blocks extends CI_Model {
 				}
 		}
 		
-		////////////////////////////////Last 100 Micro blocks/////////////////////////
+		////////////////////////////////Last 20 Micro blocks/////////////////////////
 		$data['microblocks']="";
 		$counter=0;
 		//$sql="select hash,height,time from microblock order by height desc limit 100";
-		$sql="select hash,height,data from microblocks order by height desc limit 100";
+		$sql="select hash,height,data from microblocks order by height desc limit 20";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{
