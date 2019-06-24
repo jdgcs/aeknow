@@ -35,7 +35,7 @@ class Blocks extends CI_Model {
 		foreach ($query->result() as $row)
 		{			
 			$counter++;
-			$info=json_decode($row->data)
+			$info=json_decode($row->data);
 			$millisecond=$info->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			//$whenmined=time()-$millisecond;
