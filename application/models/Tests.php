@@ -1102,26 +1102,35 @@ public function base58_decode($base58)
 		////////////////////////////////Last 100 Orphan blocks/////////////////////////
 		$data['orphanblocks']="";
 		$counter=0;
-		$sql="select beneficiary,height,time from miner WHERE orphan is TRUE order by height desc LIMIT 100;";
+		//$sql="select beneficiary,height,time from miner WHERE orphan is TRUE order by height desc LIMIT 100;";
+		$sql="select data from keyblocks WHERE orphan is TRUE order by height desc LIMIT 100;";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{
-			$millisecond=$row->time;
+			$info=json_decode($row[0]);
+			$millisecond=$info->time;
+			//$millisecond=$row->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			//$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;
 			//$minedtime=date('i:s',$whenmined);
 			$minedtime=date('Y-m-d H:i:s',$millisecond);
 			//$showaddress=$this->strMiddleReduceWordSensitive ($row->beneficiary, 30);
-			$showaddress=$row->beneficiary;
-			$trueaddress=$row->beneficiary;
+			
+			//$showaddress=$row->beneficiary;
+			//$trueaddress=$row->beneficiary;
+			
+			$showaddress=$info->beneficiary;
+			$trueaddress=$info->beneficiary;
+			
 			$alias=$this->getalias($trueaddress);
 				if($showaddress==$alias){
 					$showaddress="ak_****".substr($showaddress,-4);
 				}else{
 					$showaddress=$alias;
 					}
-			$height=$row->height;
+			//$height=$row->height;
+			$height=$info->height;
 			
 			$data['orphanblocks'].="<tr><td><a href=/block/height/$height>$height</a></td><td>".$minedtime."</td><td><a href=/miner/viewaccount/$trueaddress>".$showaddress."</a></td><td>".$this->getReward($height)."</td><td><span class='badge bg-yellow'>Orphan</span></td></tr>";				
 
