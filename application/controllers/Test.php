@@ -84,8 +84,8 @@ class Test extends CI_Controller {
 		//$this->output->cache(3);
 		}
 	public function blockindex(){
-		$this->load->model('blocks');
-		$data=$this->blocks->genBlocksIndex();
+		$this->load->model('tests');
+		$data=$this->tests->genBlocksIndex();
 		$this->load->view('blocks_v2.html',$data);
 		//$this->output->cache(1);
 		}
