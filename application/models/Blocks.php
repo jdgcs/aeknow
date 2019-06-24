@@ -67,11 +67,14 @@ class Blocks extends CI_Model {
 		////////////////////////////////Last 100 Micro blocks/////////////////////////
 		$data['microblocks']="";
 		$counter=0;
-		$sql="select hash,height,time from microblock order by height desc limit 100";
+		//$sql="select hash,height,time from microblock order by height desc limit 100";
+		$sql="select hash,height,data from microblocks order by height desc limit 100";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{
-			$millisecond=$row->time;
+			$info=json_decode($row->data);
+			$millisecond=$info->time;
+			
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			//$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;
@@ -422,10 +425,12 @@ class Blocks extends CI_Model {
 		$url=DATA_SRC_SITE."v2/micro-blocks/hash/$mhash/transactions/count";
 		$websrc=$this->getwebsrc($url);
 		if(strpos($websrc,"count")>0){
-			$pattern='/{"count":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
+			//$pattern='/{"count":(.*)}/i';
+			//preg_match($pattern,$websrc, $match);
 			//echo  $match[1];
-			return $match[1];
+			$info=json_decode($websrc);
+			return $info->count;
+			//return $match[1];
 		}
 		return 0;
 		}
