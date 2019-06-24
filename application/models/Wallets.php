@@ -216,11 +216,15 @@ private function getTransactionTime($block_hash){
 		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
 		$sql="SELECT data->'time' as time from microblocks WHERE hash='$block_hash' limit 1";
 		
+		
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($query->num_rows()>0){
 			$totalmins=round(($row->time/1000),0);
 		}
+		
+		if($totalmins==0){return "Calculating";}
+		
 		return date("Y-m-d H:i:s",$totalmins);	
 		}	
 	
