@@ -74,7 +74,7 @@ class Wallets extends CI_Model {
 			$txtype=$row->txtype;
 			$txdata=json_decode($row->tx);
 			$block_hash=$txdata->block_hash;
-			$time=$this->getTransactionTime($txdata->block_hash);
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
 			
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
@@ -210,7 +210,7 @@ public function getTokenName($contract){
 	}
 
 
-private function getTransactionTime($block_hash){
+private function getTransactionTime($block_hash,$txhash){
 		$this->load->database();
 		$totalmins=-1;
 		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
@@ -223,7 +223,20 @@ private function getTransactionTime($block_hash){
 			$totalmins=round(($row->time/1000),0);
 		}
 		
-		if($totalmins<0){return "Calculating";}
+		if($totalmins<0){//If there is no microblocks in database, which is caused by fork, then use onchain data directly
+			$url=DATA_SRC_SITE.'v2/transactions/'.$txhash;
+			$websrc=$this->getwebsrc($url);
+			if(strpos($websrc,"hash")==false){return "Calculating";}
+			$info=json_decode($websrc);
+			$block_hash=$info->block_hash;
+			$url=DATA_SRC_SITE.'/v2/micro-blocks/hash/'.$block_hash.'/header';
+			
+			$websrc=$this->getwebsrc($url);
+			if(strpos($websrc,"hash")==false){return "Calculating";}
+			$info=json_decode($websrc);
+			$totalmins=round(($info->time/1000),0);			
+			//return "Calculating";
+			}
 		
 		return date("Y-m-d H:i:s",$totalmins);	
 		}	
