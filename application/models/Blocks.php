@@ -29,28 +29,30 @@ class Blocks extends CI_Model {
 		$data['includemicro']=0;
 		
 		
-		$sql="select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT $perpage offset ".($page-1)*$perpage;
+		//$sql="select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="select benifit,data FROM keyblocks WHERE orphan is NULL order by height desc LIMIT $perpage offset ".($page-1)*$perpage;
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row)
 		{			
 			$counter++;
-			$millisecond=$row->time;
+			$info=json_decode($row->data)
+			$millisecond=$info->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			//$whenmined=time()-$millisecond;
 			//$minedtime=$whenmined;
 			$minedtime=date('Y-m-d H:i:s',$millisecond);
 			//$showaddress=$this->strMiddleReduceWordSensitive ($row->beneficiary, 30);
-			$showaddress=$row->beneficiary;
-			$trueaddress=$row->beneficiary;
+			$showaddress=$row->benifit;
+			$trueaddress=$row->benifit;
 			$alias=$this->getalias($trueaddress);
 				if($showaddress==$alias){
 					$showaddress="ak_****".substr($showaddress,-4);
 				}else{
 					$showaddress=$alias;
 					}
-			$height=$row->height;
+			$height=$info->height;
 			
-			$sql1="SELECT count(*)  FROM microblock WHERE height=$height";
+			$sql1="SELECT count(*)  FROM microblocks WHERE height=$height";
 			$query1 = $this->db->query($sql1);
 			$row1 = $query1->row();		
 			$data['includemicro']=$row1->count; 
