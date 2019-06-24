@@ -229,7 +229,7 @@ private function getTransactionTime($block_hash,$txhash){
 			if(strpos($websrc,"hash")==false){return "Calculating";}
 			$info=json_decode($websrc);
 			$block_hash=$info->block_hash;
-			$url=DATA_SRC_SITE.'/v2/micro-blocks/hash/'.$block_hash.'/header';
+			$url=DATA_SRC_SITE.'v2/micro-blocks/hash/'.$block_hash.'/header';
 			
 			$websrc=$this->getwebsrc($url);
 			if(strpos($websrc,"hash")==false){return "Calculating";}
