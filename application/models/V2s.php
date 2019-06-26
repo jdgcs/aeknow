@@ -6,7 +6,7 @@ class V2s extends CI_Model {
 		if($type=="oracles" && $function=="query"){
 			$url = "http://localhost:3113/v2/debug/oracles/query";
 			$return= $this->http_post_json($url, $poststr);  
-			echo $return[1];
+			echo $return[0];
 			//print_r($return);
 			//$keys=json_decode($return[1]);  
 	
