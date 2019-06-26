@@ -8,7 +8,7 @@ class V2 extends CI_Controller {
 		//$request = json_decode($stream_clean);
 		//$tx = $request->tx;
 		//$tx='{ "tx": "'.$tx.'"}';
-		echo "GOT;$poststr";
+		//echo "GOT;$poststr";
 		$this->load->model('v2s');
 		$this->v2s->debugLink($type,$function,$poststr);
 		
