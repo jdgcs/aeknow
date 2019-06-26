@@ -63,7 +63,7 @@ class Wallets extends CI_Model {
 			$data['activities']=' <a class="pull-right"> &nbsp; <span class="badge bg-blue">Mining</span></a>'; 
 			$counter++;
 			$blockheight=$row->height;
-			$onfo=json_decode($row->data);
+			$info=json_decode($row->data);
 			$millisecond =$info->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			$minedtime=date("Y-m-d H:i:s",$millisecond);
