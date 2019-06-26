@@ -4,6 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class V2 extends CI_Controller {
 	
 	public function debug($type,$function){
+		$poststr = $this->security->xss_clean($this->input->raw_input_stream);
+		//$request = json_decode($stream_clean);
+		//$tx = $request->tx;
+		//$tx='{ "tx": "'.$tx.'"}';
+		
+		$this->load->model('v2s');
+		$this->v2s->debugLink($type,$function,$poststr);
 		
 		}
 		

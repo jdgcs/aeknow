@@ -2,6 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V2s extends CI_Model {
+	public function debugLink($type,$function,$poststr){
+		if($type=="oracles" && $function=="query"){
+			$url = "http://localhost:3113/v2/debug/oracles/query";
+			$return= $this->http_post_json($url, $poststr);  
+			$keys=json_decode($return[1]);  
+	
+			$tx_unsigned=$keys->tx;
+			echo "$poststr<br />$tx_unsigned<br />";
+			}
+		}
 	
 	public function getTxByHeight($ak,$startheight,$endheight){
 		$this->load->database();
