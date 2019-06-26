@@ -355,16 +355,32 @@ public function getHashRate(){
 		
 	private function getTransactionTime($block_hash){
 		$this->load->database();
-		$totalmins=0;
+		$totalmins=-1;
 		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
 		$sql="SELECT data->'time' as time from microblocks WHERE hash='$block_hash' limit 1";
-		//$sql="SELECT data->>'time' as time from microblocks WHERE hash='$block_hash' limit 1";
-		//$sql="SELECT data->>'time' as time from microblocks WHERE data @> '{\"hash\": \"$block_hash\"}'::jsonb limit 1";
+		
+		
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		if($query->num_rows()>0){
 			$totalmins=round(($row->time/1000),0);
 		}
+		
+		if($totalmins<0){//If there is no microblocks in database, which is caused by fork, then use onchain data directly
+			$url=DATA_SRC_SITE.'v2/transactions/'.$txhash;
+			$websrc=$this->getwebsrc($url);
+			if(strpos($websrc,"hash")==false){return "Calculating";}
+			$info=json_decode($websrc);
+			$block_hash=$info->block_hash;
+			$url=DATA_SRC_SITE.'v2/micro-blocks/hash/'.$block_hash.'/header';
+			
+			$websrc=$this->getwebsrc($url);
+			if(strpos($websrc,"hash")==false){return "Calculating";}
+			$info=json_decode($websrc);
+			$totalmins=round(($info->time/1000),0);			
+			//return "Calculating";
+			}
+		
 		return date("Y-m-d H:i:s",$totalmins);	
 		}	
 		

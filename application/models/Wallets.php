@@ -14,9 +14,12 @@ class Wallets extends CI_Model {
 		$data['account']=$ak;
 		$data['balance']=0;
 		if(strpos($websrc,"balance")==TRUE){
-			$pattern='/{"balance":(.*),"id":"(.*)","nonce":(.*)}/i';
-			preg_match($pattern,$websrc, $match);
-			$data['balance']=$match[1]/1000000000000000000;
+			//$pattern='/{"balance":(.*),"id":"(.*)","nonce":(.*)}/i';
+			//preg_match($pattern,$websrc, $match);
+			//$data['balance']=$match[1]/1000000000000000000;
+			$info=json_decode($websrc);
+			$data['balance']=$info->balance/1000000000000000000;
+			
 		}
 		
 		
@@ -46,6 +49,30 @@ class Wallets extends CI_Model {
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
 			}*/
+			
+		$sql= "select height,data FROM keyblocks WHERE benifit='$ak' AND orphan is NULL order by hid desc LIMIT 100";
+		$query = $this->db->query($sql);
+		$data['blocksmined']=0;
+		$data['blocksmined']= $query->num_rows();
+		
+		$data['totalblocks']="";
+		$counter=0;
+		$minedtime="";
+		$data['totalreward']=0;
+		foreach ($query->result() as $row){
+			$data['activities']=' <a class="pull-right"> &nbsp; <span class="badge bg-blue">Mining</span></a>'; 
+			$counter++;
+			$blockheight=$row->height;
+			$info=json_decode($row->data);
+			$millisecond =$info->time;
+			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
+			$minedtime=date("Y-m-d H:i:s",$millisecond);
+			$reward=($this->getReward($blockheight+1))*0.891;
+			$data['totalreward']=$data['totalreward']+$reward;			
+			if($counter<101){				
+				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
+			}
+			}
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
 		$ok=str_replace("ak_","ok_",$ak);
 		
