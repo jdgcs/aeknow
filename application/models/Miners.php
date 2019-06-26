@@ -107,7 +107,7 @@ class Miners extends CI_Model {
 			$txtype=$row->txtype;
 			$txdata=json_decode($row->tx);
 			$block_hash=$txdata->block_hash;
-			$time=$this->getTransactionTime($txdata->block_hash);
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
 			
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
@@ -353,7 +353,7 @@ public function getHashRate(){
 		return $totalmined;
 		}
 		
-	private function getTransactionTime($block_hash){
+	private function getTransactionTime($block_hash,$txhash){
 		$this->load->database();
 		$totalmins=-1;
 		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";

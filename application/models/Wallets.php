@@ -48,9 +48,9 @@ class Wallets extends CI_Model {
 			if($counter<101){				
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
-			}
+			}*/
 			
-		$sql= "select height,data FROM keyblocks WHERE benifit='$ak' AND orphan is NULL order by hid desc LIMIT 100";
+		$sql= "select height,data FROM keyblocks WHERE benifit='$ak' AND orphan is NULL order by height desc LIMIT 100";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
 		$data['blocksmined']= $query->num_rows();
@@ -72,7 +72,7 @@ class Wallets extends CI_Model {
 			if($counter<101){				
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
 			}
-			}*/
+			}
 		/////////////////////////////////////////////get Transactions//////////////////////////////////
 		$ok=str_replace("ak_","ok_",$ak);
 		
