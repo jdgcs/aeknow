@@ -5,14 +5,10 @@ class V2s extends CI_Model {
 	public function debugLink($type,$function,$poststr){
 		if($type=="oracles" && $function=="query"){
 			$url = "http://localhost:3113/v2/debug/oracles/query";
-			$return= $this->http_post_json($url, $poststr);  
-			//echo $return[0];
-			print_r($return);
-			//$keys=json_decode($return[1]);  
-	
-			//$tx_unsigned=$keys->tx;
-			//echo "$poststr<br />$tx_unsigned<br />";
+			return $this->http_post_json($url, $poststr); 
 			}
+		
+		
 		}
 	
 	public function getTxByHeight($ak,$startheight,$endheight){
@@ -108,8 +104,7 @@ class V2s extends CI_Model {
 		
 	public function postTx($jsonStr){
 		$pubnode=DATA_SRC_SITE."v2/transactions";
-		$return= $this->http_post_json($pubnode, $jsonStr); 
-		return $return;
+		return $this->http_post_json($pubnode, $jsonStr);
 		}	
 	
 	public function getalias($address){

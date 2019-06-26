@@ -10,8 +10,10 @@ class V2 extends CI_Controller {
 		//$tx='{ "tx": "'.$tx.'"}';
 		//echo "GOT;$poststr";
 		$this->load->model('v2s');
-		$this->v2s->debugLink($type,$function,$poststr);
+		$response=$this->v2s->debugLink($type,$function,$poststr);
 		
+		header('Content-Type: application/json');
+		echo $response;
 		}
 		
 	public function tx($ak,$limit=20,$offset=0){
