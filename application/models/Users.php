@@ -207,6 +207,8 @@ private function getReward($blockheight){
 		$row = $query->row();
 		return $row->reward/10;
 		}
+		
+		
 function GetTopHeight()	{
 	$url=DATA_SRC_SITE."v2/blocks/top";
 	$websrc=$this->getwebsrc($url);

@@ -173,6 +173,14 @@ private function getReward($blockheight){
 		return ($row->reward/10)*0.891;
 		}
 		
+private function getReward_calc($blockheight){
+		$blockheight=$blockheight+1;
+		$this->load->database();
+		$sql="SELECT reward from aeinflation WHERE blockid<$blockheight ORDER BY blockid desc LIMIT 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		return $row->reward/10;
+		}
 		
 public function getHashRate(){
 		$this->load->database();
@@ -239,7 +247,7 @@ public function getTotalMined(){
 		$latestheight=$this->GetTopHeight();
 		$totalmined=0;
 		for($i=1;$i<$latestheight+1;$i++){
-			$totalmined=$totalmined+$this->getReward($i);
+			$totalmined=$totalmined+$this->getReward_calc($i);
 			}
 		return $totalmined;
 		}
