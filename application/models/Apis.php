@@ -170,7 +170,7 @@ private function getReward($blockheight){
 		$sql="SELECT reward from aeinflation WHERE blockid<$blockheight ORDER BY blockid desc LIMIT 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		return $row->reward/10;
+		return ($row->reward/10)*0.891;
 		}
 		
 		
