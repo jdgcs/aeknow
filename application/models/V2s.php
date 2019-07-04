@@ -65,6 +65,12 @@ class V2s extends CI_Model {
 		echo $results;
 		}
 	
+	public function getOracle($oracle_id,$function){
+		$url=DATA_SRC_SITE."v2/oracles/$oracle_id/$function";
+		$data['info']=$this->getwebsrc($url);
+		return $data;
+		}
+		
 	public function getAccount($ak){		
 		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$data['info']=$this->getwebsrc($url);

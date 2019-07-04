@@ -16,6 +16,12 @@ class V2 extends CI_Controller {
 		echo $response;
 		}
 		
+	public function oracles($oracle_id,$function){
+		$this->load->model('v2s');
+		$data=$this->v2s->getOracle($oracle_id,$function);
+		$this->load->view('en/blank.html',$data);
+		}
+	
 	public function tx($ak,$limit=20,$offset=0){
 		$this->load->model('v2s');
 		$this->v2s->getTx($ak,$limit,$offset);
