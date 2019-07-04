@@ -16,7 +16,7 @@ class V2 extends CI_Controller {
 		echo $response;
 		}
 		
-	public function oracles($oracle_id,$function){
+	public function oracles($oracle_id,$function=""){
 		$this->load->model('v2s');
 		$data=$this->v2s->getOracle($oracle_id,$function);
 		$this->load->view('en/blank.html',$data);
