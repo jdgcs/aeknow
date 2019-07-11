@@ -362,14 +362,17 @@ class Blocks extends CI_Model {
 		$data['microblocks']=0;		
 		$counter=0;
 		if(strpos($websrc,"key_block")>0){
-			$pattern='/{"key_block":{"beneficiary":"(.*)","hash":"(.*)","height":(.*),"miner":"(.*)","nonce":(.*),"pow":(.*),"prev_hash":"(.*)","prev_key_hash":"(.*)","state_hash":"(.*)","target":(.*),"time":(.*),"version":(.*)},"micro_blocks":(.*)}/i';
-			preg_match($pattern,$websrc,$match);			
-			$data['micro_blocks']=$match[13];
+			//$pattern='/{"key_block":{"beneficiary":"(.*)","hash":"(.*)","height":(.*),"miner":"(.*)","nonce":(.*),"pow":(.*),"prev_hash":"(.*)","prev_key_hash":"(.*)","state_hash":"(.*)","target":(.*),"time":(.*),"version":(.*)},"micro_blocks":(.*)}/i';
+			//preg_match($pattern,$websrc,$match);			
+			$info=json_decode($websrc);
+			//$data['micro_blocks']=$match[13];
+			$data['micro_blocks']=json_encode($info->key_block->micro_blocks);
 			}
 		
 		if(strlen($data['micro_blocks'])>10){
-			$pattern='/"(.*)"/U';
-			preg_match_all($pattern,$data['micro_blocks'],$matches);
+			//$pattern='/"(.*)"/U';
+			//preg_match_all($pattern,$data['micro_blocks'],$matches);
+			$matches=json_decode($data['micro_blocks']);
 			for($i=0;$i<count($matches[1]);$i++){
 				$hash=$matches[1][$i];
 				$counter++;
