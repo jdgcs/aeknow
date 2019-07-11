@@ -407,12 +407,18 @@ class Blocks extends CI_Model {
 		}	
 		
 	public function getBlockHeight($keyblockhash){
-		$this->load->database();
-		$sql="SELECT * from miner WHERE hash='$keyblockhash' AND orphan is FALSE";
-		$query = $this->db->query($sql);
-		if($query->num_rows()==0){return -1;}
-		$row = $query->row();
-		return $row->height;
+		$url=DATA_SRC_SITE.'v2/key-blocks/hash/'.$keyblockhash;
+		$websrc=$this->getwebsrc($url);
+		if(strpos($websrc,"prev_hash")>0){
+			$info=json_decode($websrc);	
+			return $info->height;
+			}else{echo "NULL";return 0;}
+		//$this->load->database();
+		//$sql="SELECT * from keyblocks WHERE hash='$keyblockhash' AND orphan is NULL";
+		//$query = $this->db->query($sql);
+		//if($query->num_rows()==0){return -1;}
+		//$row = $query->row();
+		//return $row->height;
 		}	
 	
 	public function getPow($height){
