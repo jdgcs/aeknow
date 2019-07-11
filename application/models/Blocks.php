@@ -335,6 +335,7 @@ class Blocks extends CI_Model {
 			$data['pof_hash']=$info->pof_hash;
 			$data['prev_hash']=$info->prev_hash;
 			$data['prev_key_hash']=$info->prev_key_hash;
+			$data['prev_key_hash']="<a href=/block/keyblock/".$data['prev_key_hash'].">".$data['prev_key_hash']."</a>";
 			$data['signature']=$info->signature;
 			$data['state_hash']=$info->state_hash;
 			$data['time']=$info->time;
