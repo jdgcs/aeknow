@@ -55,7 +55,7 @@ class Block extends CI_Controller {
 		$height=$this->blocks->getBlockHeight($keyblockhash);
 		if($height<0){echo "Not in DB."; return 0;}
 		$data=$this->blocks->getBlockInfo($height);
-		$this->load->view('en/block.html',$data);
+		$this->load->view('en/block_v2.html',$data);
 		$this->output->cache(3);
 		}
 	
