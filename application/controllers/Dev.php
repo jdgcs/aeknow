@@ -5,7 +5,7 @@ class Dev extends CI_Controller {
 
 	public function index()
 	{	
-		$this->load->view('developer.html');
+		$this->load->view('en/developer.html');
 	}
 	
 	
