@@ -22,7 +22,7 @@ public function getPredictionDetail($txhash){
 		
 		$data['payload']=$fordecode;
 		$data['oracle_json']=$data['payload'];
-		oracle_json
+		
 		}
 	
 	return $data;
