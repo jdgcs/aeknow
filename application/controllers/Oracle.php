@@ -22,9 +22,11 @@ class Oracle extends CI_Controller {
 		//show all the oracles of the address ak_
 		}
 	
-	public function detail($txhash){
+	public function prediction($txhash){
 		//show the dynamic details of a single onchain prediction
-		
+		$this->load->model('oracles');	
+		$data=$this->oracles->getPredictionDetail($txhash);
+		$this->load->view('en/oracles_prediction.html',$data);
 		}
 	
 }
