@@ -6,12 +6,18 @@ public function getPredictionDetail($txhash){
 	$url=DATA_SRC_SITE."v2/transactions/$txhash";
 	$websrc=$this->getwebsrc($url);
 	$data['payload']="";
+	$data['txhash']=$txhash;
+	$data['title']="Prediction details of $txhash";
 	
 	if(strpos($websrc,"payload")>0){
 		$info=json_decode($websrc);
 		$payload=$info->tx->payload;
 		$str=bin2hex(base64_decode(str_replace("ba_","",$payload)));
 		$fordecode=base64_decode(hex2bin(substr($str,0,strlen($str)-8)));
+		$info=json_decode($fordecode);
+		$data['title']=$info->title;
+		$data['ak']=$info->ak;
+		
 		$data['payload']=$fordecode;
 		}
 	
