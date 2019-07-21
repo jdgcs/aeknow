@@ -17,8 +17,12 @@ public function getPredictionDetail($txhash){
 		$info=json_decode($fordecode);
 		$data['title']=$info->title;
 		$data['ak']=$info->ak;
+		$data['options']=$info->options;
+		$data['description']=base64_decode($info->description);
 		
 		$data['payload']=$fordecode;
+		$data['oracle_json']=$data['payload'];
+		oracle_json
 		}
 	
 	return $data;
