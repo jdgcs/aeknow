@@ -48,7 +48,8 @@ public function getPredictionDetail($txhash){
 		}
 		
 		foreach ($query->result() as $row){//get options
-			$amount=$row->amount/1000000000000000000;
+			$tx=json_decode($row->tx);
+			$amount=$tx->tx->amount/1000000000000000000;
 			$option=substr(sprintf("%.2f",$amount),0,-1);
 			$select=$option-floor($option);
 			$count=intval(round($select*10));
