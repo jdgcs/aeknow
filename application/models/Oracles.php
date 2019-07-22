@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Oracles extends CI_Model {
 public function getPredictionDetail($txhash){
+	$this->load->database();
 	$url=DATA_SRC_SITE."v2/transactions/$txhash";
 	$websrc=$this->getwebsrc($url);
 	$data['payload']="";
@@ -32,6 +33,70 @@ public function getPredictionDetail($txhash){
 		
 		$data['predictstats']=$this->getPredictstats($txhash);
 		
+		//get stats
+		$oracle_json=$row['oracle_json'];
+		$startheight=$row['startheight']-1;
+		$endheight=$row['endheight'];
+		$ak=$row['ak'];
+		$returnrate=$row['returnrate'];
+		
+		$sql="SELECT * FROM txs WHERE recipient_id='$ak' AND txtype='SpendTx' AND block_height>$startheight AND block_height<$endheight order by block_height desc";
+		$query = $this->db->query($sql);
+		
+		for($i=1;$i<11;$i++){
+			$myoption[$i]=0;
+		}
+		
+		foreach ($query->result() as $row){//get options
+			$amount=$row->amount/1000000000000000000;
+			$option=substr(sprintf("%.2f",$amount),0,-1);
+			$select=$option-floor($option);
+			$count=intval(round($select*10));
+			if($count==0){$count=10;}	
+			$myoption[$count]=$myoption[$count]+$amount;
+			}
+		
+		//count total effective tokens
+		$info=json_decode($oracle_json);
+		$alltokens=0;
+		$effectivetokens=0;		
+		for($i=0;$i<count($info->options);$i++){
+			$option_init=$info->options[$i]->option_init;
+			$option=$info->options[$i]->option;			
+			$option_index=$info->options[$i]->index;						
+			if(trim($info->options[$i]->option)!=""){					
+				$effectivetokens=$effectivetokens+$myoption[$option_index]+$option_init;			
+			}				
+			$alltokens=$alltokens+$myoption[$option_index]+$option_init;	
+			}
+		
+		//list options in realtime
+		$stats='<table  class="table table-hover">
+					<tr>
+					<th>#</th>
+					<th>描述</th>
+					<th>预投</th>
+					<th>共投</th>
+					<th>赔率</th>
+					</tr>';
+	
+		
+	for($i=0;$i<count($info->options);$i++){
+		if(trim($info->options[$i]->option)!=""){
+			$option=$info->options[$i]->option;
+			$option_init=$info->options[$i]->option_init;
+			$option_index=$info->options[$i]->index;
+			$prediction=$myoption[$option_index]+$option_init;
+			if($prediction>0){
+				$predictrate[$option_index]=round(((($effectivetokens)*$returnrate/100)/$prediction),2);
+			}else{$predictrate[$option_index]=0;}	
+					
+			$stats.="<tr><td>$option_index</td><td>$option</td><td>$option_init</td><td>$prediction</td><td>".$predictrate[$option_index]."</td></tr>";
+			}
+		}
+	$stats.='</table>';
+	$stats.="<br/> <b>有效token</b>:".$effectivetokens	."；<b>参与token</b>:".$alltokens		;
+	$data['predictstats']=	$stats;
 		}
 	
 	return $data;
