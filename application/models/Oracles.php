@@ -34,11 +34,11 @@ public function getPredictionDetail($txhash){
 		$data['predictstats']=$this->getPredictstats($txhash);
 		
 		//get stats
-		$oracle_json=$row['oracle_json'];
-		$startheight=$row['startheight']-1;
-		$endheight=$row['endheight'];
-		$ak=$row['ak'];
-		$returnrate=$row['returnrate'];
+		$oracle_json=$data['oracle_json'];
+		$startheight=$data['startheight']-1;
+		$endheight=$data['endheight'];
+		$ak=$data['ak'];
+		$returnrate=$data['returnrate'];
 		
 		$sql="SELECT * FROM txs WHERE recipient_id='$ak' AND txtype='SpendTx' AND block_height>$startheight AND block_height<$endheight order by block_height desc";
 		$query = $this->db->query($sql);
