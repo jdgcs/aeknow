@@ -18,7 +18,7 @@ public function getPredictionDetail($txhash){
 		$data['title']=$info->title;
 		$data['ak']=$info->ak;
 		$data['options']=$info->options;
-		$data['description']=base64_decode($info->description);
+		$data['description']=$info->description;
 		$data['returnrate']=$info->returnrate;
 		
 		$data['oracle_id']=$info->oracle_id;
