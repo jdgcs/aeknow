@@ -113,19 +113,13 @@
  </div>
  </div>
 
-<div class="col-md-4">
-<div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Prediction Charts</h3>
-               <h3 class="box-title" style="float:right;"><a href=/welcome/in24h>View Details>></a></h3>
-            </div>
-            <!-- /.box-header -->
+<div class="col-md-6">
              <div class="box-body">
 			
           <!-- DONUT CHART -->
           <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">chart</h3>
+              <h3 class="box-title">实时预测分布</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -136,25 +130,22 @@
             <div class="box-body chart-responsive">
               <div class="chart" id="sales-chart" style="height: 250px; position: relative;"></div>
             </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box --></div>
-</div>	
-	
- <!-- Profile Image -->
-          <div class="box box-primary">
-			  <div class="box-header with-border">
-              <h3 class="box-title">实时预测分布</h3>
-            </div>
+            
             <div class="box-body box-profile">
-				
+				<ul>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+				</ul>
              <?php echo $predictstats;?>
 			
             </div>
-
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->	
+          <!-- /.box -->
+</div>	
+	
 </div>
    
 	</div>
@@ -222,10 +213,10 @@
       resize: true,
       colors: ["#F7296E","#311B58", "#383838", "#1E1E1E","#000000","#DCDCDC", "#FFFFFF" ],
       data: [
-         {label: "beepool(54.36%)", value: 262},
- {label: "f2pool(27.39%)", value: 132},
- {label: "2miners(13.9%)", value: 67},
- {label: "2miners.solo(3.73%)", value: 18},
+         {label: "1.继续走低，破9100，但9000支撑(54.36%)", value: 262},
+ {label: "2.震荡反弹，破9500，但9700内(27.39%)", value: 132},
+ {label: "3.强势走低，破9000(13.9%)", value: 67},
+ {label: "4.强势走强，破9700(3.73%)", value: 18},
  {label: "uupool(0.62%)", value: 3},
  {label: "else(0%)", value: 0}      ],
       hideHover: 'auto'
