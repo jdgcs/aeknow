@@ -38,7 +38,7 @@ public function getPredictionDetail($txhash){
 	}
 
 public function getPredictstats($txhash){
-	return "charts & lists";
+	return "";
 	}
 
 public function getOracleList(){
