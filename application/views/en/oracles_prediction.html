@@ -114,6 +114,33 @@
  </div>
 
 <div class="col-md-4">
+<div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Prediction Charts</h3>
+               <h3 class="box-title" style="float:right;"><a href=/welcome/in24h>View Details>></a></h3>
+            </div>
+            <!-- /.box-header -->
+             <div class="box-body">
+			
+          <!-- DONUT CHART -->
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="sales-chart" style="height: 250px; position: relative;"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box --></div>
+</div>	
+	
  <!-- Profile Image -->
           <div class="box box-primary">
 			  <div class="box-header with-border">
@@ -130,9 +157,6 @@
           <!-- /.box -->	
 </div>
    
-
-<br /><br />
-<?php echo $payload;?>
 	</div>
       <!-- /.row -->
 
@@ -187,6 +211,29 @@
 <!-- DataTables -->
 <script src="/application/views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/application/views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+  $(function () {
+    "use strict";
+    //DONUT CHART
+    var donut = new Morris.Donut({
+      element: 'sales-chart',
+      resize: true,
+      colors: ["#F7296E","#311B58", "#383838", "#1E1E1E","#000000","#DCDCDC", "#FFFFFF" ],
+      data: [
+         {label: "beepool(54.36%)", value: 262},
+ {label: "f2pool(27.39%)", value: 132},
+ {label: "2miners(13.9%)", value: 67},
+ {label: "2miners.solo(3.73%)", value: 18},
+ {label: "uupool(0.62%)", value: 3},
+ {label: "else(0%)", value: 0}      ],
+      hideHover: 'auto'
+    });
+
+  });
+</script>
+
 <script>
   $(function () {
     $('#example1').DataTable()
