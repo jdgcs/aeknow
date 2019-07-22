@@ -66,7 +66,7 @@
     <section class="content">
 
       <div class="row">
-<div class="col-md-5">
+<div class="col-md-6">
   <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title"><?php echo $title;?></h3>
@@ -112,22 +112,27 @@
 			</div>
  </div>
  </div>
-<?php echo $payload;?>
 
-<?php 
+<div class="col-md-4">
+ <!-- Profile Image -->
+          <div class="box box-primary">
+			  <div class="box-header with-border">
+              <h3 class="box-title">实时预测分布</h3>
+            </div>
+            <div class="box-body box-profile">
 				
-				$info=json_decode( $oracle_json);
-				
-				for($i=0;$i<count($info->options);$i++){
-					if(trim($info->options[$i]->option)!=""){
-						$option=$info->options[$i]->option;
-						$option_init=$info->options[$i]->option_init;
-						$option_index=$info->options[$i]->index;
-						echo "<li>$option_index.$option(预投：$option_init)</li>";
-						}
-					}
-				
-				?>
+             <?php echo $predictstats;?>
+			
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->	
+</div>
+   
+
+<br /><br />
+<?php echo $payload;?>
 	</div>
       <!-- /.row -->
 

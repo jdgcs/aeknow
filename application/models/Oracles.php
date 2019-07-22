@@ -24,17 +24,22 @@ public function getPredictionDetail($txhash){
 		$data['oracle_id']=$info->oracle_id;
 		$data['oracle_query']=$info->oracle_query;
 		$data['startheight']=$info->startheight;
-		$data['endheight']=$info->endheight;
-		
+		$data['endheight']=$info->endheight;		
 		
 		$data['payload']=$fordecode;
 		$data['oracle_json']=$data['payload'];
+		
+		
+		$data['predictstats']=$this->getPredictstats($txhash);
 		
 		}
 	
 	return $data;
 	}
 
+public function getPredictstats($txhash){
+	return "charts & lists";
+	}
 
 public function getOracleList(){
 	$this->load->database();
