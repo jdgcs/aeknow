@@ -58,6 +58,7 @@ public function getPredictionDetail($txhash){
 			}
 		
 		//count total effective tokens
+		$chartdata="";
 		$info=json_decode($oracle_json);
 		$alltokens=0;
 		$effectivetokens=0;		
@@ -65,12 +66,28 @@ public function getPredictionDetail($txhash){
 			$option_init=$info->options[$i]->option_init;
 			$option=$info->options[$i]->option;			
 			$option_index=$info->options[$i]->index;						
-			if(trim($info->options[$i]->option)!=""){					
-				$effectivetokens=$effectivetokens+$myoption[$option_index]+$option_init;			
+			if(trim($info->options[$i]->option)!=""){	
+				//$chartdata.='{label: "1.继续走低，破9100，但9000支撑(54.36%)", value: 262},'				
+				$effectivetokens=$effectivetokens+$myoption[$option_index]+$option_init;	
+						
 			}				
 			$alltokens=$alltokens+$myoption[$option_index]+$option_init;	
 			}
-		
+		//get pie chart
+		$chartdata="";
+		$info=json_decode($oracle_json);			
+		for($i=0;$i<count($info->options);$i++){
+			$option_init=$info->options[$i]->option_init;
+			$option=$info->options[$i]->option;			
+			$option_index=$info->options[$i]->index;						
+			if(trim($info->options[$i]->option)!=""){	
+				$thisoption=$myoption[$option_index]+$option_init;
+				$percentage=round((($thisoption)/$effectivetokens)*100,2);
+				$chartdata.='{label: "'.$option_index.'.'.$option.'('.$percentage.'%)", value: '.$thisoption.'},';
+			}				
+			$alltokens=$alltokens+$myoption[$option_index]+$option_init;	
+			}
+		$data['chartdata']=substr($chartdata,0,strlen($chartdata)-1);	
 		//list options in realtime
 		$stats='<table  class="table table-hover">
 					<tr>
