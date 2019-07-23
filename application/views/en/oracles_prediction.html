@@ -1,3 +1,6 @@
+<?php $this->config->set_item('language', $mylang); 
+$this->lang->load('prediction');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,8 +102,8 @@
 				<br/>
 				【参与方式】转账小数点后第一位为选项，小数点后第二位开始为推荐ID,如3.2表示选项2。<!-- 如3.2876表示选项2，推荐id为876，如果没有推荐人可留空。--> <br />
 				【返还率】<?php echo $returnrate;?>%；<br />
-				【拟调用预言机】<?php echo $oracle_id;?>。<br />
-				【查询串】<?php echo $oracle_query;?>。<br />
+				【Oracle】<?php echo $oracle_id;?>。<br />
+				【<?php echo $this->lang->line('oracle_query');?>】<?php echo $oracle_query;?>。<br />
 				
 				【参与地址】<br />
 				
