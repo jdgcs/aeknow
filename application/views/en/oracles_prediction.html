@@ -115,10 +115,30 @@ $this->lang->load('prediction');
 				
 				<tr>
 					<td>
-					<?php echo $this->lang->line('pre_guide');?>
+					<?php echo $this->lang->line('pre_guide');?><br />
+					
+					<center>
+					
+              <img class="" style="with:200px;" src="/miner/accountimg/<?php echo $ak;?>" alt="参与地址" width="200";>
+              <br/><?php echo $ak;?>
+			</center>
 					</td>
 				</tr>
 				
+				<tr>
+				Oracle: <?php echo $oracle_id;?>
+				</tr>
+				
+				<tr>
+				<td><?php echo $this->lang->line('pre_query');?></td>
+				<td><?php echo $this->lang->line('pre_returnrate');?></td>
+				</tr>
+				
+				
+				<tr>
+				<td><?php echo $returnrate;?>%</td>
+				<td><?php echo $oracle_query;?></td>
+				</tr>
 						
 				</table>
 				
