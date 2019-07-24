@@ -125,20 +125,24 @@ $this->lang->load('prediction');
 				</tr>
 				
 				<tr>
-					<td colspan="2">
-						Oracle: <?php echo $oracle_id;?>
+					<td>
+						<b>Oracle</b>
+					</td>
+					
+					<td>
+						 <?php echo $oracle_id;?>
 					</td>				
 				</tr>
 				
 				<tr>
-				<td><?php echo $this->lang->line('pre_query');?></td>
-				<td><?php echo $this->lang->line('pre_returnrate');?></td>
+				<td><b><?php echo $this->lang->line('pre_query');?></b></td>
+				<td><?php echo $oracle_query;?></td>
 				</tr>
 				
 				
 				<tr>
+				<td><b><?php echo $this->lang->line('pre_returnrate');?></b></td>
 				<td><?php echo $returnrate;?>%</td>
-				<td><?php echo $oracle_query;?></td>
 				</tr>
 						
 				</table>
