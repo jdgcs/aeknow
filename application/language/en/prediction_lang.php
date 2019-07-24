@@ -7,4 +7,8 @@ $lang['pre_participate'] = 'How to participate';
 $lang['pre_guide'] = 'The first decimal point is the option, for example, 3.2 represents option 2.';
 $lang['pre_returnrate'] = 'Return Rate';
 $lang['pre_rtprediction']='Realtime Prediction';
-
+$lang['pre_init']='Init';
+$lang['pre_total']='Total';
+$lang['pre_rate']='Rate';
+$lang['pre_effectivetokens']='Effective Tokens';
+$lang['pre_alltokens']='All Tokens';

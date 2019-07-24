@@ -89,14 +89,7 @@ public function getPredictionDetail($txhash){
 			}
 		$data['chartdata']=substr($chartdata,0,strlen($chartdata)-1);	
 		//list options in realtime
-		$stats='<table  class="table table-hover">
-					<tr>
-					<th>#</th>
-					<th>描述</th>
-					<th>预投</th>
-					<th>共投</th>
-					<th>赔率</th>
-					</tr>';
+		$stats='';
 	
 		
 	for($i=0;$i<count($info->options);$i++){
@@ -109,11 +102,14 @@ public function getPredictionDetail($txhash){
 				$predictrate[$option_index]=round(((($effectivetokens)*$returnrate/100)/$prediction),2);
 			}else{$predictrate[$option_index]=0;}	
 					
-			$stats.="<tr><td>$option_index</td><td>$option</td><td>$option_init</td><td>$prediction</td><td>".$predictrate[$option_index]."</td></tr>";
+			$stats.="<tr><td>$option_index</td><td>$option</td><td>$option_init</td><td>$prediction</td><td>1:".$predictrate[$option_index]."</td></tr>";
 			}
 		}
 	$stats.='</table>';
-	$stats.="<br/> <b>有效token</b>:".$effectivetokens	."；<b>参与token</b>:".$alltokens		;
+	$data['effectivetokens']=$effectivetokens;
+	$data['alltokens']=$alltokens;
+	
+	//$stats.="<br/> <b>有效token</b>:".$effectivetokens	."；<b>参与token</b>:".$alltokens		;
 	$data['predictstats']=	$stats;
 		}
 	
