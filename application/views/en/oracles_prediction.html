@@ -76,8 +76,39 @@ $this->lang->load('prediction');
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            
+                           
             <div class="box-body">
+				<table  class="table table-hover">
+					<tr>
+					<th><?php echo $this->lang->line('pre_description');?></th>					
+					</tr>
+					
+					<tr>
+					<td><?php echo base64_decode($description);?></td>
+					</tr>
+					
+					<tr>						
+					<th><?php echo $this->lang->line('pre_options');?></th>					
+					</tr>
+					
+					<tr>
+					<td>
+					<?php 
+		
+				$info=json_decode( $oracle_json);
+				
+				for($i=0;$i<count($info->options);$i++){
+					if(trim($info->options[$i]->option)!=""){
+						$option=$info->options[$i]->option;
+						$option_init=$info->options[$i]->option_init;
+						$option_index=$info->options[$i]->index;
+						echo "<li>$option_index.$option(预投：$option_init)</li>";
+						}
+					}				
+				?>
+					</td>
+					</tr>
+				</table>
 				<?php echo base64_decode($description);?>
 			</div>
 			
@@ -103,7 +134,7 @@ $this->lang->load('prediction');
 				【参与方式】转账小数点后第一位为选项，小数点后第二位开始为推荐ID,如3.2表示选项2。<!-- 如3.2876表示选项2，推荐id为876，如果没有推荐人可留空。--> <br />
 				【返还率】<?php echo $returnrate;?>%；<br />
 				【Oracle】<?php echo $oracle_id;?>。<br />
-				【<?php echo $this->lang->line('oracle_query');?>】<?php echo $oracle_query;?>。<br />
+				【<?php echo $this->lang->line('pre_query');?>】<?php echo $oracle_query;?>。<br />
 				
 				【参与地址】<br />
 				
