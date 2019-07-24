@@ -1,5 +1,6 @@
 <?php
 $lang['pre_query'] = 'Query';
+$lang['pre_oracle'] = 'Oracle';
 $lang['pre_description'] = 'Description';
 $lang['pre_options'] = 'Predict Options';
 $lang['pre_participate'] = 'How to participate';
