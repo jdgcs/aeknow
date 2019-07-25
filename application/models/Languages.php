@@ -25,6 +25,8 @@ class Languages extends CI_Model {
     foreach ($langs as $lang => $val) { break; }  
     //if complex language simplify it  
     if (stristr($lang,"-")) {$tmp = explode("-",$lang); $lang = $tmp[0]; }  
+    //Chinese and English only before other languages are supported
+    if($lang!="zh"){$lang="en";}
     return $lang;  
 } 
 }
