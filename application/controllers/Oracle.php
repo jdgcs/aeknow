@@ -35,5 +35,17 @@ class Oracle extends CI_Controller {
 		echo "under building";
 		}
 	
+	public function market($txhash){
+		
+		//show the dynamic details of a single onchain prediction
+		$this->load->model('oracles');	
+		$data=$this->oracles->getPredictionDetail($txhash);
+		
+		$this->load->model('languages');	
+		$data['mylang']=$this->languages->getPreferredLanguage();
+		
+		$this->load->view('en/oracles_prediction.html',$data);
+		}
+	
 }
 
