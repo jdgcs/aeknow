@@ -12,3 +12,7 @@ $lang['pre_total']='Total';
 $lang['pre_rate']='Rate';
 $lang['pre_effectivetokens']='Effective Tokens';
 $lang['pre_alltokens']='All Tokens';
+$lang['pre_created']='Created';
+$lang['pre_participating']='Participating';
+$lang['pre_calc']='Calculating';
+$lang['pre_finish']='Finish';

@@ -118,7 +118,7 @@ $this->lang->load('prediction');
 					<?php echo $this->lang->line('pre_guide');?><br />
 					
 					<center>					
-					  <img class="" style="with:200px;" src="/miner/accountimg/<?php echo $ak;?>" alt="参与地址" width="200";>
+					  <img class="" style="with:200px;" src="/miner/accountimg/<?php echo $ak;?>" alt="AK_ address" width="200";>
 					  <br/><?php echo $ak;?>
 					</center>
 					</td>
@@ -188,7 +188,7 @@ $this->lang->load('prediction');
 	<ul class="timeline">
 		<li class="time-label">
 			  <span class="bg-green">
-				Created
+				<?php echo $this->lang->line('pre_created');?>
 			  </span>
 		</li>
 		
@@ -196,11 +196,10 @@ $this->lang->load('prediction');
 		   <i class="fa fa-cubes bg-yellow"></i>
 
 		  <div class="timeline-item">
-			<span class="time"><i class="fa fa-clock-o">#111415</i></span>
+			<span class="time"><i class="fa fa-clock-o"> <a href="https://www.aeknow.org/block/height/<?php echo $startheight;?>">#<?php echo $startheight;?></a></i></span>
 			<h3 class="timeline-header"></h3>
 			<div class="timeline-footer">
-				Init: 4 AE<br/>
-			  <a href="https://www.aeknow.org/">TxHash</a>
+			  <a href="https://www.aeknow.org/block/transaction/<?php echo $txhash;?>">TxHash</a>
 			</div>
 		  </div>
 		</li>
@@ -208,24 +207,24 @@ $this->lang->load('prediction');
 		
 		<li class="time-label">
 			  <span class="bg-red">
-				Participating
+				<?php echo $this->lang->line('pre_participating');?>
 			  </span>
 		</li>
 		
 		<li>
               <i class="glyphicon glyphicon-eye-open bg-blue"></i>
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o">2019-07-28</i></span>
+                <span class="time"><i class="fa fa-clock-o"><?php echo $endheight;?></i></span>
                 <h3 class="timeline-header"></h3>
                 <div class="timeline-footer">
-                 56768 AE<br> <a href="https://www.aeknow.org/oracle">Transactions</a>
+                 56768 AE<br> <a href="https://www.aeknow.org/address/wallet/<?php echo $ak;?>/1/in">Transactions</a>
                 </div>
               </div>
             </li>
 		
 		<li class="time-label">
 			  <span class="bg-blue">
-				Oraclizing 
+				<?php echo $this->lang->line('pre_calc');?> 
 			  </span>
 		</li>
 		
@@ -242,17 +241,17 @@ $this->lang->load('prediction');
 		
 		<li class="time-label">
 			  <span class="bg-yellow">
-				Finished 
+				<?php echo $this->lang->line('pre_finish');?> 
 			  </span>
 		</li>
 		
 		<li>
               <i class="glyphicon glyphicon-eye-open bg-blue"></i>
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o">#1156356</i></span>
+                <span class="time"><i class="fa fa-clock-o">#<?php echo $endheight;?></i></span>
                 <h3 class="timeline-header"></h3>
                 <div class="timeline-footer">
-                 5676<br> <a href="https://www.aeknow.org/oracle">Txs</a>
+                 <br> <a href="https://www.aeknow.org/address/wallet/<?php echo $ak;?>/1/out">Transactions</a>
                 </div>
               </div>
             </li>

@@ -12,7 +12,7 @@ $lang['pre_total']='共投';
 $lang['pre_rate']='赔率';
 $lang['pre_effectivetokens']='有效token';
 $lang['pre_alltokens']='参与token';
-
-
-
-
+$lang['pre_created']='创建';
+$lang['pre_participating']='参与中';
+$lang['pre_calc']='结算中';
+$lang['pre_finish']='已完成';
