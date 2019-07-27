@@ -17,3 +17,4 @@ $lang['pre_participating']='参与中';
 $lang['pre_calc']='结算中';
 $lang['pre_rewarding']='派奖';
 $lang['pre_finish']='已完成';
+$lang['pre_satges']='当前状态';
