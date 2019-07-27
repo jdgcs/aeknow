@@ -47,6 +47,7 @@ public function getPredictionDetail($txhash){
 			$myoption[$i]=0;
 		}
 		
+		$data['txstable']="";
 		foreach ($query->result() as $row){//get options
 			$tx=json_decode($row->tx);
 			$amount=$tx->tx->amount/1000000000000000000;
@@ -55,6 +56,34 @@ public function getPredictionDetail($txhash){
 			$count=intval(round($select*10));
 			if($count==0){$count=10;}	
 			$myoption[$count]=$myoption[$count]+$amount;
+			
+			//get transactions table
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
+			
+			
+			$txhash_show="th_****".substr($txhash,-4);
+			
+			$recipient_id=$txdata->tx->recipient_id;			
+			$recipient_id_show="ak_****".substr($recipient_id,-4);
+			$alias=$this->getalias($recipient_id);
+			if($recipient_id!=$alias){
+				$recipient_id_show=$alias;
+				}
+						
+			$sender_id=$txdata->tx->sender_id;
+			$sender_id_show="ak_****".substr($sender_id,-4);
+			$alias=$this->getalias($sender_id);
+			if($sender_id!=$alias){
+				$sender_id_show=$alias;
+				}
+			
+			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+			
+			//end transactions table
 			}
 		
 		//count total effective tokens
@@ -285,4 +314,50 @@ public function base58_decode($base58)
         }
         return $return;
     }
+
+public function getalias($address){
+		$this->load->database();
+		$sql="SELECT alias from addressinfo WHERE address='$address' limit 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		
+		if($query->num_rows()>0){
+			//echo  $row->alias;
+			return $row->alias;
+			}
+		return $address;
+		}
+		
+private function getTransactionTime($block_hash,$txhash){
+		$this->load->database();
+		$totalmins=-1;
+		//$sql="SELECT time from microblock WHERE hash='$block_hash' limit 1";
+		$sql="SELECT data->'time' as time from microblocks WHERE hash='$block_hash' limit 1";
+		
+		
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		if($query->num_rows()>0){
+			$totalmins=round(($row->time/1000),0);
+		}
+		
+		if($totalmins<0){//If there is no microblocks in database, which is caused by fork, then use onchain data directly
+			$url=DATA_SRC_SITE.'v2/transactions/'.$txhash;
+			$websrc=$this->getwebsrc($url);
+			if(strpos($websrc,"hash")==false){return "Calculating";}
+			$info=json_decode($websrc);
+			$block_hash=$info->block_hash;
+			$url=DATA_SRC_SITE.'v2/micro-blocks/hash/'.$block_hash.'/header';
+			
+			$websrc=$this->getwebsrc($url);
+			if(strpos($websrc,"hash")==false){return "Calculating";}
+			$info=json_decode($websrc);
+			$totalmins=round(($info->time/1000),0);			
+			//return "Calculating";
+			}
+		
+		return date("Y-m-d H:i:s",$totalmins);	
+		}	
+
 }
+
