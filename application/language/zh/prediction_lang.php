@@ -18,3 +18,4 @@ $lang['pre_calc']='结算中';
 $lang['pre_rewarding']='派奖';
 $lang['pre_finish']='已完成';
 $lang['pre_satges']='当前状态';
+$lang['pre_txdetails']='交易细节';

@@ -18,3 +18,5 @@ $lang['pre_calc']='Calculating';
 $lang['pre_rewarding']='Rewarding';
 $lang['pre_finish']='Finish';
 $lang['pre_satges']='Stages';
+$lang['pre_txdetails']='Transaction Details';
+
