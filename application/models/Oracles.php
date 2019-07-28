@@ -81,7 +81,7 @@ public function getPredictionDetail($txhash){
 				$sender_id_show=$alias;
 				}
 			
-			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
 			
 			//end transactions table
 			}
