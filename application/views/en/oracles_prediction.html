@@ -268,7 +268,7 @@ $this->lang->load('prediction');
     </section>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-6">
 	 <div class="box box-success">
             <div class="box-header with-border">
               <h3 class="box-title"><?php echo $this->lang->line('pre_txdetails');?></h3>              
@@ -293,6 +293,34 @@ $this->lang->load('prediction');
             
 	</div>
 	</div>
+
+	<div class="col-md-6">
+	 <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title"><?php echo $this->lang->line('pre_rewarddetails');?></h3>              
+            </div>
+           
+           <div class="active tab-pane" id="mining">
+				 <div class="box-body table-responsive no-padding">
+				<table class="table table-hover table-bordered" >
+					
+					<tr>
+					  <th>tx Hash</th>
+					  <th>Amount</th>   
+					  <th>From</th>               
+					  <th >To</th>
+					  <th >TxType</th>
+					  <th >Time(UTC)</th>
+					</tr>				
+					<?php echo $rewardtable;?>
+				</table>
+				</div>
+			</div> 
+            
+	</div>
+	</div>
+
+
 </div>
 
     <!-- /.content -->

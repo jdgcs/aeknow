@@ -86,6 +86,7 @@ public function getPredictionDetail($txhash){
 			//end transactions table
 			}
 		
+		$data['rewardtable']="";
 		//count total effective tokens
 		$chartdata="";
 		$info=json_decode($oracle_json);
