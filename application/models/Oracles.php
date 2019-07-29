@@ -40,6 +40,7 @@ public function getPredictionDetail($txhash){
 		$ak=$data['ak'];
 		$returnrate=$data['returnrate'];
 		
+		//get income txs
 		$sql="SELECT * FROM txs WHERE recipient_id='$ak' AND txtype='SpendTx' AND block_height>$startheight AND block_height<$endheight order by block_height desc";
 		$query = $this->db->query($sql);
 		
@@ -85,8 +86,51 @@ public function getPredictionDetail($txhash){
 			
 			//end transactions table
 			}
+			
 		
 		$data['rewardtable']="";
+		//get rewardtable txs
+		$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='SpendTx' AND block_height>$endheight order by block_height";
+		$query = $this->db->query($sql);				
+		$data['rewardtable']="";
+		foreach ($query->result() as $row){//get options
+			$tx=json_decode($row->tx);
+			$amount=$tx->tx->amount/1000000000000000000;
+			$option=substr(sprintf("%.2f",$amount),0,-1);
+			$select=$option-floor($option);
+			$count=intval(round($select*10));
+			if($count==0){$count=10;}	
+			//$myoption[$count]=$myoption[$count]+$amount;
+			
+			//get transactions table
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
+			
+			
+			$txhash_show="th_****".substr($txhash,-4);
+			
+			$recipient_id=$txdata->tx->recipient_id;			
+			$recipient_id_show="ak_****".substr($recipient_id,-4);
+			$alias=$this->getalias($recipient_id);
+			if($recipient_id!=$alias){
+				$recipient_id_show=$alias;
+				}
+						
+			$sender_id=$txdata->tx->sender_id;
+			$sender_id_show="ak_****".substr($sender_id,-4);
+			$alias=$this->getalias($sender_id);
+			if($sender_id!=$alias){
+				$sender_id_show=$alias;
+				}
+			
+			$data['rewardtable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+			
+			//end transactions table
+			}
+			
 		//count total effective tokens
 		$chartdata="";
 		$info=json_decode($oracle_json);
