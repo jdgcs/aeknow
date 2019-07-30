@@ -295,6 +295,13 @@ public function getHashRate(){
 			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
 		}
 		
+		$sql="SELECT hashrate FROM pools WHERE poolname='2miners' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		//$row = $query->row();
+		foreach ($query->result() as $row){
+			$data['totalhashrate']=$data['totalhashrate']+$row->hashrate;
+		}
+		
 		$data['totalhashrate']=round(($data['totalhashrate']/1000)*($blockcounter/$top3block),2);
 		
 		return $data['totalhashrate'];
