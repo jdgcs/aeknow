@@ -304,7 +304,7 @@ public function getHashRate(){
 		
 		$data['totalhashrate']=round(($data['totalhashrate']/1000)*($blockcounter/$top3block),2);
 		
-		return $data['totalhashrate'];
+		return round(($data['totalhashrate']*1000*42)/600,2);
 		
 	}
 		
