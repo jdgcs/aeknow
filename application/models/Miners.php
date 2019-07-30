@@ -210,22 +210,34 @@ public function getPools(){
 		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=round($row->hashrate,2);
-		$estreward=round($row->estreward,2);
+		$hashrate=($hashrate*42)/600;
+		//$estreward=round($row->estreward,2);
 		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
 		//$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
-		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$updatetime</td></tr>";
-		
+		$table.="<tr><td>$poolname</td><td>$hashrate Kg/s</td><td>$updatetime</td></tr>";
+	
 		$sql="SELECT * FROM pools WHERE poolname='f2pool' order by pid desc limit 1";
 		$query = $this->db->query($sql);
 		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=round($row->hashrate,2);
-		$estreward=round($row->estreward,2);
+		$hashrate=($hashrate*42)/600;
+		//$estreward=round($row->estreward,2);
 		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
 		//$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
-		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$updatetime</td></tr>";
+		$table.="<tr><td>$poolname</td><td>$hashrate Kg/s</td><td>$updatetime</td></tr>";
 		
-		$table.="<tr><td>2miners</td><td>deving</td><td>deving</td></tr>";
+		
+		$sql="SELECT * FROM pools WHERE poolname='2miners' order by pid desc limit 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		$poolname=$row->poolname;
+		$hashrate=round($row->hashrate,2);
+		$hashrate=($hashrate*42)/600;
+		//$estreward=round($row->estreward,2);
+		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
+		//$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";
+		$table.="<tr><td>$poolname</td><td>$hashrate Kg/s</td><td>$updatetime</td></tr>";
 		
 		
 		$sql="SELECT * FROM pools WHERE poolname='uupool' order by pid desc limit 1";
@@ -233,10 +245,11 @@ public function getPools(){
 		$row = $query->row();
 		$poolname=$row->poolname;
 		$hashrate=round($row->hashrate,2);
-		$estreward=round($row->estreward,2);
+		$hashrate=($hashrate*42)/600;
+		//$estreward=round($row->estreward,2);
 		$updatetime=date("Y-m-d H:i:s",$row->updatetime); 
 		//$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$estreward AE/K</td><td>$updatetime</td></tr>";	
-		$table.="<tr><td>$poolname</td><td>$hashrate K/s</td><td>$updatetime</td></tr>";
+		$table.="<tr><td>$poolname</td><td>$hashrate Kg/s</td><td>$updatetime</td></tr>";
 		
 		return $table;
 		}
