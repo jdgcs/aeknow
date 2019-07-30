@@ -125,7 +125,11 @@
                 <tr>
                    <th>Total Mined: <?php echo $totalaemined;?> AE</th>  
                   
-                  <th>Total Hashrate: ~<?php echo $totalhashrate;?> Kg/s (<a href="/stats/hashrate">Hashrate trend</a>)</th>
+                  <th>Total Hashrate: ~<?php 
+                  $totalhashrate=round(($totalhashrate*1000*42)/600,2);
+                  echo $totalhashrate;
+                  
+                  ?> Kg/s (<a href="/stats/hashrate">Hashrate trend</a>)</th>
                  
                 </tr>              
 			</table>
