@@ -1,6 +1,7 @@
 <?php
 $lang['pre_query'] = '查询';
 $lang['pre_oracle'] = '预言机';
+$lang['pre_range'] = '有效范围';
 $lang['pre_description'] = '简介';
 $lang['pre_options'] = '预测选项';
 $lang['pre_participate'] = '参与方式';
@@ -15,7 +16,7 @@ $lang['pre_alltokens']='参与token';
 $lang['pre_created']='创建';
 $lang['pre_participating']='参与中';
 $lang['pre_participated']='本轮已结束';
-$lang['pre_calc']='结算中';
+$lang['pre_calc']='结算';
 $lang['pre_rewarding']='派奖';
 $lang['pre_finish']='已完成';
 $lang['pre_satges']='当前状态';

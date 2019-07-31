@@ -125,6 +125,16 @@ $this->lang->load('prediction');
 				
 				<tr>
 					<td>
+						<b><?php echo $this->lang->line('pre_range');?></b>
+					</td>
+					
+					<td>
+						 <?php echo $startheight." - " .$endheight;?>
+					</td>				
+				</tr>
+				
+				<tr>
+					<td>
 						<b><?php echo $this->lang->line('pre_oracle');?></b>
 					</td>
 					
@@ -177,7 +187,7 @@ $this->lang->load('prediction');
 					<th><?php echo $this->lang->line('pre_rate');?></th>
 					</tr>			
              <?php echo $predictstats;?>	
-             <br/> <b><?php echo $this->lang->line('pre_effectivetokens');?></b>:<?php echo $effectivetokens;?>；<b><?php echo $this->lang->line('pre_alltokens');?></b>:<?php echo $alltokens;?>		
+             <br/> <b><?php echo $this->lang->line('pre_effectivetokens');?></b>:<?php echo $effectivetokens;?>		
             </div>
             <!-- /.box-body -->
           </div>
@@ -195,7 +205,7 @@ $this->lang->load('prediction');
 		   <i class="fa fa-cubes bg-yellow"></i>
 
 		  <div class="timeline-item">
-			<span class="time"><i class="fa fa-clock-o"> <a href="https://www.aeknow.org/block/height/<?php echo $startheight;?>">#<?php echo $startheight;?></a></i></span>
+			<span class="time"><i class="fa fa-clock-o"> #<?php echo $startheight;?></i></span>
 			<h3 class="timeline-header"></h3>
 			<div class="timeline-footer">
 			  <a href="https://www.aeknow.org/block/transaction/<?php echo $txhash;?>">TxHash</a>
@@ -215,7 +225,7 @@ $this->lang->load('prediction');
 		<li>
               <i class="glyphicon glyphicon-eye-open bg-blue"></i>
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"><?php echo $endheight;?></i></span>
+                <span class="time"><i class="fa fa-clock-o"><?php echo $topheight."<".$endheight;?></i></span>
                 <h3 class="timeline-header"></h3>
                 <div class="timeline-footer">
                  <?php echo $effectivetokens;?> AE<br> <a href="https://www.aeknow.org/address/wallet/<?php echo $ak;?>/1/in">Transactions</a>

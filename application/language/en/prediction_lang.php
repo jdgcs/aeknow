@@ -1,6 +1,7 @@
 <?php
 $lang['pre_query'] = 'Query';
 $lang['pre_oracle'] = 'Oracle';
+$lang['pre_range'] = 'Range';
 $lang['pre_description'] = 'Description';
 $lang['pre_options'] = 'Predict Options';
 $lang['pre_participate'] = 'How to participate';
@@ -15,7 +16,7 @@ $lang['pre_alltokens']='All Tokens';
 $lang['pre_created']='Created';
 $lang['pre_participating']='Participating';
 $lang['pre_participated']='This round ended.';
-$lang['pre_calc']='Calculating';
+$lang['pre_calc']='Calculate';
 $lang['pre_rewarding']='Rewarding';
 $lang['pre_finish']='Finish';
 $lang['pre_satges']='Stages';
