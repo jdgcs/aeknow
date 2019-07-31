@@ -28,7 +28,7 @@ class Welcome extends CI_Controller {
 
 		$counter=0;
 		$blockcounter=0;
-		$data['totalminers']="";24
+		$data['totalminers']="";
 		$data['totalminers']= "<table border=1><tr><td>No.</td><td>Account</td><td>Blocks mined</td></tr>";
 		foreach ($query->result() as $row)
 		{
