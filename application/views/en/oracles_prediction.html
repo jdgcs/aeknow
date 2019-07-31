@@ -76,14 +76,14 @@ $this->lang->load('prediction');
             <!-- /.box-header -->
             <!-- form start -->
                            
-            <div class="box-body">
+            <div class="box-body" >
 				<table  class="table table-hover">
 					<tr>
 					<th colspan="2" ><center><b><?php echo $this->lang->line('pre_description');?></b></center></th>					
 					</tr>
 					
 					<tr>
-					<td colspan="2"><?php echo base64_decode($description);?></td>
+					<td colspan="2" style="word-wrap:break-word;"><?php echo base64_decode($description);?></td>
 					</tr>
 					
 					<tr>						
