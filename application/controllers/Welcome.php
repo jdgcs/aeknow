@@ -48,7 +48,7 @@ $data['totalminers'].= "</table>";
 		//$timetag=(time()-(24*60*60))*1000; 
 		$this->load->database();
 		//$sql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
-		$tagheight= GetTopHeight()-480;
+		$tagheight= $this->GetTopHeight()-480;
 		$sql="select benifit as beneficiary,count(*) from keyblocks WHERE height>$tagheight AND orphan is NULL group by benifit order by count desc;";
 		
 		$query = $this->db->query($sql);
