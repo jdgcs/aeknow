@@ -28,7 +28,7 @@ class Welcome extends CI_Controller {
 
 		$counter=0;
 		$blockcounter=0;
-		$data['totalminers']="";
+		$data['totalminers']="";24
 		$data['totalminers']= "<table border=1><tr><td>No.</td><td>Account</td><td>Blocks mined</td></tr>";
 		foreach ($query->result() as $row)
 		{
@@ -66,7 +66,7 @@ $data['totalminers'].= "</table>";
 $data['totalminers'].= "</table>";
 		$data['totalminers'].= 'Total Beneficiary Accounts: ' . $query->num_rows()." have mined $blockcounter blocks.";
 		
-		$data['title']="Miners rank by blocks mined in the past 24 hours";
+		$data['title']="Miners rank by blocks mined in the past 480 blocks(~ 24 hours)";
 		$this->load->view('welcome_message',$data);
 		$this->output->cache(3);
 		}
