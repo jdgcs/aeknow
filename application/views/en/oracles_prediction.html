@@ -203,12 +203,14 @@ $this->lang->load('prediction');
 		  </div>
 		</li>
 
-		
+		<?php if($topheight>$endheight){ ?>
 		<li class="time-label">
 			  <span class="bg-red">
 				<?php echo $this->lang->line('pre_participating');?>
 			  </span>
 		</li>
+		
+		<?php } ?>
 		
 		<li>
               <i class="glyphicon glyphicon-eye-open bg-blue"></i>

@@ -14,6 +14,7 @@ $lang['pre_effectivetokens']='有效token';
 $lang['pre_alltokens']='参与token';
 $lang['pre_created']='创建';
 $lang['pre_participating']='参与中';
+$lang['pre_participated']='本轮已结束';
 $lang['pre_calc']='结算中';
 $lang['pre_rewarding']='派奖';
 $lang['pre_finish']='已完成';

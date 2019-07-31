@@ -187,6 +187,8 @@ public function getPredictionDetail($txhash){
 	$data['predictstats']=	$stats;
 		}
 	
+	$data['topheight']=$this->GetTopHeight();
+	
 	return $data;
 	}
 
