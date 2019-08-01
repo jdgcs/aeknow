@@ -1,4 +1,5 @@
-<?php $this->config->set_item('language', $mylang); 
+<?php 
+$this->config->set_item('language', $mylang); 
 $this->lang->load('prediction');
 ?>
 <!DOCTYPE html>
@@ -76,8 +77,8 @@ $this->lang->load('prediction');
             <!-- /.box-header -->
             <!-- form start -->
                            
-            <div class="box-body" >
-				<table  class="table table-hover" style="table-layout:fixed;">
+            <div class="box-body table-responsive no-padding" >
+				<table  class="table table-hover" >
 					<tr>
 					<th colspan="2" ><center><b><?php echo $this->lang->line('pre_description');?></b></center></th>					
 					</tr>
@@ -109,7 +110,7 @@ $this->lang->load('prediction');
 					</tr>
 					
 				<tr>						
-					<td colspan="2" style="backgroud-color:pink"><center><b><?php echo $this->lang->line('pre_participate');?></b></center></td>					
+					<td colspan="2" ><center><b><?php echo $this->lang->line('pre_participate');?></b></center></td>					
 				</tr>
 				
 				<tr>
