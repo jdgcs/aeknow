@@ -118,7 +118,7 @@ public function viewaccount($ak=NULL){
 			}
 		$data['tabledata'].=',{"period": "'.$difftime.'", "difficulty":'.$diff.'}';
 			
-		$this->load->view('difficulty.html',$data);
+		$this->load->view('en/difficulty.html',$data);
 		$this->output->cache(3);
 		}
 	
