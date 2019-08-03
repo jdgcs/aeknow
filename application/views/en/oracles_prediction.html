@@ -132,7 +132,7 @@ $this->lang->load('prediction');
 </style>
 					<p id="text"><?php echo $ak;?></p>
 				  <textarea id="input"><?php echo $ak;?></textarea>
-				  <button onclick="copyText()">copy</button>
+				  <button onclick="copyText()"><?php echo $this->lang->line('pre_copy');?></button>
 <script type="text/javascript">
   function copyText() {
    var text = document.getElementById("text").innerText;

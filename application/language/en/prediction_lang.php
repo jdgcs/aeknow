@@ -22,3 +22,4 @@ $lang['pre_finish']='Finish';
 $lang['pre_satges']='Stages';
 $lang['pre_txdetails']='Transaction Details';
 $lang['pre_rewarddetails']='Reward Details';
+$lang['pre_copy']='Copy Address';
