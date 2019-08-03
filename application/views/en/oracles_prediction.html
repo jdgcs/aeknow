@@ -126,8 +126,10 @@ $this->lang->load('prediction');
 				
 				<tr>
 					<td colspan="2">
-					<?php echo $ak;?>
-					
+				<style type="text/css">
+  .wrapper {position: relative;}
+  #input {position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;}
+</style>
 					<p id="text"><?php echo $ak;?></p>
 				  <textarea id="input"><?php echo $ak;?></textarea>
 				  <button onclick="copyText()">copy</button>
