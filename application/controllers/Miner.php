@@ -53,7 +53,7 @@ class Miner extends CI_Controller {
 			$totalamount=$row->totalamount/10;
 			$eta=1543373685+$blockid*180;
 			$eta=date("Y-m-d",$eta);
-			$data['rewardtable'].="<tr><td>".$blockid."</td><td>".$reward."</td><td>".$totalamount."</td><td>$eta</td></tr>";
+			$data['rewardtable'].="<tr><td>".$blockid."</td><td>".$reward."</td><td>".($reward*0.891)."</td><td>".$totalamount."</td><td>$eta</td></tr>";
 			}
 		
 		$currentheight=$this->GetTopHeight();
@@ -65,7 +65,7 @@ class Miner extends CI_Controller {
 		$row = $query->row();
 		$data['currentreward']=$row->reward/10;
 		
-		$this->load->view('miningreward.html',$data);
+		$this->load->view('en/miningreward.html',$data);
 		//$this->output->cache(1);
 		}	
 
