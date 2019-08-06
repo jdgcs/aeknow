@@ -3,10 +3,10 @@
 $lang['index_wallets'] = 'Wallets';
 $lang['index_trading'] = 'Trading';
 $lang['index_contact'] = 'Contact';
+$lang['index_search'] = '搜索';
 
 //////////////////////////////////Index page//////////////////////////////////////
 $lang['index_donate'] = 'Donate';
-$lang['index_search'] = 'Search';
 $lang['index_price'] = 'Price';
 $lang['index_latestblock'] = 'Latest Block';
 $lang['index_transactions'] = 'Transactions';
