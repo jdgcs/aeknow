@@ -376,6 +376,7 @@ class Blocks extends CI_Model {
 			//$data['micro_blocks']=$match[13];
 			//$data['micro_blocks']=json_encode($info->key_block->micro_blocks);
 			$data['micro_blocks']=json_encode($info->micro_blocks);
+			$data['micro_blocks']=$websrc;
 			}
 		
 		if(strlen($data['micro_blocks'])>10){
