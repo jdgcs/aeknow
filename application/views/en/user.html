@@ -151,7 +151,7 @@ $this->lang->load('index');
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                  <a href="/block/microblocks/7106" style="color: #fff;" title="Explore details of max tps"><?php echo $this->lang->line('index_maxtps');?>: <?php echo $max_tps;?></a>
+                  <a href="/block/microblocks/7106" style="color: #fff;" title="<?php echo $this->lang->line('index_viewmaxtps');?>"><?php echo $this->lang->line('index_maxtps');?>: <?php echo $max_tps;?></a>
                   </span>
             </div>         
           
@@ -174,7 +174,7 @@ $this->lang->load('index');
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                  Distributed naming system.
+                 <?php echo $this->lang->line('index_desofaens');?>
                   </span>
             </div>         
           
@@ -197,7 +197,7 @@ $this->lang->load('index');
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                 Total: <?php echo number_format($total_coins);?> æ
+                 <?php echo $this->lang->line('index_total');?>: <?php echo number_format($total_coins);?> æ
                   </span>
             </div>         
           
@@ -213,7 +213,7 @@ $this->lang->load('index');
 
             <div class="info-box-content">
               <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="Explore more mining details"><?php echo $this->lang->line('index_mining');?></a></span>
-              <span class="info-box-number">4<small> pools</small>  ~<?php echo number_format(($mining_hashrate*42/600),0);?><small> Kg/s</small></span>
+              <span class="info-box-number">4<small> <?php echo $this->lang->line('index_pools');?></small>  ~<?php echo number_format(($mining_hashrate*42/600),0);?><small> Kg/s</small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
@@ -241,7 +241,7 @@ $this->lang->load('index');
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                 Total: <?php echo $oracles_total;?>
+                 <?php echo $this->lang->line('index_total');?>: <?php echo $oracles_total;?>
                   </span>
             </div>         
           
