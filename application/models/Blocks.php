@@ -375,16 +375,17 @@ class Blocks extends CI_Model {
 			$info=json_decode($websrc);
 			//$data['micro_blocks']=$match[13];
 			//$data['micro_blocks']=json_encode($info->key_block->micro_blocks);
-			$data['micro_blocks']=json_encode($info->micro_blocks);
+			//$data['micro_blocks']=json_encode($info->micro_blocks);
+			$data['micro_blocks']=$info->micro_blocks;
 			}
 		
 		if(strlen($data['micro_blocks'])>10){
 			//$pattern='/"(.*)"/U';
 			//preg_match_all($pattern,$data['micro_blocks'],$matches);
 			//$matches=json_decode($data['micro_blocks']);
-			$matches[1]=$data['micro_blocks'];
-			for($i=0;$i<count($matches[1]);$i++){
-				$hash=$matches[1][$i];
+			$matches=$data['micro_blocks'];
+			for($i=0;$i<count($matches);$i++){
+				$hash=$matches[$i];
 				$counter++;
 			
 				$txsnum=$this->getMicroBlockTransNum($hash)."(<a href=/block/microblock/$hash/transactions>View details</a>)";
