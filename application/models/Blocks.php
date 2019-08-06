@@ -382,7 +382,7 @@ class Blocks extends CI_Model {
 			//$pattern='/"(.*)"/U';
 			//preg_match_all($pattern,$data['micro_blocks'],$matches);
 			//$matches=json_decode($data['micro_blocks']);
-			$matches=$data['micro_blocks'];
+			$matches[1]=$data['micro_blocks'];
 			for($i=0;$i<count($matches[1]);$i++){
 				$hash=$matches[1][$i];
 				$counter++;
