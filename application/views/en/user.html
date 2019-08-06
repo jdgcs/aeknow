@@ -101,7 +101,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-usd"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Price</span>
+              <span class="info-box-text"><?php echo $this->lang->line('index_price');?></span>
               <span class="info-box-number"><a title="The weighted price of the mainnet coin" style="color: #fff;"><?php echo $price_usdt;?> <small> USDT</small> </a></span>
 
               <div class="progress">
@@ -122,14 +122,14 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-cubes"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/block" style="color: #fff;" title="Explore details of block">Latest Block</a></span>
+              <span class="info-box-text"><a href="/block" style="color: #fff;" title="Explore details of block"><?php echo $this->lang->line('index_latestblock');?></a></span>
               <span class="info-box-number"><?php echo $block_height;?> <small></small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%;color:#f7296e"></div>
               </div>
               <span class="progress-description">
-                  <a href="/miner/inflation" title="Explore æternity inflation curve"  style="color: #fff;"><?php echo $mining_reward;?> <small>(æ/block)</small></a> - <a href=/address/wallet/ak_2KAcA2Pp1nrR8Wkt3FtCkReGzAi8vJ9Snxa4PcmrthVx8AhPe8 title="Block Reward Initiative"  style="color: #fff;">BRI</a>
+                  <a href="/miner/inflation" title="<?php echo $this->lang->line('index_explorerinflationcurve');?>"  style="color: #fff;"><?php echo $mining_reward;?> <small>(æ/block)</small></a> - <a href=/address/wallet/ak_2KAcA2Pp1nrR8Wkt3FtCkReGzAi8vJ9Snxa4PcmrthVx8AhPe8 title="Block Reward Initiative"  style="color: #fff;">BRI</a>
                   </span>
             </div>         
           
@@ -144,14 +144,14 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="glyphicon glyphicon-random"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/transaction" style="color: #fff;" title="Explore details of transaction">Transactions</a></span>
+              <span class="info-box-text"><a href="/transaction" style="color: #fff;" title="Explore details of transaction"><?php echo $this->lang->line('index_transactions');?></a></span>
               <span class="info-box-number">~ <?php echo $total_transactions;?> </span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                  <a href="/block/microblocks/7106" style="color: #fff;" title="Explore details of max tps">Max TPS: <?php echo $max_tps;?></a>
+                  <a href="/block/microblocks/7106" style="color: #fff;" title="Explore details of max tps"><?php echo $this->lang->line('index_maxtps');?>: <?php echo $max_tps;?></a>
                   </span>
             </div>         
           
@@ -190,7 +190,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-globe"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="https://coinmarketcap.com/currencies/aeternity/" style="color: #fff;" title="View the details in coinmarketcap">Market Cap</a></span>
+              <span class="info-box-text"><a href="https://coinmarketcap.com/currencies/aeternity/" style="color: #fff;" title="View the details in coinmarketcap"><?php echo $this->lang->line('index_marketcap');?></a></span>
               <span class="info-box-number"><?php echo number_format($market_cap,0);?> <small>USD</small></span>
 
               <div class="progress">
