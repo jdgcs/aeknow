@@ -374,14 +374,15 @@ class Blocks extends CI_Model {
 			//preg_match($pattern,$websrc,$match);			
 			$info=json_decode($websrc);
 			//$data['micro_blocks']=$match[13];
-			$data['micro_blocks']=json_encode($info->key_block->micro_blocks);
-			
+			//$data['micro_blocks']=json_encode($info->key_block->micro_blocks);
+			$data['micro_blocks']=json_encode($info->micro_blocks);
 			}
 		
 		if(strlen($data['micro_blocks'])>10){
 			//$pattern='/"(.*)"/U';
 			//preg_match_all($pattern,$data['micro_blocks'],$matches);
-			$matches=json_decode($data['micro_blocks']);
+			//$matches=json_decode($data['micro_blocks']);
+			$matches=$data['micro_blocks'];
 			for($i=0;$i<count($matches[1]);$i++){
 				$hash=$matches[1][$i];
 				$counter++;
