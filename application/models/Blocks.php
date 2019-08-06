@@ -379,7 +379,8 @@ class Blocks extends CI_Model {
 			$data['micro_blocks']=$info->micro_blocks;
 			}
 		
-		if(strlen($data['micro_blocks'])>10){
+		//if(strlen($data['micro_blocks'])>10){
+		if(count($data['micro_blocks'])>0){
 			//$pattern='/"(.*)"/U';
 			//preg_match_all($pattern,$data['micro_blocks'],$matches);
 			//$matches=json_decode($data['micro_blocks']);
