@@ -212,14 +212,14 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-industry"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="Explore more mining details">Mining</a></span>
+              <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="Explore more mining details"><?php echo $this->lang->line('index_mining');?></a></span>
               <span class="info-box-number">4<small> pools</small>  ~<?php echo number_format(($mining_hashrate*42/600),0);?><small> Kg/s</small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                <a href="/miner/inflation" title="Explore æternity inflation curve"  style="color: #fff;"> <?php echo number_format($mined_coins,0);?>(<?php echo number_format($mined_rate*100,2);?>%) mined.</a>
+                <a href="/miner/inflation" title="<?php echo $this->lang->line('index_explorerinflationcurve');?>"  style="color: #fff;"> <?php echo number_format($mined_coins,0);?>(<?php echo number_format($mined_rate*100,2);?>%) mined.</a>
                   </span>
             </div>         
           
@@ -234,8 +234,8 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="glyphicon glyphicon-eye-open"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/oracle" style="color: #fff;" title="Explore details of oracles">Oracles</a></span>
-              <span class="info-box-number">1 <small>active </small></span>
+              <span class="info-box-text"><a href="/oracle" style="color: #fff;" title="Explore details of oracles"><?php echo $this->lang->line('index_oracles');?></a></span>
+              <span class="info-box-number">1 <small><?php echo $this->lang->line('index_active');?> </small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
@@ -256,14 +256,14 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-object-ungroup"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/contract" style="color: #fff;">Contracts</a></span>
+              <span class="info-box-text"><a href="/contract" style="color: #fff;"><?php echo $this->lang->line('index_contracts');?></a></span>
               <span class="info-box-number">~<?php echo $contracts_total;?> <small> contracts</small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
-                Token contracts:8
+                <?php echo $this->lang->line('index_totalcontracts');?>:8
                   </span>
             </div>         
           
@@ -287,16 +287,16 @@ $this->lang->load('index');
               <!-- DIRECT CHAT -->
               <div class="box">
               <div class="box-header with-border">
-              <h3 class="box-title"><a href=/block title="View more blocks">Blocks</a></h3>
+              <h3 class="box-title"><a href=/block title="View more blocks"><?php echo $this->lang->line('index_blocks');?></a></h3>
             </div>
             <!-- /.box-header -->
               <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-                  <th>Block#</th>
-                  <th>Miner</th>   
-                  <th>Time(S)</th>               
-                  <th >Status</th>
+                  <th><?php echo $this->lang->line('index_blocks');?>#</th>
+                  <th><?php echo $this->lang->line('index_miner');?></th>   
+                  <th><?php echo $this->lang->line('index_times');?></th>               
+                  <th ><?php echo $this->lang->line('index_status');?></th>
                 </tr>
                 <?php echo $latest_blocks;?>
                 </table>
@@ -312,7 +312,7 @@ $this->lang->load('index');
               <!-- DIRECT CHAT -->
              <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title"><a href=/transaction title="View more transactions">Transactions</a></h3>
+              <h3 class="box-title"><a href=/transaction title="View more transactions"><?php echo $this->lang->line('index_transactions');?></a></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -320,11 +320,11 @@ $this->lang->load('index');
                 <tr>
                   <th>TxHash</th>
                                 
-                  <th >Amount</th>
-                  <th >Sender</th>
-                  <th >Receiver</th> 
-                   <th >TxType</th> 
-                  <th >Time(UTC)</th>
+                  <th ><?php echo $this->lang->line('index_amount');?></th>
+                  <th ><?php echo $this->lang->line('index_sender');?></th>
+                  <th ><?php echo $this->lang->line('index_receiver');?></th> 
+                   <th ><?php echo $this->lang->line('index_txtype');?></th> 
+                  <th ><?php echo $this->lang->line('index_time');?>(UTC)</th>
                 </tr>
                <?php echo $latest_transactions;?>
                   </table>
@@ -339,7 +339,7 @@ $this->lang->load('index');
               <!-- DIRECT CHAT -->
              <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title"><a href=/stats title="View more stats">Stats</a></h3>
+              <h3 class="box-title"><a href=/stats title="View more stats"><?php echo $this->lang->line('index_stats');?></a></h3>
             </div>
             <!-- /.box-header -->
            <ul class="products-list product-list-in-box">
@@ -349,7 +349,7 @@ $this->lang->load('index');
                     <a href="/aens" class="product-title">AENS
                       <span class="label label-warning pull-right"><?php echo $aens_total;?></span></a>
                     <span class="product-description">
-                          Distributed naming system based on Aeternity.
+                          <?php echo $this->lang->line('index_desofaens');?>
                         </span>
                   </div>
                 </li>
@@ -357,10 +357,10 @@ $this->lang->load('index');
                 <li class="item">
                  
                   <div style="padding-left:5px;">
-                    <a href="/oracle" class="product-title">Oracles
+                    <a href="/oracle" class="product-title"><?php echo $this->lang->line('index_oracles');?>
                       <span class="label label-info pull-right"><?php echo $oracles_total;?></span></a>
                     <span class="product-description">
-                         Connecting real world with blockchain.
+                         <?php echo $this->lang->line('index_desoforacles');?>
                         </span>
                   </div>
                 </li>
@@ -370,17 +370,17 @@ $this->lang->load('index');
                     <a href="#" class="product-title">Nodes <span
                         class="label label-danger pull-right"><?php echo $nodes_total;?></span></a>
                     <span class="product-description">
-                           Full æternity nodes.
+                           <?php echo $this->lang->line('index_desofnodes');?>
                         </span>
                   </div>
                 </li>
                 <!-- /.item -->
                 <li class="item">                 
                   <div style="padding-left:5px;">
-                    <a href="#" class="product-title">Total Accounts
+                    <a href="#" class="product-title"> <?php echo $this->lang->line('index_totalaccounts');?>
                       <span class="label label-success pull-right"><?php echo $accounts_total;?></span></a>
                     <span class="product-description">
-                          Total active accounts.
+                           <?php echo $this->lang->line('index_desofaccounts');?>
                         </span>
                   </div>
                 </li>
@@ -390,7 +390,7 @@ $this->lang->load('index');
                     <a href="/aepps" class="product-title">Aepps
                       <span class="label label-info pull-right"><?php echo $aepps_total;?></span></a>
                     <span class="product-description">
-                         Applications based on æternity.
+                         <?php echo $this->lang->line('index_desofaepp');?>
                         </span>
                   </div>
                 </li>
@@ -400,7 +400,7 @@ $this->lang->load('index');
                     <a href="/api" class="product-title">API <span
                         class="label label-danger pull-right">online</span></a>
                     <span class="product-description">
-                          API of aeknow.
+                         <?php echo $this->lang->line('index_desofapi');?>
                         </span>
                   </div>
                 </li>
@@ -408,10 +408,10 @@ $this->lang->load('index');
                 
                 <li class="item">                 
                   <div style="padding-left:5px;">
-                    <a href="/address/wealth500" class="product-title">Wealth 500 <span
+                    <a href="/address/wealth500" class="product-title"><?php echo $this->lang->line('index_top500');?> <span
                         class="label label-danger pull-right">online</span></a>
                     <span class="product-description">
-                          Wealth 500 of æternity(Mainnet).
+                         <?php echo $this->lang->line('index_desoftop500');?>
                         </span>
                   </div>
                 </li>
@@ -443,7 +443,7 @@ $this->lang->load('index');
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-             <h3 class="box-title">Parteners</h3>
+             <h3 class="box-title"><?php echo $this->lang->line('index_parteners');?></h3>
 			</div>
             <!-- /.box-header -->
            <!-- ./box-body -->
@@ -491,7 +491,7 @@ $this->lang->load('index');
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-             <h3 class="box-title">Sponsors</h3>
+             <h3 class="box-title"><?php echo $this->lang->line('index_sponsors');?></h3>
 			</div>
             <!-- /.box-header -->
            <!-- ./box-body -->
