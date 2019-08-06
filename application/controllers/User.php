@@ -7,6 +7,10 @@ class User extends CI_Controller {
 		//default user page
 		$this->load->model('users');
 		$data=$this->users->getUserData();		
+		
+		$this->load->model('languages');	
+		$data['mylang']=$this->languages->getPreferredLanguage();
+		
 		$this->load->view('en/user.html',$data);
 		//$this->output->cache(1/2);
 	}
