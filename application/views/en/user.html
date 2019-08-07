@@ -122,7 +122,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-cubes"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/block" style="color: #fff;" title="Explore details of block"><?php echo $this->lang->line('index_latestblock');?></a></span>
+              <span class="info-box-text"><a href="/block" style="color: #fff;" title="<?php echo $this->lang->line('index_explorerblock');?>"><?php echo $this->lang->line('index_latestblock');?></a></span>
               <span class="info-box-number"><?php echo $block_height;?> <small></small></span>
 
               <div class="progress">
@@ -144,7 +144,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="glyphicon glyphicon-random"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/transaction" style="color: #fff;" title="Explore details of transaction"><?php echo $this->lang->line('index_transactions');?></a></span>
+              <span class="info-box-text"><a href="/transaction" style="color: #fff;" title="<?php echo $this->lang->line('index_explorertransactions');?>"><?php echo $this->lang->line('index_transactions');?></a></span>
               <span class="info-box-number">~ <?php echo $total_transactions;?> </span>
 
               <div class="progress">
@@ -167,7 +167,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-compass"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/aens" style="color: #fff;" title="Explore details of AENS">AENS</a></span>
+              <span class="info-box-text"><a href="/aens" style="color: #fff;" title="<?php echo $this->lang->line('index_exploreraens');?>">AENS</a></span>
               <span class="info-box-number">~<?php echo $aens_total;?> <small> </small></span>
 
               <div class="progress">
@@ -190,7 +190,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-globe"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="https://coinmarketcap.com/currencies/aeternity/" style="color: #fff;" title="View the details in coinmarketcap"><?php echo $this->lang->line('index_marketcap');?></a></span>
+              <span class="info-box-text"><a href="https://coinmarketcap.com/currencies/aeternity/" style="color: #fff;" title="<?php echo $this->lang->line('index_explorercoinmarket');?>"><?php echo $this->lang->line('index_marketcap');?></a></span>
               <span class="info-box-number"><?php echo number_format($market_cap,0);?> <small>USD</small></span>
 
               <div class="progress">
@@ -212,7 +212,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="fa fa-industry"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="Explore more mining details"><?php echo $this->lang->line('index_mining');?></a></span>
+              <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="<?php echo $this->lang->line('index_explorermining');?>"><?php echo $this->lang->line('index_mining');?></a></span>
               <span class="info-box-number">4<small> <?php echo $this->lang->line('index_pools');?></small>  ~<?php echo number_format(($mining_hashrate*42/600),0);?><small> Kg/s</small></span>
 
               <div class="progress">
@@ -234,7 +234,7 @@ $this->lang->load('index');
             <span class="info-box-icon"><i class="glyphicon glyphicon-eye-open"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text"><a href="/oracle" style="color: #fff;" title="Explore details of oracles"><?php echo $this->lang->line('index_oracles');?></a></span>
+              <span class="info-box-text"><a href="/oracle" style="color: #fff;" title="<?php echo $this->lang->line('index_exploreroracles');?>"><?php echo $this->lang->line('index_oracles');?></a></span>
               <span class="info-box-number">1 <small><?php echo $this->lang->line('index_active');?> </small></span>
 
               <div class="progress">
