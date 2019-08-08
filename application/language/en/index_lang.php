@@ -58,5 +58,5 @@ $lang['index_datatracking'] = 'Data Tracking';
 $lang['index_networkstatus'] = 'Network Status';
 $lang['index_popularstats'] = 'Popular Stats';
 $lang['index_links'] = 'Links';
-$lang['index_'] = '';
+$lang['index_online'] = 'online';
 

@@ -58,4 +58,4 @@ $lang['index_datatracking'] = '数据追踪';
 $lang['index_networkstatus'] = '网络状态';
 $lang['index_popularstats'] = '热门统计';
 $lang['index_links'] = '链接';
-$lang['index_'] = '';
+$lang['index_online'] = '在线';
