@@ -129,7 +129,7 @@
                   //$totalhashrate1=round(($totalhashrate*1000*42)/600,2);
                   echo $totalhashrate;
                   
-                  ?> Kg/s (<a href="/stats/hashrate">Hashrate trend</a>)</th>
+                  ?> Kg/s (<?php echo "~".round($totalhashrate*14.28/1000,2)." M, ";?><a href="/stats/hashrate">Hashrate trend</a>)</th>
                  
                 </tr>              
 			</table>
