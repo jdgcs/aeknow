@@ -1,3 +1,9 @@
+<script type="text/javascript">
+var targetProtocol = "https:";
+if (window.location.protocol != targetProtocol)
+ window.location.href = targetProtocol +
+  window.location.href.substring(window.location.protocol.length);
+</script>
 
   <header class="main-header" style="background:#f7296e">
      <a href="/" class="logo" style="background:#311b58">
@@ -15,12 +21,19 @@
 <div class="pull-left" style="padding-top:10px">
 		   <!-- search form -->
 <!--<p><input placeholder="Explorer Generation, Block, Tx, Address, Hash" id="uid" size="40"  type="text" class="search-input"><button class="search-button"  onclick="tj();> <img src="/application/views/dist/img/search.svg" alt=""></button></p> 	-->	   
-<p><input type="text" name="uid" id="uid" size="40"  placeholder="Explorer Generation, Block, Tx, Address, Hash..."><input type="button" value="Search" name="B1" onclick="tj();" </p> 
+<p><input type="text" name="uid" id="uid" size="40"  placeholder="Explore Address, Generation, Block, Tx, Address, Hash..." onkeydown="keyup_submittop(event);"><input type="button" value="Search" name="B1" onclick="tj();" </p> 
 <script type="text/javascript">
     function tj(){
         var uid = document.getElementById('uid').value;
         window.location.href = '/miner/viewaccount/'+uid;
-    }     
+    } 
+    
+    function keyup_submittop(e){ 
+	  var evt = window.event || e; 
+	   if (evt.keyCode == 13){
+		   tj();
+		}
+	  }     
 </script>         
  </div>
       <div class="navbar-custom-menu">
@@ -29,7 +42,7 @@
         
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Wallets<span class="caret"></span>
+              <?php echo $this->lang->line('index_wallets');?><span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
              
@@ -37,7 +50,11 @@
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                  <li><a href="https://www.anybit.io/" target="_blank">AnyBit</a></li> 
-                <li><a href="https://airgap.it/" target="_blank">AirGap</a></li>
+                <li><a href="https://airgap.it/" target="_blank">AirGap</a></li>                 
+                <li><a href=" https://base.aepps.com/#/" target="_blank">Base Aepp</a></li>
+               <li><a href="https://trustwallet.com/aeternity-wallet" target="_blank">TrustWallet</a></li>
+               <li><a href="https://arkane.network/" target="_blank">Arkane.network</a></li>
+               
                              
                 </ul>
               </li>            
@@ -47,7 +64,7 @@
           <!-- Pools -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Mining<span class="caret"></span>
+              <?php echo $this->lang->line('index_mining');?><span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
              
@@ -56,7 +73,9 @@
                 <ul class="menu">
                   <li><a href="https://www.beepool.org" target="_blank">Beepool</a></li>
                 <li><a href="https://labs.f2pool.com/labs" target="_blank">F2pool</a></li>
-                <li><a href="https://www.uupool.cn" target="_blank" >UUpool</a></li>      
+                <li><a href="https://www.uupool.cn" target="_blank" >UUpool</a></li>    
+                 <li><a href=" https://2miners.com/ae-mining-pool" target="_blank" >2Miners</a></li>  
+               
                  <li class="divider"></li>  
                  <li><a href="https://github.com/hspminer/HSPMinerAE/releases" target="_blank">HSPMiner</a></li>  
                  <li><a href="https://www.mineros.cn/" target="_blank">MinerOS</a></li>
@@ -75,18 +94,21 @@
              <!-- Exchanges -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Trading<span class="caret"></span>
+              <?php echo $this->lang->line('index_trading');?><span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
              
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li ><a href="https://gateio.co/ref/350404" target="_blank" title="my reference link of gate.io">Gateio</a></li> 
-                  <li ><a href="https://www.hotbit.io/ " target="_blank" >HOTBIT</a></li>  
-                   <li ><a href="https://www.uex.com/register?inviteCode=VZTLVA" target="_blank" title="my reference link of UEX">UEX</a></li>  
-                   
-                            
+                  <li ><a href="https://gateio.co/ref/350404" target="_blank" title="my reference link of gate.io">Gateio</a></li>  
+                  <li ><a href="https://www.uex.com/register?inviteCode=VZTLVA" target="_blank" title="my reference link of UEX">UEX</a></li>
+                  <li ><a href="https://www.hotbit.io/ " target="_blank" >HOTBIT</a></li>   
+                   <li ><a href="https://www.qbtc.ink/" target="_blank">QBTC</a></li>   
+                    <li ><a href="https://www.aex.plus" target="_blank">AEX</a></li>
+                    <li ><a href="https://big.one/" target="_blank">Big.ONE</a></li>
+                    <li ><a href="https://www.binance.com/" target="_blank">Binance</a></li>
+                     <li ><a href="https://www.bitkk.com/" target="_blank">ZB.com</a></li>       
                 </ul>
               </li>            
             </ul>
@@ -95,10 +117,10 @@
             
             
             
-             <!-- Exchanges -->
+             <!-- contacts -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Contact<span class="caret"></span>
+              <?php echo $this->lang->line('index_contact');?><span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
              
@@ -111,6 +133,7 @@
                       <i class="fa fa-twitter text-aqua"></i>Twitter
                     </a>
                   </li>
+                  <li ><a href="mailto:outcrop@163.com" > <i class="fa fa-envelope"></i>Email: outcrop@163.com</a></li>
 
                 </ul>
               </li>            
@@ -120,7 +143,7 @@
           
             <!-- Donate -->
           <li class="dropdown notifications-menu">
-          <a href="/address/wallet/ak_2UqKYBBgVWfBeFYdn5sBS75B1cfLMPFSCy95xQoRo9SKNvvLgb" class="dropdown-toggle" > <i class="fa fa-heart"></i>Donate</a>         
+          <a href="/address/wallet/ak_2UqKYBBgVWfBeFYdn5sBS75B1cfLMPFSCy95xQoRo9SKNvvLgb" class="dropdown-toggle" > <i class="fa fa-heart"></i><?php echo $this->lang->line('index_donate');?></a>         
           </li>  
           
                  

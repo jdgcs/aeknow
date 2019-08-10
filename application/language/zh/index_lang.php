@@ -1,6 +1,7 @@
 <?php
 //////////////////////////////////Header//////////////////////////////////////
 $lang['index_wallets'] = '钱包';
+$lang['index_mining'] = '挖矿';
 $lang['index_trading'] = '交易所';
 $lang['index_contact'] = '联系';
 $lang['index_donate'] = '捐助';

@@ -1,6 +1,7 @@
 <?php
 //////////////////////////////////Header//////////////////////////////////////
 $lang['index_wallets'] = 'Wallets';
+$lang['index_mining'] = 'Mining';
 $lang['index_trading'] = 'Trading';
 $lang['index_contact'] = 'Contact';
 $lang['index_donate'] = 'Donate';
