@@ -68,7 +68,12 @@ class Block extends CI_Controller {
 		//echo "building...";
 		if(trim($transactionhash)!=""){
 			$this->load->model('blocks');
-			$data=$this->blocks->getTransactionInfo($transactionhash);			
+			$data=$this->blocks->getTransactionInfo($transactionhash);	
+			
+			//get the language of the browser
+			$this->load->model('languages');	
+			$data['mylang']=$this->languages->getPreferredLanguage();
+				
 			$this->load->view('en/tx_detail.html',$data);		
 		}else{echo "NULL";}
 		//$this->output->cache(3);
