@@ -64,7 +64,7 @@ $this->lang->load('index');
     <section class="content">
 		<div class="box" >
             <div class="box-header with-border">
-              <h3 class="box-title">Æternity Explorer</h3>
+              <h3 class="box-title">Æternity <?php echo $this->lang->line('index_explorer');?></h3>
               <div class="box-tools pull-right">
                 <a href="/miner" title="Miners' dashboard">Old version</a>
               </div>
@@ -544,7 +544,7 @@ $this->lang->load('index');
   <!-- /.content-wrapper -->
   
   <!-- ./wrapper -->
- <?php $this->load->view('footer.html');?> 
+<?php $this->load->view('footer.html');?> 
 <!-- jQuery 3 -->
 <script src="/application/views/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

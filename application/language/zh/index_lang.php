@@ -7,6 +7,7 @@ $lang['index_contact'] = '联系';
 $lang['index_donate'] = '捐助';
 
 //////////////////////////////////Index page//////////////////////////////////////
+$lang['index_explorer'] = '区块浏览器';
 $lang['index_search'] = '搜索';
 $lang['index_price'] = '价格';
 $lang['index_latestblock'] = '最新区块';

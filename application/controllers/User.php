@@ -4,10 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
 	public function index()
 	{	
-		//default user page
+		//get data to be shown from models
 		$this->load->model('users');
 		$data=$this->users->getUserData();		
 		
+		//get the language of the browser
 		$this->load->model('languages');	
 		$data['mylang']=$this->languages->getPreferredLanguage();
 		

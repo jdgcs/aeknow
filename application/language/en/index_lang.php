@@ -6,7 +6,20 @@ $lang['index_trading'] = 'Trading';
 $lang['index_contact'] = 'Contact';
 $lang['index_donate'] = 'Donate';
 
+//////////////////////////////////Side bar//////////////////////////////////////
+$lang['index_dashboards'] = 'Dashboards';
+$lang['index_foruser'] = 'For User';
+$lang['index_forminer'] = 'For Miner';
+$lang['index_fordeveloper'] = 'For Developer';
+$lang['index_news'] = 'News';
+$lang['index_datatracking'] = 'Data Tracking';
+$lang['index_networkstatus'] = 'Network Status';
+$lang['index_popularstats'] = 'Popular Stats';
+$lang['index_links'] = 'Links';
+$lang['index_online'] = 'online';
+
 //////////////////////////////////Index page//////////////////////////////////////
+$lang['index_explorer'] = 'Explorer';
 $lang['index_search'] = 'Search';
 $lang['index_price'] = 'Price';
 $lang['index_latestblock'] = 'Latest Block';
@@ -49,15 +62,6 @@ $lang['index_top500'] = 'Wealth 500';
 $lang['index_desoftop500'] = 'Wealth 500 of æternity(Mainnet).';
 $lang['index_parteners'] = 'Parteners';
 $lang['index_sponsors'] = 'Sponsors';
+
 //////////////////////////////////Side bar//////////////////////////////////////
-$lang['index_dashboards'] = 'Dashboards';
-$lang['index_foruser'] = 'For User';
-$lang['index_forminer'] = 'For Miner';
-$lang['index_fordeveloper'] = 'For Developer';
-$lang['index_news'] = 'News';
-$lang['index_datatracking'] = 'Data Tracking';
-$lang['index_networkstatus'] = 'Network Status';
-$lang['index_popularstats'] = 'Popular Stats';
-$lang['index_links'] = 'Links';
-$lang['index_online'] = 'online';
 
