@@ -25,6 +25,7 @@ class Block extends CI_Controller {
 		//get the language of the browser
 		$this->load->model('languages');	
 		$data['mylang']=$this->languages->getPreferredLanguage();
+		$data['mylang']="en";
 		
 		$this->load->view('en/blocks_v2.html',$data);
 		$this->output->cache(5);
