@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Languages extends CI_Model {
 	
 	public function getPreferredLanguage() {  
+	$lang="en";
 	//Get browser's language
     $langs = array();  
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {  
