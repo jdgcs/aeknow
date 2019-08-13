@@ -35,8 +35,15 @@ class Block extends CI_Controller {
 	{	
 		if(is_numeric($page)){
 			if($page<1){$page=1;}
-			$this->load->model('blocks');
+			$this->load->model('blocks');			
 			$data=$this->blocks->genBlocksIndex($page);
+			
+			//get the language of the browser
+			$this->load->model('languages');	
+			$data['mylang']=$this->languages->getPreferredLanguage();
+			$data['mylang']="en";
+		
+		
 			$this->load->view('en/blocks_v2.html',$data);
 		}else{
 			echo "NULL";
