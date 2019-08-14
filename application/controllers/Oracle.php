@@ -51,6 +51,7 @@ class Oracle extends CI_Controller {
 	public function finish($txhash,$option){
 		//ready to finish the prediction market
 		
+		
 		}
 	
 }
