@@ -46,6 +46,12 @@ class Oracle extends CI_Controller {
 		
 		$this->load->view('en/oracles_prediction.html',$data);
 		}
+		
+	
+	public function finish($txhash,$option){
+		//ready to finish the prediction market
+		
+		}
 	
 }
 
