@@ -50,7 +50,13 @@ class Oracle extends CI_Controller {
 	
 	public function finish($txhash,$option){
 		//ready to finish the prediction market
+		$this->load->model('oracles');	
+		$data=$this->oracles->getFinishDetail($txhash,$option);
 		
+		$this->load->model('languages');	
+		$data['mylang']=$this->languages->getPreferredLanguage();
+		
+		$this->load->view('en/oracles_prediction.html',$data);
 		
 		}
 	

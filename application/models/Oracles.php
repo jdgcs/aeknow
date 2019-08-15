@@ -2,6 +2,202 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Oracles extends CI_Model {
+	
+public function getFinishDetail($txhash,$checkoption){
+	$this->load->database();
+	$url=DATA_SRC_SITE."v2/transactions/$txhash";
+	$websrc=$this->getwebsrc($url);
+	$data['payload']="";
+	$data['txhash']=$txhash;
+	$data['title']="Prediction details of $txhash";
+	
+	if(strpos($websrc,"payload")>0){
+		$info=json_decode($websrc);
+		$payload=$info->tx->payload;
+		$str=bin2hex(base64_decode(str_replace("ba_","",$payload)));
+		$fordecode=base64_decode(hex2bin(substr($str,0,strlen($str)-8)));
+		$info=json_decode($fordecode);
+		$data['title']=$info->title;
+		$data['ak']=$info->ak;
+		$data['options']=$info->options;
+		$data['description']=$info->description;
+		$data['returnrate']=$info->returnrate;
+		
+		$data['oracle_id']=$info->oracle_id;
+		$data['oracle_query']=$info->oracle_query;
+		$data['startheight']=$info->startheight;
+		$data['endheight']=$info->endheight;		
+		
+		$data['payload']=$fordecode;
+		$data['oracle_json']=$data['payload'];
+		
+		
+		$data['predictstats']=$this->getPredictstats($txhash);
+		
+		//get stats
+		$oracle_json=$data['oracle_json'];
+		$startheight=$data['startheight']-1;
+		$endheight=$data['endheight'];
+		$ak=$data['ak'];
+		$returnrate=$data['returnrate'];
+		
+		//get income txs
+		$sql="SELECT * FROM txs WHERE recipient_id='$ak' AND txtype='SpendTx' AND block_height>$startheight AND block_height<$endheight order by block_height desc";
+		$query = $this->db->query($sql);
+		
+		for($i=1;$i<11;$i++){
+			$myoption[$i]=0;
+		}
+		
+		$data['txstable']="";
+		foreach ($query->result() as $row){//get options
+			$tx=json_decode($row->tx);
+			$amount=$tx->tx->amount/1000000000000000000;
+			$option=substr(sprintf("%.2f",$amount),0,-1);
+			$select=$option-floor($option);
+			$count=intval(round($select*10));
+			if($count==0){$count=10;}	
+			$myoption[$count]=$myoption[$count]+$amount;
+			
+			//get transactions table
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
+			
+			
+			$txhash_show="th_****".substr($txhash,-4);
+			
+			$recipient_id=$txdata->tx->recipient_id;			
+			$recipient_id_show="ak_****".substr($recipient_id,-4);
+			$alias=$this->getalias($recipient_id);
+			if($recipient_id!=$alias){
+				$recipient_id_show=$alias;
+				}
+						
+			$sender_id=$txdata->tx->sender_id;
+			$sender_id_show="ak_****".substr($sender_id,-4);
+			$alias=$this->getalias($sender_id);
+			if($sender_id!=$alias){
+				$sender_id_show=$alias;
+				}
+			
+			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+			
+			//end transactions table
+			}
+			
+		
+		$data['rewardtable']="";
+		//get rewardtable txs
+		$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='SpendTx' AND block_height>$endheight order by block_height";
+		$query = $this->db->query($sql);				
+		$data['rewardtable']="";
+		foreach ($query->result() as $row){//get options
+			$tx=json_decode($row->tx);
+			$amount=$tx->tx->amount/1000000000000000000;
+			$option=substr(sprintf("%.2f",$amount),0,-1);
+			$select=$option-floor($option);
+			$count=intval(round($select*10));
+			if($count==0){$count=10;}	
+			//$myoption[$count]=$myoption[$count]+$amount;
+			
+			//get transactions table
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
+			
+			
+			$txhash_show="th_****".substr($txhash,-4);
+			
+			$recipient_id=$txdata->tx->recipient_id;			
+			$recipient_id_show="ak_****".substr($recipient_id,-4);
+			$alias=$this->getalias($recipient_id);
+			if($recipient_id!=$alias){
+				$recipient_id_show=$alias;
+				}
+						
+			$sender_id=$txdata->tx->sender_id;
+			$sender_id_show="ak_****".substr($sender_id,-4);
+			$alias=$this->getalias($sender_id);
+			if($sender_id!=$alias){
+				$sender_id_show=$alias;
+				}
+			if($checkoption!=$count){
+				$data['rewardtable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+			}else{
+				$data['rewardtable'].="<tr><td>G<a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+
+				}
+			//end transactions table
+			}
+			
+		//count total effective tokens
+		$chartdata="";
+		$info=json_decode($oracle_json);
+		$alltokens=0;
+		$effectivetokens=0;		
+		for($i=0;$i<count($info->options);$i++){
+			$option_init=$info->options[$i]->option_init;
+			$option=$info->options[$i]->option;			
+			$option_index=$info->options[$i]->index;						
+			if(trim($info->options[$i]->option)!=""){	
+				//$chartdata.='{label: "1.继续走低，破9100，但9000支撑(54.36%)", value: 262},'				
+				$effectivetokens=$effectivetokens+$myoption[$option_index]+$option_init;	
+						
+			}				
+			$alltokens=$alltokens+$myoption[$option_index]+$option_init;	
+			}
+		//get pie chart
+		$chartdata="";
+		$info=json_decode($oracle_json);			
+		for($i=0;$i<count($info->options);$i++){
+			$option_init=$info->options[$i]->option_init;
+			$option=$info->options[$i]->option;			
+			$option_index=$info->options[$i]->index;						
+			if(trim($info->options[$i]->option)!=""){	
+				$thisoption=$myoption[$option_index]+$option_init;
+				$percentage=round((($thisoption)/$effectivetokens)*100,2);
+				$chartdata.='{label: "'.$option_index.'.'.$option.'('.$percentage.'%)", value: '.$thisoption.'},';
+			}				
+			$alltokens=$alltokens+$myoption[$option_index]+$option_init;	
+			}
+		$data['chartdata']=substr($chartdata,0,strlen($chartdata)-1);	
+		//list options in realtime
+		$stats='';
+	
+		
+	for($i=0;$i<count($info->options);$i++){
+		if(trim($info->options[$i]->option)!=""){
+			$option=$info->options[$i]->option;
+			$option_init=$info->options[$i]->option_init;
+			$option_index=$info->options[$i]->index;
+			$prediction=$myoption[$option_index]+$option_init;
+			if($prediction>0){
+				$predictrate[$option_index]=round(((($effectivetokens)*$returnrate/100)/$prediction),2);
+			}else{$predictrate[$option_index]=0;}	
+					
+			$stats.="<tr><td>$option_index</td><td>$option</td><td>$option_init</td><td>$prediction</td><td>1:".$predictrate[$option_index]."</td></tr>";
+			}
+		}
+	$stats.='</table>';
+	$data['effectivetokens']=$effectivetokens;
+	$data['alltokens']=$alltokens;
+	
+	//$stats.="<br/> <b>有效token</b>:".$effectivetokens	."；<b>参与token</b>:".$alltokens		;
+	$data['predictstats']=	$stats;
+		}
+	
+	$data['topheight']=$this->GetTopHeight();
+	
+	return $data;
+	}
+
+
+
 public function getPredictionDetail($txhash){
 	$this->load->database();
 	$url=DATA_SRC_SITE."v2/transactions/$txhash";
