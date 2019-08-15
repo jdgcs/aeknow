@@ -82,9 +82,11 @@ public function getFinishDetail($txhash,$checkoption){
 			if($sender_id!=$alias){
 				$sender_id_show=$alias;
 				}
-			
-			$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
-			
+			if($checkoption!=$count){
+				$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+			else{
+				$data['txstable'].="<tr><td>G<a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";				
+				}
 			//end transactions table
 			}
 			
@@ -126,12 +128,9 @@ public function getFinishDetail($txhash,$checkoption){
 			if($sender_id!=$alias){
 				$sender_id_show=$alias;
 				}
-			if($checkoption!=$count){
-				$data['rewardtable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
-			}else{
-				$data['rewardtable'].="<tr><td>G<a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
-
-				}
+			
+			$data['rewardtable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+			
 			//end transactions table
 			}
 			
