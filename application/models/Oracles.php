@@ -338,7 +338,8 @@ public function getPredictionDetail($txhash){
 		
 		$data['rewardtable']="";
 		//get rewardtable txs
-		$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='SpendTx' AND block_height>$endheight order by block_height";
+		$finishheight=$endheight+100;
+		$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='SpendTx' AND block_height>$endheight AND height <$finishheight order by block_height";
 		$query = $this->db->query($sql);				
 		$data['rewardtable']="";
 		foreach ($query->result() as $row){//get options
@@ -374,7 +375,7 @@ public function getPredictionDetail($txhash){
 				$sender_id_show=$alias;
 				}
 			
-			$data['rewardtable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$time</td></tr>";
+			$data['rewardtable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$recipient_id_show</a></td><td>$time</td></tr>";
 			
 			//end transactions table
 			}
