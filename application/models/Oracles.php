@@ -188,6 +188,58 @@ public function getFinishDetail($txhash,$checkoption){
 	
 	//$stats.="<br/> <b>有效token</b>:".$effectivetokens	."；<b>参与token</b>:".$alltokens		;
 	$data['predictstats']=	$stats;
+		
+		
+	//get the winning return
+	
+	$data['wintable']="";
+		foreach ($query->result() as $row){//get options
+			$tx=json_decode($row->tx);
+			$amount=$tx->tx->amount/1000000000000000000;
+			$option=substr(sprintf("%.2f",$amount),0,-1);
+			$select=$option-floor($option);
+			$count=intval(round($select*10));
+			if($count==0){$count=10;}	
+			$count_index=$count;
+			
+			$myoption[$count]=$myoption[$count]+$amount;
+			
+			//get transactions table
+			$txhash=$row->txhash;
+			$txtype=$row->txtype;
+			$txdata=json_decode($row->tx);
+			$block_hash=$txdata->block_hash;
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
+			
+			
+			$txhash_show="th_****".substr($txhash,-4);
+			
+			$recipient_id=$txdata->tx->recipient_id;			
+			$recipient_id_show="ak_****".substr($recipient_id,-4);
+			$alias=$this->getalias($recipient_id);
+			if($recipient_id!=$alias){
+				$recipient_id_show=$alias;
+				}
+						
+			$sender_id=$txdata->tx->sender_id;
+			$sender_id_show="ak_****".substr($sender_id,-4);
+			$alias=$this->getalias($sender_id);
+			if($sender_id!=$alias){
+				$sender_id_show=$alias;
+				}
+			
+			$returntokens=0;
+			if($checkoption!=$count){				
+				$data['wintable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$returntokens</td></tr>";
+			}else{
+				$returntokens=$amount*$predictrate[$count];
+				$data['wintable'].="<tr><td>G<a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>$returntokens</td></tr>";				
+				}
+			//end transactions table
+			}	
+		
+		
+		
 		}
 	
 	$data['topheight']=$this->GetTopHeight();
