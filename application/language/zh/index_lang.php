@@ -84,6 +84,6 @@ $lang['pre_calc']='结算';
 $lang['pre_rewarding']='派奖';
 $lang['pre_finish']='已完成';
 $lang['pre_satges']='当前状态';
-$lang['pre_txdetails']='交易细节';
+$lang['pre_txdetails']='参与细节';
 $lang['pre_rewarddetails']='派奖细节';
 $lang['pre_copy']='复制地址';
