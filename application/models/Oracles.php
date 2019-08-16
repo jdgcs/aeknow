@@ -193,6 +193,7 @@ public function getFinishDetail($txhash,$checkoption){
 	//get the winning return
 	
 	$data['wintable']="";
+	$data['totalreturn']=0;
 		foreach ($query_txs->result() as $row){//get options
 			$tx=json_decode($row->tx);
 			$amount=$tx->tx->amount/1000000000000000000;
@@ -235,6 +236,7 @@ public function getFinishDetail($txhash,$checkoption){
 			}else{
 				$returntokens=$amount*$predictrate[$count_index];
 				$data['wintable'].="<tr style=\"background:#F7296E;color:white;\"><td><a href=/block/transaction/$txhash style=\"color:white;\">$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id style=\"color:white;\">$sender_id_show</a></td><td>".$predictrate[$count_index]."</td><td>$returntokens</td></tr>";				
+				$data['totalreturn']=$data['totalreturn']+$returntokens;
 				}
 			//end transactions table
 			}	
