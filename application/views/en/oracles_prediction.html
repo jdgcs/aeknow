@@ -102,7 +102,7 @@ $this->lang->load('index');
 						$option=$info->options[$i]->option;
 						$option_init=$info->options[$i]->option_init;
 						$option_index=$info->options[$i]->index;
-						echo "<li>$option_index.$option(".$this->lang->line('pre_init')."：$option_init)</li>";
+						echo "<li><a href=/oracle/finish/$txhash/$option_index target=_blank>$option_index.$option(".$this->lang->line('pre_init')."：$option_init)</a></li>";
 						}
 					}				
 				?>
