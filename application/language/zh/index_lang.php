@@ -65,7 +65,7 @@ $lang['index_online'] = '在线';
 //////////////////////////////////Prediction Market//////////////////////////////////////
 $lang['pre_query'] = '查询';
 $lang['pre_oracle'] = '预言机';
-$lang['pre_range'] = '有效范围';
+$lang['pre_range'] = '参与范围';
 $lang['pre_description'] = '简介';
 $lang['pre_options'] = '预测选项';
 $lang['pre_participate'] = '参与方式';
