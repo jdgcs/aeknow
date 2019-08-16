@@ -339,7 +339,7 @@ public function getPredictionDetail($txhash){
 		$data['rewardtable']="";
 		//get rewardtable txs
 		$finishheight=$endheight+100;
-		$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='SpendTx' AND block_height>$endheight AND height <$finishheight order by block_height";
+		$sql="SELECT * FROM txs WHERE sender_id='$ak' AND txtype='SpendTx' AND block_height>$endheight AND block_height <$finishheight order by block_height";
 		$query = $this->db->query($sql);				
 		$data['rewardtable']="";
 		foreach ($query->result() as $row){//get options
