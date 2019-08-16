@@ -234,7 +234,7 @@ public function getFinishDetail($txhash,$checkoption){
 				$data['wintable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>".$predictrate[$count_index]."</td><td>$returntokens</td></tr>";
 			}else{
 				$returntokens=$amount*$predictrate[$count_index];
-				$data['wintable'].="<tr style=\"background:#F7296E;color:white;\"><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td>".$predictrate[$count_index]."</td><td>$returntokens</td></tr>";				
+				$data['wintable'].="<tr style=\"background:#F7296E;color:white;\"><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id style=\"color:white;\">$sender_id_show</a></td><td>".$predictrate[$count_index]."</td><td>$returntokens</td></tr>";				
 				}
 			//end transactions table
 			}	
