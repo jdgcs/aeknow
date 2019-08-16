@@ -43,14 +43,14 @@ public function getFinishDetail($txhash,$checkoption){
 		
 		//get income txs
 		$sql="SELECT * FROM txs WHERE recipient_id='$ak' AND txtype='SpendTx' AND block_height>$startheight AND block_height<$endheight order by block_height desc";
-		$query = $this->db->query($sql);
+		$query_txs = $this->db->query($sql);
 		
 		for($i=1;$i<11;$i++){
 			$myoption[$i]=0;
 		}
 		
 		$data['txstable']="";
-		foreach ($query->result() as $row){//get options
+		foreach ($query_txs->result() as $row){//get options
 			$tx=json_decode($row->tx);
 			$amount=$tx->tx->amount/1000000000000000000;
 			$option=substr(sprintf("%.2f",$amount),0,-1);
@@ -193,7 +193,7 @@ public function getFinishDetail($txhash,$checkoption){
 	//get the winning return
 	
 	$data['wintable']="";
-		foreach ($query->result() as $row){//get options
+		foreach ($query_txs->result() as $row){//get options
 			$tx=json_decode($row->tx);
 			$amount=$tx->tx->amount/1000000000000000000;
 			$option=substr(sprintf("%.2f",$amount),0,-1);
