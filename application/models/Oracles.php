@@ -168,13 +168,14 @@ public function getFinishDetail($txhash,$checkoption){
 		//list options in realtime
 		$stats='';
 	
-		
+	$data['inittoken']	=0;
 	for($i=0;$i<count($info->options);$i++){
 		if(trim($info->options[$i]->option)!=""){
 			$option=$info->options[$i]->option;
 			$option_init=$info->options[$i]->option_init;
 			$option_index=$info->options[$i]->index;
 			$prediction=$myoption[$option_index]+$option_init;
+			$data['inittoken']=$data['inittoken']+$option_init;
 			if($prediction>0){
 				$predictrate[$option_index]=round(((($effectivetokens)*$returnrate/100)/$prediction),2);
 			}else{$predictrate[$option_index]=0;}	
