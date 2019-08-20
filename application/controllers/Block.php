@@ -108,6 +108,10 @@ class Block extends CI_Controller {
 	public function microblocks($microblockheight=1){
 		$this->load->model('blocks');
 		$data=$this->blocks->getMicroBlocks($microblockheight);
+		//get the language of the browser
+			$this->load->model('languages');	
+			$data['mylang']=$this->languages->getPreferredLanguage();
+			
 		$this->load->view('en/mblocks.html',$data);
 		}
 	
