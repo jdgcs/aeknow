@@ -55,10 +55,15 @@ class Block extends CI_Controller {
 		if($height<1 || $height>$topheight){echo "Not in DB."; return 0;}
 		$this->load->model('blocks');
 		$data=$this->blocks->getBlockInfo($height);
+		
+		//get the language of the browser
+			$this->load->model('languages');	
+			$data['mylang']=$this->languages->getPreferredLanguage();
+			
 		$this->load->view('en/block_v2.html',$data);
 				
 		if($height<($topheight-10)){
-			$this->output->cache(300);
+			//$this->output->cache(300);
 		}
 		}
 	
