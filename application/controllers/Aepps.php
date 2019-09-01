@@ -6,6 +6,9 @@ class Aepps extends CI_Controller {
 	{	
 		$data['status']="";
 		$data['aename']="";
+		$this->load->model('languages');	
+		$data['mylang']=$this->languages->getPreferredLanguage();
+		
 		$this->load->view('en/aepps.html',$data);
 	} 
 
