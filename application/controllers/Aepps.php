@@ -11,6 +11,13 @@ class Aepps extends CI_Controller {
 		
 		$this->load->view('en/aepps.html',$data);
 	} 
+	
+	public function wallets(){
+		$this->load->model('languages');	
+		$data['mylang']=$this->languages->getPreferredLanguage();
+		
+		$this->load->view('en/aepps_wallets.html',$data);
+		}
 
 }
 
