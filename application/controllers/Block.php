@@ -73,6 +73,11 @@ class Block extends CI_Controller {
 		$height=$this->blocks->getBlockHeight($keyblockhash);
 		if($height<0){echo "Not in DB."; return 0;}
 		$data=$this->blocks->getBlockInfo($height);
+		
+		//get the language of the browser
+			$this->load->model('languages');	
+			$data['mylang']=$this->languages->getPreferredLanguage();
+			
 		$this->load->view('en/block_v2.html',$data);
 		$this->output->cache(3);
 		}
