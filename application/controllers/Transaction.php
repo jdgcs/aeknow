@@ -22,6 +22,12 @@ class Transaction extends CI_Controller {
 			}
 	}
 	
+	public function download($ak,$limit="all")
+	{	
+		$this->load->model('transactions');
+		$data=$this->transactions->getTransactionsExcel($ak,$limit);
+	}
+	
 	public function posttx($tx=""){
 		$this->load->model('transactions');
 		$data=$this->transactions->postTransaction($tx);
