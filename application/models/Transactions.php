@@ -67,7 +67,7 @@ class Transactions extends CI_Model {
 				
 				$objPHPExcel->setActiveSheetIndex(0)
 							->setCellValue($namea, $txhash)
-							->setCellValue($nameb, $amoumt)
+							->setCellValue($nameb, $amount)
 							->setCellValue($namec, $sender_id)
 							->setCellValue($named, $recipient_id)
 							->setCellValue($namee, $time);
