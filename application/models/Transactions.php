@@ -9,7 +9,7 @@ class Transactions extends CI_Model {
 		
 		if($limit>10000){
 			 echo "Large file(>10000 txs) can not be exported online, please contact aeknow team. <br/>";
-			 exit 0;
+			 exit;
 			}
 		
 		
