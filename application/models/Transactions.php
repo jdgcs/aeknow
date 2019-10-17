@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Transactions extends CI_Model {
 	
 	public function getTransactionsExcel($ak,$limit){
+		$this->load->database();
+		
 		if(!is_numeric($limit)){
 			$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY tid desc";
 			}else{
