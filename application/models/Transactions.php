@@ -13,7 +13,7 @@ class Transactions extends CI_Model {
 			}
 		
 		//$excelname=
-		require_once '/application/libraries/PHPExcel.php';
+		require_once dirname(__FILE__) . '../../application/libraries/PHPExcel.php';
 		// Create new PHPExcel object
 		$objPHPExcel = new PHPExcel();
 
