@@ -5,11 +5,11 @@ class Transactions extends CI_Model {
 	
 	public function getTransactionsExcel($ak,$limit){
 		$this->load->database();
+		$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY tid desc LIMIT $limit";
 		
-		if(!is_numeric($limit)){
-			$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY tid desc";
-			}else{
-			$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY tid desc LIMIT $limit";	
+		if($limit>10000){
+			 echo "Large file(>10000 txs) can not be exported online, please contact aeknow team. <br/>";
+			 exit 0;
 			}
 		
 		
