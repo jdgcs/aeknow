@@ -11,7 +11,7 @@ class Transaction extends CI_Controller {
 		$this->load->view('en/transaction_index.html',$data);
 	}
 	
-	public function p($page=1,$type=2000)
+	public function p($page=1,$type=1000)
 	{	
 		if(is_numeric($page)){
 			$this->load->model('transactions');

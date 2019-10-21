@@ -7,8 +7,8 @@ class Transactions extends CI_Model {
 		$this->load->database();
 		$sql="SELECT * FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY tid desc LIMIT $limit";
 		
-		if($limit>2000){
-			 echo "Large file(>2000 txs) can not be exported online, please contact aeknow team. <br/>";
+		if($limit>1000){
+			 echo "Large file(>1000 txs) can not be exported online, please contact aeknow team. <br/>";
 			 exit;
 			}
 		
