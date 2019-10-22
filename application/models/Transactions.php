@@ -58,27 +58,40 @@ class Transactions extends CI_Model {
 				//$utctime=round(($row->time/1000),0);
 				//$utctime= date("Y-m-d H:i:s",$utctime);		
 				
-				// Add some data
+				// add spendtx
 				$namea="A$counter";
 				$nameb="B$counter";
 				$namec="C$counter";
 				$named="D$counter";
 				$namee="E$counter";
+				$namef="F$counter";
 				
 				$objPHPExcel->setActiveSheetIndex(0)
 							->setCellValue($namea, $txhash)
 							->setCellValue($nameb, $amount)
 							->setCellValue($namec, $sender_id)
 							->setCellValue($named, $recipient_id)
-							->setCellValue($namee, $time);
-				//$data['txstable'].="<tr><td><a href=/block/transaction/$txhash>$txhash_show</a></td><td>$amount</td><td><a href=/address/wallet/$sender_id>$sender_id_show</a></td><td><a href=/address/wallet/$recipient_id>$recipient_id_show</a></td><td>$txtype</td><td>$time</td></tr>";
+							->setCellValue($namee, $time)
+							->setCellValue($namef, $txtype);
 			}else{
-				//$data['txstable'].="<tr><td colspan=\"4\"><a href=/block/transaction/$txhash>$txhash</a></td><td>$txtype</td><td>$time</td></tr>";		
+				
+				//add none spendtx
+				$namea="A$counter";
+				$nameb="B$counter";
+				$namec="C$counter";
+				$named="D$counter";
+				$namee="E$counter";
+				$namef="F$counter";
+				
+				$objPHPExcel->setActiveSheetIndex(0)
+							->setCellValue($namea, $txhash)
+							->setCellValue($namee, $time)
+							->setCellValue($namef, $txtype);				
 				}
 			}
 			
 			// Rename worksheet
-			$objPHPExcel->getActiveSheet()->setTitle('Transactions');
+			$objPHPExcel->getActiveSheet()->setTitle('Transactions(Latest 1000)');
 			// Redirect output to a client’s web browser (Excel2007)
 			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			header('Content-Disposition: attachment;filename="'."$ak.xlsx".'"');
