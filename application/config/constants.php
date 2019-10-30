@@ -86,6 +86,6 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 //////////////////////////My define//////////////////////////
 //defined('DATA_SRC_SITE')      OR define('DATA_SRC_SITE', 'http://35.178.61.73:3013/'); // highest automatically-assigned error code
-defined('DATA_SRC_SITE')      OR define('DATA_SRC_SITE', 'http://127.0.0.1:3013/'); // highest automatically-assigned error code
-//defined('DATA_SRC_SITE')      OR define('DATA_SRC_SITE', 'http://52.220.198.72:3013/'); //for emergency
+//defined('DATA_SRC_SITE')      OR define('DATA_SRC_SITE', 'http://127.0.0.1:3013/'); // highest automatically-assigned error code
+defined('DATA_SRC_SITE')      OR define('DATA_SRC_SITE', 'http://52.220.198.72:3013/'); //for emergency
 
