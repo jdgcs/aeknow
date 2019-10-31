@@ -53,4 +53,5 @@ $route['default_controller'] = 'user';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['(:any).test'] = "name/show/$1.test";
+$route['(:any).chain'] = "name/show/$1.chain";
 //$route['n/(:any)'] = "name/test/$1";
