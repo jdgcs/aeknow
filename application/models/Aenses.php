@@ -3,6 +3,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aenses extends CI_Model {
 
+		public function statAENS(){
+			$this->load->database();
+		
+			$sql="SELECT count(*) FROM regaens";
+			$query = $this->db->query($sql);
+			$data['totalreg']=0;
+			foreach ($query->result() as $row){
+				$data['totalreg']=$row->count;
+			}
+			
+			$sql="SELECT recipient_id FROM txs WHERE pblock_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL order by block_height desc limit 100";
+			$query = $this->db->query($sql);
+			$data['latest100']="";
+			foreach ($query->result() as $row){
+				$aename=$row->recipient_id;
+				$aename="<a href=/$aename>$aename</a>";
+				$data['latest100'].="<li>$aename</li>\n";
+			}
+			
+			return $data;
+			}
+		
 		public function query($aename){
 			$data['status']="";
 			$data['aename']=$aename;
