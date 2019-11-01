@@ -70,7 +70,7 @@
           <h3 class="box-title">Names in auction: <?php echo $inauction;?></h3>       
         </div>
        			  <div class="box-body table-responsive no-padding">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>				
                 <tr>
                   <th>Name</th>
@@ -174,7 +174,15 @@
 <script src="/application/views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
  $(function () {
-    $('#example1').DataTable()
+    $('#example1').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'paging'		: false,
+      'autoWidth'   : false
+    })
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
