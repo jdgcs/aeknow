@@ -37,8 +37,9 @@ class Aenses extends CI_Model {
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-5;
 				$height=$info->block_height;
+				$passedheight=$topheight-$height;
 				
-				$data['inauction'].="<tr><td>$height(+$topheight-$height)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
+				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
 			}
 			
 			
