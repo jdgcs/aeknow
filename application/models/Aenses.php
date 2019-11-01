@@ -5,6 +5,7 @@ class Aenses extends CI_Model {
 
 		public function statAENS(){
 			$this->load->database();
+			$topheight=$this->GetTopHeight();
 		
 			$sql="SELECT count(*) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL";
 			$query = $this->db->query($sql);
@@ -37,7 +38,7 @@ class Aenses extends CI_Model {
 				$length=strlen($name)-5;
 				$height=$info->block_height;
 				
-				$data['inauction'].="<tr><td>$height</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
+				$data['inauction'].="<tr><td>$height(+$topheight-$height)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
 			}
 			
 			
@@ -302,5 +303,22 @@ public function base58_decode($base58)
 	
 	return 0;
 }
+
+function GetTopHeight()	{
+	$url=DATA_SRC_SITE."v2/blocks/top";
+	$websrc=$this->getwebsrc($url);
+	$info=json_decode($websrc);
+	if(strpos($websrc,"key_block")==TRUE){		
+		return $info->key_block->height;
+	}
+		
+	if(strpos($websrc,"micro_block")==TRUE){
+		return $info->micro_block->height;
+		}
+	
+	return 0;
+	}
+	
+	
 
 }
