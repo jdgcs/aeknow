@@ -22,11 +22,13 @@ class Aenses extends CI_Model {
 				$name=$info->tx->name;
 				$aename="<a href=/$name target=_blank>$name</a>";
 				$account_id=$info->tx->account_id;
+				$account_id_show="ak_****".substr($account_id,-4);
 				$name_fee=$info->tx->name_fee/1000000000000000000;
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-5;
+				$height=$info->block_height;
 				
-				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td>$account_id</td></tr>\n";
+				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$height</td></tr>\n";
 			}
 			
 			return $data;
