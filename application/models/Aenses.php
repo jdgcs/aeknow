@@ -46,6 +46,7 @@ class Aenses extends CI_Model {
 			$sql="SELECT tx FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL order by block_height desc limit 100";
 			$query = $this->db->query($sql);
 			$data['latest100']="";
+			$data['burned']=0;
 			foreach ($query->result() as $row){
 				$tx=$row->tx;
 				$info=json_decode($tx);
@@ -54,6 +55,7 @@ class Aenses extends CI_Model {
 				$account_id=$info->tx->account_id;
 				$account_id_show="ak_****".substr($account_id,-4);
 				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$data['burned']=$data['burned']+$name_fee;
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-5;
 				$height=$info->block_height;
