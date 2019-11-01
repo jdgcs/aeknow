@@ -8,11 +8,11 @@ class Name extends CI_Controller {
 		$ak=$this->names->getAddress($name);
 		$page=1;$type='all';
 		
-		if($ak!="NULL"){
+		if(strpos($ak,"ak_")>0){
 			$this->load->model('Wallets');	
 			$data=$this->Wallets->getWalletInfo($ak,$page,$type);
 			$this->load->view('en/account.html',$data);
-		}else{echo "NULL Name.";}
+		}else{echo "$ak";}
 	}
 	
 	
