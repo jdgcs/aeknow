@@ -67,10 +67,9 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Names in auction</h3>       
+          <h3 class="box-title">Names in auction: <?php echo $inauction;?></h3>       
         </div>
-         In Auction:<?php echo $totalreg;?>
-			  <div class="box-body table-responsive no-padding">
+       			  <div class="box-body table-responsive no-padding">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>				
                 <tr>
@@ -90,7 +89,10 @@
 		</div>
         <!-- /.box-body -->
         <div class="box-footer">
-          Registered:<?php echo $totalreg;?><br/>Latest 100:<br />
+                   
+          <div class="box-header with-border">
+          <h3 class="box-title">Registered:<?php echo $totalreg;?> Latest 100</h3>       
+        </div>
 			  <div class="box-body table-responsive no-padding">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>				

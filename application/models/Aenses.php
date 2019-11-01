@@ -13,6 +13,15 @@ class Aenses extends CI_Model {
 				$data['totalreg']=$row->count;
 			}
 			
+			$sql="SELECT COUNT(DISTINCT(recipient_id)) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL";
+			$query = $this->db->query($sql);
+			$data['inauction']=0;
+			foreach ($query->result() as $row){
+				$data['inauction']=$row->count;
+			}
+			
+			
+			
 			$sql="SELECT tx FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL order by block_height desc limit 100";
 			$query = $this->db->query($sql);
 			$data['latest100']="";
