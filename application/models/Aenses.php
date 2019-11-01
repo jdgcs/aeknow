@@ -18,7 +18,7 @@ class Aenses extends CI_Model {
 			$data['latest100']="";
 			foreach ($query->result() as $row){
 				$aename=$row->recipient_id;
-				$aename="<a href=/$aename>$aename</a>";
+				$aename="<a href=/$aename target=_blank>$aename</a>";
 				$data['latest100'].="<li>$aename</li>\n";
 			}
 			
