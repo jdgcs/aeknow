@@ -64,54 +64,12 @@
 
     <!-- Main content -->
     <section class="content">
-<center><h1>NOTICE: According to AE's Dev team, .test names will be purged in Lima.</h1></center>
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Search & register(Beta)</h3>       
+          <h3 class="box-title">Names in auction</h3>       
         </div>
-        <?php echo "$status";?>
-       <center> This is a .test registering, you can register  <b>manually</b> and bind with your address for <b>free</b> with the current AENS registering mechanism.<b>One</b> address can register <b>500</b> .test names in 24 hours.<br />
-        <b>Donation</b> is welcome to maintain this site better.<br />
-        <img src="/donate.png" /><br />ak_2Vpk2GAXwCfMNVMrE1zNrT6ASMY14dMtujHKN6P74CozMSSy4C
-         </center>
-        <div class="box-body">
-			<center>
-				<div class="input-group">
-					<input type="aename" class="form-control" id="aename" placeholder="aens name:a-z,0-9 are acceptable." autocomplete="off" style="width:300px;">
-					<span class="input-group-addon"  style="width:60px;">.test</span>
-				</div>
-				<br />
-			<button type="button" class="btn btn-block btn-primary btn-lg" style="background-color:#f7296e;width:200px;"  onclick="checkaens();">Check AENS Name</button>
-		<script type="text/javascript">
-			function checkaens(){
-				var uid = document.getElementById('aename').value;
-				window.location.href = '/aens/query/'+uid+'.test';
-			}     
-		</script>        
-			</center>        
-		</div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-         Tools:<br/>Check my names:
-         <center>
-				<div class="input-group">
-					<input type="checkmyaens" class="form-control" id="checkmyaens" placeholder="ak_ address." autocomplete="off" style="width:300px;">				
-				</div>
-				<br />
-			<button type="button" class="btn btn-block btn-primary btn-lg" style="background-color:#f7296e;width:240px;"  onclick="checkmyaens();">Check My AENS Name</button>
-		<script type="text/javascript">
-			function checkmyaens(){
-				var akaddress = document.getElementById('checkmyaens').value;
-				window.location.href = '/aens/checkmyaens/'+akaddress;
-			}     
-		</script>        
-			</center>        
-        </div>
-        <!-- /.box-footer-->
-        
-         <div class="box-footer">
-			  Registered:<?php echo $totalreg;?><br/>Latest 100:<br />
+         In Auction:<?php echo $totalreg;?>
 			  <div class="box-body table-responsive no-padding">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>				
@@ -128,7 +86,33 @@
 				<?php echo $latest100;?>
 				</tbody>
 					</table>
+        </div>        
+		</div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          Registered:<?php echo $totalreg;?><br/>Latest 100:<br />
+			  <div class="box-body table-responsive no-padding">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>				
+                <tr>
+                  <th>Name</th>
+                  <th>Length</th>
+                  <th>Fee</th>
+                  <th>Owner</th>
+                  <th>Height</th>
+                  
+                </tr>
+                </thead>
+                <tbody>
+				<?php echo $latest100;?>
+				</tbody>
+					</table>
+        </div>       
         </div>
+        <!-- /.box-footer-->
+        
+         <div class="box-footer">
+			 
             
         </div>
         <!-- /.box-footer-->
