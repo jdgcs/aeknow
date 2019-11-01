@@ -12,6 +12,7 @@ public function getAddress($name){
 	if(strpos($websrc,"\"id\":\"ak_")>0){
 		$nameData=json_decode($websrc);
 		$name=$nameData->pointers[0]->id;
+		return $name;
 	}
 	return $name."=>$websrc<br/>";
 }
