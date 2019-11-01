@@ -35,7 +35,7 @@ class Aenses extends CI_Model {
 				$account_id_show="ak_****".substr($account_id,-4);
 				$name_fee=$info->tx->name_fee/1000000000000000000;
 				$init_fee=$this->calcFee($name);
-				$length=strlen($name)-5;
+				$length=strlen($name)-6;
 				$height=$info->block_height;
 				$passedheight=$topheight-$height;
 				
@@ -57,7 +57,7 @@ class Aenses extends CI_Model {
 				$name_fee=$info->tx->name_fee/1000000000000000000;
 				$data['burned']=$data['burned']+$name_fee;
 				$init_fee=$this->calcFee($name);
-				$length=strlen($name)-5;
+				$length=strlen($name)-6;
 				$height=$info->block_height;
 				
 				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$height</td></tr>\n";
