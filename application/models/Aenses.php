@@ -15,11 +15,29 @@ class Aenses extends CI_Model {
 			
 			$sql="SELECT COUNT(DISTINCT(recipient_id)) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL";
 			$query = $this->db->query($sql);
-			$data['inauction']=0;
+			$data['inauction_count']=0;
 			foreach ($query->result() as $row){
-				$data['inauction']=$row->count;
+				$data['inauction_count']=$row->count;
 			}
 			
+			
+			$sql="SELECT tx FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL order by block_height desc";
+			$query = $this->db->query($sql);
+			$data['inauction']="";
+			foreach ($query->result() as $row){
+				$tx=$row->tx;
+				$info=json_decode($tx);
+				$name=$info->tx->name;
+				$aename="<a href=/$name target=_blank>$name</a>";
+				$account_id=$info->tx->account_id;
+				$account_id_show="ak_****".substr($account_id,-4);
+				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$init_fee=$this->calcFee($name);
+				$length=strlen($name)-5;
+				$height=$info->block_height;
+				
+				$data['inauction'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$height</td></tr>\n";
+			}
 			
 			
 			$sql="SELECT tx FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL order by block_height desc limit 100";
