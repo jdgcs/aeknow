@@ -13,7 +13,7 @@ public function getAddress($name){
 		$nameData=json_decode($websrc);
 		$name=$nameData->pointers[0]->id;
 	}
-	return $name;
+	return $name."=>$websrc<br/>";
 }
 
 public function namelist($ak){
