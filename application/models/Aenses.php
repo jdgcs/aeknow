@@ -28,7 +28,8 @@ class Aenses extends CI_Model {
 				$tx=$row->tx;
 				$info=json_decode($tx);
 				$name=$info->tx->name;
-				$aename="<a href=/$name target=_blank>$name</a>";
+				$txhash=$info->hash;
+				$aename="<a href=/block/transaction/$txhash target=_blank>$name</a>";
 				$account_id=$info->tx->account_id;
 				$account_id_show="ak_****".substr($account_id,-4);
 				$name_fee=$info->tx->name_fee/1000000000000000000;
@@ -36,7 +37,7 @@ class Aenses extends CI_Model {
 				$length=strlen($name)-5;
 				$height=$info->block_height;
 				
-				$data['inauction'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$height</td></tr>\n";
+				$data['inauction'].="<tr><td>$height</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
 			}
 			
 			
@@ -297,7 +298,7 @@ public function base58_decode($base58)
 	if($length==9){return 12;}
 	if($length==10){return 8;}
 	if($length==11){return 5;}
-	if($length>11){return 3;}
+	if($length>11){return "<3";}
 	
 	return 0;
 }
