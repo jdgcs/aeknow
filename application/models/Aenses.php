@@ -6,20 +6,27 @@ class Aenses extends CI_Model {
 		public function statAENS(){
 			$this->load->database();
 		
-			$sql="SELECT count(*) FROM regaens";
+			$sql="SELECT count(*) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL";
 			$query = $this->db->query($sql);
 			$data['totalreg']=0;
 			foreach ($query->result() as $row){
 				$data['totalreg']=$row->count;
 			}
 			
-			$sql="SELECT recipient_id FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL order by block_height desc limit 100";
+			$sql="SELECT tx FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL order by block_height desc limit 100";
 			$query = $this->db->query($sql);
 			$data['latest100']="";
 			foreach ($query->result() as $row){
-				$aename=$row->recipient_id;
-				$aename="<a href=/$aename target=_blank>$aename</a>";
-				$data['latest100'].="<li>$aename</li>\n";
+				$tx=$row->tx;
+				$info=json_decode($tx);
+				$name=$info->tx->name;
+				$aename="<a href=/$name target=_blank>$name</a>";
+				$account_id=$info->tx->account_id;
+				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$init_fee=$this->calcFee($name);
+				$length=strlen($name)-5;
+				
+				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td>$account_id</td></tr>\n";
 			}
 			
 			return $data;
@@ -246,4 +253,24 @@ public function base58_decode($base58)
         }
         return $return;
     }
+    
+ public function calcFee($name){
+	$name=str_replace(".chain","",$name);
+	$length=strlen($name);
+	if($length==1){return 570;}
+	if($length==2){return 352;}
+	if($length==3){return 218;}
+	if($length==4){return 135;}
+	if($length==5){return 83;}
+	if($length==6){return 51;}
+	if($length==7){return 32;}
+	if($length==8){return 20;}
+	if($length==9){return 12;}
+	if($length==10){return 8;}
+	if($length==11){return 5;}
+	if($length>11){return 3;}
+	
+	return 0;
+}
+
 }

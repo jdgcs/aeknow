@@ -111,8 +111,25 @@
         <!-- /.box-footer-->
         
          <div class="box-footer">
-         Registered:<?php echo $totalreg;?><br/>Latest 100:<br />
-          <?php echo $latest100;?>  
+			  Registered:<?php echo $totalreg;?><br/>Latest 100:<br />
+			  <div class="box-body table-responsive no-padding">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>				
+                <tr>
+                  <th>Name</th>
+                  <th>Length</th>
+                  <th>Register Fee</th>
+                  <th>Init Fee</th>
+                  <th>Owner</th>
+                  
+                </tr>
+                </thead>
+                <tbody>
+				<?php echo $latest100;?>
+				</tbody>
+					</table>
+        </div>
+            
         </div>
         <!-- /.box-footer-->
       </div>
