@@ -29,7 +29,9 @@ class Aenses extends CI_Model {
 				$length=strlen($name)-6;
 				$expired=$this->calcExpired($name);				
 				$expired=$expired+$height;
-				$est=date("Y-m-d H:i:s", (1543373686+$expired*3*60));
+				
+				$leftheight=$expired-$topheight;
+				$est=date("Y-m-d H:i:s", (time()+$leftheight*3*60));
 				
 				$passedheight=$topheight-$height;
 				
