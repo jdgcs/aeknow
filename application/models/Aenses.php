@@ -26,9 +26,9 @@ class Aenses extends CI_Model {
 				$data['burning']=$data['burning']+$name_fee;
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-6;
-				$expired=$this->calcExpired($name);
-				$est=date("Y-m-d H:i:s", time()+$expired*3*60);
+				$expired=$this->calcExpired($name);				
 				$expired=$expired+$topheight;
+				$est=date("Y-m-d H:i:s", 1543373686+$expired*3*60);
 				$height=$info->block_height;
 				$passedheight=$topheight-$height;
 				
