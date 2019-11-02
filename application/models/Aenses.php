@@ -3,6 +3,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aenses extends CI_Model {
 
+		public function showAENS(){
+			$this->load->database();
+			$topheight=$this->GetTopHeight();
+		
+						
+			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL group by recipient_id) order by block_height desc;";
+			$query = $this->db->query($sql);
+			$data['inauction']="";
+			$data['burning']=0;
+			$data['inauction_count']=0;
+			foreach ($query->result() as $row){
+				$tx=$row->tx;
+				$data['inauction_count']++;
+				$info=json_decode($tx);
+				$name=$info->tx->name;
+				$txhash=$info->hash;
+				$aename="<a href=/block/transaction/$txhash target=_blank>$name</a>";
+				$account_id=$info->tx->account_id;
+				$account_id_show="ak_****".substr($account_id,-4);
+				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$data['burning']=$data['burning']+$name_fee;
+				$init_fee=$this->calcFee($name);
+				$length=strlen($name)-6;
+				$height=$info->block_height;
+				$passedheight=$topheight-$height;
+				
+				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
+			}
+			
+			
+			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NOT NULL group by recipient_id) order by block_height desc;";
+			$query = $this->db->query($sql);
+			$data['latest100']="";
+			$data['burned']=0;
+			$data['registered_count']=0;
+			foreach ($query->result() as $row){
+				$tx=$row->tx;
+				$data['registered_count']++;
+				$info=json_decode($tx);
+				$name=$info->tx->name;
+				$aename="<a href=/$name target=_blank>$name</a>";
+				$account_id=$info->tx->account_id;
+				$account_id_show="ak_****".substr($account_id,-4);
+				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$data['burned']=$data['burned']+$name_fee;
+				$init_fee=$this->calcFee($name);
+				$length=strlen($name)-6;
+				$height=$info->block_height;
+				
+				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$height</td></tr>\n";
+			}
+			
+			return $data;
+			}
+			
+		
 		public function statAENS(){
 			$this->load->database();
 			$topheight=$this->GetTopHeight();

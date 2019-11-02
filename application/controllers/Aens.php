@@ -2,6 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aens extends CI_Controller {
+	
+	public function indexnew(){
+		$this->load->model('aenses');	
+		$data=$this->aenses->showAENS();
+		$data['status']="";
+		$data['aename']="";
+		$this->load->view('AENS_new.html',$data);
+		$this->output->cache(1);
+		}
+	
 	public function index(){
 		$this->load->model('aenses');	
 		$data=$this->aenses->statAENS();
