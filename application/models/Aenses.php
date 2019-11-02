@@ -19,6 +19,7 @@ class Aenses extends CI_Model {
 				$info=json_decode($tx);
 				$name=$info->tx->name;
 				$txhash=$info->hash;
+				$height=$info->block_height;
 				$aename="<a href=/block/transaction/$txhash target=_blank>$name</a>";
 				$account_id=$info->tx->account_id;
 				$account_id_show="ak_****".substr($account_id,-4);
@@ -27,9 +28,9 @@ class Aenses extends CI_Model {
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-6;
 				$expired=$this->calcExpired($name);				
-				$expired=$expired+$topheight;
-				$est=date("Y-m-d H:i:s", 1543373686+$expired*3*60);
-				$height=$info->block_height;
+				$expired=$expired+$height;
+				$est=date("Y-m-d H:i:s", (1543373686+$expired*3*60));
+				
 				$passedheight=$topheight-$height;
 				
 				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$expired(~$est)</td></tr>\n";
