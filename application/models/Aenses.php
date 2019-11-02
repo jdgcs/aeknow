@@ -26,10 +26,13 @@ class Aenses extends CI_Model {
 				$data['burning']=$data['burning']+$name_fee;
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-6;
+				$expired=$this->calcExpired($name);
+				$est=date("Y-m-d h:i:s", time()+$expired*3*60);
+				$expired=$expired+$topheight;
 				$height=$info->block_height;
 				$passedheight=$topheight-$height;
 				
-				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td></tr>\n";
+				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$expired(~$est)</td></tr>\n";
 			}
 			
 			
@@ -362,6 +365,16 @@ public function base58_decode($base58)
 	
 	return 0;
 }
+
+public function calcExpired($name){
+	$name=str_replace(".chain","",$name);
+	$length=strlen($name);
+	if($length<5){return 29760;}
+	if($length>4 && $length<9){return 14880;}
+	if($length>8 && $length<13){return 480;}
+	if($length>12){return  0;}
+	return  0;
+	}
 
 function GetTopHeight()	{
 	$url=DATA_SRC_SITE."v2/blocks/top";
