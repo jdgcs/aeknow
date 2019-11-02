@@ -86,6 +86,7 @@ public function viewaccount($ak=NULL){
 		if(strpos($tagstr,"ok_")>0){redirect('https://www.aeknow.org/oracle/id/'.$ak);}
 		if(strpos($tagstr,"ct_")>0){redirect('https://www.aeknow.org/contract/detail/'.$ak);}
 		if(strpos($tagstr,".test")>0){redirect('https://www.aeknow.org/'.$ak);}
+		if(strpos($tagstr,".chain")>0){redirect('https://www.aeknow.org/'.$ak);}
 		if(is_numeric($ak)){redirect('https://www.aeknow.org/block/height/'.$ak);}
 		echo "NO results.";return 0;
 		}
