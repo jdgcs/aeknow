@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aens extends CI_Controller {
 	
-	public function indexnew(){
+	public function index(){
 		$this->load->model('aenses');	
 		$data=$this->aenses->showAENS();
 		$data['status']="";
@@ -12,7 +12,7 @@ class Aens extends CI_Controller {
 		$this->output->cache(1);
 		}
 	
-	public function index(){
+	public function indexv1(){
 		$this->load->model('aenses');	
 		$data=$this->aenses->statAENS();
 		$data['status']="";
