@@ -62,13 +62,13 @@
       </ol>
     </section>
 <center><h1><font color=green><?php echo $registered_count;?></font> <small>names are online </small>
-	<font color=red><?php echo round($inauction_count);?> names</font><small> are in auction </small></h1></center>
+	<font color=red><?php echo round($inauction_count);?></font> names<small> are in auction </small></h1></center>
     <!-- Main content -->
     <section class="content">
       <!-- Default box -->
       <div class="box-footer">
         <div class="box-header with-border">
-          <h3 class="box-title">Names in auction: <?php echo $inauction_count;?><small> </small></h3>       
+          <h3 class="box-title">Names in auction: <?php echo $inauction_count;?><small> <?php echo $burning;?> AE</small></h3>       
         </div>
        			  <div class="box-body table-responsive no-padding">
               <table id="example0" class="table table-bordered table-hover">
@@ -96,7 +96,7 @@
         <div class="box-footer">
                    
           <div class="box-header with-border">
-          <h3 class="box-title">Registered:<?php echo $registered_count;?> Latest 100</h3>       
+          <h3 class="box-title">Registered:<?php echo $registered_count;?> (Latest 100) <small> <?php echo $burned;?> AE</small></h3>       
         </div>
 			  <div class="box-body table-responsive no-padding">
               <table id="example13" class="table table-bordered table-hover">
