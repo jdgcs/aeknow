@@ -17,7 +17,7 @@ class Aens extends CI_Controller {
 		$data=$this->aenses->showBids($name);
 		$data['status']="";
 		$data['aename']="";
-		$this->load->view('AENS_new.html',$data);
+		$this->load->view('AENS_bidslog.html',$data);
 		//$this->output->cache(1);
 		}
 		

@@ -75,7 +75,9 @@ class Aenses extends CI_Model {
 			$data['inauction']="";
 			$data['burning']=0;
 			$data['inauction_count']=0;
+			$bidtimes=$this->getBidCount($name);
 			foreach ($query->result() as $row){
+				$mybid=$bidtimes-$data['inauction_count'];
 				$tx=$row->tx;
 				$data['inauction_count']++;
 				$info=json_decode($tx);
@@ -96,33 +98,11 @@ class Aenses extends CI_Model {
 				$est=date("Y-m-d H:i:s", (time()+$leftheight*3*60));
 				
 				$passedheight=$topheight-$height;
-				$bidtimes=$this->getBidCount($name);
 				
-				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
+				
+				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
 			}
 			
-			
-			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NOT NULL group by recipient_id) order by block_height desc;";
-			$query = $this->db->query($sql);
-			$data['latest100']="";
-			$data['burned']=0;
-			$data['registered_count']=0;
-			foreach ($query->result() as $row){
-				$tx=$row->tx;
-				$data['registered_count']++;
-				$info=json_decode($tx);
-				$name=$info->tx->name;
-				$aename="<a href=/$name target=_blank>$name</a>";
-				$account_id=$info->tx->account_id;
-				$account_id_show="ak_****".substr($account_id,-4);
-				$name_fee=$info->tx->name_fee/1000000000000000000;
-				$data['burned']=$data['burned']+$name_fee;
-				$init_fee=$this->calcFee($name);
-				$length=strlen($name)-6;
-				$height=$info->block_height;
-				$bidtimes=$this->getBidCount($name);
-				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$height</td></tr>\n";
-			}
 			
 			return $data;
 			}
