@@ -57,14 +57,27 @@ class Aenses extends CI_Model {
 				$init_fee=$this->calcFee($name);
 				$length=strlen($name)-6;
 				$height=$info->block_height;
-				
-				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$height</td></tr>\n";
+				$bidtimes=$this->getBidCount($name);
+				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$height</td></tr>\n";
 			}
 			
 			return $data;
 			}
 			
-		
+		public function getBidCount($name){
+			$this->load->database();		
+			$sql="SELECT count(*) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND recipient_id='$name'";
+			$query_count = $this->db->query($sql);
+			
+			foreach ($query_count->result() as $row){
+				return $row->count;
+			}
+			
+			return 0;
+			
+			}
+			
+			
 		public function statAENS(){
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
