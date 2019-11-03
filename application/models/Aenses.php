@@ -35,7 +35,7 @@ class Aenses extends CI_Model {
 				
 				$passedheight=$topheight-$height;
 				$bidtimes=$this->getBidCount($name);
-				
+				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
 				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 			}
 			
@@ -59,6 +59,7 @@ class Aenses extends CI_Model {
 				$length=strlen($name)-6;
 				$height=$info->block_height;
 				$bidtimes=$this->getBidCount($name);
+				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
 				$data['latest100'].="<tr><td>$aename</td><td>$length</td><td>$name_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$height</td></tr>\n";
 			}
 			
@@ -100,7 +101,7 @@ class Aenses extends CI_Model {
 				$passedheight=$topheight-$height;
 				
 				
-				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
+				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
 			}
 			
 			
