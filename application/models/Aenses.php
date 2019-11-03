@@ -34,8 +34,9 @@ class Aenses extends CI_Model {
 				$est=date("Y-m-d H:i:s", (time()+$leftheight*3*60));
 				
 				$passedheight=$topheight-$height;
+				$bidtimes=$this->getBidCount($name);
 				
-				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$expired(~$est)</td></tr>\n";
+				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 			}
 			
 			
