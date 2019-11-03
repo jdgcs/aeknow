@@ -67,6 +67,7 @@ class Aenses extends CI_Model {
 			}
 		
 		public function showBids($name){
+			$data['name']=$name;
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
 		
