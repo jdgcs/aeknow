@@ -41,10 +41,17 @@ class Aenses extends CI_Model {
 				
 				$passedheight=$topheight-$height;
 				$bidtimes=$this->getBidCount($name);
+				$higher="";
+				if($bidtimes>1){
+					$higherrate=round((($name_fee-$init_fee)/$init_fee)*100,2);
+					$higher.="(<font color=red>+$higherrate%</font>)";
+					}
 				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
 				//$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 				
-				$mytable[$leftheight].="<tr><td>$leftheight</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
+				
+				
+				$mytable[$leftheight].="<tr><td>$leftheight</td><td>$aename</td><td>$length</td><td>$name_fee$higher</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 			
 			}
 			$table=ksort($mytable);
