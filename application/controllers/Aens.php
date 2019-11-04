@@ -24,7 +24,7 @@ class Aens extends CI_Controller {
 		
 	public function indexv1(){
 		$this->load->model('aenses');	
-		$data=$this->aenses->statAENS();
+		$data=$this->aenses->showAENS();
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS.html',$data);
