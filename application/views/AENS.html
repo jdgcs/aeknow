@@ -76,18 +76,30 @@
 
              
               <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?> +AE</a>
-                </li>
                  <li class="list-group-item">
                   <i class="fa fa-at margin-r-5"></i><b>AENS names:</b> <a class="pull-right"> <?php echo $inauction_count+$registered_count;?> </a>
                 </li>
                  <li class="list-group-item">
                  <i class="fa fa-exchange margin-r-5"></i><b>In auction:</b> <a herf="#transaction" class="pull-right"><?php echo round($inauction_count);?></a>
                 </li>
+                
                 <li class="list-group-item">
                  <i class="fa fa-cog margin-r-5"></i><b>Finished:</b> <a class="pull-right"> <?php echo $registered_count;?></a>
                 </li>
+                
+                <li class="list-group-item">
+                  <i class="fa fa-btc margin-r-5"></i><b>Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?>+ AE</a>
+                </li>
+                
+                <li class="list-group-item">
+                  <i class="fa fa-btc margin-r-5"></i><b>Burning:</b> <a class="pull-right"><?php echo round($burning);?>+ AE</a>
+                </li>
+                
+                 <li class="list-group-item">
+                  <i class="fa fa-btc margin-r-5"></i><b>Burned:</b> <a class="pull-right"><a href="/address/wallet/ak_11111111111111111111111111111111273Yts" target="_blank" title="Burned to the address ak_11111111111111111111111111111111273Yts"><?php round($burned);?>+ AE</a>
+                </li>
+                
+                
                 
                 <li class="list-group-item">    
                  <strong><i class="fa fa-file-text-o margin-r-5"></i>Register Tools</strong>
