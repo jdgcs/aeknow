@@ -74,12 +74,11 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" style="with:80px;" src="/miner/accountimg/" alt="User profile picture">
+              
 
-              <h3 class="profile-username text-center">QRcode</h3>
+              <h1 class="profile-username text-center">AENS</h1>
 
-              <p class="text-muted text-center">of the address</p>
-
+             
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <i class="fa fa-btc margin-r-5"></i><b>Balance:</b> <a class="pull-right">< AE</a>
@@ -128,14 +127,14 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#mining" data-toggle="tab">Mining</a></li>
-              <li ><a href="#transaction" data-toggle="tab">Transactions</a></li>
+              <li class="active"><a href="/aens" data-toggle="tab">In Auction</a></li>
+              <li ><a href="/aens/" data-toggle="tab">In Auction(by block)</a></li>
               <!-- <li><a href="#messages" data-toggle="tab">Messages</a></li> -->
             </ul>
             <div class="tab-content">
             
-			<div class="tab-pane table-responsive no-padding " id="mining">
-				<h3>Latest 100 blocks mined:</h3>
+			<div class="tab-pane table-responsive no-padding " >
+				<h3> <?php echo $inauction_count;?> In Auction</h3>
 				<table class="table table-bordered table-hover" width:100%>
 					<tr>
                   <th>Name</th>
