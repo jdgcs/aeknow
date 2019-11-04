@@ -185,7 +185,7 @@ class Aenses extends CI_Model {
 				$passedheight=$topheight-$height;
 				
 				
-				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
+				$data['inauction'].="<tr><td>$leftheight</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
 			}
 			
 			
