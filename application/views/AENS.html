@@ -61,13 +61,22 @@
         <li class="active">AENS</li>
       </ol>
     </section>
-<center>Burned <?php echo $burned;?> AE at least.</center>
+<center><h1><font color=green><?php echo $registered_count;?></font> <small>names are online </small>
+	<font color=red><?php echo round($inauction_count);?></font> <small> names are in auction </small></h1></center>
     <!-- Main content -->
     <section class="content">
       <!-- Default box -->
       <div class="box-footer">
         <div class="box-header with-border">
-          <h3 class="box-title">Names in auction: <?php echo $inauction_count;?></h3>       
+			
+			 <ul class="nav nav-tabs">
+              <li class="active">In auction</li>
+              <li><a href="#" >By time</li>
+              <li ><a href="/aens/bytime" data-toggle="tab">Finished auctions</a></li>
+              <li><a href="#" >Expired names</li>
+            </ul>
+			
+          <h3 class="box-title"> <?php echo $inauction_count;?> names in auction <small> (<?php echo round($burning);?>+ AE)</small></h3>       
         </div>
        			  <div class="box-body table-responsive no-padding">
               <table id="example0" class="table table-bordered table-hover">
@@ -76,9 +85,11 @@
                   <th>Height</th>                   
                   <th>Name</th>  
                   <th>Length</th>               
-                  <th>Fee</th>
+                  <th>Bid Price(AE)</th>
                   <th>Ref. Fee</th>
-                  <th>Bidder</th>
+                  <th>Last Bidder</th>
+                  <th>Bid times</th>
+                  <th>Expires at</th>
                 
                   
                 </tr>
@@ -93,16 +104,17 @@
         <div class="box-footer">
                    
           <div class="box-header with-border">
-          <h3 class="box-title">Registered:<?php echo $totalreg;?> Latest 100</h3>       
+          <h3 class="box-title">Registered:<?php echo $registered_count;?> (Latest 100) <small> (<?php echo round($burned);?>+ AE)</small></h3>       
         </div>
 			  <div class="box-body table-responsive no-padding">
-              <table id="example1" class="table table-bordered table-hover">
+              <table id="example13" class="table table-bordered table-hover">
                 <thead>				
                 <tr>
                   <th>Name</th>
                   <th>Length</th>
-                  <th>Fee</th>
-                  <th>Owner</th>
+                  <th>Bid Price(AE)</th>
+                  <th>Winner</th>
+                  <th>Bid times</th>
                   <th>Height</th>
                   
                 </tr>
