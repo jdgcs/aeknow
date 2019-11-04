@@ -68,54 +68,76 @@
     
     <!-- Main content -->
     <section class="content">
-		<div class="col-md-9">
-		<div class="nav-tabs-custom">
-      <!-- Default box -->
-      <div class="box-footer">
-        <div class="box-header with-border">
-			
-			 <ul class="nav nav-tabs">
-              <li class="active">In auction</li>
-              <li><a href="#" >By time</li>
-              <li ><a href="/aens/bytime" data-toggle="tab">Finished auctions</a></li>
-              <li><a href="#" >Expired names</li>
-            </ul>
-			
-          <h3 class="box-title"> <?php echo $inauction_count;?> names in auction <small> (<?php echo round($burning);?>+ AE)</small></h3>  
-              
-        </div>
-       			  <div class="box-body table-responsive no-padding">
-              <table id="example0" class="table table-bordered table-hover">
-                <thead>				
-                <tr>
-                  <th>Height</th>                   
-                  <th>Name</th>  
-                  <th>Length</th>               
-                  <th>Bid Price(AE)</th>
-                  <th>Ref. Fee</th>
-                  <th>Last Bidder</th>
-                  <th>Bid times</th>
-                  <th>Expires at</th>
+<div class="row">
+        <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" style="with:80px;" src="/miner/accountimg/<?php echo $account; ?>" alt="User profile picture">
+
+              <h3 class="profile-username text-center">QRcode</h3>
+
+              <p class="text-muted text-center">of the address</p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <i class="fa fa-btc margin-r-5"></i><b>Balance:</b> <a class="pull-right">< AE</a>
+                </li>
+                 <li class="list-group-item">
+                  <i class="fa fa-at margin-r-5"></i><b>AENS names:</b> <a class="pull-right"> </a>
+                </li>
+                 <li class="list-group-item">
+                 <i class="fa fa-exchange margin-r-5"></i><b>Transactions:</b> <a herf="#transaction" class="pull-right">Txs</a>
+                </li>
+                <li class="list-group-item">
+                 <i class="fa fa-cog margin-r-5"></i><b>Blocks Mined:</b> <a class="pull-right"> blocks</a>
+                </li>
+                <li class="list-group-item">
+                  <i class="fa fa-calculator margin-r-5"></i><b>Estimate Reward:</b> <a class="pull-right">AE</a>
+                </li>
+                <li class="list-group-item">
+                 <i class="fa fa-book margin-r-5"></i> <b>Activities</b> 
+                 <span class="pull-right-container"> 
+					
+					 </span>
+                </li>
                 
-                  
-                </tr>
-                </thead>
-                <tbody>
-				<?php echo $inauction;?>
-				</tbody>
-					</table>
-        </div>        
-		</div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-                   
-          <div class="box-header with-border">
-          <h3 class="box-title">Registered:<?php echo $registered_count;?> (Latest 100) <small> (<?php echo round($burned);?>+ AE)</small></h3>       
+                <li class="list-group-item">
+                  <i class="fa fa-calculator margin-r-5"></i><b>Tokens</b> <br/>
+                   <p></p>
+                </li>
+                
+              <li class="list-group-item">    
+                 <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+              <p></p>
+                </li>
+                
+              </ul>
+<!--
+              <a href="#" class="btn btn-primary btn-block"><b>Claim</b></a>
+              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+               -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
         </div>
-			  <div class="box-body table-responsive no-padding">
-              <table id="example13" class="table table-bordered table-hover">
-                <thead>				
-                <tr>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#mining" data-toggle="tab">Mining</a></li>
+              <li ><a href="#transaction" data-toggle="tab">Transactions</a></li>
+              <!-- <li><a href="#messages" data-toggle="tab">Messages</a></li> -->
+            </ul>
+            <div class="tab-content">
+            
+			<div class="tab-pane table-responsive no-padding " id="mining">
+				<h3>Latest 100 blocks mined:</h3>
+				<table class="table table-bordered table-hover" width:100%>
+					<tr>
                   <th>Name</th>
                   <th>Length</th>
                   <th>Bid Price(AE)</th>
@@ -124,26 +146,18 @@
                   <th>Height</th>
                   
                 </tr>
-                </thead>
-                <tbody>
-				<?php echo $latest100;?>
-				</tbody>
-					</table>
-        </div>       
-        </div>
-        <!-- /.box-footer-->
-        
-         <div class="box-footer">
-			 
-            
-        </div>
-        <!-- /.box-footer-->
-      </div>
-      <!-- /.box -->
- </div>
-    </section>
-   </div>
-    <!-- /.content -->
+					<?php echo $latest100;?>
+				</table>
+			</div>
+			
+</div>
+			</div>
+			
+
+
+            </div>
+            <!-- /.tab-content -->
+          </div>  <!-- /.content -->
   </div>
 
  <?php $this->load->view('en/footer.html');?> 
