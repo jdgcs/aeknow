@@ -47,12 +47,12 @@ class Aenses extends CI_Model {
 			
 			}
 			$table=ksort($mytable);
-			print_r($mytable);
-			/*
-			foreach ($table as $col) {
+			//print_r($mytable);
+			
+			foreach ($mytable as $col) {
 				$data['inauction'].=$col;
 			}
-			*/
+			
 			
 			
 			
