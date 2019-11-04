@@ -39,7 +39,7 @@ class Aenses extends CI_Model {
 				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
 				//$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 				
-				$table["$expired"].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
+				$mytable[$leftheight].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 			
 			}
 			$table=ksort($table);
