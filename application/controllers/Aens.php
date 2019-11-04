@@ -21,6 +21,15 @@ class Aens extends CI_Controller {
 		$this->output->cache(1);
 		}
 	
+	public function byblock(){
+		$this->load->model('aenses');	
+		$data=$this->aenses->showAENSbyBlock();
+		$data['status']="";
+		$data['aename']="";
+		$this->load->view('AENS.html',$data);
+		//$this->output->cache(1);
+		}
+	
 	public function viewbids($name){
 		$this->load->model('aenses');	
 		$data=$this->aenses->showBids($name);
@@ -29,7 +38,7 @@ class Aens extends CI_Controller {
 		$this->load->view('AENS_bidslog.html',$data);
 		//$this->output->cache(1);
 		}
-		
+	
 		
 	public function indexv1(){
 		$this->load->model('aenses');	
