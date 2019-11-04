@@ -7,6 +7,7 @@ class Aenses extends CI_Model {
 		public function showAENSbyBlock(){
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
+			$data['topheight']=$topheight;
 		
 						
 			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL group by recipient_id) order by block_height desc;";
@@ -87,6 +88,7 @@ class Aenses extends CI_Model {
 		public function showAENS(){
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
+			$data['topheight']=$topheight;
 		
 						
 			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL group by recipient_id) order by block_height desc;";
