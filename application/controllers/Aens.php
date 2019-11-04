@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aens extends CI_Controller {
 	
-	public function index(){
+	public function indexv2(){
 		$this->load->model('aenses');	
 		$data=$this->aenses->showAENS();
 		$data['status']="";
@@ -27,7 +27,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_byexpiring.html',$data);
-		//$this->output->cache(1);
+		$this->output->cache(1);
 		}
 	
 	public function viewbids($name){
@@ -36,11 +36,11 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_bidslog.html',$data);
-		//$this->output->cache(1);
+		$this->output->cache(1);
 		}
 	
 		
-	public function indexv1(){
+	public function index(){
 		$this->load->model('aenses');	
 		$data=$this->aenses->showAENS();
 		$data['status']="";
