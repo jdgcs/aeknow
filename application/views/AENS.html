@@ -77,7 +77,7 @@
              
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?> AE</a>
+                  <i class="fa fa-btc margin-r-5"></i><b>Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?> +AE</a>
                 </li>
                  <li class="list-group-item">
                   <i class="fa fa-at margin-r-5"></i><b>AENS names:</b> <a class="pull-right"> <?php echo $inauction_count+$registered_count;?> </a>
@@ -89,7 +89,10 @@
                  <i class="fa fa-cog margin-r-5"></i><b>Finished:</b> <a class="pull-right"> <?php echo $registered_count;?></a>
                 </li>
                 
-                
+                <li class="list-group-item">    
+                 <strong><i class="fa fa-file-text-o margin-r-5"></i>Register Tools</strong>
+				<a href="https://base.aepps.com/" target="_blank">Base aepp</a>
+                </li>
               </ul>
 <!--
               <a href="#" class="btn btn-primary btn-block"><b>Claim</b></a>
@@ -105,8 +108,8 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="/aens" data-toggle="tab">In Auction</a></li>
-              <li ><a href="/aens/byblock" data-toggle="tab">In Auction(by block)</a></li>
+              <li class="active"><a href="/aens" data-toggle="tab">In Auction(by block)</a></li>
+              <li ><a href="/aens/byblock" data-toggle="tab">In Auction(by expiring)</a></li>
               <li ><a href="/aens/finished" data-toggle="tab">Finished</a></li>
              <!--  <li><a href="#" data-toggle="tab">Expiring</a></li> -->
             </ul>
