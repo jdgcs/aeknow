@@ -61,10 +61,6 @@
         <li class="active">AENS</li>
       </ol>
     </section>
-<center><h1><font color=green><?php echo $registered_count;?></font> <small>names are online </small>
-	<font color=red><?php echo round($inauction_count);?></font> <small> names are in auction </small></h1></center>
-    
-    
     
     <!-- Main content -->
     <section class="content">
@@ -76,41 +72,23 @@
             <div class="box-body box-profile">
               
 
-              <h1 class="profile-username text-center">AENS</h1>
+              <h1 class="profile-username text-center">AENS Summary</h1>
 
              
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Balance:</b> <a class="pull-right">< AE</a>
+                  <i class="fa fa-btc margin-r-5"></i><b>Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?> AE</a>
                 </li>
                  <li class="list-group-item">
-                  <i class="fa fa-at margin-r-5"></i><b>AENS names:</b> <a class="pull-right"> </a>
+                  <i class="fa fa-at margin-r-5"></i><b>AENS names:</b> <a class="pull-right"> <?php echo $inauction_count+$registered_count;?> </a>
                 </li>
                  <li class="list-group-item">
-                 <i class="fa fa-exchange margin-r-5"></i><b>Transactions:</b> <a herf="#transaction" class="pull-right">Txs</a>
+                 <i class="fa fa-exchange margin-r-5"></i><b>In auction:</b> <a herf="#transaction" class="pull-right"><?php echo round($inauction_count);?></a>
                 </li>
                 <li class="list-group-item">
-                 <i class="fa fa-cog margin-r-5"></i><b>Blocks Mined:</b> <a class="pull-right"> blocks</a>
-                </li>
-                <li class="list-group-item">
-                  <i class="fa fa-calculator margin-r-5"></i><b>Estimate Reward:</b> <a class="pull-right">AE</a>
-                </li>
-                <li class="list-group-item">
-                 <i class="fa fa-book margin-r-5"></i> <b>Activities</b> 
-                 <span class="pull-right-container"> 
-					
-					 </span>
+                 <i class="fa fa-cog margin-r-5"></i><b>Finished:</b> <a class="pull-right"> <?php echo $registered_count;?></a>
                 </li>
                 
-                <li class="list-group-item">
-                  <i class="fa fa-calculator margin-r-5"></i><b>Tokens</b> <br/>
-                   <p></p>
-                </li>
-                
-              <li class="list-group-item">    
-                 <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-              <p></p>
-                </li>
                 
               </ul>
 <!--
@@ -128,8 +106,9 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="/aens" data-toggle="tab">In Auction</a></li>
-              <li ><a href="/aens/" data-toggle="tab">In Auction(by block)</a></li>
-              <!-- <li><a href="#messages" data-toggle="tab">Messages</a></li> -->
+              <li ><a href="/aens/byblock" data-toggle="tab">In Auction(by block)</a></li>
+              <li ><a href="/aens/finished" data-toggle="tab">Finished</a></li>
+             <!--  <li><a href="#" data-toggle="tab">Expiring</a></li> -->
             </ul>
             <div class="tab-content1">
             
