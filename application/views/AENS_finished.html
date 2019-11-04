@@ -120,28 +120,26 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="/aens" >In Auction(by block)</a></li>
+              <li><a href="/aens" >In Auction(by block)</a></li>
               <li ><a href="/aens/byblock" >In Auction(by expiring)</a></li>
-              <li ><a href="/aens/finished" >Finished</a></li>
+              <li  class="active"><a href="/aens/finished" >Finished</a></li>
              <!--  <li><a href="#" data-toggle="tab">Expiring</a></li> -->
             </ul>
             <div class="tab-content1">
             
 			<div class="tab-pane table-responsive no-padding " >
-				<h3> <?php echo $inauction_count;?> In Auction</h3>
+				<h3> <?php echo $registered_count;?> Finished</h3>
 				<table class="table table-bordered table-hover" width:100%>
 					<tr>
-                   <th>Height</th>                   
-                  <th>Name</th>  
-                  <th>Length</th>               
+                  <th>Name</th>
+                  <th>Length</th>
                   <th>Bid Price(AE)</th>
-                  <th>Ref. Fee</th>
-                  <th>Last Bidder</th>
+                  <th>Winner</th>
                   <th>Bid times</th>
-                  <th>Expires at</th>
+                  <th>Height</th>
                   
                 </tr>
-					<?php echo $inauction;?>
+					<?php echo $latest100;?>
 				</table>
 			</div>
 			

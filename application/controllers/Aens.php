@@ -12,6 +12,15 @@ class Aens extends CI_Controller {
 		$this->output->cache(1);
 		}
 	
+	public function finished(){
+		$this->load->model('aenses');	
+		$data=$this->aenses->showAENS();
+		$data['status']="";
+		$data['aename']="";
+		$this->load->view('AENS_finished.html',$data);
+		$this->output->cache(1);
+		}
+	
 	public function viewbids($name){
 		$this->load->model('aenses');	
 		$data=$this->aenses->showBids($name);
