@@ -14,6 +14,10 @@ class Aenses extends CI_Model {
 			$data['inauction']="";
 			$data['burning']=0;
 			$data['inauction_count']=0;
+			
+			for($i=0;$i<100000;$i++){
+				$mytable[$i]="";
+				}
 			foreach ($query->result() as $row){
 				$tx=$row->tx;
 				$data['inauction_count']++;
