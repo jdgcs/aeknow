@@ -174,7 +174,7 @@ class Aenses extends CI_Model {
 					$higher.="(<font color=red>+$higherrate%</font>)";
 					}
 				
-				$data[$leftheight].="<tr><td>$height</td><td>$aename</td><td>$length</td><td>$name_fee$higher</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$leftheight</td></tr>\n";
+				$mytable[$leftheight].="<tr><td>$height</td><td>$aename</td><td>$length</td><td>$name_fee$higher</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$leftheight</td></tr>\n";
 			}
 			
 			$table=ksort($mytable);
