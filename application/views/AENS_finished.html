@@ -88,7 +88,7 @@
                 </li>
                 
                 <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?>+ AE</a>
+                  <i class="fa fa-btc margin-r-5"></i><b>Total Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?>+ AE</a>
                 </li>
                 
                 <li class="list-group-item">
@@ -131,12 +131,13 @@
 				<h3> <?php echo $registered_count;?> Finished</h3>
 				<table class="table table-bordered table-hover" width:100%>
 					<tr>
+				<th>Bid Height</th>	
                   <th>Name</th>
                   <th>Length</th>
                   <th>Bid Price(AE)</th>
                   <th>Winner</th>
                   <th>Bid times</th>
-                  <th>Height</th>
+                 <th>Expire at Height</th>	
                   
                 </tr>
 					<?php echo $latest100;?>

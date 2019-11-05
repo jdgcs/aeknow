@@ -92,6 +92,101 @@ class Aenses extends CI_Model {
 			}
 			
 		
+		public function showAENSFinished(){
+			$this->load->database();
+			$topheight=$this->GetTopHeight();
+			$data['topheight']=$topheight;
+		
+						
+			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NULL group by recipient_id) order by block_height desc;";
+			$query = $this->db->query($sql);
+			$data['inauction']="";
+			$data['burning']=0;
+			$data['inauction_count']=0;
+			foreach ($query->result() as $row){
+				$tx=$row->tx;
+				$data['inauction_count']++;
+				$info=json_decode($tx);
+				$name=$info->tx->name;
+				$txhash=$info->hash;
+				$height=$info->block_height;
+				$aename="<a href=/block/transaction/$txhash target=_blank>$name</a>";
+				$account_id=$info->tx->account_id;
+				$account_id_show="ak_****".substr($account_id,-4);
+				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$data['burning']=$data['burning']+$name_fee;
+				$init_fee=$this->calcFee($name);
+				$length=strlen($name)-6;
+				$expired=$this->calcExpired($name);				
+				$expired=$expired+$height;
+				
+				$leftheight=$expired-$topheight;
+				$est=date("Y-m-d H:i:s", (time()+$leftheight*3*60));
+				
+				$passedheight=$topheight-$height;
+				$bidtimes=$this->getBidCount($name);
+				
+				$higher="";
+				if($bidtimes>1){
+					$higherrate=round((($name_fee-$init_fee)/$init_fee)*100,2);
+					$higher.="(<font color=red>+$higherrate%</font>)";
+					}
+					
+				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
+				//$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$aename</td><td>$length</td><td>$name_fee$higher</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
+			}
+			
+			
+			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NOT NULL group by recipient_id) order by block_height desc;";
+			$query = $this->db->query($sql);
+			$data['latest100']="";
+			$data['burned']=0;
+			$data['registered_count']=0;
+			
+			for($i=0;$i<60000;$i++){
+				$mytable[$i]="";
+				}
+				
+			foreach ($query->result() as $row){
+				$tx=$row->tx;
+				$data['registered_count']++;
+				$info=json_decode($tx);
+				$name=$info->tx->name;
+				$aename="<a href=/$name target=_blank>$name</a>";
+				$account_id=$info->tx->account_id;
+				$account_id_show="ak_****".substr($account_id,-4);
+				$name_fee=$info->tx->name_fee/1000000000000000000;
+				$data['burned']=$data['burned']+$name_fee;
+				$init_fee=$this->calcFee($name);
+				$length=strlen($name)-6;
+				$height=$info->block_height;
+				$bidtimes=$this->getBidCount($name);
+				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
+				
+				$expired=$this->calcExpired($name);				
+				$expired=$expired+$height;				
+				$leftheight=$expired-$topheight;
+				
+				$higher="";
+				if($bidtimes>1){
+					$higherrate=round((($name_fee-$init_fee)/$init_fee)*100,2);
+					$higher.="(<font color=red>+$higherrate%</font>)";
+					}
+				
+				$data[$leftheight].="<tr><td>$height</td><td>$aename</td><td>$length</td><td>$name_fee$higher</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$leftheight</td></tr>\n";
+			}
+			
+			$table=ksort($mytable);
+			//print_r($mytable);
+			
+			foreach ($mytable as $col) {
+				$data['latest100'].=$col;
+			}
+			
+					
+			return $data;
+			}
+		
 		
 		public function showAENS(){
 			$this->load->database();
