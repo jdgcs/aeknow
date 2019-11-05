@@ -212,8 +212,9 @@ class Aenses extends CI_Model {
 			
 		public function getBidCount($name){
 			$name=strtolower($name);
+			
 			$this->load->database();		
-			$sql="SELECT count(*) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND recipient_id ~* '$name'";
+			$sql="SELECT count(*) FROM txs WHERE block_height>161150 AND txtype='NameClaimTx' AND recipient_id='$name'";
 			$query_count = $this->db->query($sql);
 			
 			foreach ($query_count->result() as $row){
