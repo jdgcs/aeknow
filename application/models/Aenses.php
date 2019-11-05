@@ -166,7 +166,7 @@ class Aenses extends CI_Model {
 				$expired=$this->calcExpired($name);				
 				$expired=$expired+$height;				
 				$leftheight=$expired-$topheight;
-				if($leftheight<0){$leftheight=0;}
+				if($leftheight<1){$leftheight=1;}
 				
 				$higher="";
 				if($bidtimes>1){
