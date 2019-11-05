@@ -137,7 +137,7 @@ class Aenses extends CI_Model {
 			}
 			
 			
-			$sql="select tx FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NOT NULL group by recipient_id) order by block_height desc;";
+			$sql="select tx,pointer FROM txs where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NOT NULL group by recipient_id) order by block_height desc;";
 			$query = $this->db->query($sql);
 			$data['latest100']="";
 			$data['burned']=0;
@@ -149,6 +149,7 @@ class Aenses extends CI_Model {
 				
 			foreach ($query->result() as $row){
 				$tx=$row->tx;
+				$pointer=$row->pointer;
 				$data['registered_count']++;
 				$info=json_decode($tx);
 				$name=$info->tx->name;
@@ -163,8 +164,10 @@ class Aenses extends CI_Model {
 				$bidtimes=$this->getBidCount($name);
 				$bidtimes="<a href=/aens/viewbids/$name target=_blank>$bidtimes</a>";
 				
-				$expired=$this->calcExpired($name);				
-				$expired=$expired+$height;				
+				$info_pointer=json_decode($pointer);
+				
+				$expired=$info_pointer->ttl;				
+				//$expired=$expired+$height;				
 				$leftheight=$expired-$topheight;
 				if($leftheight<1){$leftheight=1;}
 				
