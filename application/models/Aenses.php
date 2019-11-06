@@ -624,7 +624,7 @@ public function base58_decode($base58)
 	if($length==9){return 12;}
 	if($length==10){return 8;}
 	if($length==11){return 5;}
-	if($length>11){return "<3";}
+	if($length>11){return 2.88;}
 	
 	return 0;
 }
