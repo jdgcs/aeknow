@@ -51,7 +51,7 @@ class Aenses extends CI_Model {
 				
 				
 				if($length<13){
-					if($leftheight<1){$leftheight=1)
+					if($leftheight<1){$leftheight=1;}
 					$mytable[$leftheight].="<tr><td>$leftheight</td><td>$aename</td><td>$length</td><td>$name_fee$higher</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$bidtimes</td><td>$expired(~$est)</td></tr>\n";
 				}
 			
