@@ -16,6 +16,7 @@ class Miners extends CI_Model {
 		
 		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
 		//$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
+		/*
 		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
 		
@@ -38,7 +39,7 @@ class Miners extends CI_Model {
 				//<td>".$this->getTotalReward($trueaddress)." AE</td>
 				$data['topminers'].= "<tr><td>".$counter."</td><td><a href=/address/wallet/$trueaddress>".$showaddress."</a></td><td><span class='badge bg-blue'>".$minedblocks."</span></td><td>$percentage %</td><td>".$this->getTotalReward($trueaddress)." AE</td></tr>";
 			}
-		}
+		}*/
 
 		$data['blocksmined']= $topheight;
 		$data['totalminers']= $query->num_rows();
