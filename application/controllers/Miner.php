@@ -46,6 +46,19 @@ class Miner extends CI_Controller {
 		$this->output->cache(1/2);
 	}
 	
+	public function page1()
+	{	$this->load->model('miners');
+		$data=$this->miners->getMinerIndex();
+		
+		//get the language of the browser
+		$this->load->model('languages');	
+		$data['mylang']=$this->languages->getPreferredLanguage();
+		$data['mylang']="en";
+		$this->load->view('en/minerboard.html',$data);
+		//$this->output->cache(1/2);
+	}
+	
+	
 	public function inflation(){
 		$this->load->database();
 		$sql="SELECT * from aeinflation ORDER BY blockid";

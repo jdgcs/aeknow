@@ -2,8 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Miners extends CI_Model {
-	
 	public function getMinerIndex(){
+		echo "upgrading miner's page...";
+		}
+	
+	public function getMinerIndex1(){
 		$this->load->database();
 		$topheight=$this->GetTopHeight();
 		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
