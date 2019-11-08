@@ -40,7 +40,7 @@ class Miner extends CI_Controller {
 	
 	public function page1()
 	{	$this->load->model('miners');
-		$data=$this->miners->getMinerIndex();
+		$data=$this->miners->getMinerIndex1();
 		
 		//get the language of the browser
 		$this->load->model('languages');	
