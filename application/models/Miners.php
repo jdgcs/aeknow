@@ -106,7 +106,7 @@ class Miners extends CI_Model {
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
 			
 		
-		
+	/*	
 		////////////////////////////////Latest 20 Transactions////////////////////////
 		//$trans_sql="SELECT * from transactions order by block_height desc,nonce desc limit 20";		
 		$trans_sql="SELECT * FROM txs WHERE block_height is not NULL ORDER BY block_height desc,tid desc LIMIT 20";
@@ -148,7 +148,9 @@ class Miners extends CI_Model {
 				}
 			}
 			
+		*/
 		
+		/*
 		/////////////////////////////////Last 20 blocks/////////////////////////
 		$counter=0;
 		$sql='select beneficiary,height,time from miner WHERE orphan is FALSE order by height desc LIMIT 20;';
@@ -178,6 +180,8 @@ class Miners extends CI_Model {
 				$data['lastmined'].="<tr><td><a href=/block/height/$height>$height</a></td><td><a href=/address/wallet/$trueaddress>".$showaddress."</a></td><td>".$minedtime."</td><td><span class='badge bg-yellow'>Forked</span></td></tr>";				
 				}
 		}
+		*/
+		
 		
 		//////////////////////////////get difficulty////////////////////////////
 		$url=DATA_SRC_SITE."v2/status";
