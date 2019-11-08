@@ -205,7 +205,7 @@ public function wallet($ak=NULL,$page=1,$type='all'){
 		$this->load->model('Wallets');	
 		$data=$this->Wallets->getWalletInfo($ak,$page,$type);
 		$this->load->view('en/account.html',$data);
-		//$this->output->cache(2);
+		$this->output->cache(2);
 		}	
 		
 	public function accountimg($ak=NULL){
