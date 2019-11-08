@@ -18,7 +18,7 @@ class Miners extends CI_Model {
 		
 		
 		$sql="SELECT mining_hashrate,mined_coins,nodes_total,latest_blocks,latest_transactions,mining_difficulty,mining_reward FROM suminfo Order by sid desc LIMIT 1;";
-		$query = $this->db->query($topminersql);
+		$query = $this->db->query($sql);
 		foreach ($query->result() as $row){
 			$data['totalaemined']=$row->mined_coins;
 			$data['lasttxs']=$row->latest_transactions;
