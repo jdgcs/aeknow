@@ -43,6 +43,7 @@ class Miners extends CI_Model {
 		$data['totalaemined']=$this->getTotalMined();
 		
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
+		/*
 		$timetag=(time()-(24*60*60))*1000; 
 		$tagheight=$topheight-600;
 		$blocksnum_24=0;
@@ -52,7 +53,8 @@ class Miners extends CI_Model {
 		$row = $query->row();
 		$blocksnum_24=$row->count;
 		$data['total_24']=$blocksnum_24;
-		
+		*/
+		$data['total_24']=480;
 		
 		$counter=0;
 		$blockcounter=0;
