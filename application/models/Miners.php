@@ -13,7 +13,7 @@ class Miners extends CI_Model {
 		$blockcounter=0;
 		$data['topminers']= "";
 		$data['lastmined']= "";
-		/*
+		
 		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
 		//$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
 		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
@@ -43,7 +43,7 @@ class Miners extends CI_Model {
 		$data['blocksmined']= $topheight;
 		$data['totalminers']= $query->num_rows();
 		$data['totalaemined']=$this->getTotalMined();
-		*/
+		
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		/*
 		$timetag=(time()-(24*60*60))*1000; 
