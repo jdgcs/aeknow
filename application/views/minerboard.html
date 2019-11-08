@@ -1,3 +1,7 @@
+<?php 
+$this->config->set_item('language', $mylang); 
+$this->lang->load('index');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +13,6 @@
    <Meta name="description" content="AEKnow allows you to explore and search the Aeternity high performance blockchain for mining, transactions, addresses, tokens, prices and other resources, activities taking place on Aeternity (AE) ">
   <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16">
-
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <base href="https://www.aeknow.org/" />
@@ -41,7 +44,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 <?php $this->load->view('header.html');?> 
-<?php $this->load->view('aside.html');?> 
+<?php $this->load->view('sidebar.html');?> 
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -91,9 +94,9 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3><?php echo $currentreward;?> AE</h3>
+              <h3><?php echo $currentreward*0.891;?> AE</h3>
 
-              <p>Reward per block</p>
+              <p>per block(<a href=/address/wallet/ak_2KAcA2Pp1nrR8Wkt3FtCkReGzAi8vJ9Snxa4PcmrthVx8AhPe8 title="Block Reward Initiative"  style="color: #fff;">BRI</a>)</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -126,7 +129,11 @@
                 <tr>
                    <th>Total Mined: <?php echo $totalaemined;?> AE</th>  
                   
-                  <th>Total Hashrate: ~<?php echo $totalhashrate;?> M Sols/s (<a href="/stats/hashrate">Hashrate trend</a>)</th>
+                  <th>Total Hashrate: ~<?php 
+                  //$totalhashrate1=round(($totalhashrate*1000*42)/600,2);
+                  echo $totalhashrate;
+                  
+                  ?> Kg/s (<?php echo "~".round($totalhashrate*14.28/1000,2)." M, ";?><a href="/stats/hashrate">Hashrate trend</a>)</th>
                  
                 </tr>              
 			</table>
@@ -195,22 +202,7 @@
           <!-- /.box -->
               </div>
               
-               <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th>Pool</th>
-                  <th>Hashrate</th>                  
-                  <th >Reward</th> 
-                   <th >Update(UTC)</th>                 
-                </tr>
-               
-                  <?php echo $pools;?>
-
-			</table>
-            </div>
-              
-              
-             <div class="box-body table-responsive no-padding">
+              <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
                   <th>#</th>
@@ -223,6 +215,25 @@
 
 			</table>
             </div>
+            
+            
+               <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th>Pool</th>
+                  <th>Hashrate</th>                  
+                <!--  <th >Reward</th> -->
+                   <th >Update(UTC)</th>                 
+                </tr>
+               
+                  <?php echo $pools;?>
+
+			</table>
+            </div>
+              
+              
+             
+            
             <!-- /.box-body -->
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
@@ -239,39 +250,7 @@
       </div>
       
       <div class="row">
-<section class="col-lg-7 connectedSortable">		  
-		  <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Lastest 20 Transactions</h3>
-               <h3 class="box-title" style="float:right;"><a href=/transaction>View All>></a></h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th>TxHash</th>
-                                
-                  <th >Amount</th>
-                  <th >Sender</th>
-                  <th >Receiver</th> 
-                   <th >TxType</th> 
-                  <th >Time(UTC)</th>
-                </tr>
-               
-                  <?php echo $lasttxs;?>
-
-			</table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                
-                <li><a href="/transaction">More Details</a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- /.miners box -->
-	</section>	  
+ 
 	 <section class="col-lg-5 connectedSortable">	  
 		  
 		          <div class="box">
@@ -311,7 +290,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
- <?php $this->load->view('footer.html');?> 
+<?php $this->load->view('footer.html');?> 
 </div>
 <!-- ./wrapper -->
 </div>
