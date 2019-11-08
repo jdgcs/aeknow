@@ -52,10 +52,10 @@ class Miners extends CI_Model {
 		$data['topminers_24']= "";
 		$data['lastmined']= "";
 		$data['piechart']= "";
-		$data['totalhashrate']=0;
+		//$data['totalhashrate']=0;
 		$piecounter=0;
 		
-		/*
+		
 		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
 		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE (data->>'time')::numeric >$timetag  AND orphan is NULL AND height>$tagheight group by beneficiary order by count desc;";
 		$query = $this->db->query($topminersql);
@@ -89,7 +89,7 @@ class Miners extends CI_Model {
 				//<td>".$this->getTotalReward($trueaddress)." AE</td>
 				$data['topminers_24'].= "<tr><td>".$counter."</td><td><a href=/address/wallet/$trueaddress>".$showaddress."</a></td><td><span class='badge bg-blue'>".$minedblocks."</span></td><td>$percentage%</td></tr>";
 			}
-		}*/
+		}
 		
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
 			
