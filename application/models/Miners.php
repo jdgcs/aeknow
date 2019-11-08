@@ -42,7 +42,7 @@ class Miners extends CI_Model {
 
 		$data['blocksmined']= $topheight;
 		$data['totalminers']= $query->num_rows();
-		$data['totalaemined']=$this->getTotalMined();
+		//$data['totalaemined']=$this->getTotalMined();
 		
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		/*
