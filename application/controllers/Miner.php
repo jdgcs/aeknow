@@ -35,15 +35,7 @@ class Miner extends CI_Controller {
 	}
 	
 	public function page()
-	{	$this->load->model('miners');
-		$data=$this->miners->getMinerIndex();
-		
-		//get the language of the browser
-		$this->load->model('languages');	
-		$data['mylang']=$this->languages->getPreferredLanguage();
-		$data['mylang']="en";
-		$this->load->view('en/minerboard.html',$data);
-		$this->output->cache(1/2);
+	{	echo "upgrading miner's page...";
 	}
 	
 	public function page1()
