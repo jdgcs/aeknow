@@ -50,7 +50,7 @@ class Miners extends CI_Model {
 		$counter=0;
 		$blockcounter=0;
 		$data['topminers_24']= "";
-		$data['lastmined']= "";
+		//$data['lastmined']= "";
 		$data['piechart']= "";
 		//$data['totalhashrate']=0;
 		$piecounter=0;
