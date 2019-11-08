@@ -45,7 +45,7 @@ class Miners extends CI_Model {
 		$data['totalminers']=214;
 		//$data['totalminers']= $query->num_rows();
 		$data['totalaemined']=9999;
-		//$data['totalaemined']=$this->getTotalMined();
+		$data['totalaemined']=$this->getTotalMined($topheight);
 		
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		
@@ -109,7 +109,7 @@ class Miners extends CI_Model {
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
 			
 		
-	/*	
+	
 		////////////////////////////////Latest 20 Transactions////////////////////////
 		//$trans_sql="SELECT * from transactions order by block_height desc,nonce desc limit 20";		
 		$trans_sql="SELECT * FROM txs WHERE block_height is not NULL ORDER BY block_height desc,tid desc LIMIT 20";
@@ -151,7 +151,7 @@ class Miners extends CI_Model {
 				}
 			}
 			
-		*/
+		
 		
 		/*
 		/////////////////////////////////Last 20 blocks/////////////////////////
@@ -592,8 +592,8 @@ public function getHashRate(){
 		return $data['totalreward'];
 		}	
 	
-	public function getTotalMined(){
-		$latestheight=$this->GetTopHeight();
+	public function getTotalMined($latestheight){
+		//$latestheight=$this->GetTopHeight();
 		$totalmined=0;
 		for($i=1;$i<$latestheight+1;$i++){
 			$totalmined=$totalmined+$this->getReward($i);
