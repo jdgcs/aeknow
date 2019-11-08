@@ -193,7 +193,7 @@ class Miners extends CI_Model {
 		
 		//////////////////////////////get hashrate////////////////////////////
 		$data['totalhashrate']=0;		
-		$data['totalhashrate']=$this->getHashRate();
+		//$data['totalhashrate']=$this->getHashRate();
 		
 		
 		
@@ -204,7 +204,8 @@ class Miners extends CI_Model {
 		$row = $query->row();
 		$data['currentreward']=$row->reward/10;
 		
-		$data['pools']=$this->getPools();
+		/*$data['pools']=$this->getPools();*/
+		$data['pools']="";
 		
 		return $data;
 		}
