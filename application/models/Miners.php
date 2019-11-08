@@ -106,7 +106,7 @@ class Miners extends CI_Model {
 		
 		
 		
-		$data['pools']=$this->getPools();*/
+		$data['pools']=$this->getPools();
 		//$data['pools']="";
 		
 		return $data;
