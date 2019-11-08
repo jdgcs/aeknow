@@ -27,7 +27,7 @@ class Miner extends CI_Controller {
 		$this->output->cache(1/2);
 	}
 	
-	public function index()
+	public function index_0()
 	{	//$this->load->model('miners');
 		//$data=$this->miners->getMinerIndex();
 		$this->load->view('en/minerpage.html');
@@ -38,7 +38,7 @@ class Miner extends CI_Controller {
 	{	echo "upgrading miner's page...";
 	}
 	
-	public function page1()
+	public function index()
 	{	$this->load->model('miners');
 		$data=$this->miners->getMinerIndex1();
 		
@@ -47,7 +47,7 @@ class Miner extends CI_Controller {
 		$data['mylang']=$this->languages->getPreferredLanguage();
 		$data['mylang']="en";
 		$this->load->view('minerboard.html',$data);
-		//$this->output->cache(1/2);
+		$this->output->cache(1);
 	}
 	
 	
