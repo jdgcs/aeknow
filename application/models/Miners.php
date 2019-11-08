@@ -9,14 +9,16 @@ class Miners extends CI_Model {
 	public function getMinerIndex1(){
 		$this->load->database();
 		$topheight=$this->GetTopHeight();
-		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
-		//$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
-		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
-		$query = $this->db->query($topminersql);
 		$counter=0;
 		$blockcounter=0;
 		$data['topminers']= "";
 		$data['lastmined']= "";
+		/*
+		//$timetag=(time()-(24*60*60))*1000; time>$timetag AND
+		//$topminersql="select beneficiary,count(*) from miner WHERE orphan is FALSE group by beneficiary order by count desc;";
+		$topminersql="select data->>'beneficiary' as beneficiary,count(*) from keyblocks WHERE orphan is NULL group by beneficiary order by count desc;";
+		$query = $this->db->query($topminersql);
+		
 		foreach ($query->result() as $row)
 		{
 			$counter++;
@@ -41,7 +43,7 @@ class Miners extends CI_Model {
 		$data['blocksmined']= $topheight;
 		$data['totalminers']= $query->num_rows();
 		$data['totalaemined']=$this->getTotalMined();
-		
+		*/
 		////////////////////////////top 20 miners last 24h////////////////////////////////////////////
 		/*
 		$timetag=(time()-(24*60*60))*1000; 
@@ -54,6 +56,7 @@ class Miners extends CI_Model {
 		$blocksnum_24=$row->count;
 		$data['total_24']=$blocksnum_24;
 		*/
+		$blocksnum_24=480;
 		$data['total_24']=480;
 		
 		$counter=0;
