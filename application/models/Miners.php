@@ -85,7 +85,8 @@ class Miners extends CI_Model {
 				$percentage=round((($minedblocks*100)/$blocksnum_24),2);
 				if($counter==1){
 					$beehashrate=$this->getHashRate();
-					//$data['totalhashrate']=round(($beehashrate[0]/$percentage)*10,2);}
+					//$data['totalhashrate']=round(($beehashrate[0]/$percentage)*10,2);
+					}
 				//<td>".$this->getTotalReward($trueaddress)." AE</td>
 				$data['topminers_24'].= "<tr><td>".$counter."</td><td><a href=/address/wallet/$trueaddress>".$showaddress."</a></td><td><span class='badge bg-blue'>".$minedblocks."</span></td><td>$percentage%</td></tr>";
 			}
