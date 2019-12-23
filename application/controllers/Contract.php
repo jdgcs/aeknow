@@ -15,7 +15,7 @@ class Contract extends CI_Controller {
 		$this->load->model('contracts');	
 		$data=$this->contracts->getContractDetail($cthash);
 		$this->load->view('contracts_detail.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 	}
 	
 }

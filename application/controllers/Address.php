@@ -23,6 +23,7 @@ class Address extends CI_Controller {
 		$this->load->model('miners');
 		$data=$this->miners->getMinerIndex();
 		$this->load->view('minerboard_new.html',$data);
+		$this->output->cache(3);
 		}
 	 
 	public function index()
@@ -196,6 +197,7 @@ class Address extends CI_Controller {
 		$data['currentreward']=$row->reward/10;
 		
 		$this->load->view('miningreward.html',$data);
+		$this->output->cache(3);
 		//$this->output->cache(1);
 		}	
 

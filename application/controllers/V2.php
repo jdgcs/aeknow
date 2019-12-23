@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class V2_close extends CI_Controller {
+class V2 extends CI_Controller {
 	
 	public function debug($type,$function){
 		$poststr = $this->security->xss_clean($this->input->raw_input_stream);

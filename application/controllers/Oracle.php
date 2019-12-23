@@ -45,6 +45,7 @@ class Oracle extends CI_Controller {
 		$data['mylang']=$this->languages->getPreferredLanguage();
 		
 		$this->load->view('en/oracles_prediction.html',$data);
+		$this->output->cache(3);
 		}
 		
 	
@@ -57,6 +58,7 @@ class Oracle extends CI_Controller {
 		$data['mylang']=$this->languages->getPreferredLanguage();
 		
 		$this->load->view('en/oracles_finish.html',$data);
+		$this->output->cache(3);
 		
 		}
 	

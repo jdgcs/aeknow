@@ -9,7 +9,7 @@ class Api extends CI_Controller {
 		$this->load->model('networks');
 		$data['api']=$this->networks->getNetworkStatus();
 		$this->load->view('en/api.html',$data);
-		$this->output->cache(1/4);
+		$this->output->cache(2);
 	}
 	
 	public function tx($ak,$limit=20,$offset=0){
@@ -21,7 +21,7 @@ class Api extends CI_Controller {
 		$this->load->model('apis');
 		$data=$this->apis->getAccount($ak);
 		$this->load->view('en/blank.html',$data);
-		$this->output->cache(1/4);
+		$this->output->cache(2);
 		}	
 		
 	public function totalcoins(){
@@ -33,7 +33,7 @@ class Api extends CI_Controller {
 		$this->load->model('networks');
 		$data['api']=$this->networks->getNetworkStatus();
 		$this->load->view('en/api.html',$data);
-		$this->output->cache(1/4);
+		$this->output->cache(2);
 		}
 }
 

@@ -13,7 +13,7 @@ class Network extends CI_Controller {
 		$data['mylang']=$this->languages->getPreferredLanguage();
 		
 		$this->load->view('en/networkstatus.html',$data);
-		$this->output->cache(1/4);
+		$this->output->cache(3);
 	}
 	
 	public function mempool(){
@@ -26,7 +26,7 @@ class Network extends CI_Controller {
 			$this->load->model('networks');
 			$data['api']=$this->networks->getNetworkStatus();
 			$this->load->view('en/api.html',$data);
-			$this->output->cache(1/4);
+			$this->output->cache(3);
 			}
 		}
 }
