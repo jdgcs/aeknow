@@ -9,7 +9,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_new.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 		}
 	
 	public function finished(){
@@ -18,7 +18,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_finished.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 		}
 	
 	public function byblock(){
@@ -27,7 +27,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_byexpiring.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 		}
 	
 	public function viewbids($name){
@@ -36,7 +36,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_bidslog.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 		}
 	
 		
@@ -46,7 +46,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 		}
 	
 	public function index_old()
@@ -56,7 +56,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('en/aens_index.html',$data);
-		$this->output->cache(1);
+		$this->output->cache(3);
 	}
 	
 	function query($aename=""){

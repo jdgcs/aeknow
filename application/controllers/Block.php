@@ -45,6 +45,7 @@ class Block extends CI_Controller {
 		
 		
 			$this->load->view('en/blocks_v2.html',$data);
+			$this->output->cache(2);
 		}else{
 			echo "NULL";
 			}
@@ -58,9 +59,11 @@ class Block extends CI_Controller {
 		
 		//get the language of the browser
 			$this->load->model('languages');	
-			$data['mylang']=$this->languages->getPreferredLanguage();
+			//$data['mylang']=$this->languages->getPreferredLanguage();
+			$data['mylang']="en";
 			
 		$this->load->view('en/block_v2.html',$data);
+		$this->output->cache(2);
 				
 		if($height<($topheight-10)){
 			//$this->output->cache(300);
@@ -76,7 +79,8 @@ class Block extends CI_Controller {
 		
 		//get the language of the browser
 			$this->load->model('languages');	
-			$data['mylang']=$this->languages->getPreferredLanguage();
+			//$data['mylang']=$this->languages->getPreferredLanguage();
+			$data['mylang']="en";
 			
 		$this->load->view('en/block_v2.html',$data);
 		$this->output->cache(3);
@@ -90,9 +94,10 @@ class Block extends CI_Controller {
 			
 			//get the language of the browser
 			$this->load->model('languages');	
-			$data['mylang']=$this->languages->getPreferredLanguage();
-				
-			$this->load->view('en/tx_detail.html',$data);		
+			//$data['mylang']=$this->languages->getPreferredLanguage();
+				$data['mylang']="en";
+			$this->load->view('en/tx_detail.html',$data);	
+			$this->output->cache(2);	
 		}else{echo "NULL";}
 		//$this->output->cache(3);
 		}
@@ -103,9 +108,11 @@ class Block extends CI_Controller {
 		if($transactions=="transactions"){
 			$data=$this->blocks->getMicroBlockTransactions($microblockhash);
 			$this->load->view('en/transactions.html',$data);
+			$this->output->cache(3);
 			}else{
 			$data=$this->blocks->getMicroBlockInfo($microblockhash);
 			$this->load->view('en/mblock.html',$data);
+			$this->output->cache(3);
 			}
 		//$this->output->cache(3);
 		}

@@ -10,10 +10,10 @@ class User extends CI_Controller {
 		
 		//get the language of the browser
 		$this->load->model('languages');	
-		$data['mylang']=$this->languages->getPreferredLanguage();
-		
+		//$data['mylang']=$this->languages->getPreferredLanguage();
+		$data['mylang']="en";
 		$this->load->view('en/user.html',$data);
-		//$this->output->cache(1/2);
+		$this->output->cache(2);
 	}
 	
 	public function vote($ak,$starttime=0,$endtime=0)
@@ -21,6 +21,7 @@ class User extends CI_Controller {
 		$this->load->model('users');
 		$data=$this->users->getVoteData($ak);		
 		$this->load->view('en/vote.html',$data);
+		$this->output->cache(2);
 	}
 
 }
