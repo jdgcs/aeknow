@@ -85,7 +85,7 @@ class Block extends CI_Controller {
 			$data['mylang']="en";
 			
 		$this->load->view('en/block_v2.html',$data);
-		$this->output->cache(5);
+		$this->output->cache(30*24*60);	
 		}
 	
 	public function transaction($transactionhash=""){
@@ -114,7 +114,7 @@ class Block extends CI_Controller {
 			}else{
 			$data=$this->blocks->getMicroBlockInfo($microblockhash);
 			$this->load->view('en/mblock.html',$data);
-			$this->output->cache(5);
+			$this->output->cache(30*24*60);	
 			}
 		//$this->output->cache(3);
 		}
