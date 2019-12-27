@@ -45,7 +45,7 @@ class Block extends CI_Controller {
 		
 		
 			$this->load->view('en/blocks_v2.html',$data);
-			$this->output->cache(2);
+			$this->output->cache(5);
 		}else{
 			echo "NULL";
 			}
@@ -63,11 +63,13 @@ class Block extends CI_Controller {
 			$data['mylang']="en";
 			
 		$this->load->view('en/block_v2.html',$data);
-		$this->output->cache(2);
+		
 				
 		if($height<($topheight-10)){
-			//$this->output->cache(300);
-		}
+			$this->output->cache(30*24*60);
+		}else{
+			$this->output->cache(5);
+			}
 		}
 	
 	public function keyblock($keyblockhash){
@@ -83,7 +85,7 @@ class Block extends CI_Controller {
 			$data['mylang']="en";
 			
 		$this->load->view('en/block_v2.html',$data);
-		$this->output->cache(3);
+		$this->output->cache(5);
 		}
 	
 	public function transaction($transactionhash=""){
@@ -97,7 +99,7 @@ class Block extends CI_Controller {
 			//$data['mylang']=$this->languages->getPreferredLanguage();
 				$data['mylang']="en";
 			$this->load->view('en/tx_detail.html',$data);	
-			$this->output->cache(2);	
+			$this->output->cache(30*24*60);	
 		}else{echo "NULL";}
 		//$this->output->cache(3);
 		}
@@ -112,7 +114,7 @@ class Block extends CI_Controller {
 			}else{
 			$data=$this->blocks->getMicroBlockInfo($microblockhash);
 			$this->load->view('en/mblock.html',$data);
-			$this->output->cache(3);
+			$this->output->cache(5);
 			}
 		//$this->output->cache(3);
 		}
