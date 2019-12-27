@@ -473,7 +473,7 @@ class Blocks extends CI_Model {
 	
 	private function getwebsrc($url) {
 	$curl = curl_init ();
-	$agent = "User-Agent: AE-testbot";
+	$agent = "User-Agent: AEKnow urgent balancer";
 	
 	curl_setopt ( $curl, CURLOPT_URL, $url );
 
