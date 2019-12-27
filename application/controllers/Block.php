@@ -196,7 +196,7 @@ class Block extends CI_Controller {
 	
 	private function getwebsrc($url) {
 	$curl = curl_init ();
-	$agent = "User-Agent: AE-testbot";
+	$agent = "User-Agent: AEKnow urgent bot";
 	
 	curl_setopt ( $curl, CURLOPT_URL, $url );
 
