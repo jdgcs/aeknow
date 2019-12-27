@@ -99,7 +99,7 @@ class Block extends CI_Controller {
 			//$data['mylang']=$this->languages->getPreferredLanguage();
 				$data['mylang']="en";
 			$this->load->view('en/tx_detail.html',$data);	
-			$this->output->cache(30*24*60);	
+			$this->output->cache(3);	
 		}else{echo "NULL";}
 		//$this->output->cache(3);
 		}
