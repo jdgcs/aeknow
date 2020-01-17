@@ -268,7 +268,7 @@ class Blocks extends CI_Model {
 							}	
 						
 						
-						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td>'.$content_tx.'</td></tr>';
+						$data['table_data'].='<tr><td><b>'.$key_tx.'</b> </td><td  style="word-wrap:break-word;word-break:break-all;" width="100px";>'.$content_tx.'</td></tr>';
 						}
 					}else{					
 					if($key=='signatures'){
