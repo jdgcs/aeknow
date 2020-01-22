@@ -66,7 +66,7 @@ class Aenses extends CI_Model {
 			
 			
 			
-			$sql="select tx FROM txs_aens where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs_aens WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is NOT NULL group by recipient_id) order by block_height desc;";
+			$sql="select tx FROM txs_aens where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs_aens WHERE block_height>161150 AND txtype='NameClaimTx' AND pointers is NOT NULL group by recipient_id) order by block_height desc;";
 			$query = $this->db->query($sql);
 			$data['latest100']="";
 			$data['burned']=0;

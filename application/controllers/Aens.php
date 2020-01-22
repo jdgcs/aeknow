@@ -18,7 +18,7 @@ class Aens extends CI_Controller {
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_expiring.html',$data);
-		$this->output->cache(3);
+		//$this->output->cache(3);
 		}
 	
 	
