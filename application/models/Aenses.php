@@ -10,7 +10,7 @@ class Aenses extends CI_Model {
 			$data['topheight']=$topheight;
 		
 						
-			$sql="select tx FROM txs_aens where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs_aens WHERE block_height>161150 AND txtype='NameClaimTx' AND pointer is not NULL group by recipient_id) order by block_height desc;";
+			$sql="select tx FROM txs_aens where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs_aens WHERE block_height>161150 AND txtype='NameClaimTx' AND pointers is not NULL group by recipient_id) order by block_height desc;";
 			$query = $this->db->query($sql);
 			$data['inauction']="";
 			$data['burning']=0;
