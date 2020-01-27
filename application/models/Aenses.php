@@ -21,11 +21,14 @@ class Aenses extends CI_Model {
 			
 			foreach ($query->result() as $row){
 				$aensname=$row->aensname;
+				$biddetails="<a href=/aens/viewbids/$aensname>Bid detail</a>";
+				
 				$aensname="<a href=/$aensname>$aensname</a>";
 				$expire_height=$row->expire_height;
 				$nameowner=$row->nameowner;
-				$nameowner="<a href=/address/wallet/$nameowner>$nameowner</a>";
-				$biddetails="<a href=/aens/viewbids/$aensname>Bid detail</a>";
+				$account_id_show="ak_****".substr($nameowner,-4);
+				$nameowner="<a href=/address/wallet/$nameowner>$account_id_show</a>";
+				
 				$est_days=round(($expire_height-$topheight)/480,2);
 				if($expire_height>$topheight){
 				$data['expiring'].="<tr><td>$expire_height(~ $est_days days)</td><td>$aensname</td><td>$nameowner</td><td>$biddetails</td></tr>\n";
