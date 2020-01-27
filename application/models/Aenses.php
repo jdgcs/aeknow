@@ -19,10 +19,12 @@ class Aenses extends CI_Model {
 			
 			foreach ($query->result() as $row){
 				$aensname=$row->aensname;
+				$aensname="<a href=/$aensname>$aensname</a>";
 				$expire_height=$row->expire_height;
 				$nameowner=$row->nameowner;
-				$biddetails="/aens/viewbids/aensname";
-				if($expire_height<$topheight){
+				$nameowner="<a href=/address/wallet/$nameowner>$nameowner</a>";
+				$biddetails="<a href=/aens/viewbids/aensname>Bid detail</a>";
+				if($expire_height>$topheight){
 				$data['expiring'].="<tr><td>$expire_height</td><td>$aensname</td><td>$nameowner</td><td>$biddetails</td></tr>\n";
 			}else{
 				$data['expired'].="<tr><td>$expire_height</td><td>$aensname</td><td>$nameowner</td><td>$biddetails</td></tr>\n";
