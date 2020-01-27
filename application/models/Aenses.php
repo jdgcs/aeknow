@@ -14,6 +14,7 @@ class Aenses extends CI_Model {
 			//$sql="select tx FROM txs_aens where(recipient_id,block_height) in(SELECT recipient_id,max(block_height) from txs_aens WHERE block_height>161150 AND txtype='NameClaimTx' AND pointers is not NULL group by recipient_id) order by block_height desc;";
 			//$sql="select tx FROM txs_aens where(aensname,block_height) in(SELECT aensname,max(block_height) from txs_aens WHERE block_height>161150 AND txtype='NameClaimTx' AND pointers is not NULL group by aensname) order by block_height desc;";
 			$sql="select distinct(aensname),expire_height,nameowner from txs_aens WHERE expire_height is not null AND expire_height<$target_height order by expire_height;";
+			$sql="select distinct(aensname),expire_height,nameowner from txs_aens WHERE expire_height is not null order by expire_height;";
 			$query = $this->db->query($sql);
 			$data['expiring']="";
 			$data['expired']="";
