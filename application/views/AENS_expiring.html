@@ -72,42 +72,20 @@
             <div class="box-body box-profile">
               
 
-              <h1 class="profile-username text-center">AENS Summary</h1>
+              <h1 class="profile-username text-center">Expired</h1>
 
              
               <ul class="list-group list-group-unbordered">
-                 <li class="list-group-item">
-                  <i class="fa fa-at margin-r-5"></i><b>AENS names:</b> <a class="pull-right"> <?php echo $inauction_count+$registered_count;?> </a>
-                </li>
-                 <li class="list-group-item">
-                 <i class="fa fa-exchange margin-r-5"></i><b>In auction:</b> <a herf="#transaction" class="pull-right"><?php echo round($inauction_count);?></a>
-                </li>
-                
-                <li class="list-group-item">
-                 <i class="fa fa-cog margin-r-5"></i><b>Finished:</b> <a class="pull-right"> <?php echo $registered_count;?></a>
-                </li>
-                
-                <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Total Consumption:</b> <a class="pull-right"><?php echo round($burning)+round($burned);?>+ AE</a>
-                </li>
-                
-                <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Burning:</b> <a class="pull-right"><?php echo round($burning);?>+ AE</a>
-                </li>
-                
-                 <li class="list-group-item">
-                  <i class="fa fa-btc margin-r-5"></i><b>Burned:</b> <a class="pull-right" href="/address/wallet/ak_11111111111111111111111111111111273Yts" target="_blank" title="Burned to the address ak_11111111111111111111111111111111273Yts"><?php echo round($burned);?>+ AE</a>
-                </li>
-                
-                 <li class="list-group-item">
-                  <i class="fa fa-cubes margin-r-5"></i><b>Top Height:</b> <a class="pull-right"><?php echo $topheight;?> </a>
-                </li>
-                
-                
-                <li class="list-group-item">    
-                 <strong><i class="fa fa-file-text-o margin-r-5"></i>Register Tools</strong>
-				<br/>1. <a href="https://base.aepps.com/" target="_blank">Base aepp</a>
-                </li>
+                <table class="table table-bordered table-hover" width:100%>
+					<tr>
+                   <th>Expire in</th>                   
+                  <th>Name</th>  
+                  <th>Owner</th>               
+                  <th>Bid details</th>                  
+                  
+                </tr>
+					<?php echo $expired;?>
+				</table>
               </ul>
 <!--
               <a href="#" class="btn btn-primary btn-block"><b>Claim</b></a>
@@ -124,27 +102,24 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li><a href="/aens" >In Auction(by auction time)</a></li>
-              <li  class="active"><a href="/aens/byblock" >In Auction(by expiring block)</a></li>
+              <li  ><a href="/aens/byblock" >In Auction(by expiring block)</a></li>
               <li ><a href="/aens/finished" >Finished</a></li>
+              <li class="active"><a href="/aens/expiring" >Expiring</a></li>
              <!--  <li><a href="#" data-toggle="tab">Expiring</a></li> -->
             </ul>
             <div class="tab-content1">
             
 			<div class="tab-pane table-responsive no-padding " >
-				<h3> <?php echo $inauction_count;?> In Auction</h3>
+				<h3> Expiring</h3>
 				<table class="table table-bordered table-hover" width:100%>
 					<tr>
                    <th>Expire in</th>                   
                   <th>Name</th>  
-                  <th>Length</th>               
-                  <th>Bid Price(AE)</th>
-                  <th>Ref. Fee</th>
-                  <th>Last Bidder</th>
-                  <th>Bid times</th>
-                  <th>Expires at</th>
+                  <th>Owner</th>               
+                  <th>Bid details</th>                  
                   
                 </tr>
-					<?php echo $inauction;?>
+					<?php echo $expiring;?>
 				</table>
 			</div>
 			
