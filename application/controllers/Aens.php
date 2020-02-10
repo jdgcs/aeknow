@@ -60,7 +60,7 @@ class Aens extends CI_Controller {
 		
 	public function viewnames($ak){
 		$this->load->model('aenses');	
-		$data=$this->aenses->showNamesofOwner($name);
+		$data=$this->aenses->showNamesofOwner($ak);
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_nameowner.html',$data);

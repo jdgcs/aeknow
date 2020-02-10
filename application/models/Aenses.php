@@ -614,9 +614,8 @@ class Aenses extends CI_Model {
 						
 			$sql="SELECT distinct aensname,expire_height FROM txs_aens WHERE nameowner='$nameowner' order by expire_height;";
 			$query = $this->db->query($sql);
-			$data['mynames']="";
-			$data['namecounter']=0;
-			$data['inauction_count']=0;
+			$data['inauction']="";
+			$data['namecounter']=0;			
 			
 			foreach ($query->result() as $row){
 				$aensname=$row->aensname;
