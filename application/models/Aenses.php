@@ -610,22 +610,23 @@ class Aenses extends CI_Model {
 		public function showNamesofOwner($nameowner){			
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
+			$data['nameowner']=$nameowner;	
 		
 						
 			$sql="SELECT distinct aensname,expire_height FROM txs_aens WHERE nameowner='$nameowner' order by expire_height;";
 			$query = $this->db->query($sql);
-			$data['inauction']="";
+			$data['mynames']="";
 			$data['namecounter']=0;			
 			
 			foreach ($query->result() as $row){
 				$aensname=$row->aensname;
 				$expire_height=$row->expire_height;
-				$bidtimes=$this->getBidCount($aensname);
-				$data['namecounter']++;			
-				
-				$leftheight=round(($expire_height-$topheight)/480,2);				
-				
-				$data['inauction'].="<tr><td>".$data['namecounter']."</td><td>$aensname</td><td>$expire_height</td><td>~$leftheight days</td><td><a href=/aens/viewbids/$aensname>$bidtimes</a></td></tr>\n";
+				if(trim($aensname)!=""){
+					$bidtimes=$this->getBidCount($aensname);
+					$data['namecounter']++;					
+					$leftheight=round(($expire_height-$topheight)/480,2);					
+					$data['mynames'].="<tr><td>".$data['namecounter']."</td><td>$aensname</td><td>$expire_height</td><td>~$leftheight days</td><td><a href=/aens/viewbids/$aensname>$bidtimes</a></td></tr>\n";
+				}
 			}
 			
 			
