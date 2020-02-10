@@ -42,7 +42,7 @@ class Aens extends CI_Controller {
 		
 	public function byblock(){
 		$this->load->model('aenses');	
-		$data=$this->aenses->showAENSbyBlock();
+		$data=$this->aenses->showAENSbyBlock_New();
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_byexpiring.html',$data);
@@ -57,7 +57,15 @@ class Aens extends CI_Controller {
 		$this->load->view('AENS_bidslog.html',$data);
 		$this->output->cache(3);
 		}
-	
+		
+	public function indexnew(){
+		$this->load->model('aenses');	
+		$data=$this->aenses->showAENS_New();
+		$data['status']="";
+		$data['aename']="";
+		$this->load->view('AENS.html',$data);
+		$this->output->cache(3);
+		}
 		
 	public function index(){
 		$this->load->model('aenses');	
