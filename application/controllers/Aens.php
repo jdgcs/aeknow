@@ -58,6 +58,15 @@ class Aens extends CI_Controller {
 		$this->output->cache(3);
 		}
 		
+	public function viewnames($ak){
+		$this->load->model('aenses');	
+		$data=$this->aenses->showNamesofOwner($name);
+		$data['status']="";
+		$data['aename']="";
+		$this->load->view('AENS_nameowner.html',$data);
+		//$this->output->cache(3);
+		}	
+		
 	public function indexnew(){
 		$this->load->model('aenses');	
 		$data=$this->aenses->showAENS_New();

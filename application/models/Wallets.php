@@ -204,12 +204,7 @@ class Wallets extends CI_Model {
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		$data['aensname']=$row->count;
-		/*
-		$sql="SELECT count(*) FROM txs WHERE tx->'tx'->'pointers' @>'[{\"id\":\"$ak\",\"key\":\"account_pubkey\"}]'::jsonb;";
-		$query = $this->db->query($sql);
-		$row = $query->row();		
-		$data['aensname']=$row->count;
-		*/
+	
 		return $data;
 		
 		}

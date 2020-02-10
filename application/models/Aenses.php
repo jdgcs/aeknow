@@ -606,6 +606,33 @@ class Aenses extends CI_Model {
 			
 			return $data;
 			}
+		
+		public function showNamesofOwner($nameowner){			
+			$this->load->database();
+			$topheight=$this->GetTopHeight();
+		
+						
+			$sql="SELECT distinct aensname,expire_height FROM txs_aens WHERE nameowner='$nameowner' order by expire_height;";
+			$query = $this->db->query($sql);
+			$data['mynames']="";
+			$data['namecounter']=0;
+			$data['inauction_count']=0;
+			
+			foreach ($query->result() as $row){
+				$aensname=$row->aensname;
+				$expire_height=$row->expire_height;
+				$bidtimes=$this->getBidCount($aensname);
+				$data['namecounter']++;			
+				
+				$leftheight=round(($expire_height-$topheight)/480,2);				
+				
+				$data['inauction'].="<tr><td>".$data['namecounter']."</td><td>$aensname</td><td>$expire_height</td><td>~$leftheight days</td><td><a href=/aens/viewbids/$aensname>$bidtimes</a></td></tr>\n";
+			}
+			
+			
+			return $data;
+			}
+		
 			
 			
 		public function showBids($name){
@@ -657,7 +684,7 @@ class Aenses extends CI_Model {
 			$topheight=$this->GetTopHeight();
 			
 			$this->load->database();		
-			$sql="SELECT count(distinct(aensname)) FROM txs_aens WHERE nameowner='$nameowner'";
+			$sql="SELECT count(distinct(aensname)) FROM txs_aens WHERE nameowner='$nameowner' AND expire_height>$topheight";
 			$query_count = $this->db->query($sql);
 			
 			foreach ($query_count->result() as $row){
