@@ -651,6 +651,22 @@ class Aenses extends CI_Model {
 			
 			return $data;
 			}
+		
+		public function getNameCountofOwner($nameowner){
+			$name=strtolower($name);
+			$topheight=$this->GetTopHeight();
+			
+			$this->load->database();		
+			$sql="SELECT count(distinct(aensname)) FROM txs_aens WHERE nameowner='$nameowner'";
+			$query_count = $this->db->query($sql);
+			
+			foreach ($query_count->result() as $row){
+				return $row->count;
+			}
+			
+			return 0;
+			
+			}
 			
 		public function getBidCount($name){
 			$name=strtolower($name);

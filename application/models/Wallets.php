@@ -199,6 +199,11 @@ class Wallets extends CI_Model {
 		
 		/////////////////////////////////////////////Get AENS names//////////////////////////////////
 		$data['aensname']=0;
+			
+		$sql="SELECT count(distinct(aensname)) FROM txs_aens WHERE nameowner='$nameowner'";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		$data['aensname']=$row->count;
 		/*
 		$sql="SELECT count(*) FROM txs WHERE tx->'tx'->'pointers' @>'[{\"id\":\"$ak\",\"key\":\"account_pubkey\"}]'::jsonb;";
 		$query = $this->db->query($sql);
