@@ -51,7 +51,7 @@ class Aens extends CI_Controller {
 	
 	public function viewbids($name){
 		$this->load->model('aenses');	
-		$data=$this->aenses->showBids($name);
+		$data=$this->aenses->showBids_New($name);
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_bidslog.html',$data);
