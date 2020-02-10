@@ -24,7 +24,7 @@ class Aens extends CI_Controller {
 	
 	public function finished(){
 		$this->load->model('aenses');	
-		$data=$this->aenses->showAENS();
+		$data=$this->aenses->showAENS_New();
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS_finished.html',$data);
@@ -69,7 +69,7 @@ class Aens extends CI_Controller {
 		
 	public function index(){
 		$this->load->model('aenses');	
-		$data=$this->aenses->showAENS();
+		$data=$this->aenses->showAENS_New();
 		$data['status']="";
 		$data['aename']="";
 		$this->load->view('AENS.html',$data);
