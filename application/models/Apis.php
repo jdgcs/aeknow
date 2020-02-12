@@ -33,7 +33,7 @@ class Apis extends CI_Model {
 		$this->load->database();
 		$sql="SELECT distinct aensname,expire_height FROM txs_aens WHERE nameowner='$ak' order by expire_height";	
 		$query = $this->db->query($sql);
-		$aenscounter=0;
+		$counter=0;
 		
 		foreach ($query->result() as $row){
 			$aens[$counter]['aensname']=$row->aensname;
