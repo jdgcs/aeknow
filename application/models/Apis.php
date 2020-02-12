@@ -38,11 +38,11 @@ class Apis extends CI_Model {
 
 		foreach ($query->result() as $row){
 			$aens[$row->aensname]=$row->expire_height;
-			$str.='{"aensname":"'.$row->aensname.'","expire_height":'.$row->expire_height.'},';
+			$str.='[{"aensname":"'.$row->aensname.'","expire_height":'.$row->expire_height.'},';
 			//$aens[$counter]['expire_height']=$row->expire_height;
 			}
-		$str.="}END";
-		$str=str_replace(",}END","}",$str);
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
 		//$data['count']=$counter;
 		//$data=$this->object_array($aens);
 		//$data=json_encode($str);
