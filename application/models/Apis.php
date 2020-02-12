@@ -40,7 +40,7 @@ class Apis extends CI_Model {
 			//$aens[$counter]['expire_height']=$row->expire_height;
 			}
 			
-		$data['info']=$this->object_array($row);
+		$data=$this->object_array($row);
 		
 		return $data;
 		
