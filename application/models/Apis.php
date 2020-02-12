@@ -69,8 +69,9 @@ class Apis extends CI_Model {
 			$str="BIDDING";
 			}else{
 				if($nameowner=="NONE"){
+						$str=="NONE";
 					}else{
-						$nameowner=="DONE";
+						$str=="DONE";
 						}
 				}
 		
