@@ -22,9 +22,14 @@ class Api extends CI_Controller {
 		//$data['api']=$this->apis->getAENS($ak);
 		$data['info']=$this->apis->getAENS($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->cache(2);
+		}	
+	public function aensquery($aensname){
+		$this->load->model('apis');
+		$data['info']=$this->apis->queryAENS($aensname);
+		$this->load->view('en/blank.html',$data);
 		//$this->output->cache(2);
 		}	
-	
 	public function account($ak){
 		$this->load->model('apis');
 		$data=$this->apis->getAccount($ak);
