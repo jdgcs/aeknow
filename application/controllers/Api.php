@@ -16,7 +16,14 @@ class Api extends CI_Controller {
 		$this->load->model('apis');
 		$this->apis->getTx($ak,$limit,$offset);
 		}
-		
+	
+	public function aens($ak){
+		$this->load->model('apis');
+		$data=$this->apis->getAENS($ak);
+		$this->load->view('en/blank.html',$data);
+		//$this->output->cache(2);
+		}	
+	
 	public function account($ak){
 		$this->load->model('apis');
 		$data=$this->apis->getAccount($ak);
