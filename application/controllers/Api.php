@@ -28,7 +28,7 @@ class Api extends CI_Controller {
 		$this->load->model('apis');
 		$data['info']=$this->apis->queryAENS($aensname);
 		$this->load->view('en/blank.html',$data);
-		//$this->output->cache(2);
+		$this->output->cache(2);
 		}	
 	public function account($ak){
 		$this->load->model('apis');
