@@ -45,7 +45,7 @@ class Apis extends CI_Model {
 		$str=str_replace(",}END","}",$str);
 		//$data['count']=$counter;
 		//$data=$this->object_array($aens);
-		$data=json_decode($str);
+		$data=json_encode($str);
 		
 		return $data;
 		
