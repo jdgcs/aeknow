@@ -56,22 +56,24 @@ class Apis extends CI_Model {
 	
 	public function queryAENS($aensname){
 		$this->load->database();
-		$sql="SELECT nameowner FROM txs_aens WHERE aensname='$aensname' order by block_height desc LIMIT 1";	
+		$sql="SELECT nameowner,amount FROM txs_aens WHERE aensname='$aensname' order by block_height desc LIMIT 1";	
 		$query = $this->db->query($sql);
 		$counter=0;
 		$nameowner="NONE";
+		$amount=0;
 		
 		foreach ($query->result() as $row){
 			$nameowner=trim($row->nameowner);
+			$amount=$row->amount;
 			}
 			
 		if($nameowner==""){
-			$str="BIDDING";
+			$str="BIDDING:$amount";
 			}else{
 				if($nameowner=="NONE"){
 						$str="NONE";
 					}else{
-						$str="DONE";
+						$str="DONE:$amount";
 						}
 				}
 		
