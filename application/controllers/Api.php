@@ -19,8 +19,9 @@ class Api extends CI_Controller {
 	
 	public function aens($ak){
 		$this->load->model('apis');
-		$data['api']=$this->apis->getAENS($ak);
-		$this->load->view('en/api.html',$data);
+		//$data['api']=$this->apis->getAENS($ak);
+		$data['info']=$this->apis->getAENS($ak);
+		$this->load->view('en/blank.html',$data);
 		//$this->output->cache(2);
 		}	
 	
