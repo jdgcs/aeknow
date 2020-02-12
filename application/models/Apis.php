@@ -38,7 +38,9 @@ class Apis extends CI_Model {
 
 		foreach ($query->result() as $row){
 			$aens[$row->aensname]=$row->expire_height;
-			$str.='[{"aensname":"'.$row->aensname.'","expire_height":'.$row->expire_height.'},';
+			if(trim($row->aensname)!=""){
+				$str.='[{"aensname":"'.$row->aensname.'","expire_height":'.$row->expire_height.'},';
+			}
 			//$aens[$counter]['expire_height']=$row->expire_height;
 			}
 		$str.="]}END";
