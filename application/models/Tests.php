@@ -5,7 +5,7 @@ class Tests extends CI_Model {
 	
 	public function getAENSBidding($ak){
 		$this->load->database();
-		$sql="SELECT distinct aensname FROM txs_aens WHERE txtype='NameClaimTx' AND sender_id='$ak' AND nameowner is null order by expire_height";	
+		$sql="SELECT distinct aensname FROM txs_aens WHERE txtype='NameClaimTx' AND sender_id='$ak' AND nameowner is null";	
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str="{\"names\":[";		
