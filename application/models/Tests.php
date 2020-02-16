@@ -11,7 +11,7 @@ class Tests extends CI_Model {
 		$str="{\"names\":[";		
 
 		foreach ($query->result() as $row){
-			$aens[$row->aensname]=$row->expire_height;
+			//$aens[$row->aensname]=$row->expire_height;
 			if(trim($row->aensname)!=""){
 				$info=$this->queryAENSBidding($aensname);
 				$str.='{"aensname":"'.$row->aensname.'","lastbidder":'.$info['sender_id'].',"lastprice":'.$info['amount'].'},';
