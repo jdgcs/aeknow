@@ -13,7 +13,7 @@ class Tests extends CI_Model {
 		foreach ($query->result() as $row){
 			//$aens[$row->aensname]=$row->expire_height;
 			if(trim($row->aensname)!=""){
-				$info=$this->queryAENSBidding($aensname);
+				$info=$this->queryAENSBidding($row->aensname);
 				$str.='{"aensname":"'.$row->aensname.'","lastbidder":'.$info['sender_id'].',"lastprice":'.$info['amount'].'},';
 			}
 			//$aens[$counter]['expire_height']=$row->expire_height;
