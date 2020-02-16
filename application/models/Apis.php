@@ -49,6 +49,8 @@ class Apis extends CI_Model {
 		//$data=$this->object_array($aens);
 		//$data=json_encode($str);
 		
+		//$sql="SELECT distinct aensname,expire_height FROM txs_aens WHERE txtype='NameClaimTx' AND sender_id='$ak' AND nameowner is NULL order by expire_height";	
+		
 		return $str;
 		
 		}
