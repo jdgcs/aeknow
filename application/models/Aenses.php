@@ -618,7 +618,7 @@ class Aenses extends CI_Model {
 						$recipient_id_show="To: <a href=/address/wallet/$recipient_id>ak_****".substr($recipient_id,-4)."</a>";						
 						$txhash_show="<a href=/block/transaction/$txhash>$txhash</a>";
 						
-						$data['inauction'].="<tr><td>$height</td><td>$txtype</td><td>$sender_id_show</td><td>$recipient_id_show</td><td>$txhash_show</td></tr>\n";
+						$data['inauction'].="<tr><td>$height</td><td>$txtype</td><td>$sender_id_show => $recipient_id_show</td><td>$txhash_show</td></tr>\n";
 					}else{
 						$txhash_show="<a href=/block/transaction/$txhash>$txhash</a>";
 						$data['inauction'].="<tr><td>$height</td><td>$txtype</td><td>$txhash_show</td></tr>\n";
