@@ -611,10 +611,14 @@ class Aenses extends CI_Model {
 					$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
 				}else{
 					if($txtype=='NameTransferTx'){
+						$sender_id=$info->tx->sender_id;
 						$recipient_id=$info->tx->recipient_id;
-						$recipient_id_show="To: <a href=/address/wallet/$recipient_id>ak_****".substr($recipient_id,-4)."</a>";
+						
+						$sender_id_show="From: <a href=/address/wallet/$sender_id>ak_****".substr($sender_id,-4)."</a>";
+						$recipient_id_show="To: <a href=/address/wallet/$recipient_id>ak_****".substr($recipient_id,-4)."</a>";						
 						$txhash_show="<a href=/block/transaction/$txhash>$txhash</a>";
-						$data['inauction'].="<tr><td>$height</td><td>$txtype</td><td>$recipient_id_show</td><td>$txhash_show</td></tr>\n";
+						
+						$data['inauction'].="<tr><td>$height</td><td>$txtype</td><td>$sender_id_show</td><td>$recipient_id_show</td><td>$txhash_show</td></tr>\n";
 					}else{
 						$txhash_show="<a href=/block/transaction/$txhash>$txhash</a>";
 						$data['inauction'].="<tr><td>$height</td><td>$txtype</td><td>$txhash_show</td></tr>\n";
