@@ -568,7 +568,7 @@ class Aenses extends CI_Model {
 			$data['name']=$name;
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
-			$sql="SELECT name_id from txs_aens WHERE aensname='$name' order by block_height desc LIMIT 1 "
+			$sql="SELECT name_id from txs_aens WHERE aensname='$name' order by block_height desc LIMIT 1 ";
 			$query = $this->db->query($sql);
 			$row = $query->row();
 			$name_id= $row->name_id;
