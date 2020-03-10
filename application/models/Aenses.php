@@ -568,39 +568,51 @@ class Aenses extends CI_Model {
 			$data['name']=$name;
 			$this->load->database();
 			$topheight=$this->GetTopHeight();
+			$sql="SELECT name_id from txs_aens WHERE aensname='$name' order by block_height desc LIMIT 1 "
+			$query = $this->db->query($sql);
+			$row = $query->row();
+			$name_id= $row->name_id;
 		
 						
-			$sql="select tx FROM txs_aens where aensname='$name' order by block_height desc;";
+			$sql="select tx,txtype FROM txs_aens where aensname='$name' or name_id='$name_id' order by block_height desc;";
 			$query = $this->db->query($sql);
 			$data['inauction']="";
 			$data['burning']=0;
 			$data['inauction_count']=0;
 			$bidtimes=$this->getBidCount($name);
 			foreach ($query->result() as $row){
-				$mybid=$bidtimes-$data['inauction_count'];
+				$txtype=$row->txtype;
 				$tx=$row->tx;
-				$data['inauction_count']++;
 				$info=json_decode($tx);
-				$name=$info->tx->name;
 				$txhash=$info->hash;
 				$height=$info->block_height;
-				$aename="<a href=/block/transaction/$txhash target=_blank>$name</a>";
-				$account_id=$info->tx->account_id;
-				$account_id_show="ak_****".substr($account_id,-4);
-				$name_fee=$info->tx->name_fee/1000000000000000000;
-				$data['burning']=$data['burning']+$name_fee;
-				$init_fee=$this->calcFee($name);
-				$length=strlen($name)-6;
-				$expired=$this->calcExpired($name);				
-				$expired=$expired+$height;
 				
-				$leftheight=$expired-$topheight;
-				$est=date("Y-m-d H:i:s", (time()+$leftheight*3*60));
-				
-				$passedheight=$topheight-$height;
-				
-				
-				$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
+				if($txtype=='NameClaimTx'){
+					$mybid=$bidtimes-$data['inauction_count'];					
+					$data['inauction_count']++;					
+					$name=$info->tx->name;				
+					
+					$aename="<a href=/block/transaction/$txhash target=_blank>$name</a>";
+					$account_id=$info->tx->account_id;
+					$account_id_show="ak_****".substr($account_id,-4);
+					$name_fee=$info->tx->name_fee/1000000000000000000;
+					$data['burning']=$data['burning']+$name_fee;
+					$init_fee=$this->calcFee($name);
+					$length=strlen($name)-6;
+					$expired=$this->calcExpired($name);				
+					$expired=$expired+$height;
+					
+					$leftheight=$expired-$topheight;
+					$est=date("Y-m-d H:i:s", (time()+$leftheight*3*60));
+					
+					$passedheight=$topheight-$height;
+					
+					
+					$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
+				}else{
+					$txhash_show="<a href=/block/transaction/$txhash>$txhash</a>";
+					$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$txtype</td><td>$txhash_show</td></tr>\n";
+					}
 			}
 			
 			
@@ -642,7 +654,7 @@ class Aenses extends CI_Model {
 			$topheight=$this->GetTopHeight();
 		
 						
-			$sql="select tx FROM txs where recipient_id='$name' order by block_height desc;";
+			$sql="select tx FROM txs_aens where aensname='$name' order by block_height desc;";
 			$query = $this->db->query($sql);
 			$data['inauction']="";
 			$data['burning']=0;
