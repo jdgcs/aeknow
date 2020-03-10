@@ -26,8 +26,8 @@ class Api extends CI_Controller {
 		}	
 		
 	public function aensbidding($ak){
-		$this->load->model('tests');		
-		$data['info']=$this->tests->getAENSBidding($ak);
+		$this->load->model('apis');		
+		$data['info']=$this->apis->getAENSBidding($ak);
 		$this->load->view('en/blank.html',$data);
 		//$this->output->cache(2);
 		}		

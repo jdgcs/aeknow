@@ -83,7 +83,52 @@ class Apis extends CI_Model {
 		
 		}	
 	
+	public function getAENSBidding($ak){
+		$this->load->database();
+		$sql="SELECT distinct aensname FROM txs_aens WHERE txtype='NameClaimTx' AND sender_id='$ak' AND nameowner is null";	
+		$query = $this->db->query($sql);
+		$counter=0;
+		$str="{\"names\":[";		
+
+		foreach ($query->result() as $row){
+			//$aens[$row->aensname]=$row->expire_height;
+			if(trim($row->aensname)!=""){
+				$info=$this->queryAENSBidding($row->aensname);
+				$str.='{"aensname":"'.$row->aensname.'","lastbidder":"'.$info['sender_id'].'","lastprice":"'.$info['amount'].'"},';
+			}
+			//$aens[$counter]['expire_height']=$row->expire_height;
+			}
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		//$data['count']=$counter;
+		//$data=$this->object_array($aens);
+		//$data=json_encode($str);
+		
+		//$sql="SELECT distinct aensname,expire_height FROM txs_aens WHERE txtype='NameClaimTx' AND sender_id='$ak' AND nameowner is NULL order by expire_height";	
+		
+		return $str;
+		
+		}
+		
+		
+	public function queryAENSBidding($aensname){
+		$this->load->database();
+		$sql="SELECT sender_id,amount FROM txs_aens WHERE aensname='$aensname' order by block_height desc LIMIT 1";	
+		$query = $this->db->query($sql);
+		
+		$data['sender_id']="";
+		$data['amount']=0;
+		
+		foreach ($query->result() as $row){
+			$data['sender_id']=trim($row->sender_id);
+			$data['amount']=$row->amount;
+			}
+			
 	
+		
+		return $data;
+		
+		}
 	public function getTotalCoins(){
 		$this->load->database();
 		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		

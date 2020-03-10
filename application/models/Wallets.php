@@ -106,7 +106,10 @@ class Wallets extends CI_Model {
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
 				$amount=$txdata->tx->amount/1000000000000000000;
-				$recipient_id=$txdata->tx->recipient_id;			
+				$recipient_id=$txdata->tx->recipient_id;	
+				if(strpos($recipient_id,"m_")>0){
+					$recipient_id=$this->getAKbyNameHash($recipient_id);					
+					}		
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
 				$alias=$this->getalias($recipient_id);
 				if($recipient_id!=$alias){
@@ -208,6 +211,14 @@ class Wallets extends CI_Model {
 		return $data;
 		
 		}
+		
+public function getAKbyNameHash($name_id){
+	$this->load->database();
+	$sql="SELECT nameowner FROM txs_aens WHERE name_id='$name_id' LIMIT 1";
+	$query = $this->db->query($sql);
+	$row = $query->row();
+	return $row->nameowner;
+	}
 	
 public function getTokenBalance($contract,$hexaddress){
 	$this->load->database();
