@@ -611,7 +611,7 @@ class Aenses extends CI_Model {
 					$data['inauction'].="<tr><td>$height(+$passedheight)</td><td>$name_fee</td><td>$init_fee</td><td><a href=/address/wallet/$account_id>$account_id_show</a></td><td>$mybid</td><td>$expired(~$est)</td></tr>\n";
 				}else{
 					if($txtype=='NameTransferTx'){
-						$sender_id=$info->tx->sender_id;
+						$sender_id=$info->tx->account_id;
 						$recipient_id=$info->tx->recipient_id;
 						
 						$sender_id_show="From: <a href=/address/wallet/$sender_id>ak_****".substr($sender_id,-4)."</a>";
