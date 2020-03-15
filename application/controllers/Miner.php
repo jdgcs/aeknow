@@ -83,6 +83,7 @@ class Miner extends CI_Controller {
 public function viewaccount($ak=NULL){		
 		//$ak=$this->input->get('ak', TRUE);
 		$this->load->helper('url');
+		$ak=strip_tags($ak);
 		$tagstr="dd".$ak;
 		if(strpos($tagstr,"th_")>0){redirect('https://www.aeknow.org/block/transaction/'.$ak);}
 		if(strpos($tagstr,"mh_")>0){redirect('https://www.aeknow.org/block/microblock/'.$ak);}
