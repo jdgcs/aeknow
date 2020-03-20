@@ -5,8 +5,8 @@ class Tests extends CI_Model {
 	public function getToken($ak){
 		$this->load->database();
 		$tobecheck=str_replace("ak_","",$ak);
-		$tmpaddress=$this->base58_decode($ak);		
-		$hexaddress=substr($tmpaddress,0,$tobecheck);
+		$tmpaddress=$this->base58_decode($tobecheck);		
+		$hexaddress=substr($tmpaddress,0,64);
 		
 		$sql="SELECT * from tokens where address='$hexaddress'";
 		echo $sql;
