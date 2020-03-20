@@ -4,8 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tests extends CI_Model {
 	public function getToken($ak){
 		$this->load->database();
-		$tmpaddress=$this->base58_decode($ak);
-		$hexaddress=substr($tmpaddress,0,64);
+		$tobecheck=str_replace("ak_","",$ak);
+		$tmpaddress=$this->base58_decode($ak);		
+		$hexaddress=substr($tmpaddress,0,$tobecheck);
 		
 		$sql="SELECT * from tokens where address='$hexaddress'";
 		echo $sql;
