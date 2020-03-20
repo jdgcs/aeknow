@@ -9,7 +9,7 @@ class Tests extends CI_Model {
 		$hexaddress=substr($tmpaddress,0,64);
 		
 		$sql="SELECT * from tokens where address='$hexaddress'";
-		echo $sql;
+		//echo $sql;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str="{\"tokens\":[";
