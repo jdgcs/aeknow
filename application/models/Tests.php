@@ -2,7 +2,40 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tests extends CI_Model {
+	public function getToken($ak){
+		$this->load->database();
+		$tmpaddress=$this->base58_decode($ak);
+		$hexaddress=substr($tmpaddress,0,64);
+		
+		$sql="SELECT * from tokens where address='$hexaddress'";
+		$query = $this->db->query($sql);
+		$counter=0;
+		$str="{\"tokens\":[";
+		
+		foreach ($query->result() as $row){
+			if(trim($row->contract)!=""){
+				$tokeninfo=$this->getTokenName($row->contract);				
+				$str.='{"tokenname":"'.$tokeninfo['name'].'","decimal":'.$tokeninfo['decimal'].',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+			}
+			//$aens[$counter]['expire_height']=$row->expire_height;
+			}
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		
+		return $str;
+		}
 	
+	public function getTokenName($contract){
+		$this->load->database();
+		$sql="SELECT alias,decimal FROM contracts_token WHERE address='contract'";
+		$query = $this->db->query($sql);
+		$row = $query->row();	
+		$data['name']=$row->alias;
+		$data['decimal']=$row->decimal;
+		return $data;
+		}	
+		
+		
 	public function getAENSBidding($ak){
 		$this->load->database();
 		$sql="SELECT distinct aensname FROM txs_aens WHERE txtype='NameClaimTx' AND sender_id='$ak' AND nameowner is null";	
