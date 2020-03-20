@@ -29,7 +29,7 @@ class Tests extends CI_Model {
 	
 	public function getTokenInfo($contract){
 		$this->load->database();
-		$sql="SELECT alias,decimal FROM contracts_token WHERE address='contract'";
+		$sql="SELECT alias,decimal FROM contracts_token WHERE address='$contract'";
 		$query = $this->db->query($sql);
 		$row = $query->row();	
 		$data['name']=$row->alias;
