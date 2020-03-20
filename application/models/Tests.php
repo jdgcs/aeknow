@@ -14,7 +14,7 @@ class Tests extends CI_Model {
 		
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
-				$tokeninfo=$this->getTokenName($row->contract);				
+				$tokeninfo=$this->getTokenInfo($row->contract);				
 				$str.='{"tokenname":"'.$tokeninfo['name'].'","decimal":'.$tokeninfo['decimal'].',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
 			}
 			//$aens[$counter]['expire_height']=$row->expire_height;
@@ -25,7 +25,7 @@ class Tests extends CI_Model {
 		return $str;
 		}
 	
-	public function getTokenName($contract){
+	public function getTokenInfo($contract){
 		$this->load->database();
 		$sql="SELECT alias,decimal FROM contracts_token WHERE address='contract'";
 		$query = $this->db->query($sql);
