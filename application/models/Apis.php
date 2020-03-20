@@ -2,7 +2,42 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Apis extends CI_Model {
+	public function getToken($ak){
+		$this->load->database();
+		$tobecheck=str_replace("ak_","",$ak);
+		$tmpaddress=$this->base58_decode($tobecheck);		
+		$hexaddress=substr($tmpaddress,0,64);
+		
+		$sql="SELECT * from tokens where address='$hexaddress'";
+		//echo $sql;
+		$query = $this->db->query($sql);
+		$counter=0;
+		$str="{\"tokens\":[";
+		
+		foreach ($query->result() as $row){
+			if(trim($row->contract)!=""){
+				$tokeninfo=$this->getTokenInfo($row->contract);				
+				$str.='{"tokenname":"'.$tokeninfo['name'].'","decimal":'.$tokeninfo['decimal'].',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+			}
+			//$aens[$counter]['expire_height']=$row->expire_height;
+			}
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		
+		return $str;
+		}
 	
+	public function getTokenInfo($contract){
+		$this->load->database();
+		$sql="SELECT alias,decimal FROM contracts_token WHERE address='$contract'";
+		$query = $this->db->query($sql);
+		$row = $query->row();	
+		$data['name']=$row->alias;
+		$data['decimal']=$row->decimal;
+		return $data;
+		}
+		
+		
 	public function getTx($ak,$limit=20,$offset=0){
 		$this->load->database();
 		$trans_sql="SELECT txhash,txtype FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset ".$offset;		
@@ -377,5 +412,25 @@ private function getwebsrc($url) {
 
 	return $html; // and finally, return $html
 }
+
+public function base58_decode($base58)
+    {
+        $origbase58 = $base58;
+        $return = "0";
+    
+        for ($i = 0; $i < strlen($base58); $i++) {
+            // return = return*58 + current position of $base58[i]in self::$base58chars
+            $return = gmp_add(gmp_mul($return, 58), strpos("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz", $base58[$i]));
+        }
+        $return = gmp_strval($return, 16);
+        for ($i = 0; $i < strlen($origbase58) && $origbase58[$i] == "1"; $i++) {
+            $return = "00" . $return;
+        }
+        if (strlen($return) % 2 != 0) {
+            $return = "0" . $return;
+        }
+        return $return;
+    }
+    
 
 }
