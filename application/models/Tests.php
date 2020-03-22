@@ -10,12 +10,14 @@ class Tests extends CI_Model {
 		$row = $query->row();
 		
 		if($row->ctype=="AEX9"){
-			return $this->decode_token_transfer($call_data);
+			$decimal=$row->decimal;
+			return $this->decode_token_transfer($call_data,$decimal);
 			}
 		
-		if($contract_id=="ct_M9yohHgcLjhpp1Z8SaA1UTmRMQzR4FWjJHajGga8KBoZTEPwC"){
-			
-			}
+		
+		$data['address']="";
+		
+		return $data;
 		}
 		
 	public function getContractinfo($contract_id){
@@ -32,7 +34,7 @@ class Tests extends CI_Model {
 		}
 	
 	
-	public function decode_token_transfer($call_data){//获取正确的返回调用
+	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
 	$erlpath="/home/ae/ae/lima53/erts-9.3.3.13/bin/escript";
 	$clipath="/home/ae/ae/lima53/erts-9.3.3.13/bin/aesophia_cli";
 	$tokenaddress="/home/ae/ae/lima53/erts-9.3.3.13/bin/contracts/aex9.aes";
@@ -53,7 +55,8 @@ class Tests extends CI_Model {
 	$amounttmp=str_replace("}}}}","",trim($amounttmp));	
 	
 	$data['address']=$this->getAKfromHex(bin2hex($this->toAddress($addresstmp)));	
-	$data['amount']=$amounttmp;
+	$data['amount']=number_format($amounttmp/pow(10,$decimal), 18, '.', '');
+	
 	return $data;
 	}
 	
