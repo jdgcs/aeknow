@@ -360,6 +360,7 @@ class Blocks extends CI_Model {
 	
 	//echo "$cmd\n";
 	exec($cmd,$ret);
+	$addresstmp="";
 	for($i=0;$i<count($ret);$i++){
 		if(strpos($ret[$i],"{address")>0 && strpos($ret[$i-1],"tuple,")>0){
 			$addresstmp=$ret[$i+1].$ret[$i+2].$ret[$i+3];
