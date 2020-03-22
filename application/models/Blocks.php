@@ -325,7 +325,8 @@ class Blocks extends CI_Model {
 		if($row->ctype=="AEX9"){
 			$decimal=$row->decimal;
 			$data= $this->decode_token_transfer($call_data,$decimal);
-			$returnstr="<br/>Transfer to:".$data['address'].", Amount:".$data['amount']."";
+			$toaddress="<a href=/address/wallet/".$data['address'].">".$data['address']."</a> ";
+			$returnstr="<br/>(Transfer ".$data['amount']." ".$row->alias." to:".$toaddress.")";
 			
 			return $returnstr;
 			}
