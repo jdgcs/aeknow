@@ -321,16 +321,16 @@ class Blocks extends CI_Model {
 		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		
-		if($row->ctype=="AEX9"){
-			$decimal=$row->decimal;
-			$data= $this->decode_token_transfer($call_data,$decimal);
-			$toaddress="<a href=/address/wallet/".$data['address'].">".$data['address']."</a> ";
-			$returnstr="<br/>(Transfer ".$data['amount']." ".$row->alias." to:".$toaddress.")";
-			
-			return $returnstr;
-			}
-		
+		if ($query->num_rows() > 0){
+			if($row->ctype=="AEX9"){
+				$decimal=$row->decimal;
+				$data= $this->decode_token_transfer($call_data,$decimal);
+				$toaddress="<a href=/address/wallet/".$data['address'].">".$data['address']."</a> ";
+				$returnstr="<br/>(Transfer ".$data['amount']." ".$row->alias." to:".$toaddress.")";
+				
+				return $returnstr;
+				}
+		}
 		
 		$data['address']="";
 		
@@ -342,6 +342,7 @@ class Blocks extends CI_Model {
 		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";
 		$query = $this->db->query($sql);
 		$row = $query->row();
+		
 		if ($query->num_rows() > 0){
 			if($row->ctype=="AEX9"){
 				return "(".$row->alias.")";
