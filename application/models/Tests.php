@@ -52,7 +52,7 @@ class Tests extends CI_Model {
 	$addresstmp=str_replace(">>},","",$addresstmp);	
 	$amounttmp=str_replace("}}}}","",trim($amounttmp));	
 	
-	$data['address']=getAKfromHex(bin2hex(toAddress($addresstmp)));	
+	$data['address']=$this->getAKfromHex(bin2hex($this->toAddress($addresstmp)));	
 	$data['amount']=$amounttmp;
 	return $data;
 	}
@@ -74,7 +74,7 @@ class Tests extends CI_Model {
 	$fullstr=$hex.$myhash;
 	//echo "$fullstr\n";
 	
-	return "ak_". base58_encode(hex2bin($fullstr));
+	return "ak_". $this->base58_encode(hex2bin($fullstr));
 	}
 
 	public function base58_encode($string)
