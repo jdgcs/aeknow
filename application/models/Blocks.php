@@ -243,7 +243,7 @@ class Blocks extends CI_Model {
 							}	
 						
 						if($key_tx=="contract_id"){
-							$comtarct_info=$this->getContractinfo($contract_id);
+							$comtarct_info=$this->getContractinfo($txData->tx->contract_id);
 							$content_tx=$content_tx.$comtarct_info;
 							}
 						
