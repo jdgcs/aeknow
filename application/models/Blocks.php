@@ -242,6 +242,17 @@ class Blocks extends CI_Model {
 							$content_tx="<a href=/oracle/id/$content_tx>$content_tx</a>";
 							}	
 						
+						if($key_tx=="contract_id"){
+							//$comtarct_info=$this->getContractinfo($content_tx);
+							//$content_tx=$content_tx.$comtarct_info;
+							}
+						
+						if($key_tx=="call_data"){
+							//$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
+							//$content_tx=$content_tx.$call_info;
+							}
+							
+							
 						if($key_tx=="payload"){							
 							$str=bin2hex(base64_decode(str_replace("ba_","",$content_tx)));
 							$fordecode=strip_tags(hex2bin(substr($str,0,strlen($str)-8)));
@@ -304,7 +315,6 @@ class Blocks extends CI_Model {
 		
 		return $data;	
 		}
-	
 	
 	
 	public function getMicroBlockInfo($microblockhash){
