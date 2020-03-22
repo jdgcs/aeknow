@@ -243,13 +243,13 @@ class Blocks extends CI_Model {
 							}	
 						
 						if($key_tx=="contract_id"){
-							//$comtarct_info=$this->getContractinfo($content_tx);
-							//$content_tx=$content_tx.$comtarct_info;
+							$comtarct_info=$this->getContractinfo($contract_id);
+							$content_tx=$content_tx.$comtarct_info;
 							}
 						
 						if($key_tx=="call_data"){
-							//$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
-							//$content_tx=$content_tx.$call_info;
+							$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
+							$content_tx=$content_tx.$call_info;
 							}
 							
 							
@@ -315,6 +315,124 @@ class Blocks extends CI_Model {
 		
 		return $data;	
 		}
+	
+	public function getCallInfo($call_data,$contract_id){
+		$this->load->database();
+		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		
+		if($row->ctype=="AEX9"){
+			$decimal=$row->decimal;
+			$data= $this->decode_token_transfer($call_data,$decimal);
+			$returnstr="<br/>Transfer to:".$data['address'].", Amount:".$data['amount']."";
+			
+			return $returnstr;
+			}
+		
+		
+		$data['address']="";
+		
+		return $data;
+		}
+		
+	public function getContractinfo($contract_id){
+		$this->load->database();
+		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		
+		if($row->ctype=="AEX9"){
+			return "(".$row->alias.")";
+			}
+		
+		return "";
+		}
+	
+	
+	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
+	$erlpath="/home/ae/ae/lima53/erts-9.3.3.13/bin/escript";
+	$clipath="/home/ae/ae/lima53/erts-9.3.3.13/bin/aesophia_cli";
+	$tokenaddress="/home/ae/ae/lima53/erts-9.3.3.13/bin/contracts/aex9.aes";
+	
+	$cmd="$erlpath $clipath $tokenaddress -b fate --call_result $call_data --call_result_fun meta_info";
+	
+	//echo "$cmd\n";
+	exec($cmd,$ret);
+	for($i=0;$i<count($ret);$i++){
+		if(strpos($ret[$i],"{address")>0 && strpos($ret[$i-1],"tuple,")>0){
+			$addresstmp=$ret[$i+1].$ret[$i+2].$ret[$i+3];
+			$amounttmp=$ret[$i+4];
+			}
+		}
+	$addresstmp=str_replace("<<","",$addresstmp);
+	$addresstmp=str_replace("\n","",$addresstmp);	
+	$addresstmp=str_replace(">>},","",$addresstmp);	
+	$amounttmp=str_replace("}}}}","",trim($amounttmp));	
+	
+	$data['address']=$this->getAKfromHex(bin2hex($this->toAddress($addresstmp)));	
+	$data['amount']=floatval(number_format($amounttmp/pow(10,$decimal), 18, '.', ''));
+	
+	return $data;
+	}
+	
+	
+	public function toAddress($str){
+	$mystr="";
+	$tmpstr=explode(",",$str);
+	for($i=0;$i<count($tmpstr);$i++){
+		$mystr.=chr($tmpstr[$i]);
+		}
+	return $mystr;
+	}
+
+	public function getAKfromHex($hex){	
+	$bs = pack("H*", $hex);
+	$checksum = hash("sha256", hash("sha256", $bs, true));   
+	$myhash=substr($checksum,0,8);
+	$fullstr=$hex.$myhash;
+	//echo "$fullstr\n";
+	
+	return "ak_". $this->base58_encode(hex2bin($fullstr));
+	}
+
+	public function base58_encode($string)
+    {
+        $alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+        $base = strlen($alphabet);
+        if (is_string($string) === false) {
+            return false;
+        }
+        if (strlen($string) === 0) {
+            return '';
+        }
+        $bytes = array_values(unpack('C*', $string));
+        $decimal = $bytes[0];
+        for ($i = 1, $l = count($bytes); $i < $l; $i++) {
+            $decimal = bcmul($decimal, 256);
+            $decimal = bcadd($decimal, $bytes[$i]);
+        }
+        $output = '';
+        while ($decimal >= $base) {
+            $div = bcdiv($decimal, $base, 0);
+            $mod = bcmod($decimal, $base);
+            $output .= $alphabet[$mod];
+            $decimal = $div;
+        }
+        if ($decimal > 0) {
+            $output .= $alphabet[$decimal];
+        }
+        $output = strrev($output);
+        foreach ($bytes as $byte) {
+            if ($byte === 0) {
+                $output = $alphabet[0] . $output;
+                continue;
+            }
+            break;
+        }
+        return (string) $output;
+    }
+	
 	
 	
 	public function getMicroBlockInfo($microblockhash){
