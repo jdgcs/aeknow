@@ -342,11 +342,11 @@ class Blocks extends CI_Model {
 		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";
 		$query = $this->db->query($sql);
 		$row = $query->row();
-		
-		if($row->ctype=="AEX9"){
-			return "(".$row->alias.")";
-			}
-		
+		if ($query->num_rows() > 0){
+			if($row->ctype=="AEX9"){
+				return "(".$row->alias.")";
+				}
+		}
 		return "";
 		}
 	
