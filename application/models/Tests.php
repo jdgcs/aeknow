@@ -55,7 +55,7 @@ class Tests extends CI_Model {
 	$amounttmp=str_replace("}}}}","",trim($amounttmp));	
 	
 	$data['address']=$this->getAKfromHex(bin2hex($this->toAddress($addresstmp)));	
-	$data['amount']=number_format($amounttmp/pow(10,$decimal), 18, '.', '');
+	$data['amount']=sprintf("%f",number_format($amounttmp/pow(10,$decimal), 18, '.', ''));
 	
 	return $data;
 	}
