@@ -332,9 +332,9 @@ class Blocks extends CI_Model {
 				}
 		}
 		
-		$data['address']="";
+		$returnstr="";
 		
-		return $data;
+		return $returnstr;
 		}
 		
 	public function getContractinfo($contract_id){
