@@ -247,7 +247,7 @@ class Blocks extends CI_Model {
 							$content_tx=$content_tx.$comtarct_info;
 							}
 						
-						if($key_tx=="call_data"){
+						if($key_tx=="call_data" && (method_exists($txData->tx,'contract_id'))){
 							$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
 							$content_tx=$content_tx.$call_info;
 							}
