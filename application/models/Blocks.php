@@ -225,8 +225,14 @@ class Blocks extends CI_Model {
 		$websrc=$this->getwebsrc($url);
 		if(strpos($websrc,"block_hash")>0){
 			$txData=json_decode($websrc);
-			$data['table_data']='<tr><th colspan="3"><center><h2>'.$txData->tx->type.'</h2></center></th></tr>';
 			
+			$data['table_data']='<tr><th colspan="3"><center><h2>'.$txData->tx->type.'</h2></center></th></tr>';
+			if($txData->tx->type=="ContractCreateTx"){
+				$urlinfo=DATA_SRC_SITE.'v2/transactions/'.$transactionhash."/info";
+				$txinfo=$this->getwebsrc($urlinfo);
+				$txmore=json_decode($txinfo);
+				$data['table_data'].="<tr colspan=3> New Contract ID: ".$txmore->call_info->contract_id."</tr>";
+				}
 			$table= (array)json_decode($websrc,true);
 
 			foreach ($table as $key=>$content){
