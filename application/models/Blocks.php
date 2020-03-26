@@ -232,7 +232,7 @@ class Blocks extends CI_Model {
 				$urlinfo=DATA_SRC_SITE.'v2/transactions/'.$transactionhash."/info";
 				$txinfo=$this->getwebsrc($urlinfo);
 				$txmore=json_decode($txinfo);
-				$data['table_data'].='<tr><th colspan="3"> New Contract ID: '.$txmore->call_info->contract_id."</th></tr>";
+				$data['table_data'].='<tr><th colspan="3">Contract ID: '.$txmore->call_info->contract_id."</th></tr>";
 				}
 			
 			$table= (array)json_decode($websrc,true);
@@ -255,7 +255,7 @@ class Blocks extends CI_Model {
 							$content_tx=$content_tx.$comtarct_info;
 							}
 						
-						if($key_tx=="call_data" && (method_exists($txData->tx,'contract_id'))){
+						if($key_tx=="call_data" && (property_exists($txData->tx,'contract_id'))){
 							$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
 							$content_tx=$content_tx.$call_info;
 							}
