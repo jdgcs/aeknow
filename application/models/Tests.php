@@ -16,7 +16,7 @@ class Tests extends CI_Model {
 			$readtime=date("Y-m-d H:i:s",$readtime);
 			$wealth=$row->balance/1000000000000000000;
 			$percentage=round(($wealth/$totalcoin)*100,6);
-			$str.="{\"".$row->address."\":".$row->balance.",".$percentage.",\"".$readtime."\"},";
+			$str.="{\"ak\":\"".$row->address."\",\"balance\":".$row->balance.",\"per\":".$percentage.",\"lastupdate\":\"".$readtime."\"},";
 			}
 			
 		$str.="]}END";
