@@ -12,10 +12,12 @@ class Api extends CI_Controller {
 		$this->output->cache(2);
 	}
 	public function wealth500($offset=0){
-		$this->load->model('tests');
-		$data['info']=$this->tests->wealth500($offset);
+		//$this->load->model('tests');
+		//$data['info']=$this->tests->wealth500($offset);
+		$this->load->model('apis');//api online
+		$data['info']=$this->apis->wealth500($offset);
 		$this->load->view('en/blank.html',$data);
-		//$this->output->cache(20);
+		$this->output->cache(30);
 		}
 	public function tx($ak,$limit=20,$offset=0){
 		$this->load->model('apis');

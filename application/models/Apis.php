@@ -3,6 +3,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Apis extends CI_Model {
 	
+	public function wealth500($offset){
+		$this->load->database();
+		$startpoint=$offset*500;
+		$totalcoin=$this->getTotalCoins();
+		
+		$str="{\"top500\":[";
+		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500 offset $startpoint";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row){
+			$readtime=$row->readtime;
+			$readtime=date("Y-m-d H:i:s",$readtime);
+			$wealth=$row->balance/1000000000000000000;
+			$percentage=round(($wealth/$totalcoin)*100,6);
+			$str.="{\"ak\":\"".$row->address."\",\"balance\":".$row->balance.",\"per\":".$percentage.",\"lastupdate\":\"".$readtime."\"},";
+			}
+			
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		
+		return $str;	
+		
+		}
+		
+	public function getTotalCoins(){
+		$this->load->database();
+		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
+		$query = $this->db->query($trans_sql);
+
+		foreach ($query->result() as $row){
+			
+			}
+		
+		$data=$this->object_array($row);
+		
+		return $data['total_coins'];
+		}	
+		
+		
 	public function getToken($ak){
 		$this->load->database();
 		$tobecheck=str_replace("ak_","",$ak);
