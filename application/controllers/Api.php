@@ -11,9 +11,9 @@ class Api extends CI_Controller {
 		$this->load->view('en/api.html',$data);
 		$this->output->cache(2);
 	}
-	public function wealth500(){
+	public function wealth500($offset=0){
 		$this->load->model('tests');
-		$data['info']=$this->tests->wealth500();
+		$data['info']=$this->tests->wealth500($offset);
 		$this->load->view('en/blank.html',$data);
 		$this->output->cache(20);
 		}

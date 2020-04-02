@@ -3,10 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tests extends CI_Model {
 	
-	public function wealth500(){
+	public function wealth500($offset){
 		$this->load->database();
+		$startpoint=$offset*500;
 		$str="{\"top500\":[";
-		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500";
+		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500 offset $startpoint";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row){
 			$str.="{".$row->address.":".$row->balance."},";
