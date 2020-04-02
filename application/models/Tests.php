@@ -3,6 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tests extends CI_Model {
 	
+	public function wealth500(){
+		$this->load->database();
+		$str="{\"top500\":[";
+		$sql="select * from accountsinfo WHERE balance is not NULL order by balance desc limit 500";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row){
+			$str.="{".$row->address.":".$row->balance."},";
+			}
+			
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		
+		return $str;	
+		
+		}
+	
 	public function getCallInfo($call_data,$contract_id){
 		$this->load->database();
 		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";

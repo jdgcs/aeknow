@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Apis extends CI_Model {
+	
 	public function getToken($ak){
 		$this->load->database();
 		$tobecheck=str_replace("ak_","",$ak);
