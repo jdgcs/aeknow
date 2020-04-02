@@ -26,20 +26,7 @@ class Apis extends CI_Model {
 		
 		}
 		
-	public function getTotalCoins(){
-		$this->load->database();
-		$trans_sql="SELECT * FROM suminfo ORDER BY sid DESC LIMIT 1";		
-		$query = $this->db->query($trans_sql);
-
-		foreach ($query->result() as $row){
-			
-			}
-		
-		$data=$this->object_array($row);
-		
-		return $data['total_coins'];
-		}	
-		
+	
 		
 	public function getToken($ak){
 		$this->load->database();
