@@ -13,7 +13,7 @@ class Tests extends CI_Model {
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row){
 			$readtime=$row->readtime;
-			$readtime=date("Y-m-d H:i:s",$readtime)
+			$readtime=date("Y-m-d H:i:s",$readtime);
 			$wealth=$row->balance/1000000000000000000;
 			$percentage=round(($wealth/$totalcoin)*100,6);
 			$str.="{\"".$row->address."\":".$row->balance.",".$percentage.",\"".$readtime."\"},";
