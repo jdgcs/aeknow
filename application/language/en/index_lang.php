@@ -60,7 +60,7 @@ $lang['index_desofaepp'] = 'Applications based on æternity.';
 $lang['index_desofapi'] = 'API of aeknow.';
 $lang['index_top500'] = 'Wealth 500';
 $lang['index_desoftop500'] = 'Wealth 500 of æternity(Mainnet).';
-$lang['index_parteners'] = 'Parteners';
+$lang['index_parteners'] = 'Partners';
 $lang['index_sponsors'] = 'Sponsors';
 
 //////////////////////////////////Prediction Market//////////////////////////////////////
