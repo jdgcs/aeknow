@@ -256,7 +256,7 @@ class Blocks extends CI_Model {
 							}
 						if($key_tx=="name_id"){
 							$name_info=$this->getNameinfo($txData->tx->name_id);
-							$content_tx=$content_tx."($name_info)";
+							$content_tx=$content_tx."(<a href=/aens/viewbids/$name_info>$name_info</a>)";
 							}	
 							
 						if($key_tx=="call_data" && (property_exists($txData->tx,'contract_id'))){
