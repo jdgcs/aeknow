@@ -244,17 +244,21 @@ class Blocks extends CI_Model {
 						//echo "--".$key_tx,': ',$content_tx,"\n";
 						if($key_tx=="recipient_id" ||$key_tx=="sender_id" || $key_tx=="account_id" || $key_tx=="caller_id" || $key_tx=="owner_id"){
 							$content_tx="<a href=/address/wallet/$content_tx>$content_tx</a>";
-							}					
-						
+							}	
+							
 						if($key_tx=="oracle_id"){
 							$content_tx="<a href=/oracle/id/$content_tx>$content_tx</a>";
-							}	
-						
+							}
+							
 						if($key_tx=="contract_id"){
 							$comtarct_info=$this->getContractinfo($txData->tx->contract_id);
 							$content_tx=$content_tx.$comtarct_info;
 							}
-						
+						if($key_tx=="name_id"){
+							$name_info=$this->getNameinfo($txData->tx->name_id);
+							$content_tx=$content_tx."($name_info)";
+							}	
+							
 						if($key_tx=="call_data" && (property_exists($txData->tx,'contract_id'))){
 							$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
 							$content_tx=$content_tx.$call_info;
@@ -323,7 +327,15 @@ class Blocks extends CI_Model {
 		
 		return $data;	
 		}
-	
+		
+	function getNameinfo($name_id){
+		$this->load->database();
+		$sql="SELECT aensname FROM txs_aens WHERE name_id='$name_id' and aensname is not null limit 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();
+		
+		return $row->aensname;
+		}
 	public function getCallInfo($call_data,$contract_id){
 		$this->load->database();
 		$sql="SELECT * FROM contracts_token WHERE address='$contract_id'";
