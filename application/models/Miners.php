@@ -54,7 +54,6 @@ class Miners extends CI_Model {
 		$data['piechart']= "";
 		//$data['totalhashrate']=0;
 		$piecounter=0;
-		$discount=1;//estimate totalhash by beepool
 		
 		
 		//$topminersql="select beneficiary,count(*) from miner WHERE time>$timetag AND orphan is FALSE group by beneficiary order by count desc;";
@@ -71,13 +70,10 @@ class Miners extends CI_Model {
 				$showaddress=$row->beneficiary;
 				$trueaddress=$row->beneficiary;
 				$alias=$this->getalias($trueaddress);
-				if($alias=="beepool"){$discount=$blocksnum_24/$minedblocks;}//estimate totalhash by beepool
-				
 				if($showaddress==$alias){
 					$showaddress="ak_****".substr($showaddress,-4);
 				}else{
 					$showaddress=$alias;
-					
 					}
 				
 				if($counter<7){
@@ -98,8 +94,8 @@ class Miners extends CI_Model {
 		
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
 			
-		$data['hashdiscount']=$discount;
-		//$data['totalhashrate']=($row->mining_hashrate)*$discount;	
+		
+	
 		
 		
 
