@@ -96,7 +96,7 @@ class Miners extends CI_Model {
 		
 		$data['piechart'].=' {label: "else('.round(((($blocksnum_24-$piecounter)*100)/$blocksnum_24),2).'%)'.'", value: '.($blocksnum_24-$piecounter).'}';
 			
-		//$data['hashdiscount']=$discount;
+		$data['hashdiscount']=$discount;
 		//$data['totalhashrate']=($row->mining_hashrate)*$discount;	
 		
 		
