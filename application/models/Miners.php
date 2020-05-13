@@ -71,11 +71,13 @@ class Miners extends CI_Model {
 				$showaddress=$row->beneficiary;
 				$trueaddress=$row->beneficiary;
 				$alias=$this->getalias($trueaddress);
+				if($alias=="beepool"){$discount=$blocksnum_24/$minedblocks;}//estimate totalhash by beepool
+				
 				if($showaddress==$alias){
 					$showaddress="ak_****".substr($showaddress,-4);
 				}else{
 					$showaddress=$alias;
-					if($alias=="beepool"){$discount=$blocksnum_24/$minedblocks;}//estimate totalhash by beepool
+					
 					}
 				
 				if($counter<7){
