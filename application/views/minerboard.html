@@ -131,9 +131,9 @@ $this->lang->load('index');
                   
                   <th>Total Hashrate: ~<?php 
                   //$totalhashrate1=round(($totalhashrate*1000*42)/600,2);
-                   $totalhashrate=number_format(($totalhashrate*42/600),0);
+                   $totalhashrate=number_format(($totalhashrate*42/600)*$hashdiscount,0);
                   echo $totalhashrate;
-                  ?> Kg/s (<?php echo "~".round($totalhashrate*14.28/1000,2)." M, ";?><a href="/stats/hashrate">Hashrate trend</a>)</th>
+                  ?> Kg/s</th>
                  
                 </tr>              
 			</table>
@@ -330,7 +330,7 @@ $this->lang->load('index');
 
   gtag('config', 'UA-130378172-1');
 </script>
-<?php echo $hashdiscount; ?>
+
 </body>
 
 </html>

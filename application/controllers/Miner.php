@@ -47,7 +47,7 @@ class Miner extends CI_Controller {
 		$data['mylang']=$this->languages->getPreferredLanguage();
 		$data['mylang']="en";
 		$this->load->view('minerboard.html',$data);
-		//$this->output->cache(1);
+		$this->output->cache(2);
 	}
 	
 	
