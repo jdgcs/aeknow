@@ -120,6 +120,7 @@ class Test extends CI_Controller {
 		echo $this->Tests->getTotalMined()."<br/>";
 		echo print_r($this->Tests->getHashRate());
 		}
+		
 	public function wallet($ak=NULL,$page=1,$type='all'){		
 		if($page<1){$page=1;}
 		$this->load->model('tests');	

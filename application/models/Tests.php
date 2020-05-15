@@ -762,7 +762,7 @@ class Tests extends CI_Model {
 ///////////////////////////////////////get mining
 		$this->load->database();
 		//$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
-		$sql= "select height,data->>'time' as time FROM keyblocks WHERE data @> '{\"beneficiary\": \"$ak\"}'::jsonb AND orphan is NULL order by kid desc";
+		$sql= "select height,data->>'time' as time FROM keyblocks WHERE benifit='$ak' AND orphan is NULL order by kid desc";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
 		$data['blocksmined']= $query->num_rows();
@@ -788,17 +788,17 @@ class Tests extends CI_Model {
 		$ok=str_replace("ak_","ok_",$ak);
 		
 		//$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-		$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * FROM tx WHERE sender_id='$ak' OR recipient_id='$ak' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 
 		//$sql= "select * FROM txs WHERE recipient_id='$ak' OR sender_id='$ak' order by block_height desc,nonce desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=='in'){
-			$sql="SELECT * FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql="SELECT * FROM tx WHERE  recipient_id='$ak' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		if($type=='out'){
-			$sql="SELECT * FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql="SELECT * FROM tx WHERE sender_id='$ak' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		if($type=='contracts'){
-			$sql="SELECT * FROM txs WHERE txtype='ContractCallTx' or txtype='ContractCreateTx' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql="SELECT * FROM tx WHERE txtype='ContractCallTx' or txtype='ContractCreateTx' ORDER BY tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			}
 		$query = $this->db->query($sql);
 		$counter=0;
@@ -807,21 +807,24 @@ class Tests extends CI_Model {
 			$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
-			$txdata=json_decode($row->tx);
-			$block_hash=$txdata->block_hash;
-			$time=$this->getTransactionTime($txdata->block_hash);
+			//$txdata=json_decode($row->tx);
+			$amount=$row->amount;
+			//$block_hash=$txdata->block_hash;
+			$block_height=$row->block_height;
+			//$time=$this->getTransactionTime($txdata->block_hash);
+			$time=$block_height;
 			
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
-				$amount=$txdata->tx->amount/1000000000000000000;
-				$recipient_id=$txdata->tx->recipient_id;			
+				$amount=$amount/1000000000000000000;
+				$recipient_id=$row->recipient_id;			
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
 				$alias=$this->getalias($recipient_id);
 				if($recipient_id!=$alias){
 					$recipient_id_show=$alias;
 					}
 							
-				$sender_id=$txdata->tx->sender_id;
+				$sender_id=$row->sender_id;
 				$sender_id_show="ak_****".substr($sender_id,-4);
 				$alias=$this->getalias($sender_id);
 				if($sender_id!=$alias){
@@ -851,14 +854,13 @@ class Tests extends CI_Model {
 		//$data['transaction_count']=$query->num_rows();
 		
 		//$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"account_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"owner_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"caller_id\": \"$ak\"}'::jsonb OR tx->'tx' @>'{\"oracle_id\": \"$ok\"}'::jsonb OR  tx->'tx' @>'{\"initiator_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"responder_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"from_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"to_id\": \"$ak\"}'::jsonb";
-		$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb OR  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
-
+		$sql="SELECT count(*) FROM tx WHERE  sender_id='$ak' OR  recipient_id='$ak'";
 		if($type=='in'){
-			$sql="SELECT count(*) FROM txs WHERE  tx->'tx' @>'{\"recipient_id\": \"$ak\"}'::jsonb";
+			$sql="SELECT count(*) FROM tx WHERE  recipient_id='$ak'";
 			}
 			
 		if($type=='out'){
-			$sql="SELECT count(*) FROM txs WHERE tx->'tx' @>'{\"sender_id\": \"$ak\"}'::jsonb";
+			$sql="SELECT count(*) FROM tx WHERE sender_id='$ak'";
 			}
 		
 		$query = $this->db->query($sql);
@@ -906,7 +908,9 @@ class Tests extends CI_Model {
 		
 		
 		/////////////////////////////////////////////Get AENS names//////////////////////////////////
-		$sql="SELECT count(*) FROM txs WHERE tx->'tx'->'pointers' @>'[{\"id\":\"$ak\",\"key\":\"account_pubkey\"}]'::jsonb;";
+		$data['aensname']=0;
+			
+		$sql="SELECT count(distinct(aensname)) FROM txs_aens WHERE nameowner='$ak'";
 		$query = $this->db->query($sql);
 		$row = $query->row();		
 		$data['aensname']=$row->count;
