@@ -125,7 +125,7 @@ class Test extends CI_Controller {
 		if($page<1){$page=1;}
 		$this->load->model('tests');	
 		$data=$this->tests->getWalletInfo($ak,$page,$type);
-		$this->load->view('account.html',$data);
+		$this->load->view('en/account.html',$data);
 		//$this->output->cache(2);
 		}
 	
