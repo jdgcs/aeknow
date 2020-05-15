@@ -761,8 +761,8 @@ class Tests extends CI_Model {
 		
 ///////////////////////////////////////get mining
 		$this->load->database();
-		//$sql= "select height,time FROM miner WHERE beneficiary='$ak' AND orphan is FALSE order by hid desc";
-		$sql= "select height,data->>'time' as time FROM keyblocks WHERE benifit='$ak' AND orphan is NULL order by kid desc";
+		
+		$sql= "select height,data FROM keyblocks WHERE benifit='$ak' AND orphan is NULL order by height desc LIMIT 100";
 		$query = $this->db->query($sql);
 		$data['blocksmined']=0;
 		$data['blocksmined']= $query->num_rows();
@@ -775,10 +775,11 @@ class Tests extends CI_Model {
 			$data['activities']=' <a class="pull-right"> &nbsp; <span class="badge bg-blue">Mining</span></a>'; 
 			$counter++;
 			$blockheight=$row->height;
-			$millisecond =$row->time;
+			$info=json_decode($row->data);
+			$millisecond =$info->time;
 			$millisecond=substr($millisecond,0,strlen($millisecond)-3); 
 			$minedtime=date("Y-m-d H:i:s",$millisecond);
-			$reward=$this->getReward($blockheight+1);
+			$reward=($this->getReward($blockheight+1))*0.891;
 			$data['totalreward']=$data['totalreward']+$reward;			
 			if($counter<101){				
 				$data['totalblocks'].="<tr><td>".$counter."</td><td><a href=/block/height/$blockheight>".$blockheight."</a></td><td>".$reward."</td><td>".$minedtime."</td></tr>";
