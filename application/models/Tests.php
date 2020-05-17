@@ -817,8 +817,9 @@ class Tests extends CI_Model {
 			$time=substr($utc,0,10);
 			$time=date("H:i:s",$time);			
 			
-			if($txtype=='SpendTx'){				
+			if($txtype=='SpendTx'||$txtype=='NameTransferTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
+				
 				$amount=$amount/1000000000000000000;
 				$recipient_id=$row->recipient_id;			
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
