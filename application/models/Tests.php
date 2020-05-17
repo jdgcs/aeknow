@@ -808,12 +808,14 @@ class Tests extends CI_Model {
 			$counter++;
 			$txhash=$row->txhash;
 			$txtype=$row->txtype;
+			$utc=$row->utc;
 			//$txdata=json_decode($row->tx);
 			$amount=$row->amount;
 			//$block_hash=$txdata->block_hash;
 			$block_height=$row->block_height;
 			//$time=$this->getTransactionTime($txdata->block_hash);
-			$time=$block_height;
+			$time=substr($utc,0,10);
+			$time=date("H:i:s",$time);			
 			
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
