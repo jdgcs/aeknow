@@ -78,7 +78,7 @@ class Wallets extends CI_Model {
 			$block_height=$row->block_height;
 			//$time=$this->getTransactionTime($txdata->block_hash);
 			$time=substr($utc,0,10);
-			$time=date("H:i:s",$time);			
+			$time=date("Y-m-d H:i:s",$time);			
 			
 			if($txtype=='SpendTx'||$txtype=='NameTransferTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
