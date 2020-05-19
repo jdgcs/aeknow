@@ -21,7 +21,7 @@ public function getContractList(){
 		
 		$counter++;
 		$websrc=$this->getwebsrc($url);
-		
+		//TODO: Slow point to be fixed, use a standalone table for contratcs?
 		//echo "$url;$websrc";
 		if(strpos($websrc,"id")>0){
 			$ctData=json_decode($websrc);
