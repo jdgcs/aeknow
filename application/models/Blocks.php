@@ -389,10 +389,11 @@ public function decode_SuperHeroInfo($call_data){
 	exec($cmd,$ret);
 	$addresstmp="";
 	$msgtmp=0;
+	
 	for($i=0;$i<count($ret);$i++){
-		if(strpos($ret[$i-1],"tuple,")>0){
-			$addresstmp=$ret[$i+1];
-			$msgtmp=$ret[$i+2];
+		if(strpos($ret[$i],"<<\"htt")>0){
+			$addresstmp=$ret[$i];
+			$msgtmp=$ret[$i+1];
 			}
 		}
 	$addresstmp=trim(str_replace("{<<\"","",$addresstmp));
