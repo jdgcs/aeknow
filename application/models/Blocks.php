@@ -262,6 +262,13 @@ class Blocks extends CI_Model {
 						if($key_tx=="call_data" && (property_exists($txData->tx,'contract_id'))){
 							$call_info=$this->getCallInfo($content_tx,$txData->tx->contract_id);
 							$content_tx=$content_tx.$call_info;
+							
+							//decode superhero
+							if($txData->tx->contract_id=="ct_2AfnEfCSZCTEkxL5Yoi4Yfq6fF7YapHRaFKDJK3THMXMBspp5z"){
+								$tipamount=$txData->tx->amount/1000000000000000000;
+								$tipinfo=decode_SuperHeroInfo($content_tx);
+								$content_tx=$content_tx."Tip Anout: $tipamount AE<br>".$tipinfo;
+								}
 							}
 							
 							
@@ -371,7 +378,32 @@ class Blocks extends CI_Model {
 		return "";
 		}
 	
+public function decode_SuperHeroInfo($call_data){
+	$erlpath="/home/ae/ae/lima53/erts-9.3.3.13/bin/escript";
+	$clipath="/home/ae/ae/lima53/erts-9.3.3.13/bin/aesophia_cli";
+	$tokenaddress="/home/ae/ae/lima53/erts-9.3.3.13/bin/contracts/aex9.aes";
 	
+	$cmd="$erlpath $clipath $tokenaddress -b fate --call_result $call_data --call_result_fun meta_info";
+	
+	//echo "$cmd\n";
+	exec($cmd,$ret);
+	$addresstmp="";
+	$msgtmp=0;
+	for($i=0;$i<count($ret);$i++){
+		if(strpos($ret[$i-1],"tuple,")>0){
+			$addresstmp=$ret[$i+1];
+			$msgtmp=$ret[$i+2];
+			}
+		}
+	$addresstmp=trim(str_replace("{<<\"","",$addresstmp));
+	$addresstmp=str_replace("\">>,","",$addresstmp);	
+	$addresstmp=str_replace(">>},","",$addresstmp);	
+	$msgtmp=str_replace("<<\"","",trim($msgtmp));	
+	$msgtmp=str_replace("\">>}}}}","",trim($msgtmp));	
+	
+	return "Tip to: $addresstmp <br /> Tip Message: $msgtmp<br/>";
+	
+	}
 	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
 	$erlpath="/home/ae/ae/lima53/erts-9.3.3.13/bin/escript";
 	$clipath="/home/ae/ae/lima53/erts-9.3.3.13/bin/aesophia_cli";
