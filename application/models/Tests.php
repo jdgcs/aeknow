@@ -478,6 +478,7 @@ class Tests extends CI_Model {
 		}
 	
 	public function getTransactions($page,$type){
+		//$data['hash']=$transactionhash;
 		if($page<1){$page=1;}
 		$perpage=20;
 		$data['title']="Transactions";
@@ -486,27 +487,27 @@ class Tests extends CI_Model {
 		$this->load->database();
 		
 		$sql_count="SELECT count(*) from txs";
-		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * from tx order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=="aens"){
-			$sql="SELECT * from txs WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql_count="SELECT count(*) from txs WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx'";
+			$sql="SELECT * from tx WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from tx WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx'";
 			}
 		if($type=="contract"){
-			$sql="SELECT * from txs WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql_count="SELECT count(*) from txs WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx'";
+			$sql="SELECT * from tx WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from tx WHERE txtype='ContractCreateTx' OR txtype='ContractCallTx'";
 			}
 		if($type=="channel"){
-			$sql="SELECT * from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql_count="SELECT count(*) from txs WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx'";
+			$sql="SELECT * from tx WHERE txtype='ChannelDepositTx' OR txtype='ChannelSnapshotSoloTx' OR txtype='ChannelSlashTx' OR txtype='ChannelForceProgressTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from tx WHERE txtype='ChannelDepositTx' OR txtype='ChannelCreateTx' OR txtype='ChannelCloseSoloTx' OR txtype='ChannelCloseMutualTx' OR txtype='ChannelWithdrawTx' OR txtype='ChannelSettleTx'";
 			}
 		if($type=="oracle"){
-			$sql="SELECT * from txs WHERE txtype='OracleExtendTx' OR txtype='OracleQueryTx' OR txtype='OracleResponseTx' OR txtype='OracleRegisterTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql_count="SELECT count(*) from txs WHERE txtype='OracleExtendTx' OR txtype='OracleQueryTx' OR txtype='OracleResponseTx' OR txtype='OracleRegisterTx' ";
+			$sql="SELECT * from tx WHERE txtype='OracleExtendTx' OR txtype='OracleQueryTx' OR txtype='OracleResponseTx' OR txtype='OracleRegisterTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from tx WHERE txtype='OracleExtendTx' OR txtype='OracleQueryTx' OR txtype='OracleResponseTx' OR txtype='OracleRegisterTx' ";
 			}
 			
 		if($type=="spend"){
-			$sql="SELECT * from txs WHERE txtype='SpendTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
-			$sql_count="SELECT count(*) from txs WHERE txtype='SpendTx'";
+			$sql="SELECT * from tx WHERE txtype='SpendTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+			$sql_count="SELECT count(*) from tx WHERE txtype='SpendTx'";
 			}
 		
 		
@@ -529,7 +530,7 @@ class Tests extends CI_Model {
 			$txtype=$row->txtype;
 			$txdata=json_decode($row->tx);
 			$block_hash=$txdata->block_hash;
-			$time=$this->getTransactionTime($txdata->block_hash);
+			$time=$this->getTransactionTime($txdata->block_hash,$txhash);
 			
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
