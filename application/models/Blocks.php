@@ -267,7 +267,7 @@ class Blocks extends CI_Model {
 							if($txData->tx->contract_id=="ct_2AfnEfCSZCTEkxL5Yoi4Yfq6fF7YapHRaFKDJK3THMXMBspp5z"){
 								$tipamount=$txData->tx->amount/1000000000000000000;
 								$tipinfo=$this->decode_SuperHeroInfo($content_tx);
-								$content_tx=$content_tx."Tip Anout: $tipamount AE<br>".$tipinfo;
+								$content_tx=$content_tx."<br /><br /><b>Decoded info:</b><br/>Tip Anout: $tipamount AE<br>".$tipinfo;
 								}
 							}
 							
