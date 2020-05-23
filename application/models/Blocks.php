@@ -267,7 +267,9 @@ class Blocks extends CI_Model {
 							if($txData->tx->contract_id=="ct_2AfnEfCSZCTEkxL5Yoi4Yfq6fF7YapHRaFKDJK3THMXMBspp5z"){
 								$tipamount=$txData->tx->amount/1000000000000000000;
 								$tipinfo=$this->decode_SuperHeroInfo($content_tx);
-								$content_tx=$content_tx."<br /><br /><b>Decoded info:</b><br/>Tip Amout: $tipamount AE<br>".$tipinfo;
+								if(strlen($tipinfo)>1){//Only decode tip operation
+									$content_tx=$content_tx."<br /><br /><b>Decoded info:</b><br/>Tip Amout: $tipamount AE<br>".$tipinfo;
+								}
 								}
 							}
 							
@@ -387,22 +389,26 @@ public function decode_SuperHeroInfo($call_data){
 	
 	//echo "$cmd\n";
 	exec($cmd,$ret);
+	$urltmp="";
 	$addresstmp="";
-	$msgtmp=0;
+	$msgtmp="";
 	
 	for($i=0;$i<count($ret);$i++){
-		if(strpos($ret[$i],"<<\"htt")>0){
-			$addresstmp=$ret[$i];
-			$msgtmp=$ret[$i+1];
+		if(strpos($ret[$i],"<<\"htt")>0 && strpos($ret[$i+1],"}}}}")>0){
+			$urltmp=$ret[$i];
+			$msgtmp=$ret[$i+1];		
+			$urltmp=trim(str_replace("{<<\"","",$urltmp));
+			$urltmp=str_replace("\">>,","",$urltmp);	
+			$urltmp=str_replace(">>},","",$urltmp);	
+			
+			$msgtmp=str_replace("<<\"","",trim($msgtmp));	
+			$msgtmp=str_replace("\">>}}}}","",trim($msgtmp));	
+			
+			return "Tip to: $addresstmp <br /> Tip Message: $msgtmp<br/>";				
 			}
 		}
-	$addresstmp=trim(str_replace("{<<\"","",$addresstmp));
-	$addresstmp=str_replace("\">>,","",$addresstmp);	
-	$addresstmp=str_replace(">>},","",$addresstmp);	
-	$msgtmp=str_replace("<<\"","",trim($msgtmp));	
-	$msgtmp=str_replace("\">>}}}}","",trim($msgtmp));	
-	
-	return "Tip to: $addresstmp <br /> Tip Message: $msgtmp<br/>";
+		
+	return "";
 	
 	}
 	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
