@@ -405,7 +405,7 @@ public function decode_SuperHeroInfo($call_data){
 			$msgtmp=str_replace("<<\"","",trim($msgtmp));	
 			$msgtmp=str_replace("\">>}}}}","",trim($msgtmp));	
 			
-			return "Tip to: $urltmp <br /> Tip Message: $msgtmp<br/>";				
+			return "Tip to: <a href=$urltmp target=_blank>$urltmp</a> <br /> Tip Message: $msgtmp<br/>";				
 			}
 		}
 		
