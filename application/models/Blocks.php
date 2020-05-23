@@ -409,7 +409,7 @@ public function decode_SuperHeroInfo($call_data){
 			}
 		}
 		
-	return "<textarea>$decoded</textarea>";
+	return "<textarea style=\"width:100%;\">$decoded</textarea>";
 	
 	}
 	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
