@@ -390,10 +390,11 @@ public function decode_SuperHeroInfo($call_data){
 	//echo "$cmd\n";
 	exec($cmd,$ret);
 	$urltmp="";
-	$addresstmp="";
+	$decoded="";
 	$msgtmp="";
 	
 	for($i=0;$i<count($ret);$i++){
+		$decoded=$decoded.$ret[$i];
 		if(strpos($ret[$i],"<<\"htt")>0 && strpos($ret[$i+1],"}}}}")>0){
 			$urltmp=$ret[$i];
 			$msgtmp=$ret[$i+1];		
@@ -404,11 +405,11 @@ public function decode_SuperHeroInfo($call_data){
 			$msgtmp=str_replace("<<\"","",trim($msgtmp));	
 			$msgtmp=str_replace("\">>}}}}","",trim($msgtmp));	
 			
-			return "Tip to: $addresstmp <br /> Tip Message: $msgtmp<br/>";				
+			return "Tip to: $urltmp <br /> Tip Message: $msgtmp<br/>";				
 			}
 		}
 		
-	return "";
+	return "<textarea>$decoded</textarea>";
 	
 	}
 	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
