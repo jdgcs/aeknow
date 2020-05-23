@@ -408,8 +408,8 @@ public function decode_SuperHeroInfo($call_data){
 			return "Tip to: <a href=$urltmp target=_blank>$urltmp</a> <br /> Tip Message: $msgtmp<br/>";				
 			}
 		}
-		
-	return "<textarea style=\"width:100%;\">$decoded</textarea>";
+	return "";	
+	//return "<textarea style=\"width:100%;\">$decoded</textarea>";
 	
 	}
 	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
