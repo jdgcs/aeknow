@@ -137,8 +137,6 @@ public function base58_decode($base58)
         }
         return $return;
     }
-}
-
 
 private function getalias($address){
 		$this->load->database();
@@ -152,3 +150,7 @@ private function getalias($address){
 			}
 		return $address;
 		}
+
+}
+
+
