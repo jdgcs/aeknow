@@ -18,16 +18,27 @@ class Tests extends CI_Model {
 	foreach ($query->result() as $row){
 		$cthash=$row->address;
 		$cthash=str_replace("\"","",$cthash);	
+		$ctype=$row->ctype;
+		if(trim($ctype)==""){
+			$ctype="Contract"
+			}
 		
 		$counter++;		
 		
 		$block_height= $row->lastcall;		
 		$owner_id=$row->owner_id;
 		
-		$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
-		$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
+		$cthash_show="ct_****".substr($cthash,-4);
+		$owner_id_show="ak_****".substr($owner_id,-4);
+		$alias=$this->getalias($owner_id);
+		if($owner_id!=$alias){
+			$owner_id_show=$alias;
+			}
+		
+		$owner_id="<a href=/address/wallet/$owner_id>$owner_id_show</a>";
+		$cthashlink="<a href=/contract/detail/$cthash>$cthash_show</a>";
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
-		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td></tr>";
+		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td><td>$ctype</td></tr>";
 		
 		
 	}
