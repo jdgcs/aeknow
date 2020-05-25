@@ -18,6 +18,15 @@ class Test extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function contract()
+	{	
+		$this->load->model('tests');	
+		$data=$this->tests->getContractList();
+		$this->load->view('contracts_index.html',$data);
+		//$this->output->cache(5);
+	}
+	
+	
 	public function tokentest(){
 		$this->load->model('tests');
 		$data=$this->tests->getCallInfo("cb_KxGEoV2hK58AoMLlAP6SFrYeiuRrxi5A5rNjruumGuhbIsuZStUbvgZYb4Za8xB6P8AmHfsB","ct_M9yohHgcLjhpp1Z8SaA1UTmRMQzR4FWjJHajGga8KBoZTEPwC");
