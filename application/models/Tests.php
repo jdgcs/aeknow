@@ -20,7 +20,7 @@ class Tests extends CI_Model {
 		$cthash=str_replace("\"","",$cthash);	
 		$ctype=$row->ctype;
 		if(trim($ctype)==""){
-			$ctype="Contract"
+			$ctype="Contract";
 			}
 		
 		$counter++;		
