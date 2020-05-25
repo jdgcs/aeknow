@@ -5,38 +5,36 @@ class Contracts extends CI_Model {
 
 public function getContractList(){
 	$this->load->database();
-	//$sql="select distinct tx->'tx'->'contract_id' as cthash FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' group by tx->'tx'->'block desc' ;";
-	//$sql="SELECT cthash,block_height FROM (SELECT DISTINCT ON (tx->'tx'->'contract_id') tx->'block_height' as block_height, tx->'tx'->'contract_id' as cthash FROM txs  WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}') as tbl_contracts order by block_height desc;";
-	//echo "$sql";
-	$sql="SELECT cthash,block_height FROM (SELECT DISTINCT ON (tx->'tx'->'contract_id') tx->'block_height' as block_height, tx->'tx'->'contract_id' as cthash FROM txs  WHERE txtype='ContractCallTx') as tbl_contracts order by block_height desc;";
+	$sql="SELECT * FROM contracts_token ORDER BY lastcall desc";
+
 	$query = $this->db->query($sql);
 	$data['cttable']="";$counter=0;
 	
 	foreach ($query->result() as $row){
-		$cthash=$row->cthash;
-		//$block_height=$row->block_height;
-		$cthash=str_replace("\"","",$cthash);
-		//$block_height=$row->block_height;
-		$url=DATA_SRC_SITE."v2/contracts/$cthash";
+		$cthash=$row->address;
+		$cthash=str_replace("\"","",$cthash);	
+		$ctype=$row->ctype;
+		if(trim($ctype)==""){
+			$ctype="Contract";
+			}
 		
-		$counter++;
-		$websrc=$this->getwebsrc($url);
-		//TODO: Slow point to be fixed, use a standalone table for contratcs?
-		//echo "$url;$websrc";
-		if(strpos($websrc,"id")>0){
-			$ctData=json_decode($websrc);
-			//$sql_ct="select tx->'block_height' as block_height FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by block_height asc limit 1;";
-			$sql_ct="select tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by block_height asc limit 1;";
-			$query_ct = $this->db->query($sql_ct);
-			$row_ct = $query_ct->row();
-			$block_height= $row_ct->block_height;
-			
-			$owner_id=$ctData->owner_id;
-			$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
-			$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
-			$block_height="<a href=/block/height/$block_height>$block_height</a>";
-			$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td></tr>";
-		}
+		$counter++;		
+		
+		$block_height= $row->lastcall;		
+		$owner_id=$row->owner_id;
+		
+		$cthash_show="ct_****".substr($cthash,-4);
+		$owner_id_show="ak_****".substr($owner_id,-4);
+		$alias=$this->getalias($owner_id);
+		if($owner_id!=$alias){
+			$owner_id_show=$alias;
+			}
+		
+		$owner_id="<a href=/address/wallet/$owner_id>$owner_id_show</a>";
+		$cthashlink="<a href=/contract/detail/$cthash>$cthash_show</a>";
+		$block_height="<a href=/block/height/$block_height>$block_height</a>";
+		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td><td>$ctype</td></tr>";
+		
 		
 	}
 	
@@ -140,3 +138,17 @@ public function base58_decode($base58)
         return $return;
     }
 }
+
+
+private function getalias($address){
+		$this->load->database();
+		$sql="SELECT alias from addressinfo WHERE address='$address' limit 1";
+		$query = $this->db->query($sql);
+		$row = $query->row();		
+		
+		if($query->num_rows()>0){
+			//echo  $row->alias;
+			return $row->alias;
+			}
+		return $address;
+		}

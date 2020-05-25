@@ -5,11 +5,6 @@ class Tests extends CI_Model {
 	
 	public function getContractList(){
 	$this->load->database();
-	//$sql="select distinct tx->'tx'->'contract_id' as cthash FROM txs WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}' group by tx->'tx'->'block desc' ;";
-	//$sql="SELECT cthash,block_height FROM (SELECT DISTINCT ON (tx->'tx'->'contract_id') tx->'block_height' as block_height, tx->'tx'->'contract_id' as cthash FROM txs  WHERE tx->'tx' @> '{\"type\": \"ContractCallTx\"}') as tbl_contracts order by block_height desc;";
-	//echo "$sql";
-	//$sql="SELECT cthash,block_height FROM (SELECT DISTINCT ON (tx->'tx'->'contract_id') tx->'block_height' as block_height, tx->'tx'->'contract_id' as cthash FROM txs  WHERE txtype='ContractCallTx') as tbl_contracts order by block_height desc;";
-	//$sql="SELECT cthash,block_height FROM (SELECT DISTINCT ON (tx->'tx'->'contract_id') tx->'block_height' as block_height, tx->'tx'->'contract_id' as cthash FROM txs  WHERE txtype='ContractCallTx') as tbl_contracts order by block_height desc;";
 	$sql="SELECT * FROM contracts_token ORDER BY lastcall desc";
 
 	$query = $this->db->query($sql);
