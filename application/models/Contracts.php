@@ -98,7 +98,7 @@ public function getContractDetail($cthash){
 		$sender_id="<a href=/address/wallet/$sender_id>$sender_id_show</a>";
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
 		$txhash="<a href=/block/transaction/$txhash>$txhash_show</a>";
-		$data['cttable'].="<tr><td>$block_height</td><td>$sender_id</td><td>$amount AE</td><td>$txhash</td></tr>";
+		$data['cttable'].="<tr><td>$block_height</td><td>$sender_id</td><td>$txhash</td></tr>";
 		}
 	return $data;
 	}
