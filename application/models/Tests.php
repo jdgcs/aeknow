@@ -22,7 +22,7 @@ class Tests extends CI_Model {
 	if(trim($data['alias'])==""){$data['alias']="Contract";}
 	if(trim($data['ctype'])==""){$data['ctype']="Contract";}
 	////Get realtime balance
-	$url=DATA_SRC_SITE."v2/account/$cthash";	
+	$url=DATA_SRC_SITE."v2/accounts/$cthash";	
 	$websrc=$this->getwebsrc($url);
 	if(strpos($websrc,"balance")>0){
 		$ctData=json_decode($websrc);
