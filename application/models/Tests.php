@@ -19,6 +19,8 @@ class Tests extends CI_Model {
 		$data['lastcall']=$row->lastcall;
 		$data['calltime']=$row->calltime;
 		}
+	if(trim($data['alias'])==""){$data['alias']="Contract";}
+	if(trim($data['ctype'])==""){$data['ctype']="Contract";}
 	////Get realtime balance
 	$url=DATA_SRC_SITE."v2/account/$cthash";	
 	$websrc=$this->getwebsrc($url);

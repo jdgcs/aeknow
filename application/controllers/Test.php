@@ -22,7 +22,7 @@ class Test extends CI_Controller {
 	{	
 		$this->load->model('tests');	
 		$data=$this->tests->getContractDetail($cthash);
-		$this->load->view('contracts_detail.html',$data);
+		$this->load->view('contracts_detail_v5.html',$data);
 		//$this->output->cache(3);
 	}
 	
