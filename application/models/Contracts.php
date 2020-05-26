@@ -18,6 +18,12 @@ public function getContractList(){
 			$ctype="Contract";
 			}
 		
+		$alias=$row->alias;	
+		if(trim($alias)==""){
+			$alias="Contract";
+			}
+			
+			
 		$counter++;		
 		
 		$block_height= $row->lastcall;		
@@ -31,7 +37,7 @@ public function getContractList(){
 			}
 		
 		$owner_id="<a href=/address/wallet/$owner_id>$owner_id_show</a>";
-		$cthashlink="<a href=/contract/detail/$cthash>$cthash_show</a>";
+		$cthashlink="<a href=/contract/detail/$cthash>$$alias</a>";
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
 		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td><td>$ctype</td></tr>";
 		
@@ -43,33 +49,60 @@ public function getContractList(){
 
 
 public function getContractDetail($cthash){
-	$url=DATA_SRC_SITE."v2/contracts/$cthash";
-	$data['cttable']="";//$counter=0;
-	$websrc=$this->getwebsrc($url);
-	if(strpos($websrc,"id")>0){
-		$ctData=json_decode($websrc);
-		$owner_id=$ctData->owner_id;
-		
-		$owner_id="<a href=/address/wallet/$owner_id>$owner_id</a>";
-		$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
-		//$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td></tr>";
-	}	
-	$data['owner_id']=$owner_id;
-	$data['cthash']=$cthash;
 	$this->load->database();
-	$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
+	////Get basic info from db
+	$sql="SELECT * FROM contracts_token WHERE address='$cthash'";
+	$query = $this->db->query($sql);
+	foreach ($query->result() as $row){	
+		
+		$data['cthash']=$row->address;
+		$data['owner_id']=$row->owner_id;
+		$data['owner_id_show']="ak_****".substr($data['owner_id'],-4);
+		$data['ctype']=$row->ctype;
+		$data['alias']=$row->alias;	
+		$data['decimal']=$row->decimal;	
+		$data['remark']=$row->remark;	
+		$data['lastcall']=$row->lastcall;
+		$data['calltime']=$row->calltime;
+		}
+	if(trim($data['alias'])==""){$data['alias']="Contract";}
+	if(trim($data['ctype'])==""){$data['ctype']="Contract";}
+	////Get realtime balance
+	$url=DATA_SRC_SITE."v2/accounts/$cthash";	
+	$websrc=$this->getwebsrc($url);
+	if(strpos($websrc,"balance")>0){
+		$ctData=json_decode($websrc);
+		$data['balance']=$ctData->balance/1000000000000000000;	
+	}	
+	
+	
+	$data['cttable']="";//$counter=0;
+	////get last 100 calls
+	//$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
+	$sql="SELECT txhash,block_height,sender_id,amount FROM tx WHERE recipient_id='$cthash' order by tid desc limit 100;";
 	$query = $this->db->query($sql);
 	foreach ($query->result() as $row){
 		//$counter++;
-		$txhash=$row->txhash;
-		$txhash=str_replace("\"","",$txhash);
+		$txhash=$row->txhash;		
+		$txhash_show="th_****".substr($txhash,-4);
+		
+		$amount=$row->amount/1000000000000000000;	
 		$block_height=$row->block_height;
+		$sender_id=$row->sender_id;
+		$sender_id_show="ak_****".substr($sender_id,-4);
+		$alias=$this->getalias($sender_id);
+		if($sender_id!=$alias){
+			$sender_id_show=$alias;
+			}
+			
+		$sender_id="<a href=/address/wallet/$sender_id>$sender_id_show</a>";
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
-		$txhash="<a href=/block/transaction/$txhash>$txhash</a>";
-		$data['cttable'].="<tr><td>$block_height</td><td>$cthash</td><td>$txhash</td></tr>";
+		$txhash="<a href=/block/transaction/$txhash>$txhash_show</a>";
+		$data['cttable'].="<tr><td>$block_height</td><td>$sender_id</td><td>$amount AE</td><td>$txhash</td></tr>";
 		}
 	return $data;
 	}
+	
 
 private function getwebsrc($url) {
 	$curl = curl_init ();
