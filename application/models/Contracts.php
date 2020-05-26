@@ -39,7 +39,7 @@ public function getContractList(){
 		$owner_id="<a href=/address/wallet/$owner_id>$owner_id_show</a>";
 		$cthashlink="<a href=/contract/detail/$cthash>$cthash_show</a>";
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
-		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td><td>$ctype</td></tr>";
+		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$ctype</td><td>$owner_id</td><td>$block_height</td></tr>";
 		
 		
 	}
