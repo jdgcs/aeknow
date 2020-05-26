@@ -252,7 +252,7 @@ class Blocks extends CI_Model {
 							
 						if($key_tx=="contract_id"){
 							$contarct_info=$this->getContractinfo($txData->tx->contract_id);
-							$content_tx="<a href=/contract/detail/$content_tx>$content_tx.$contarct_info</a>";
+							$content_tx="<a href=/contract/detail/$content_tx>$content_tx $contarct_info</a>";
 							}
 						if($key_tx=="name_id"){
 							$name_info=$this->getNameinfo($txData->tx->name_id);

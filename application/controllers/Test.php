@@ -18,10 +18,10 @@ class Test extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function detail($cthash="")
+	public function detail($cthash="",$page=1)
 	{	
 		$this->load->model('tests');	
-		$data=$this->tests->getContractDetail($cthash);
+		$data=$this->tests->getContractDetail($cthash,$page);
 		$this->load->view('contracts_detail_v5.html',$data);
 		//$this->output->cache(3);
 	}
