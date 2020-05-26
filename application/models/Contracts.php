@@ -20,7 +20,7 @@ public function getContractList(){
 		
 		$alias=$row->alias;	
 		if(trim($alias)==""){
-			$alias="Contract";
+			$alias="ct_****".substr($cthash,-4);
 			}
 			
 		$cthash_show=$alias;	
