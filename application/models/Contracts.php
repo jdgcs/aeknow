@@ -23,13 +23,13 @@ public function getContractList(){
 			$alias="Contract";
 			}
 			
-			
+		$cthash_show=$alias;	
 		$counter++;		
 		
 		$block_height= $row->lastcall;		
 		$owner_id=$row->owner_id;
 		
-		$cthash_show="ct_****".substr($cthash,-4);
+		
 		$owner_id_show="ak_****".substr($owner_id,-4);
 		$alias=$this->getalias($owner_id);
 		if($owner_id!=$alias){
@@ -37,7 +37,7 @@ public function getContractList(){
 			}
 		
 		$owner_id="<a href=/address/wallet/$owner_id>$owner_id_show</a>";
-		$cthashlink="<a href=/contract/detail/$cthash>$$alias</a>";
+		$cthashlink="<a href=/contract/detail/$cthash>$cthash_show</a>";
 		$block_height="<a href=/block/height/$block_height>$block_height</a>";
 		$data['cttable'].="<tr><td>$counter</td><td>$cthashlink</td><td>$owner_id</td><td>$block_height</td><td>$ctype</td></tr>";
 		
