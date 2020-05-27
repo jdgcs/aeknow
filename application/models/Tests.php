@@ -35,6 +35,7 @@ class Tests extends CI_Model {
 	$query = $this->db->query($sql_count);
 	$row = $query->row();
 	$data['totaltxs']=$row->count;
+	$data['page']=$page;
 	$data['totalpage']=round($data['totaltxs']/$perpage,0);
 	
 	$data['cttable']="";//$counter=0;

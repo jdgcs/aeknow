@@ -127,6 +127,17 @@
 					</tr>				
 					<?php echo $cttable;?>
 				</table>
+			<div class="box-footer clearfix">
+				 <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="/contract/detail/<?php echo $cthash;?>/">First</a></li>
+                <li><a href="/contract/detail/<?php echo $cthash;?>/<?php echo $page-1;?>">Prev</a></li>
+                <li><a >Page <?php echo $page;?> of <?php echo $totalpage;?></a></li>
+                <li><a href="/contract/detail/<?php echo $cthash;?>/<?php echo $page+1;?>">Next</a></li>
+                <li><a href="/contract/detail/<?php echo $cthash;?>/<?php echo $totalpage;?>">Last</a></li>
+              </ul>
+					</div>				
+				
+				
 				</div>
 			</div
 			

@@ -48,7 +48,8 @@ public function getContractList(){
 }
 
 
-public function getContractDetail($cthash){
+public function getContractDetail($cthash,$page=1){
+	$perpage=100;	
 	$this->load->database();
 	////Get basic info from db
 	$sql="SELECT * FROM contracts_token WHERE address='$cthash'";
@@ -76,10 +77,17 @@ public function getContractDetail($cthash){
 	}	
 	
 	
+	$sql_count="SELECT count(*) from tx WHERE recipient_id='$cthash'";
+	$query = $this->db->query($sql_count);
+	$row = $query->row();
+	$data['totaltxs']=$row->count;
+	$data['page']=$page;
+	$data['totalpage']=round($data['totaltxs']/$perpage,0);
+	
 	$data['cttable']="";//$counter=0;
 	////get last 100 calls
 	//$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
-	$sql="SELECT txhash,block_height,sender_id,amount FROM tx WHERE recipient_id='$cthash' order by tid desc limit 100;";
+	$sql="SELECT txhash,block_height,sender_id,amount FROM tx WHERE recipient_id='$cthash' order by tid desc limit 100 offset ".($page-1)*$perpage;;
 	$query = $this->db->query($sql);
 	foreach ($query->result() as $row){
 		//$counter++;
