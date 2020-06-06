@@ -841,7 +841,8 @@ class Tests extends CI_Model {
 		}
 		
 		
-	public function getWalletInfo($ak,$page=1,$type='all'){
+public function getWalletInfo($ak,$page=1,$type='all',$txtype='SpendTx'){
+		//act as v55 with new db structure
 		$perpage=50;
 		$data['page']=$page;
 		$data['activities']="";		
@@ -916,7 +917,7 @@ class Tests extends CI_Model {
 			$block_height=$row->block_height;
 			//$time=$this->getTransactionTime($txdata->block_hash);
 			$time=substr($utc,0,10);
-			$time=date("H:i:s",$time);			
+			$time=date("Y-m-d H:i:s",$time);			
 			
 			if($txtype=='SpendTx'||$txtype=='NameTransferTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
@@ -1002,15 +1003,15 @@ class Tests extends CI_Model {
 			$data['account']="Invalid address";
 			}
 		/////////////////////////////////////////////Get Tokens//////////////////////////////////
-		$tmpaddress=$this->base58_decode($tobecheck);
-		$hexaddress=substr($tmpaddress,0,64);
-		$sql="SELECT DISTINCT contract FROM tokens WHERE address='$hexaddress'";
+		//$tmpaddress=$this->base58_decode($tobecheck);
+		//$hexaddress=substr($tmpaddress,0,64);
+		$sql="SELECT DISTINCT contract,alias,balance FROM token WHERE address='$tobecheck'";
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['tokens']="";
 		foreach ($query->result() as $row){
-			$token=$this->getTokenName($row->contract);
-			$balance=$this->getTokenBalance($row->contract,$hexaddress);
+			$token=$row->alias;
+			$balance=round($row->balance/1000000000000000000,2);
 			$data['tokens'].="<b>$token</b>: $balance<br/>";
 			}
 		
@@ -1023,10 +1024,10 @@ class Tests extends CI_Model {
 		$row = $query->row();		
 		$data['aensname']=$row->count;
 		
-		return $data;
+		return $data;	
+			
+			}
 		
-		}
-
 public function getTokenBalance($contract,$hexaddress){
 	$this->load->database();
 	$sql="SELECT decimal FROM contracts_token WHERE address='$contract'";
