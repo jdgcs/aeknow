@@ -1005,13 +1005,14 @@ public function getWalletInfo($ak,$page=1,$type='all',$txtype='SpendTx'){
 		/////////////////////////////////////////////Get Tokens//////////////////////////////////
 		//$tmpaddress=$this->base58_decode($tobecheck);
 		//$hexaddress=substr($tmpaddress,0,64);
-		$sql="SELECT DISTINCT contract,alias,balance FROM token WHERE address='$tobecheck'";
+		$sql="SELECT * FROM token WHERE account='$tobecheck'";
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['tokens']="";
 		foreach ($query->result() as $row){
 			$token=$row->alias;
-			$balance=round($row->balance/1000000000000000000,2);
+			$decimal=$row->decimal;
+			$balance=round($row->balance/pow(10,$decimal),2);
 			$data['tokens'].="<b>$token</b>: $balance<br/>";
 			}
 		
