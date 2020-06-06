@@ -164,16 +164,17 @@ class Wallets extends CI_Model {
 			$data['account']="Invalid address";
 			}
 		/////////////////////////////////////////////Get Tokens//////////////////////////////////
-		$tmpaddress=$this->base58_decode($tobecheck);
-		$hexaddress=substr($tmpaddress,0,64);
-		$sql="SELECT DISTINCT contract FROM tokens WHERE address='$hexaddress'";
+		$sql="SELECT * FROM token WHERE account='$ak'";
+		//echo $sql;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['tokens']="";
 		foreach ($query->result() as $row){
-			$token=$this->getTokenName($row->contract);
-			$balance=$this->getTokenBalance($row->contract,$hexaddress);
-			$data['tokens'].="<b>$token</b>: $balance<br/>";
+			$token=$row->alias;
+			$decimal=$row->decimal;
+			$contract=$row->contract;
+			$balance=round($row->balance/pow(10,$decimal),2);
+			$data['tokens'].="<b><a href=/contract/detail/$contract target=_blank>$token</a></b>: $balance<br/>";
 			}
 		
 		
