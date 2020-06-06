@@ -1008,15 +1008,16 @@ public function getWalletInfo($ak,$page=1,$type='all',$txtype='SpendTx'){
 		
 		
 		$sql="SELECT * FROM token WHERE account='$ak'";
-		echo $sql;
+		//echo $sql;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['tokens']="";
 		foreach ($query->result() as $row){
 			$token=$row->alias;
 			$decimal=$row->decimal;
+			$contract=$row->contract;
 			$balance=round($row->balance/pow(10,$decimal),2);
-			$data['tokens'].="<b>$token</b>: $balance<br/>";
+			$data['tokens'].="<b><a href=/contract/detail/$contract target=_blank>$token</a></b>: $balance<br/>";
 			}
 		
 		
