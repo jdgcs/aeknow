@@ -1005,7 +1005,10 @@ public function getWalletInfo($ak,$page=1,$type='all',$txtype='SpendTx'){
 		/////////////////////////////////////////////Get Tokens//////////////////////////////////
 		//$tmpaddress=$this->base58_decode($tobecheck);
 		//$hexaddress=substr($tmpaddress,0,64);
-		$sql="SELECT * FROM token WHERE account='$tobecheck'";
+		
+		
+		$sql="SELECT * FROM token WHERE account='$ak'";
+		echo $sql;
 		$query = $this->db->query($sql);
 		$counter=0;
 		$data['tokens']="";
