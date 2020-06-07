@@ -258,11 +258,11 @@ class Tests extends CI_Model {
 	
 	public function getToken($ak){
 		$this->load->database();
-		$tobecheck=str_replace("ak_","",$ak);
-		$tmpaddress=$this->base58_decode($tobecheck);		
-		$hexaddress=substr($tmpaddress,0,64);
+		//$tobecheck=str_replace("ak_","",$ak);
+		//$tmpaddress=$this->base58_decode($tobecheck);		
+		//$hexaddress=substr($tmpaddress,0,64);
 		
-		$sql="SELECT * from tokens where address='$hexaddress'";
+		$sql="SELECT * from token where account='$ak'";
 		//echo $sql;
 		$query = $this->db->query($sql);
 		$counter=0;
@@ -271,7 +271,7 @@ class Tests extends CI_Model {
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
 				$tokeninfo=$this->getTokenInfo($row->contract);				
-				$str.='{"tokenname":"'.$tokeninfo['name'].'","decimal":'.$tokeninfo['decimal'].',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+				$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
 			}
 			//$aens[$counter]['expire_height']=$row->expire_height;
 			}
