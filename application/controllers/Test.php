@@ -35,6 +35,14 @@ class Test extends CI_Controller {
 	}
 	
 	
+	public function token($ak){
+		$this->load->model('tests');
+		$data['info']=$this->tests->getToken($ak);
+		$this->load->view('en/blank.html',$data);
+		//$this->output->cache(2);
+		}	
+			
+			
 	public function tokentest(){
 		$this->load->model('tests');
 		$data=$this->tests->getCallInfo("cb_KxGEoV2hK58AoMLlAP6SFrYeiuRrxi5A5rNjruumGuhbIsuZStUbvgZYb4Za8xB6P8AmHfsB","ct_M9yohHgcLjhpp1Z8SaA1UTmRMQzR4FWjJHajGga8KBoZTEPwC");
