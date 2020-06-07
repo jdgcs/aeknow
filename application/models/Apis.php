@@ -28,24 +28,17 @@ class Apis extends CI_Model {
 		
 	
 		
-	public function getToken($ak){
-		$this->load->database();
-		$tobecheck=str_replace("ak_","",$ak);
-		$tmpaddress=$this->base58_decode($tobecheck);		
-		$hexaddress=substr($tmpaddress,0,64);
-		
-		$sql="SELECT * from tokens where address='$hexaddress'";
-		//echo $sql;
+	public function getToken($ak){//provide token api to users.
+		$this->load->database();		
+		$sql="SELECT * from token where account='$ak'";	
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str="{\"tokens\":[";
 		
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
-				$tokeninfo=$this->getTokenInfo($row->contract);				
-				$str.='{"tokenname":"'.$tokeninfo['name'].'","decimal":'.$tokeninfo['decimal'].',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+				$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
 			}
-			//$aens[$counter]['expire_height']=$row->expire_height;
 			}
 		$str.="]}END";
 		$str=str_replace(",]}END","]}",$str);
