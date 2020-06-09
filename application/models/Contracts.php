@@ -5,7 +5,7 @@ class Contracts extends CI_Model {
 
 public function getContractList(){
 	$this->load->database();
-	$sql="SELECT * FROM contracts_token ORDER BY lastcall desc";
+	$sql="SELECT * FROM contracts_token ORDER BY lastcall desc LIMIT 200";
 
 	$query = $this->db->query($sql);
 	$data['cttable']="";$counter=0;
