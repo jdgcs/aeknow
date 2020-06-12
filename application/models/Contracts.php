@@ -78,7 +78,7 @@ public function getContractDetail($cthash,$page=1){
 	}	
 	
 	
-	$sql_count="SELECT count(*) from tx WHERE recipient_id='$cthash'";
+	$sql_count="SELECT count(*) from tx WHERE contract_id='$cthash'";
 	$query = $this->db->query($sql_count);
 	$row = $query->row();
 	$data['totaltxs']=$row->count;
@@ -88,7 +88,7 @@ public function getContractDetail($cthash,$page=1){
 	$data['cttable']="";//$counter=0;
 	////get last 100 calls
 	//$sql="select tx->'hash' as txhash,tx->'block_height' as block_height FROM txs WHERE txtype='ContractCallTx' AND tx->'tx' @> '{\"contract_id\": \"$cthash\"}' order by tid desc limit 100;";
-	$sql="SELECT txhash,block_height,sender_id,amount FROM tx WHERE recipient_id='$cthash' order by tid desc limit 100 offset ".($page-1)*$perpage;;
+	$sql="SELECT txhash,block_height,sender_id,amount FROM tx WHERE contract_id='$cthash' order by tid desc limit 100 offset ".($page-1)*$perpage;;
 	$query = $this->db->query($sql);
 	foreach ($query->result() as $row){
 		//$counter++;
