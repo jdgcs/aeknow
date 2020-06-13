@@ -46,6 +46,7 @@ class Test extends CI_Controller {
 		$this->load->model('tests');
 		$data['info']=$this->tests->getTokenTable($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		//$this->output->cache(2);
 		}	
 				
