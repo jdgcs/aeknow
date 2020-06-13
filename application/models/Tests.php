@@ -281,6 +281,37 @@ class Tests extends CI_Model {
 		return $str;
 		}
 	
+	
+		public function getTokenTable($ak){//provide token api to users.
+		$this->load->database();		
+		$sql="SELECT * from token where account='$ak'";	
+		$query = $this->db->query($sql);
+		$counter=0;
+		$str="";
+		 /*                   
+                    <td><a href=https://www.aeknow.org/token/view/AET target=_blank>AET</a></td>  
+                    <td><a href="">18</a></td>    
+                    <td><a href="">99999998312.00</a></td>              
+                    <td align="center">
+                      <div class=btn-group>
+						  <a href=/viewtoken?contractid=ct_25fGkF44Z3QzT2RBUvHWMkDYdPx4EQz7Q564QquFdyg16GLbYh><button type="button" class="btn btn-success">Transfer</button></a> &nbsp;
+						 
+						</div>
+                    </td>
+                  </tr>*/
+		foreach ($query->result() as $row){
+			if(trim($row->contract)!=""){
+				//$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+				$str.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div></td></tr>"
+			}
+			}
+		//$str.="]}END";
+		//$str=str_replace(",]}END","]}",$str);
+		
+		return $str;
+		}
+		
+		
 	public function getTokenInfo($contract){
 		$this->load->database();
 		$sql="SELECT alias,decimal FROM contracts_token WHERE address='$contract'";

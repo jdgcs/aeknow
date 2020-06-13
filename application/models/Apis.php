@@ -46,6 +46,9 @@ class Apis extends CI_Model {
 		return $str;
 		}
 	
+	
+
+	
 	public function getTokenInfo($contract){
 		$this->load->database();
 		$sql="SELECT alias,decimal FROM contracts_token WHERE address='$contract'";
