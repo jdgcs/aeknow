@@ -42,7 +42,7 @@ class Test extends CI_Controller {
 		//$this->output->cache(2);
 		}	
 			
-	public function tokenlist($ak){
+	public function tokenlist($ak,$caller){
 		$this->load->model('tests');
 		$data['info']=$this->tests->getTokenTable($ak);
 		$this->load->view('en/blank.html',$data);
