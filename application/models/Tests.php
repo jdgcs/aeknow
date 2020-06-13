@@ -305,7 +305,7 @@ class Tests extends CI_Model {
 					$ownerfunc="";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=mint&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div> ";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=burn&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div> ";
-					$ownerfunc.="<div class=btn-group><a href=/call?func=allow&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div> ";
+					//$ownerfunc.="<div class=btn-group><a href=/call?func=allow&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div> ";
 					
 					}
 				//$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
