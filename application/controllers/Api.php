@@ -40,8 +40,8 @@ class Api extends CI_Controller {
 		}	
 		
 	public function tokenlist($ak,$caller){
-		$this->load->model('tests');
-		$data['info']=$this->tests->getTokenTable($ak,$caller);
+		$this->load->model('apis');
+		$data['info']=$this->apis->getTokenTable($ak,$caller);
 		$this->load->view('en/blank.html',$data);
 		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		//$this->output->cache(2);
