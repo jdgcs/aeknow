@@ -48,7 +48,7 @@ class Apis extends CI_Model {
 	
 	public function getTokenTable($ak,$caller){//provide token api to users.
 		$this->load->database();		
-		$sql="SELECT * from token where account='$ak' ORDER BY alais";	
+		$sql="SELECT * from token where account='$ak' ORDER BY alias";	
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str='<table class="table no-margin">
