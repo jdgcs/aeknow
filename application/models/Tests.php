@@ -303,9 +303,9 @@ class Tests extends CI_Model {
 				$owner_id=$this->getContractOwner($row->contract);
 				if($caller==$owner_id){
 					$ownerfunc="";
-					$ownerfunc.="<div class=btn-group><a href=/minttoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div>";
-					$ownerfunc.="<div class=btn-group><a href=/burntoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div>";
-					$ownerfunc.="<div class=btn-group><a href=/allowtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div>";
+					$ownerfunc.="<div class=btn-group><a href=/call?func=mint&contractid=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div> ";
+					$ownerfunc.="<div class=btn-group><a href=/call?func=burn&contractid=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div> ";
+					$ownerfunc.="<div class=btn-group><a href=/call?func=allow&contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div> ";
 					
 					}
 				//$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
