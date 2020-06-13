@@ -300,7 +300,8 @@ class Tests extends CI_Model {
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
 				$ownerfunc="";
-				if($caller==$row->owner_id){
+				$owner_id=$this->getContractOwner($row->contract);
+				if($caller==$owner_id){
 					$ownerfunc="";
 					$ownerfunc.="<div class=btn-group><a href=/minttoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div>";
 					$ownerfunc.="<div class=btn-group><a href=/burntoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div>";
@@ -317,7 +318,15 @@ class Tests extends CI_Model {
 		return $str;
 		}
 		
-		
+	public function getContractOwner($contract_id){//get the owner_id of a contract
+		$this->load->database();
+		$sql="SELECT owner_id FROM contracts_token WHERE address='$contract_id'";
+		$query = $this->db->query($sql);
+		$row = $query->row();	
+		return $row->owner_id;
+		}
+	
+	
 	public function getTokenInfo($contract){
 		$this->load->database();
 		$sql="SELECT alias,decimal FROM contracts_token WHERE address='$contract'";
