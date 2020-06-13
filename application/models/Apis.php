@@ -46,7 +46,49 @@ class Apis extends CI_Model {
 		return $str;
 		}
 	
-	
+	public function getTokenTable($ak,$caller){//provide token api to users.
+		$this->load->database();		
+		$sql="SELECT * from token where account='$ak'";	
+		$query = $this->db->query($sql);
+		$counter=0;
+		$str='<table class="table no-margin">
+                  <thead>
+                  <tr>
+                    <th>Token Name</th>
+                    <th>Decimal</th>  
+                    <th>Amount</th>                 
+                    <th ><center>Operation</center></th>
+                  </tr>
+                  </thead>
+                  <tbody>';		
+		foreach ($query->result() as $row){
+			if(trim($row->contract)!=""){
+				$ownerfunc="";
+				$owner_id=$this->getContractOwner($row->contract);
+				if($caller==$owner_id){
+					$ownerfunc="";
+					$ownerfunc.="<div class=btn-group><a href=/call?func=mint&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div> ";
+					$ownerfunc.="<div class=btn-group><a href=/call?func=burn&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div> ";
+					//$ownerfunc.="<div class=btn-group><a href=/call?func=allow&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div> ";
+					
+					}
+				//$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+				$str.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div> $ownerfunc</td></tr>";
+			}
+			}
+		$str.="</tbody></table>";
+		//$str=str_replace(",]}END","]}",$str);
+		
+		return $str;
+		}
+		
+	public function getContractOwner($contract_id){//get the owner_id of a contract
+		$this->load->database();
+		$sql="SELECT owner_id FROM contracts_token WHERE address='$contract_id'";
+		$query = $this->db->query($sql);
+		$row = $query->row();	
+		return $row->owner_id;
+		}
 
 	
 	public function getTokenInfo($contract){
