@@ -305,11 +305,11 @@ class Tests extends CI_Model {
 					$ownerfunc="";
 					$ownerfunc.="<div class=btn-group><a href=/minttoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div>";
 					$ownerfunc.="<div class=btn-group><a href=/burntoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div>";
-					$ownerfunc.="<div class=btn-group><a href=/allowtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Burn</button></a>&nbsp;</div>";
+					$ownerfunc.="<div class=btn-group><a href=/allowtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div>";
 					
 					}
 				//$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
-				$str.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;$ownerfunc</div></td></tr>";
+				$str.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center>$ownerfunc<div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div></td></tr>";
 			}
 			}
 		$str.="</tbody></table>";
