@@ -61,22 +61,25 @@ class Apis extends CI_Model {
                   </tr>
                   </thead>
                   <tbody>';		
+        $ownerlists="";
+        $otherlists="";
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
 				$ownerfunc="";
 				$owner_id=$this->getContractOwner($row->contract);
-				if($caller==$owner_id){
+				if($caller==$owner_id){//the token owned list first
 					$ownerfunc="";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=mint&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div> ";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=burn&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div> ";
 					//$ownerfunc.="<div class=btn-group><a href=/call?func=allow&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div> ";
-					
+					$ownerlists.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div> $ownerfunc</td></tr>";
+			
+					}else{
+						$otherlists.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div></td></tr>";
 					}
-				//$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
-				$str.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".round($row->balance/pow(10,$row->decimal),2)."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div> $ownerfunc</td></tr>";
 			}
 			}
-		$str.="</tbody></table>";
+		$str.=$ownerlists.$otherlists."</tbody></table>";
 		//$str=str_replace(",]}END","]}",$str);
 		
 		return $str;
