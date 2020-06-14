@@ -48,7 +48,8 @@ class Apis extends CI_Model {
 	
 	public function getTokenTable($ak,$caller){//provide token api to users.
 		$this->load->database();		
-		$sql="SELECT * from token where account='$ak' ORDER BY alias";	
+		//$sql="SELECT * from token where account='$ak' ORDER BY alias";	
+		$sql="SELECT token.decimal,token.alias,token.balance,token.contract,contracts_token.owner_id from token inner join contracts_token ON token.contract=contracts_token.address WHERE token.account='$ak' ORDER BY token.alias";
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str='<table class="table no-margin">
@@ -66,7 +67,8 @@ class Apis extends CI_Model {
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
 				$ownerfunc="";
-				$owner_id=$this->getContractOwner($row->contract);
+				//$owner_id=$this->getContractOwner($row->contract);
+				$owner_id=$row->owner_id;
 				if($caller==$owner_id){//the token owned list first
 					$ownerfunc="";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=mint&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div> ";
