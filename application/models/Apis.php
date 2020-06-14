@@ -30,7 +30,7 @@ class Apis extends CI_Model {
 		
 	public function getToken($ak){//provide token api to users.
 		$this->load->database();		
-		$sql="SELECT * from token where account='$ak'";	
+		$sql="SELECT alias,decimal,contract,balance from token where account='$ak'";	
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str="{\"tokens\":[";
