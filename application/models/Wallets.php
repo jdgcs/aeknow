@@ -85,12 +85,14 @@ class Wallets extends CI_Model {
 				if($txtype=='NameTransferTx'){
 					$amount="NameTransferTx =>";
 					}else{
-					$amount=$amount/1000000000000000000;
+						if($txtype=='ContractCallTx'){
+							$amount=($amount/1000000000000000000)." ".$this->getContractAlias($txtype=$row->contract_id;);
+							}else{
+								$amount=($amount/1000000000000000000)." AE";
+								}					
 				}
 				
-				if($txtype=='NameTransferTx'){
-					
-					}
+				
 					
 				$recipient_id=$row->recipient_id;			
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
@@ -196,7 +198,14 @@ class Wallets extends CI_Model {
 			}
 		
 		
-
+public function getContractAlias($contract_id){//get the owner_id of a contract
+		$this->load->database();
+		$sql="SELECT alias FROM contracts_token WHERE address='$contract_id'";
+		$query = $this->db->query($sql);
+		$row = $query->row();	
+		return $row->alias;
+		}
+		
 public function getAKbyNameHash($name_id){
 	$this->load->database();
 	$sql="SELECT nameowner FROM txs_aens WHERE name_id='$name_id' LIMIT 1";
