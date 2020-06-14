@@ -80,13 +80,18 @@ class Wallets extends CI_Model {
 			$time=substr($utc,0,10);
 			$time=date("Y-m-d H:i:s",$time);			
 			
-			if($txtype=='SpendTx'||$txtype=='NameTransferTx'){				
+			if($txtype=='SpendTx'||$txtype=='NameTransferTx'||$txtype=='ContractCallTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
 				if($txtype=='NameTransferTx'){
 					$amount="NameTransferTx =>";
 					}else{
 					$amount=$amount/1000000000000000000;
 				}
+				
+				if($txtype=='NameTransferTx'){
+					
+					}
+					
 				$recipient_id=$row->recipient_id;			
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
 				$alias=$this->getalias($recipient_id);
