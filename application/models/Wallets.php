@@ -86,7 +86,7 @@ class Wallets extends CI_Model {
 					$amount="NameTransferTx =>";
 					}else{
 						if($txtype=='ContractCallTx'){
-							$amount=($amount/1000000000000000000)." ".$this->getContractAlias($txtype=$row->contract_id;);
+							$amount=($amount/1000000000000000000)." ".$this->getContractAlias($txtype=$row->contract_id);
 							}else{
 								$amount=($amount/1000000000000000000)." AE";
 								}					
