@@ -45,7 +45,25 @@ class Apis extends CI_Model {
 		
 		return $str;
 		}
-	
+		
+	public function getSingleToken($ak,$contract_id){//provide token api to users' token.
+		$this->load->database();		
+		$sql="SELECT alias,decimal,contract,balance from token where account='$ak' and contract='$contract_id'";	
+		$query = $this->db->query($sql);
+		$counter=0;
+		$str="{\"tokens\":[";
+		
+		foreach ($query->result() as $row){
+			if(trim($row->contract)!=""){
+				$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+			}
+			}
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		
+		return $str;
+		}
+		
 	public function getTokenTable($ak,$caller){//provide token api to users.
 		$this->load->database();		
 		//$sql="SELECT * from token where account='$ak' ORDER BY alias";	
