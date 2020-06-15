@@ -59,7 +59,7 @@ class Apis extends CI_Model {
 			}
 			}
 		$str.="]}END";
-		$str=str_replace(",]}END","}",$str);
+		$str=str_replace(",]}END","",$str);
 		
 		return $str;
 		}
