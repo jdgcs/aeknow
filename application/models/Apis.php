@@ -51,7 +51,7 @@ class Apis extends CI_Model {
 		$sql="SELECT alias,decimal,contract,balance from token where account='$ak' and contract='$contract_id'";	
 		$query = $this->db->query($sql);
 		$counter=0;
-		$str="{\"tokens\":[";
+		$str="";
 		
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
@@ -59,7 +59,7 @@ class Apis extends CI_Model {
 			}
 			}
 		$str.="]}END";
-		$str=str_replace(",]}END","]}",$str);
+		$str=str_replace(",]}END","}",$str);
 		
 		return $str;
 		}
