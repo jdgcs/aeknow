@@ -30,14 +30,16 @@ class Apis extends CI_Model {
 		
 	public function getToken($ak){//provide token api to users.
 		$this->load->database();		
-		$sql="SELECT alias,decimal,contract,balance from token where account='$ak'";	
+		//$sql="SELECT alias,decimal,contract,balance from token where account='$ak'";	
+		$sql="SELECT token.decimal,token.alias,token.balance,token.contract,contracts_token.owner_id from token inner join contracts_token ON token.contract=contracts_token.address WHERE token.account='$ak' ORDER BY token.alias";
+		
 		$query = $this->db->query($sql);
 		$counter=0;
 		$str="{\"tokens\":[";
 		
 		foreach ($query->result() as $row){
 			if(trim($row->contract)!=""){
-				$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'"},';
+				$str.='{"tokenname":"'.$row->alias.'","decimal":'.$row->decimal.',"contract":"'.$row->contract.'","balance":"'.$row->balance.'","owner_id":"'.$row->owner_id.'"},';
 			}
 			}
 		$str.="]}END";
