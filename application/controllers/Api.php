@@ -17,11 +17,13 @@ class Api extends CI_Controller {
 		$this->load->model('apis');//api online
 		$data['info']=$this->apis->wealth500($offset);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(30);
 		}
 	public function tx($ak,$limit=20,$offset=0){
 		$this->load->model('apis');
 		$this->apis->getTx($ak,$limit,$offset);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		}
 	
 	public function aens($ak){
@@ -29,6 +31,7 @@ class Api extends CI_Controller {
 		//$data['api']=$this->apis->getAENS($ak);
 		$data['info']=$this->apis->getAENS($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(2);
 		}	
 	
@@ -36,6 +39,7 @@ class Api extends CI_Controller {
 		$this->load->model('apis');
 		$data['info']=$this->apis->getToken($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		//$this->output->cache(2);
 		}	
 	
