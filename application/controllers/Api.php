@@ -43,6 +43,7 @@ class Api extends CI_Controller {
 		$this->load->model('apis');
 		$data['info']=$this->apis->getSingleToken($ak,$contract_id);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		//$this->output->cache(2);
 		}
 		
