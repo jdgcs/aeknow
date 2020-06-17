@@ -63,6 +63,7 @@ class Api extends CI_Controller {
 		$this->load->model('apis');		
 		$data['info']=$this->apis->getAENSBidding($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		//$this->output->cache(2);
 		}		
 		
@@ -70,24 +71,28 @@ class Api extends CI_Controller {
 		$this->load->model('apis');
 		$data['info']=$this->apis->queryAENS($aensname);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(2);
 		}	
 	public function account($ak){
 		$this->load->model('apis');
 		$data=$this->apis->getAccount($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(2);
 		}	
 		
 	public function totalcoins(){
 		$this->load->model('apis');
-		echo $this->apis->getTotalCoins();		
+		echo $this->apis->getTotalCoins();	
+		$this->output->set_header("Access-Control-Allow-Origin: * ");	
 		}
 	
 	public function network(){
 		$this->load->model('networks');
 		$data['api']=$this->networks->getNetworkStatus();
 		$this->load->view('en/api.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(2);
 		}
 }
