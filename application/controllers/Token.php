@@ -16,9 +16,6 @@ class Token extends CI_Controller {
 			}else{
 				echo $data;
 				}
-		
-		//$this->load->view('en/blank.html',$data);
-		//$this->output->cache(3);	
 		}
 
 }
