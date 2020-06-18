@@ -13,7 +13,7 @@ class Token extends CI_Controller {
 		$data=$this->tokens->CheckToken($token);
 		if(trim($data)==""){
 				echo "OK";
-			else{
+			}else{
 				echo $data;
 				}
 		
