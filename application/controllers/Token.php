@@ -11,7 +11,12 @@ class Token extends CI_Controller {
 		$token=trim(strtoupper($this->input->post('tokenname')));	
 		$this->load->model('tokens');	
 		$data=$this->tokens->CheckToken($token);
-		echo $data;
+		if(trim($data)==""){
+				echo "OK";
+			else{
+				echo $data;
+				}
+		
 		//$this->load->view('en/blank.html',$data);
 		//$this->output->cache(3);	
 		}
