@@ -143,7 +143,7 @@ class Transactions extends CI_Model {
 		//$sql_count="SELECT count(*) from tx ";
 		$sql_count="SELECT tid as count FROM tx order by tid desc limit 1";
 		
-		$sql="SELECT * from tx WHERE amount is NULL or amount>2000 order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * from tx WHERE amount is NULL or amount>20000 order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		//$sql="SELECT * from tx order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=="aens"){
 			$sql="SELECT * from tx WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
