@@ -140,7 +140,9 @@ class Transactions extends CI_Model {
 		$data['txtype']=$type;		
 		$this->load->database();
 		
-		$sql_count="SELECT count(*) from tx";
+		//$sql_count="SELECT count(*) from tx ";
+		$sql_count="SELECT tid as count FROM tx order by tid desc limit 1";
+		
 		$sql="SELECT * from tx order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=="aens"){
 			$sql="SELECT * from tx WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
