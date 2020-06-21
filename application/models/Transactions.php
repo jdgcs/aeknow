@@ -187,7 +187,7 @@ class Transactions extends CI_Model {
 			$block_hash=$row->block_hash;
 			//$time=$this->getTransactionTime($txdata->block_hash,$txhash);
 			//$time=$this->getTransactionTime($block_hash,$txhash);
-			$totalmins=round(($row->time/1000),0);
+			$totalmins=round(($row->utc/1000),0);
 			$time=date("Y-m-d H:i:s",$totalmins);	
 			
 			if($txtype=='SpendTx'){				
