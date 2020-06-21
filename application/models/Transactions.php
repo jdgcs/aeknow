@@ -194,7 +194,7 @@ class Transactions extends CI_Model {
 				//$amount=$txdata->tx->amount/1000000000000000000;
 				$amount=$row->amount/1000000000000000000;
 				//$recipient_id=$txdata->tx->recipient_id;
-				$recipient_id=$amount=$row->recipient_id				
+				$recipient_id=$row->recipient_id				
 				$recipient_id_show="ak_****".substr($recipient_id,-4);
 				$alias=$this->getalias($recipient_id);
 				if($recipient_id!=$alias){
@@ -202,7 +202,7 @@ class Transactions extends CI_Model {
 					}
 							
 				//$sender_id=$txdata->tx->sender_id;
-				$sender_id=$amount=$row->sender_id
+				$sender_id=$row->sender_id
 				$sender_id_show="ak_****".substr($sender_id,-4);
 				$alias=$this->getalias($sender_id);
 				if($sender_id!=$alias){
