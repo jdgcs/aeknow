@@ -141,7 +141,7 @@ class Transactions extends CI_Model {
 		$this->load->database();
 		
 		$sql_count="SELECT count(*) from tx";
-		$sql="SELECT * from txs order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
+		$sql="SELECT * from tx order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 		if($type=="aens"){
 			$sql="SELECT * from tx WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx' order by tid desc LIMIT $perpage offset ".($page-1)*$perpage;
 			$sql_count="SELECT count(*) from tx WHERE txtype='NameRevokeTx' OR txtype='NameClaimTx' OR txtype='NameTransferTx' OR txtype='NamePreclaimTx' OR txtype='NameUpdateTx'";
@@ -186,8 +186,9 @@ class Transactions extends CI_Model {
 			//$block_hash=$txdata->block_hash;
 			$block_hash=$row->block_hash;
 			//$time=$this->getTransactionTime($txdata->block_hash,$txhash);
-			$time=$this->getTransactionTime($block_hash,$txhash);
-			
+			//$time=$this->getTransactionTime($block_hash,$txhash);
+			$totalmins=round(($row->time/1000),0);
+			$time=date("Y-m-d H:i:s",$totalmins);	
 			
 			if($txtype=='SpendTx'){				
 				$txhash_show="th_****".substr($txhash,-4);
