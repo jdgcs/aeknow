@@ -9,7 +9,7 @@ class Transaction extends CI_Controller {
 		$this->load->model('transactions');
 		$data=$this->transactions->getTransactions(1,"all");
 		$this->load->view('en/transaction_index.html',$data);
-		$this->output->cache(3);
+		//$this->output->cache(3);
 	}
 	
 	public function p($page=1,$type=1000)
