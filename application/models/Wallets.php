@@ -200,11 +200,18 @@ class Wallets extends CI_Model {
 		
 		
 public function getContractAlias($contract_id){//get the owner_id of a contract
-		$this->load->database();
+		$this->load->database();		
+		$alias="";
 		$sql="SELECT alias FROM contracts_token WHERE address='$contract_id'";
 		$query = $this->db->query($sql);
 		$row = $query->row();	
-		return $row->alias;
+		$alias=$row->alias;
+		if(trim$alias)==""){
+			return "";
+			}else{
+				return $alias;
+				}
+		 
 		}
 		
 public function getAKbyNameHash($name_id){
