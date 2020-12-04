@@ -203,10 +203,9 @@ public function getContractAlias($contract_id){//get the owner_id of a contract
 		$this->load->database();		
 		$alias="";
 		$sql="SELECT alias FROM contracts_token WHERE address='$contract_id'";
-		$query = $this->db->query($sql);
-		$row = $query->row();	
-		
-		if(property_exists($row,"alias")){
+		$query = $this->db->query($sql);		
+		if(property_exists( $query->row(),"alias")){
+			$row = $query->row();	
 			$alias=$row->alias;
 		}
 		return $alias;
