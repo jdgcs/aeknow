@@ -206,7 +206,7 @@ public function getContractAlias($contract_id){//get the owner_id of a contract
 		$query = $this->db->query($sql);
 		$row = $query->row();	
 		$alias=$row->alias;
-		if(trim$alias)==""){
+		if(trim($alias)==""){
 			return "";
 			}else{
 				return $alias;
