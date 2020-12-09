@@ -115,7 +115,7 @@ public function viewaccount($ak=NULL){
 		$step=round(($totalcount/100),0);
 		
 		
-		$sql="select * from aenetwork order by rid asc";
+		$sql="select * from aenetwork WHERE rid%".$step."=0 order by rid asc";
 		$query = $this->db->query($sql);
 		
 		$counter=0;
@@ -124,9 +124,9 @@ public function viewaccount($ak=NULL){
 			$difftime=date("Y-m-d H:i:s",$row->recordtime);
 			$diff=round($row->difficulty/16777216,0);
 			
-			if(($counter%$step)==0){				
+		//	if(($counter%$step)==0){				
 				$data['tabledata'].=',{"period": "'.$difftime.'", "difficulty":'.$diff.'}';
-			}
+		//	}
 			}
 		$data['tabledata'].=',{"period": "'.$difftime.'", "difficulty":'.$diff.'}';
 			
