@@ -215,7 +215,7 @@ $this->lang->load('index');
 
             <div class="info-box-content">
               <span class="info-box-text"> <a href="/miner" style="color: #fff;" title="<?php echo $this->lang->line('index_explorermining');?>"><?php echo $this->lang->line('index_mining');?></a></span>
-              <span class="info-box-number">4<small> <?php echo $this->lang->line('index_pools');?></small>  ~<?php echo number_format(($mining_hashrate*42/600),0);?><small> Kg/s</small></span>
+              <span class="info-box-number">4<small> <?php echo $this->lang->line('index_pools');?></small>  ~<?php echo number_format(($mining_hashrate/1000),0);?><small> Kg/s</small></span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
