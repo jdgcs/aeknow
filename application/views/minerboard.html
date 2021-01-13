@@ -131,7 +131,8 @@ $this->lang->load('index');
                   
                   <th>Total Hashrate: ~<?php 
                   //$totalhashrate1=round(($totalhashrate*1000*42)/600,2);
-                   $totalhashrate=number_format(($totalhashrate*42/600),0);
+                  // $totalhashrate=number_format(($totalhashrate*42/600),0);
+                   $totalhashrate=number_format(($totalhashrate/1000),0);
                   echo $totalhashrate;
                   ?> Kg/s(<b>Based on beepool's hashrate</b>)</th>
                  
