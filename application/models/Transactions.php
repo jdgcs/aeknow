@@ -361,6 +361,9 @@ class Transactions extends CI_Model {
 				$data['confirmed']="<span class='badge bg-green'>".$data['confirmed']." blocks confirmed </span>";
 				}else{
 				$data['confirmed']="<span class='badge bg-yellow'>".$data['confirmed']." block confirmed </span>";
+				if($data['block_height']==-1){
+					$data['confirmed']="<span class='badge bg-red'>NOT mined</span>";
+					}
 				}
 			
 			
