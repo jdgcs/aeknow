@@ -32,7 +32,7 @@ class Api extends CI_Controller {
 		$data['info']=$this->apis->getAENS($ak);
 		$this->load->view('en/blank.html',$data);
 		$this->output->set_header("Access-Control-Allow-Origin: * ");
-		$this->output->cache(2);
+		//$this->output->cache(2);
 		}	
 	
 	public function token($ak){

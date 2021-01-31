@@ -93,13 +93,13 @@ class Apis extends CI_Model {
 					$ownerfunc="";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=mint&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-warning\">Mint</button></a>&nbsp;</div> ";
 					$ownerfunc.="<div class=btn-group><a href=/call?func=burn&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-danger\">Burn</button></a>&nbsp;</div> ";
-					$ownerfunc.="<div class=btn-group><a href=/call?func=airdrop&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Air Drop</button></a>&nbsp;</div> ";
+					//$ownerfunc.="<div class=btn-group><a href=/call?func=airdrop&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Air Drop</button></a>&nbsp;</div> ";
 					
 					//$ownerfunc.="<div class=btn-group><a href=/call?func=allow&contract_id=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Allowances</button></a>&nbsp;</div> ";
-					$ownerlists.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".number_format($row->balance/pow(10,$row->decimal),2,'.','')."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div> $ownerfunc</td></tr>";
+					$ownerlists.="<tr><td><a href=/contract/detail/". $row->contract ." target=_blank>".$row->alias."</a></td><td>".$row->decimal."</td><td>".number_format($row->balance/pow(10,$row->decimal),2,'.','')."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div> $ownerfunc</td></tr>";
 			
 					}else{
-						$otherlists.="<tr><td>".$row->alias."</td><td>".$row->decimal."</td><td>".number_format($row->balance/pow(10,$row->decimal),2,'.','')."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div></td></tr>";
+						$otherlists.="<tr><td><a href=/contract/detail/". $row->contract ." target=_blank>".$row->alias."</a></td><td>".$row->decimal."</td><td>".number_format($row->balance/pow(10,$row->decimal),2,'.','')."</td><td align=center><div class=btn-group><a href=/viewtoken?contractid=".$row->contract."><button type=\"button\" class=\"btn btn-success\">Transfer</button></a> &nbsp;</div></td></tr>";
 					}
 			}
 			}
