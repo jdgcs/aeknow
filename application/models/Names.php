@@ -3,18 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Names extends CI_Model {
 
-public function getAddress($name){
-	
+public function getAddress($name){	
 	$url=DATA_SRC_SITE."v2/names/$name";
-	$name="NULL";
+
 	$websrc=$this->getwebsrc($url);
 	//echo "$url;$websrc";
-	if(strpos($websrc,"\"id\":\"ak_")>0){
+	if(strpos($websrc,"pointers")>0){	
 		$nameData=json_decode($websrc);
-		$name=$nameData->pointers[0]->id;
-		return $name;
-	}
-	return $name."=>$websrc<br/>";
+		if(strpos($websrc,"account_pubkey")>0){		
+			return $nameData->pointers[0]->id;	
+		}
+		return $nameData->owner;
+}
+return  "NULL";
 }
 
 public function namelist($ak){
