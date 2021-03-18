@@ -16,6 +16,10 @@ public function getTokenList(){
 		$holders="counting";
 		$transactions=$row->calltime;
 		$lastcall=$row->lastcall;
+		$address=$row->address;
+		
+		$tokenname ="<a href=/contract/detail/$address target=_blank>$tokenname</a>";
+		
 		$data['tokens'] .="<tr><td>$tokenname</td><td>$remark</td><td>$supply</td><td>$holders</td><td>$transactions</td><td>$lastcall</td></tr>";
 		
 		}

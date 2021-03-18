@@ -7,10 +7,15 @@ class Token extends CI_Controller {
 		$this->load->model('tokens');	
 		$data=$this->tokens->getTokenList();
 		$this->load->view('token_index.html',$data);
-		//$this->output->cache(5);
+		$this->output->cache(3);
 		}	
 		
+	public function all(){
+		$this->load->model('tokens');	
+		echo "Building";
+		}	
 		
+			
 	//check the information of token
 	public function checktoken(){		
 		$token=trim(strtoupper($this->input->post('tokenname')));	
