@@ -30,7 +30,7 @@ public function getTokenList(){
 
 public function getAllTokenList(){
 	$this->load->database();
-	$sql="SELECT * FROM contracts_token order by alias LIMIT 500";
+	$sql="SELECT * FROM contracts_token WHERE ctype='AEX9' order by alias LIMIT 500";
 	$query = $this->db->query($sql);
 	$data['tokens']="";
 	foreach ($query->result() as $row){
