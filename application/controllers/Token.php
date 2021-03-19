@@ -12,7 +12,9 @@ class Token extends CI_Controller {
 		
 	public function all(){
 		$this->load->model('tokens');	
-		echo "Building";
+		$data=$this->tokens->getAllTokenList();
+		$this->load->view('token_all.html',$data);
+		$this->output->cache(3);
 		}	
 		
 			

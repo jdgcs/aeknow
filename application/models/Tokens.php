@@ -26,7 +26,31 @@ public function getTokenList(){
 	
 	return $data;
 	}	
+
+
+public function getAllTokenList(){
+	$this->load->database();
+	$sql="SELECT * FROM contracts_token order by alias LIMIT 500";
+	$query = $this->db->query($sql);
+	$data['tokens']="";
+	foreach ($query->result() as $row){
+		$tokenname=$row->alias;
+		$remark=$row->remark;
+		$supply=$row->supply;
+		$holders=$row->holders;
+		$holders="counting";
+		$transactions=$row->calltime;
+		$lastcall=$row->lastcall;
+		$address=$row->address;
+		
+		$tokenname ="<a href=/contract/detail/$address target=_blank>$tokenname</a>";
+		
+		$data['tokens'] .="<tr><td>$tokenname</td><td>$remark</td><td>$supply</td><td>$holders</td><td>$transactions</td><td>$lastcall</td></tr>";
+		
+		}
 	
+	return $data;
+	}	
 	
 public function CheckToken($token){
 	$this->load->database();
