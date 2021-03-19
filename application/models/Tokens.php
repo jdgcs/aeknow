@@ -14,7 +14,7 @@ public function getTokenList(){
 		$remark=$row->remark;
 		$supply=$row->supply;
 		$holders=$row->holders;
-		$holders="counting";
+		//$holders="counting";
 		$transactions=$row->calltime;
 		$lastcall=$row->lastcall;
 		$address=$row->address;
@@ -40,14 +40,14 @@ public function getAllTokenList(){
 		$remark=$row->remark;
 		$supply=$row->supply;
 		$holders=$row->holders;
-		$holders="counting";
+		//$holders="counting";
 		$transactions=$row->calltime;
 		$lastcall=$row->lastcall;
 		$address=$row->address;
 		$data['counter']++;
 		$tokenname ="<a href=/contract/detail/$address target=_blank>$tokenname</a>";
 		
-		$data['tokens'] .="<tr><td>$tokenname</td><td>$remark</td><td>$supply</td><td>$holders</td><td>$transactions</td><td>$lastcall</td></tr>";
+		$data['tokens'] .="<tr><td>$tokenname</td><td>$remark</td><td>$supply</td><td>$transactions</td><td>$lastcall</td></tr>";
 		
 		}
 	
