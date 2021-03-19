@@ -5,9 +5,10 @@ class Tokens extends CI_Model {
 
 public function getTokenList(){
 	$this->load->database();
-	$sql="SELECT * FROM contracts_token WHERE cert=true order by alias";
+	$sql="SELECT * FROM contracts_token WHERE ctype='AEX9' AND cert=true order by alias";
 	$query = $this->db->query($sql);
 	$data['tokens']="";
+	$data['counter']=0;
 	foreach ($query->result() as $row){
 		$tokenname=$row->alias;
 		$remark=$row->remark;
@@ -17,7 +18,7 @@ public function getTokenList(){
 		$transactions=$row->calltime;
 		$lastcall=$row->lastcall;
 		$address=$row->address;
-		
+		$data['counter']++;
 		$tokenname ="<a href=/contract/detail/$address target=_blank>$tokenname</a>";
 		
 		$data['tokens'] .="<tr><td>$tokenname</td><td>$remark</td><td>$supply</td><td>$holders</td><td>$transactions</td><td>$lastcall</td></tr>";
@@ -33,6 +34,7 @@ public function getAllTokenList(){
 	$sql="SELECT * FROM contracts_token WHERE ctype='AEX9' order by alias LIMIT 500";
 	$query = $this->db->query($sql);
 	$data['tokens']="";
+	$data['counter']=0;
 	foreach ($query->result() as $row){
 		$tokenname=$row->alias;
 		$remark=$row->remark;
@@ -42,7 +44,7 @@ public function getAllTokenList(){
 		$transactions=$row->calltime;
 		$lastcall=$row->lastcall;
 		$address=$row->address;
-		
+		$data['counter']++;
 		$tokenname ="<a href=/contract/detail/$address target=_blank>$tokenname</a>";
 		
 		$data['tokens'] .="<tr><td>$tokenname</td><td>$remark</td><td>$supply</td><td>$holders</td><td>$transactions</td><td>$lastcall</td></tr>";
