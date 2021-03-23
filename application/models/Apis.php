@@ -27,6 +27,26 @@ class Apis extends CI_Model {
 		}
 		
 	
+	public function getTokenTop($contract_id,$offset){
+	//	$data['tokenaddress']=$address;
+	$offset=$offset*500;
+		
+	$str="{\"top500\":[";
+		
+	$sql="SELECT * FROM token WHERE contract='$contract_id' order by balance desc limit 500 offset $offset";
+	$query = $this->db->query($sql);
+
+	foreach ($query->result() as $row){
+		$wealth=$row->balance/pow(10,$row->decimal);
+		$str.="{\"ak\":\"".$row->account."\",\"balance\":".$wealth."\"},";
+		}
+		
+		$str.="]}END";
+		$str=str_replace(",]}END","]}",$str);
+		
+		return $str;	
+		}	
+		
 		
 	public function getToken($ak){//provide token api to users.
 		$this->load->database();		
