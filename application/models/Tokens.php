@@ -54,7 +54,9 @@ public function getAllTokenTopList($address,$offset){
 	$query = $this->db->query($sql);
 	$data['tokens']="";
 	$data['counter']=0;
+	$counter=0;
 	foreach ($query->result() as $row){
+		$counter++;
 		$data['tokenname']=$row->alias;
 		$wealth=$row->balance/pow(10,$row->decimal);
 		$address=$row->account;
@@ -65,8 +67,8 @@ public function getAllTokenTopList($address,$offset){
 			}else{
 			$address="<a href=/address/wallet/$address>$address_show($alias)</a>";
 			}	
-			
-			$data['wealth500'].="<tr><td>$counter</td><td>$address</td><td>$wealth</td></tr>";
+			$percentage=round(($wealth/$data['totalcoin'])*100,6);
+			$data['wealth500'].="<tr><td>$counter</td><td>$address</td><td>$wealth</td><td>$percentage %</td></tr>";
 			$data['totalcoin']=$data['totalcoin']+$wealth;		
 		}
 		
