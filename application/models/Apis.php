@@ -28,11 +28,10 @@ class Apis extends CI_Model {
 		
 	
 	public function getTokenTop($contract_id,$offset){
-	//	$data['tokenaddress']=$address;
+	$this->load->database();		
 	$offset=$offset*500;
 		
-	$str="{\"top500\":[";
-		
+	$str="{\"top500\":[";		
 	$sql="SELECT * FROM token WHERE contract='$contract_id' order by balance desc limit 500 offset $offset";
 	$query = $this->db->query($sql);
 

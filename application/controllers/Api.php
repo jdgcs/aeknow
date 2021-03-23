@@ -43,7 +43,7 @@ class Api extends CI_Controller {
 		//$this->output->cache(2);
 		}	
 		
-	public function tokentop($contract_id,$offset){
+	public function tokentop($contract_id,$offset=0){
 		$this->load->model('apis');
 		$data['info']=$this->apis->getTokenTop($contract_id,$offset);
 		$this->load->view('en/blank.html',$data);
