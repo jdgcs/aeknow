@@ -69,7 +69,7 @@ public function getAllTokenTopList($address,$offset){
 			}	
 			$percentage=round(($wealth/$data['totalcoin'])*100,6);
 			$data['wealth500'].="<tr><td>$counter</td><td>$address</td><td>$wealth</td><td>$percentage %</td></tr>";
-			$data['totalcoin']=$data['totalcoin']+$wealth;		
+			//$data['totalcoin']=$data['totalcoin']+$wealth;		
 		}
 		
 	$data['totalpage']=ceil($data['totaladdress']/500)-1;
