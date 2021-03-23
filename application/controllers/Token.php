@@ -17,7 +17,12 @@ class Token extends CI_Controller {
 		$this->output->cache(3);
 		}	
 		
-			
+	public function top($address,$offset=0){
+		$this->load->model('tokens');	
+		$data=$this->tokens->getAllTokenTopList($address,$offset);
+		$this->load->view('token_top.html',$data);
+		//$this->output->cache(3);
+		}			
 	//check the information of token
 	public function checktoken(){		
 		$token=trim(strtoupper($this->input->post('tokenname')));	
