@@ -30,7 +30,7 @@ public function getTokenList(){
 	}	
 
 public function getAllTokenTopList($address,$offset){
-	
+	$data['tokenaddress']=$address;
 	$offset=$offset*500;
 		
 	$data['wealth500']="";
