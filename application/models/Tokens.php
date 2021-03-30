@@ -13,11 +13,16 @@ public function getTokenList(){
 		$tokenname=$row->alias;
 		$remark=$row->remark;
 		$supply=$row->supply;
-		$holders=$row->holders;
+		$address=$row->address;
+		//$holders=$row->holders;
 		//$holders="counting";
+			$sql_holder="select count(*) from token WHERE contract='$address'";
+			$query_holder = $this->db->query($sql_holder);
+			$row_holder = $query_holder->row();
+			$holders=$row_holder->count;
 		$transactions=$row->calltime;
 		$lastcall=$row->lastcall;
-		$address=$row->address;
+		
 		$data['counter']++;
 		$tokenname ="<a href=/contract/detail/$address target=_blank>$tokenname</a>";
 		$holders="<a href=/token/top/$address target=_blank>$holders</a>";
