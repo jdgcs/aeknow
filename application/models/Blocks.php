@@ -237,8 +237,11 @@ class Blocks extends CI_Model {
 				
 			if($txData->tx->type=="ContractCallTx"){
 				$urlinfo=DATA_SRC_SITE.'v2/transactions/'.$transactionhash."/info";
-				$txinfo=$this->getwebsrc($urlinfo);
+				
+				$txinfo=$this->getwebsrc($urlinfo);			
+				
 				$txmore=json_decode($txinfo);
+				echo "$urlinfo<br /><br />$txinfo";
 				if($txmore->call_info->return_type=="ok"){
 					$data['table_data'].='<tr><div class="callout callout-success"><h4>Successfully</h4><p>'.$txmore->call_info.'</p></div></tr>';
 				}else{
