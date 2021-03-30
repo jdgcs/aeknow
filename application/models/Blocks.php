@@ -241,7 +241,7 @@ class Blocks extends CI_Model {
 				$txinfo=$this->getwebsrc($urlinfo);			
 				
 				$txmore=json_decode($txinfo);
-				echo "$urlinfo<br /><br />$txinfo";
+				//echo "$urlinfo<br /><br />$txinfo";
 				if($txmore->call_info->return_type=="ok"){
 					$data['table_data'].='<tr><div class="callout callout-success"><h4>Successfully</h4><p>'.$txmore->call_info.'</p></div></tr>';
 				}else{
