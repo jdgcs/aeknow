@@ -234,6 +234,17 @@ class Blocks extends CI_Model {
 				$txmore=json_decode($txinfo);
 				$data['table_data'].='<tr><th colspan="3">Contract ID: '.$txmore->call_info->contract_id."</th></tr>";
 				}
+				
+			if($txData->tx->type=="ContractCallTx"){
+				$urlinfo=DATA_SRC_SITE.'v2/transactions/'.$transactionhash."/info";
+				$txinfo=$this->getwebsrc($urlinfo);
+				$txmore=json_decode($txinfo);
+				if($txmore->call_info->return_type=="ok"){
+					$data['table_data'].='<tr><div class="callout callout-success"><h4>Successfully</h4><p>'.$txmore->call_info.'</p></div></tr>';
+				}else{
+					$data['table_data'].='<tr><div class="callout callout-danger"><h4>Failed</h4><p>'.$txmore->call_info.'</p></div></tr>';
+					}
+				}
 			
 			$table= (array)json_decode($websrc,true);
 
