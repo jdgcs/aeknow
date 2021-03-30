@@ -243,9 +243,9 @@ class Blocks extends CI_Model {
 				$txmore=json_decode($txinfo);
 				//echo "$urlinfo<br /><br />$txinfo";
 				if($txmore->call_info->return_type=="ok"){
-					$data['table_data'].='<tr><div class="callout callout-success"><h4>Successfully</h4><p>'.$txmore->call_info.'</p></div></tr>';
+					$data['table_data'].='<tr><div class="callout callout-success"><h4>Successfully</h4><p>'.$txmore->call_info->return_type.'</p></div></tr>';
 				}else{
-					$data['table_data'].='<tr><div class="callout callout-danger"><h4>Failed</h4><p>'.$txmore->call_info.'</p></div></tr>';
+					$data['table_data'].='<tr><div class="callout callout-danger"><h4>Failed</h4><p>'.$txmore->call_info->return_type.'</p></div></tr>';
 					}
 				}
 			
