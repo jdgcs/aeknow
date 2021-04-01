@@ -462,6 +462,7 @@ public function getOracleList(){
 		$counter++;
 		$oracle_id=$row->oracle_id;
 		$oracle_id=str_replace('"','',$oracle_id);
+		$oracle_id=str_replace("ak_","ok_",$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);
 		
 		$data['ortable'].="<tr><td>$counter</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-green'>Active</span></td></tr>";		
@@ -476,6 +477,7 @@ public function getOracleList(){
 		$counter_all++;
 		$oracle_id=$row->oracle_id;
 		$oracle_id=str_replace('"','',$oracle_id);
+		$oracle_id=str_replace("ak_","ok_",$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);		
 		//$data['ortable_all'].="<tr><td>$counter_all</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-red'>Inactive</span></td></tr></tr>";		
 		$data['ortable_all'].="<tr><td>$counter_all</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td></td></tr></tr>";		
