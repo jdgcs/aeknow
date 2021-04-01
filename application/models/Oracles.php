@@ -496,7 +496,7 @@ public function getOracleDetail($oracle_id){
 	if(strpos($websrc,"id")>0){
 		$orData=json_decode($websrc);
 		
-		$query_fee=$orData->query_fee;
+		$query_fee=$orData->query_fee/1000000000000000000;
 		$query_format=$orData->query_format;
 		$response_format=$orData->response_format;
 		$ttl=$orData->ttl;
@@ -510,7 +510,7 @@ public function getOracleDetail($oracle_id){
 		
 		$account_id="<a href=/address/wallet/$account_id>$account_id</a>";
 		//$cthashlink="<a href=/contract/detail/$cthash>$cthash</a>";
-		$data['ortable'].="<tr><td>$oracle_id</td><td>$query_fee</td><td>$query_format</td><td>$response_format</td><td>$ttl</td><td>$vm_version</td><td>$account_id</td></tr>";
+		$data['ortable'].="<tr><td>$oracle_id</td><td>$query_fee (AE)</td><td>$query_format</td><td>$response_format</td><td>$ttl</td><td>$vm_version</td><td>$account_id</td></tr>";
 	}	
 	
 	
