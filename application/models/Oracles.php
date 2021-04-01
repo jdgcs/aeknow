@@ -451,8 +451,9 @@ public function getPredictstats($txhash){
 public function getOracleList(){
 	$this->load->database();
 	$topheight=$this->GetTopHeight();
-	$sql="SELECT DISTINCT(CONCAT(aid ,oid) ) as oracle_id FROM (SELECT (tx->'tx'->'oracle_ttl'->>'value')::numeric as ttl, (tx->>'block_height')::numeric as block_height,regexp_replace(((tx->'tx'->'account_id')::text),'ak_','ok_') as aid,(tx->'tx'->'oracle_id')::text as oid from txs WHERE txtype='OracleRegisterTx' or txtype='OracleExtendTx') as tbl_active WHERE (ttl+block_height)>$topheight;";
+	//$sql="SELECT DISTINCT(CONCAT(aid ,oid) ) as oracle_id FROM (SELECT (tx->'tx'->'oracle_ttl'->>'value')::numeric as ttl, (tx->>'block_height')::numeric as block_height,regexp_replace(((tx->'tx'->'account_id')::text),'ak_','ok_') as aid,(tx->'tx'->'oracle_id')::text as oid from txs WHERE txtype='OracleRegisterTx' or txtype='OracleExtendTx') as tbl_active WHERE (ttl+block_height)>$topheight;";
 	//echo "$sql";
+	$sql="select distinct(sender_id) as oracle_id from tx where txtype='OracleExtendTx' AND block_height >".($topheight-4800);
 	$query = $this->db->query($sql);
 	$data['ortable']="";$counter=0;
 	$data['ortable_all']="";$counter_all=0;
@@ -468,14 +469,16 @@ public function getOracleList(){
 	
 	
 	
-	$sql="SELECT DISTINCT(CONCAT(aid ,oid) ) as oracle_id FROM (SELECT (tx->'tx'->'oracle_ttl'->>'value')::numeric as ttl, (tx->>'block_height')::numeric as block_height,regexp_replace(((tx->'tx'->'account_id')::text),'ak_','ok_') as aid,(tx->'tx'->'oracle_id')::text as oid from txs WHERE txtype='OracleRegisterTx' or txtype='OracleExtendTx') as tbl_active WHERE (ttl+block_height)<$topheight;";
+	//$sql="SELECT DISTINCT(CONCAT(aid ,oid) ) as oracle_id FROM (SELECT (tx->'tx'->'oracle_ttl'->>'value')::numeric as ttl, (tx->>'block_height')::numeric as block_height,regexp_replace(((tx->'tx'->'account_id')::text),'ak_','ok_') as aid,(tx->'tx'->'oracle_id')::text as oid from txs WHERE txtype='OracleRegisterTx' or txtype='OracleExtendTx') as tbl_active WHERE (ttl+block_height)<$topheight;";
+	$sql="select distinct(sender_id) as oracle_id from tx where txtype='OracleRegisterTx' LIMIT 100;";
 	$query = $this->db->query($sql);	
 	foreach ($query->result() as $row){
 		$counter_all++;
 		$oracle_id=$row->oracle_id;
 		$oracle_id=str_replace('"','',$oracle_id);
 		$account_id=str_replace("ok_","ak_",$oracle_id);		
-		$data['ortable_all'].="<tr><td>$counter_all</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-red'>Inactive</span></td></tr></tr>";		
+		//$data['ortable_all'].="<tr><td>$counter_all</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td><span class='badge bg-red'>Inactive</span></td></tr></tr>";		
+		$data['ortable_all'].="<tr><td>$counter_all</td><td><a href=/oracle/id/$oracle_id>$oracle_id</a></td><td><a href=/address/wallet/$account_id>$account_id</a></td><td></td></tr></tr>";		
 	}
 	
 	return $data;
