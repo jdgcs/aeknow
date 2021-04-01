@@ -454,7 +454,7 @@ public function getOracleList(){
 	//$sql="SELECT DISTINCT(CONCAT(aid ,oid) ) as oracle_id FROM (SELECT (tx->'tx'->'oracle_ttl'->>'value')::numeric as ttl, (tx->>'block_height')::numeric as block_height,regexp_replace(((tx->'tx'->'account_id')::text),'ak_','ok_') as aid,(tx->'tx'->'oracle_id')::text as oid from txs WHERE txtype='OracleRegisterTx' or txtype='OracleExtendTx') as tbl_active WHERE (ttl+block_height)>$topheight;";
 	//echo "$sql";
 	//$sql="select distinct(sender_id) as oracle_id from tx where txtype='OracleExtendTx' AND block_height >".($topheight-4800);
-	$sql="with t as (select distinct(sender_id),max(block_height) as block_height from tx where txtype='OracleExtendTx' OR txtype='OracleRegisterTx' OR txtype='OracleRespondTx' group by sender_id) select sender_id,block_height from t order by t.block_height desc;"
+	$sql="with t as (select distinct(sender_id),max(block_height) as block_height from tx where txtype='OracleExtendTx' OR txtype='OracleRegisterTx' OR txtype='OracleRespondTx' group by sender_id) select sender_id,block_height from t order by t.block_height desc;";
 	$query = $this->db->query($sql);
 	$data['ortable']="";$counter=0;
 	$data['ortable_all']="";$counter_all=0;
