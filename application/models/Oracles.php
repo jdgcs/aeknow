@@ -519,7 +519,7 @@ public function getOracleDetail($oracle_id){
 	$this->load->database();
 	//$sql="SELECT  tx->'hash' as txhash,tx->'block_height' as block_height,txtype from txs WHERE txtype='OracleQueryTx' OR txtype='OracleResponseTx' AND tx->'tx' @>'{\"oracle_id\": \"$oracle_id\"}'::jsonb order by tid desc limit 100 ;";
 	//$sql="SELECT txhash,block_height,txtype from txs WHERE (txtype='OracleQueryTx' OR txtype='OracleResponseTx') AND sender_id='$account' order by tid desc limit 100";
-	$sql="SELECT txhash,block_height,txtype from tx WHERE (txtype='OracleQueryTx' OR txtype='OracleResponseTx') AND sender_id='$account' order by tid desc limit 100";
+	$sql="SELECT txhash,block_height,txtype from tx WHERE (txtype='OracleQueryTx' OR txtype='OracleRespondTx') AND sender_id='$account' order by tid desc limit 100";
 	//query faster
 	$query = $this->db->query($sql);
 	
