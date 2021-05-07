@@ -70,13 +70,27 @@ class V2s extends CI_Model {
 		$data['info']=$this->getwebsrc($url);
 		return $data;
 		}
+	
+	public function getV2($method,$ak){		
+		if($method=="accounts"){
+			$url=DATA_SRC_SITE."v2/accounts/$ak";
+			$data['info']=$this->getwebsrc($url);
+			return $data;
+		}
+		
+		
+		}
 		
 	public function getAccount($ak){		
 		$url=DATA_SRC_SITE."v2/accounts/$ak";
 		$data['info']=$this->getwebsrc($url);
 		return $data;
 		}
-	
+	public function getAPI(){		
+		$url=DATA_SRC_SITE."api";
+		$data['info']=$this->getwebsrc($url);
+		return $data;
+		}
 	public function getBlocks($functions){
 		$url=DATA_SRC_SITE."v2/blocks/$functions";
 		$data['info']=$this->getwebsrc($url);

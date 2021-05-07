@@ -40,6 +40,39 @@ class V2 extends CI_Controller {
 		$this->output->cache(1/4);
 		}
 	
+	public function v2($method,$ak){
+		if($method=="transactions"){
+				$stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+				$request = json_decode($stream_clean);
+				$tx = $request->tx;
+				$tx='{ "tx": "'.$tx.'"}';
+				//echo "post tx:$tx<br>";
+				
+				$this->load->model('v2s');
+				$data=$this->v2s->postTx($tx);
+				$this->output->set_header("Access-Control-Allow-Origin: * ");
+				//$response = json_encode($data);
+				$response = $data;
+				header('Content-Type: application/json');
+				echo $response;
+			}else{
+		
+				$this->load->model('v2s');
+				$data=$this->v2s->getV2($method,$ak);
+				$this->load->view('en/blank.html',$data);
+				$this->output->set_header("Access-Control-Allow-Origin: * ");
+				$this->output->cache(1/4);
+		}
+		}
+	
+	public function api(){
+		$this->load->model('v2s');
+		$data=$this->v2s->getAPI();
+		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
+		$this->output->cache(1/4);
+		}
+	
 	public function blocks($functions){
 		$this->load->model('v2s');
 		$data=$this->v2s->getBlocks($functions);
