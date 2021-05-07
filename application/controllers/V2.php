@@ -36,6 +36,7 @@ class V2 extends CI_Controller {
 		$this->load->model('v2s');
 		$data=$this->v2s->getAccount($ak);
 		$this->load->view('en/blank.html',$data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(1/4);
 		}
 	
@@ -68,7 +69,7 @@ class V2 extends CI_Controller {
 		
 		$this->load->model('v2s');
 		$data=$this->v2s->postTx($tx);
-		
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		//$response = json_encode($data);
 		$response = $data;
 		header('Content-Type: application/json');
