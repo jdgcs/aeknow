@@ -82,7 +82,8 @@ class Apis extends CI_Model
 
 		foreach ($query->result() as $row) {
 			if (trim($row->contract) != "") {
-				$str .= '{"tokenname":"' . $row->alias . '","decimal":' . $row->decimal . ',"contract":"' . $row->contract . '","balance":"' . $row->balance . '","owner_id":"' . $row->owner_id . '"},';
+				$tokenavatar =$this->getTokenAvatar($row->contract);
+					$str .= '{"tokenname":"' . $row->alias . '","avatar":"'.$tokenavatar.'","decimal":' . $row->decimal . ',"contract":"' . $row->contract . '","balance":"' . $row->balance . '","owner_id":"' . $row->owner_id . '"},';
 			}
 		}
 		$str .= "]END";
@@ -90,6 +91,17 @@ class Apis extends CI_Model
 
 		return $str;
 	}
+
+	public function getTokenAvatar($contract)
+	{
+		if ($contract == "AEG") {
+			return "/assets/img/tokens/aeg.jpg";
+		} else {
+			return "/assets/img/tokens/aeknow.png";
+		}
+	}
+
+
 	public function getSingleToken($ak, $contract_id)
 	{ //provide token api to users' token.
 		$this->load->database();
