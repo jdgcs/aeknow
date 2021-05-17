@@ -57,6 +57,15 @@ class Api extends CI_Controller
 		//$this->output->cache(2);
 	}
 
+	public function tokentxs($ak,$contract_id,$limit = 20, $offset = 0)
+	{
+		$this->load->model('apis');
+		$data['info'] = $this->apis->getTokenTxs($ak,$contract_id,$limit, $offset);
+		$this->load->view('en/blank.html', $data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
+		//$this->output->cache(2);
+	}
+
 	public function tokentop($contract_id, $offset = 0)
 	{
 		$this->load->model('apis');

@@ -101,6 +101,31 @@ class Apis extends CI_Model
 		}
 	}
 
+	public function getTokenTxs($ak,$contract_id,$limit,$offset){
+		$this->load->database();
+		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash FROM tx WHERE contract_id='$contract_id' AND (sender_id='$ak' OR  recipient_id='$ak') and txtype='ContractCallTx' ORDER BY block_height desc,tid desc LIMIT $limit offset " . $offset;
+		$query = $this->db->query($trans_sql);
+
+		//$counter = 0;
+		$results = "";
+		$results .= "[";
+		foreach ($query->result() as $row) {
+			//$counter++;
+			$sender_id = $row->sender_id;
+			$recipient_id = $row->recipient_id;
+			$amount = $row->amount;
+			$utc = $row->utc;
+			$block_height = $row->block_height;
+			$txhash = $row->txhash;
+			
+			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\"},";
+		}
+		$results .= "END";
+
+		$results = str_replace(",END", "]", $results);
+		return $results;
+	}
+
 
 	public function getSingleToken($ak, $contract_id)
 	{ //provide token api to users' token.
