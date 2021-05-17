@@ -94,7 +94,7 @@ class Apis extends CI_Model
 
 	public function getTokenAvatar($contract)
 	{
-		if ($contract == "AEG") {
+		if ($contract == "ct_BwJcRRa7jTAvkpzc2D16tJzHMGCJurtJMUBtyyfGi2QjPuMVv") {
 			return "/assets/img/tokens/aeg.jpg";
 		} else {
 			return "/assets/img/tokens/aeknow.png";
