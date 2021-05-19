@@ -82,8 +82,8 @@ class Apis extends CI_Model
 
 		foreach ($query->result() as $row) {
 			if (trim($row->contract) != "") {
-				$tokenavatar =$this->getTokenAvatar($row->contract);
-					$str .= '{"tokenname":"' . $row->alias . '","avatar":"'.$tokenavatar.'","decimal":' . $row->decimal . ',"contract":"' . $row->contract . '","balance":"' . $row->balance . '","owner_id":"' . $row->owner_id . '"},';
+				$tokenavatar = $this->getTokenAvatar($row->contract);
+				$str .= '{"tokenname":"' . $row->alias . '","avatar":"' . $tokenavatar . '","decimal":' . $row->decimal . ',"contract":"' . $row->contract . '","balance":"' . $row->balance . '","owner_id":"' . $row->owner_id . '"},';
 			}
 		}
 		$str .= "]END";
@@ -94,14 +94,22 @@ class Apis extends CI_Model
 
 	public function getTokenAvatar($contract)
 	{
+		if ($contract == "ct_uGk1rkSdccPKXLzS259vdrJGTWAY9sfgVYspv6QYomxvWZWBM") {
+			return "/assets/img/tokens/wtt.png";
+		}
+
+		if ($contract == "ct_7UfopTwsRuLGFEcsScbYgQ6YnySXuyMxQWhw6fjycnzS5Nyzq") {
+			return "/assets/img/tokens/abc.png";
+		}
 		if ($contract == "ct_BwJcRRa7jTAvkpzc2D16tJzHMGCJurtJMUBtyyfGi2QjPuMVv") {
 			return "/assets/img/tokens/aeg.jpg";
-		} else {
-			return "/assets/img/tokens/aeknow.png";
 		}
+
+		return "/assets/img/tokens/aeknow.png";
 	}
 
-	public function getTokenTxs($ak,$contract_id,$limit,$offset){
+	public function getTokenTxs($ak, $contract_id, $limit, $offset)
+	{
 		$this->load->database();
 		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash FROM tx WHERE contract_id='$contract_id' AND (sender_id='$ak' OR  recipient_id='$ak') and txtype='ContractCallTx' ORDER BY block_height desc,tid desc LIMIT $limit offset " . $offset;
 		$query = $this->db->query($trans_sql);
@@ -117,7 +125,7 @@ class Apis extends CI_Model
 			$utc = $row->utc;
 			$block_height = $row->block_height;
 			$txhash = $row->txhash;
-			
+
 			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\"},";
 		}
 		$results .= "END";
