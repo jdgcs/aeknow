@@ -116,7 +116,7 @@ class Apis extends CI_Model
 
 		$data['info'] =$data['info']."\"info\":". $this->getwebsrc($url)."}";
 
-		return $data;
+		return $data['info'];
 	}
 
 	public function getTokenTxs($ak, $contract_id, $limit, $offset)
