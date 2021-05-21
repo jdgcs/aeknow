@@ -113,7 +113,7 @@ class Apis extends CI_Model
 		$url = DATA_SRC_SITE . "v2/transactions/$txhash/info";
 
 		$contract_result=json_decode($this->getwebsrc($url));
-		$return_type=$contract_result->return_type;
+		$return_type=$contract_result->call_info->return_type;
 
 
 		$this->load->database();
