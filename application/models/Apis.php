@@ -133,7 +133,7 @@ class Apis extends CI_Model
 			//$txhash = $row->txhash;
 			$contract_id=$row->contract_id;
 
-			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"return_type\":\"$return_type\",\"block_height\":\"$block_height\",\"contract_id\":\"$contract_id\"}";
+			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":$amount,\"return_type\":\"$return_type\",\"block_height\":$block_height,\"contract_id\":\"$contract_id\"}";
 		}
 		//$results .= "END";
 
