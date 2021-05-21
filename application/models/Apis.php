@@ -109,14 +109,41 @@ class Apis extends CI_Model
 	}
 
 	public function getContractTx($txhash){
-		$url = DATA_SRC_SITE . "v2/transactions/$txhash";
-		$data['info'] ="{\"tx\":". $this->getwebsrc($url).",";
 
 		$url = DATA_SRC_SITE . "v2/transactions/$txhash/info";
 
-		$data['info'] =$data['info']."\"info\":". $this->getwebsrc($url)."}";
+		$contract_result=json_decode($this->getwebsrc($url));
+		$return_type=$contract_result->return_type;
 
-		return $data['info'];
+
+		$this->load->database();
+		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash,contract_id FROM tx WHERE txhash='$txhash' ";
+		$query = $this->db->query($trans_sql);
+
+		//$counter = 0;
+		$results = "";
+	
+		foreach ($query->result() as $row) {
+			//$counter++;
+			$sender_id = $row->sender_id;
+			$recipient_id = $row->recipient_id;
+			$amount = $row->amount;
+			$utc = $row->utc;
+			$block_height = $row->block_height;
+			//$txhash = $row->txhash;
+			$contract_id=$row->contract_id;
+
+			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"return_type\":\"$return_type\",\"block_height\":\"$block_height\",\"contract_id\":\"$contract_id\"}";
+		}
+		//$results .= "END";
+
+		//$results = str_replace(",END", "]", $results);
+		//$url = DATA_SRC_SITE . "v2/transactions/$txhash";
+		//$data['info'] ="{\"tx\":". $this->getwebsrc($url).",";
+
+		
+
+		return $results;
 	}
 
 	public function getTokenTxs($ak, $contract_id, $limit, $offset)
