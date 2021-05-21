@@ -108,6 +108,17 @@ class Apis extends CI_Model
 		return "/assets/img/tokens/aeknow.png";
 	}
 
+	public function getContractTx($txhash){
+		$url = DATA_SRC_SITE . "v2/transactions/$txhash";
+		$data['info'] ="{\"tx\":". $this->getwebsrc($url).",";
+
+		$url = DATA_SRC_SITE . "v2/transactions/$txhash/info";
+
+		$data['info'] =$data['info']."\"info\":". $this->getwebsrc($url)."}";
+
+		return $data;
+	}
+
 	public function getTokenTxs($ak, $contract_id, $limit, $offset)
 	{
 		$this->load->database();

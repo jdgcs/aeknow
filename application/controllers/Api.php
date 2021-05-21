@@ -93,6 +93,15 @@ class Api extends CI_Controller
 		//$this->output->cache(2);
 	}
 
+	public function contracttx($txhash)
+	{
+		$this->load->model('apis');
+		$data['info'] = $this->apis->getContractTx($txhash);
+		$this->load->view('en/blank.html', $data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
+		//$this->output->cache(2);
+	}
+
 	public function aensbidding($ak)
 	{
 		$this->load->model('apis');
