@@ -274,7 +274,7 @@ class Apis extends CI_Model
 			$amount = $row->amount;
 			$utc = $row->utc;
 			
-			$results .= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\",\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"recipient_id\":$amount,\"utc\":$utc},";
+			$results .= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\",\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":$amount,\"utc\":$utc},";
 		}
 		$results .= "}END";
 
