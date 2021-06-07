@@ -32,8 +32,10 @@ class Api extends CI_Controller
 	public function spendtx($ak, $limit = 20, $offset = 0)
 	{
 		$this->load->model('apis');
-		$this->apis->getSpendTx($ak, $limit, $offset);
+		$data['info'] =$this->apis->getSpendTx($ak, $limit, $offset);
+		$this->load->view('en/blank.html', $data);
 		$this->output->set_header("Access-Control-Allow-Origin: * ");
+		
 	}
 
 	public function aens($ak)
