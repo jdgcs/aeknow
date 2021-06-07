@@ -83,7 +83,7 @@ class Apis extends CI_Model
 		foreach ($query->result() as $row) {
 			if (trim($row->contract) != "") {
 				$tokenavatar = $this->getTokenAvatar($row->contract);
-				$str .= '{"tokenname":"' . $row->alias . '","avatar":"' . $tokenavatar . '","decimal":' . $row->decimal . ',"contract":"' . $row->contract . '","balance":"' . $row->balance . '","owner_id":"' . $row->owner_id . '"},';
+				$str .= '{"tokenname":"' . $row->alias . '","avatar":"' . $tokenavatar . '","decimal":' . $row->decimal . ',"contract":"' . $row->contract . '","balance":"' . $row->balance . '","owner_id":"' . $row->owner_id . '","profile":"profile_default"},';
 			}
 		}
 		$str .= "]END";
@@ -257,10 +257,37 @@ class Apis extends CI_Model
 	}
 
 
+	public function getSpendTx($ak, $limit = 20, $offset = 0){
+		$this->load->database();
+		$trans_sql = "SELECT txhash,txtype,sender_id,recipient_id,amount,utc FROM tx WHERE txtype='SpendTx' AND (sender_id='$ak' OR  recipient_id='$ak') ORDER BY block_height desc,tid desc LIMIT $limit offset " . $offset;
+		$query = $this->db->query($trans_sql);
+
+		$counter = 0;
+		$results = "";
+		$results .= "{\"txs\":[";
+		foreach ($query->result() as $row) {
+			//$counter++;
+			$txhash = $row->txhash;
+			$txtype = $row->txtype;
+			$sender_id = $row->sender_id;
+			$recipient_id = $row->recipient_id;
+			$amount = $row->amount;
+			$utc = $row->utc;
+			
+			$results .= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\",\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"recipient_id\":$amount,\"utc\":$utc},";
+		}
+		$results .= "}END";
+
+		$results = str_replace(",}END", "]}", $results);
+		echo $results;
+		
+		}
+		
+		
 	public function getTx($ak, $limit = 20, $offset = 0)
 	{
 		$this->load->database();
-		$trans_sql = "SELECT txhash,txtype FROM txs WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset " . $offset;
+		$trans_sql = "SELECT txhash,txtype FROM tx WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset " . $offset;
 		$query = $this->db->query($trans_sql);
 
 		$counter = 0;
