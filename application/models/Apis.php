@@ -367,6 +367,33 @@ class Apis extends CI_Model
 
 		return $str;
 	}
+	
+	public function checkAENS($aensname)
+	{
+		$this->load->database();
+		$sql = "SELECT nameowner,amount FROM txs_aens WHERE aensname='$aensname' order by block_height desc LIMIT 1";
+		$query = $this->db->query($sql);
+		$counter = 0;
+		$nameowner = "NONE";
+		$amount = 0;
+
+		foreach ($query->result() as $row) {
+			$nameowner = trim($row->nameowner);
+			$amount = $row->amount;
+		}
+
+		if ($nameowner == "") {
+			$str = "{\"status\":\"BIDDING\",\"amount\":$amount}";
+		} else {
+			if ($nameowner == "NONE") {
+				$str =  "{\"status\":\"NONE\",\"amount\":0}";
+			} else {
+				$str =  "{\"status\":\"DONE\",\"amount\":$amount}";
+			}
+		}
+
+		return $str;
+	}
 
 	public function getAENSBidding($ak)
 	{

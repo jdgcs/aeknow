@@ -128,6 +128,15 @@ class Api extends CI_Controller
 		$this->output->set_header("Access-Control-Allow-Origin: * ");
 		$this->output->cache(2);
 	}
+	
+	public function checkquery($aensname)
+	{
+		$this->load->model('apis');
+		$data['info'] = $this->apis->checkAENS($aensname);
+		$this->load->view('en/blank.html', $data);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
+	}
+	
 	public function account($ak)
 	{
 		$this->load->model('apis');
