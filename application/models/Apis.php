@@ -149,7 +149,7 @@ class Apis extends CI_Model
 public function getTokenTx($txhash)
 	{
 		$this->load->database();
-		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash FROM tx WHERE txhash='$txhash'"
+		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash FROM tx WHERE txhash='$txhash'";
 		$query = $this->db->query($trans_sql);
 
 		//$counter = 0;
