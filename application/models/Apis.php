@@ -146,6 +146,33 @@ class Apis extends CI_Model
 		return $results;
 	}
 
+public function getTokenTx($txhash)
+	{
+		$this->load->database();
+		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash FROM tx WHERE txhash='$txhash'"
+		$query = $this->db->query($trans_sql);
+
+		//$counter = 0;
+		$results = "";
+		$results .= "";
+		foreach ($query->result() as $row) {
+			//$counter++;
+			$sender_id = $row->sender_id;
+			$recipient_id = $row->recipient_id;
+			$amount = $row->amount;
+			$utc = $row->utc;
+			$block_height = $row->block_height;
+			$txhash = $row->txhash;
+
+			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\"}";
+		}
+		//$results .= "END";
+
+		//$results = str_replace(",END", "]", $results);
+		return $results;
+	}
+	
+	
 	public function getTokenTxs($ak, $contract_id, $limit, $offset)
 	{
 		$this->load->database();
