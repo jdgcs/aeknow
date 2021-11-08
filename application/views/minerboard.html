@@ -134,7 +134,7 @@ $this->lang->load('index');
                   // $totalhashrate=number_format(($totalhashrate*42/600),0);
                    $totalhashrate=number_format(($totalhashrate/1000),0);
                   echo $totalhashrate;
-                  ?> Kg/s(<b>Based on beepool's hashrate</b>)</th>
+                  ?> Kg/s(<b>Based on difficulty</b>)</th>
                  
                 </tr>              
 			</table>
@@ -217,22 +217,7 @@ $this->lang->load('index');
 			</table>
             </div>
             
-            
-               <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tr>
-                  <th>Pool</th>
-                  <th>Hashrate</th>                  
-                <!--  <th >Reward</th> -->
-                   <th >Update(UTC)</th>                 
-                </tr>
-               
-                  <?php echo $pools;?>
-
-			</table>
-            </div>
-              
-              
+       
              
             
             <!-- /.box-body -->
