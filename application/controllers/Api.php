@@ -29,6 +29,13 @@ class Api extends CI_Controller
 		$this->output->set_header("Access-Control-Allow-Origin: * ");
 	}
 	
+	public function txs($ak, $limit = 20, $offset = 0)
+	{
+		$this->load->model('apis');
+		$this->apis->getTxs($ak, $limit, $offset);
+		$this->output->set_header("Access-Control-Allow-Origin: * ");
+	}
+	
 	public function spendtx($ak, $limit = 20, $offset = 0)
 	{
 		$this->load->model('apis');
