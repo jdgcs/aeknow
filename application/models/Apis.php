@@ -334,7 +334,7 @@ public function getTokenTx($txhash)
 			$contract_id = $row->contract_id;
 			
 			
-			$results .= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\",\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":$amount,\"utc\":$utc,\"block_height\":\"$block_height\",\"contract_id\":\"$contract_id\"},";
+			$results .= "{\"txtype\":\"$txtype\",\"txhash\":\"$txhash\",\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":$utc,\"block_height\":\"$block_height\",\"contract_id\":\"$contract_id\"},";
 		}
 		$results .= "}END";
 
