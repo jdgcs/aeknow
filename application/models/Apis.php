@@ -316,6 +316,7 @@ public function getTokenTx($txhash)
 		$this->load->database();
 		
 		$trans_sql = "SELECT txhash,txtype,sender_id,recipient_id,amount,utc,block_height,contract_id FROM tx WHERE sender_id='$ak' OR  recipient_id='$ak' ORDER BY block_height desc,tid desc LIMIT $limit offset " . $offset;
+		echo $trans_sql;
 		$query = $this->db->query($trans_sql);
 
 		$counter = 0;
