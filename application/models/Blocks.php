@@ -431,9 +431,13 @@ public function decode_SuperHeroInfo($call_data){
 	
 	}
 	public function decode_token_transfer($call_data,$decimal){//获取正确的返回调用
-	$erlpath="/home/ae/ae/lima53/erts-9.3.3.13/bin/escript";
-	$clipath="/home/ae/ae/lima53/erts-9.3.3.13/bin/aesophia_cli";
-	$tokenaddress="/home/ae/ae/lima53/erts-9.3.3.13/bin/contracts/aex9.aes";
+	//$erlpath="/home/ae/ae/lima53/erts-9.3.3.13/bin/escript";
+	$erlpath="/home/ae/ae/630/erts-10.7.2.3/bin/escript ";
+	///home/ae/ae/630/erts-10.7.2.3/bin/escript /home/ae/ae/630/erts-10.7.2.3/bin/aesophia_cli /home/ae/ae/630/erts-10.7.2.3/bin/aex9.aes -b fate --call_result "cb_KxGEoV2hK58AoMLlAP6SFrYeiuRrxi5A5rNjruumGuhbIsuZStUbvgZYb4gN4Lazp2P/wN8Cccs=" --call_result_fun meta_info
+	//$clipath="/home/ae/ae/lima53/erts-9.3.3.13/bin/aesophia_cli";
+	$clipath="/home/ae/ae/630/erts-10.7.2.3/bin/aesophia_cli";
+	//$tokenaddress="/home/ae/ae/lima53/erts-9.3.3.13/bin/contracts/aex9.aes";
+	$tokenaddress="/home/ae/ae/630/erts-10.7.2.3/bin/aex9.aes";
 	
 	$cmd="$erlpath $clipath $tokenaddress -b fate --call_result $call_data --call_result_fun meta_info";
 	
