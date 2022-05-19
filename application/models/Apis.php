@@ -342,7 +342,7 @@ public function getTokenTx($txhash)
 
 		$results = str_replace(",}END", "]}", $results);
 		$results = str_replace("}END", "]}", $results);
-		echo $results;
+		return $results;
 		
 		}	
 		
