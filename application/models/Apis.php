@@ -168,7 +168,7 @@ public function getTokenTx($txhash)
 			$contract_id = $row->contract_id;
 			//get the return_type of the contract
 			$url = DATA_SRC_SITE . "v2/transactions/$txhash/info";
-			$websrc=getwebsrc($url);
+			$websrc=$this->getwebsrc($url);
 			$info=json_decode($websrc);
 			$return_type=$info->call_info->return_type;
 
