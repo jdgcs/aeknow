@@ -166,9 +166,13 @@ public function getTokenTx($txhash)
 			$txhash = $row->txhash;
 			$payload = $row->payload;
 			$contract_id = $row->contract_id;
-			
+			//get the return_type of the contract
+			$url = DATA_SRC_SITE . "v2/transactions/$txhash/info";
+			$websrc=getwebsrc($url);
+			$info=json_decode($websrc);
+			$return_type=$info->call_info->return_type;
 
-			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\",\"payload\":\"$payload\",\"contract_id\":\"$contract_id\"}";
+			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\",\"payload\":\"$payload\",\"contract_id\":\"$contract_id\",\"return_type\":\"$return_type\"}";
 		}
 		//$results .= "END";
 
