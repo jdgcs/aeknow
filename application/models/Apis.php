@@ -150,7 +150,7 @@ class Apis extends CI_Model
 public function getTokenTx($txhash)
 	{
 		$this->load->database();
-		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash,payload FROM tx WHERE txhash='$txhash'";
+		$trans_sql = "SELECT sender_id,recipient_id,amount,utc,block_height,txhash,payload,contract_id FROM tx WHERE txhash='$txhash'";
 		$query = $this->db->query($trans_sql);
 
 		//$counter = 0;
@@ -165,9 +165,10 @@ public function getTokenTx($txhash)
 			$block_height = $row->block_height;
 			$txhash = $row->txhash;
 			$payload = $row->payload;
+			$contract_id = $row->contract_id;
 			
 
-			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\",\"payload\":\"$payload\"}";
+			$results .= "{\"sender_id\":\"$sender_id\",\"recipient_id\":\"$recipient_id\",\"amount\":\"$amount\",\"utc\":\"$utc\",\"block_height\":\"$block_height\",\"txhash\":\"$txhash\",\"payload\":\"$payload\",\"contract_id\":\"$contract_id\"}";
 		}
 		//$results .= "END";
 
