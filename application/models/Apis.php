@@ -164,7 +164,7 @@ public function getTokenTx($txhash)
 			$utc = $row->utc;
 			$block_height = $row->block_height;
 			$txhash = $row->txhash;
-			$payload = $row->payload;
+			$payload = base64_encode($row->payload);
 			$contract_id = $row->contract_id;
 			//get the return_type of the contract
 			$url = DATA_SRC_SITE . "v2/transactions/$txhash/info";
